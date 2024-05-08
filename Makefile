@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/05/08 11:33:54 by amagnell         ###   ########.fr        #
+#    Updated: 2024/05/08 13:04:23 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,9 @@
 #---------------------------#
 
 NAME	= eggshell
+
+SRCS	= src/main.c
+
 OBJS	=
 
 #---------------------------#
@@ -32,8 +35,11 @@ $(NAME)	: $(OBJS)
 all		: $(NAME)
 
 clean	:
+	rm -f $(OBJS) $(DEPS)
 
 fclean	: clean
-
+	rm -f $(NAME)
+	
 re		:
-
+	$(MAKE) fclean
+	$(MAKE) all
