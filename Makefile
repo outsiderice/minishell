@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/05/09 13:13:56 by amagnell         ###   ########.fr        #
+#    Updated: 2024/05/09 13:32:55 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,12 @@ NAME := minishell
 #-------------------------------------------#
 #	INGREDIENTS								#
 #-------------------------------------------#
-LIBS		:=	ft
-LIBS_FOLDER	:=	lib/libft
-LIBS_TARGET	:=	lib/libft/libft.a
+LIBS		:=	ft readline
+LIBFT_DIR	:=	lib/libft
+RDLINE_DIR	:=	lib/readline
+LIBFT		:=	lib/libft/libft.a
+RDLINE		:=	lib/readline/libreadline.a
+LIBS_TARGET	:=	$(LIBFT) $(RDLINE)
 
 INCS		:=	inc	\
 				lib/libft/include
@@ -48,14 +51,20 @@ DIR_DUP		=	mkdir -p $(@D)
 #-------------------------------------------#
 #	RECIPES									#
 #-------------------------------------------#
-all: libft $(NAME)
+all: libft readline $(NAME)
 
 $(NAME): $(LIBS_TARGET) $(OBJS)
 	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $(NAME)
 	$(info Created $@)
 
 libft:
-	$(MAKE) -C $(LIBS_FOLDER)
+	$(MAKE) $(MAKEFLAGS) -C $(LIBFT_DIR)
+
+readline:
+	@if [ ! -f $(RDLINE_DIR)config.status ]; then\
+		cd $(RDLINE_DIR) && ./configure &> /dev/null; \
+	fi
+	$(MAKE) $(MAKEFLAGS) -C $(RDLINE_DIR)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INCS)
 	$(DIR_DUP)
@@ -80,4 +89,5 @@ re:
 #	SPECIAL RULES							#
 #-------------------------------------------#
 
-.PHONY: all re clean fclean libft
+.PHONY: all re clean fclean libft readline
+.SILENT:
