@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/09 12:45:41 by amagnell         ###   ########.fr       */
+/*   Created: 2022/09/16 17:59:58 by amagnell          #+#    #+#             */
+/*   Updated: 2022/10/08 20:14:05 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include "libft.h"
 
-void	ft_minishell(char **env)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	return ;
-}
+	size_t			i;
+	unsigned char	*a;
 
-int	main(int argc, char **argv, char **env)
-{
-	ft_minishell(char **env);
-	return (0);
+	a = (unsigned char *)b;
+	i = 0;
+	while (i < len)
+	{
+		a[i] = c;
+		i++;
+	}
+	return (b);
 }

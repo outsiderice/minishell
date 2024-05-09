@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/09 12:45:41 by amagnell         ###   ########.fr       */
+/*   Created: 2022/09/17 18:43:11 by amagnell          #+#    #+#             */
+/*   Updated: 2022/09/19 19:16:35 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include "libft.h"
 
-void	ft_minishell(char **env)
+void	ft_bzero(void *s, size_t n)
 {
-	return ;
-}
-
-int	main(int argc, char **argv, char **env)
-{
-	ft_minishell(char **env);
-	return (0);
+	ft_memset(s, 0, n);
 }

@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/09 12:45:41 by amagnell         ###   ########.fr       */
+/*   Created: 2022/09/16 15:30:57 by amagnell          #+#    #+#             */
+/*   Updated: 2022/10/08 16:48:27 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include "libft.h"
 
-void	ft_minishell(char **env)
-{
-	return ;
-}
+//checks if parameter int c is an ASCII character, 0 to octal 0177
+//returns 0 if false and 1 if true
 
-int	main(int argc, char **argv, char **env)
+int	ft_isascii(int c)
 {
-	ft_minishell(char **env);
+	if (c >= 0 && c <= 127)
+		return (1);
 	return (0);
 }
+
+/*int	main(void)
+{
+	printf("%d", isascii(' '));
+	printf("%d", ft_isascii(' '));
+	return (0);
+}*/

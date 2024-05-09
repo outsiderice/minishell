@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/09 12:45:41 by amagnell         ###   ########.fr       */
+/*   Created: 2022/09/15 18:36:26 by amagnell          #+#    #+#             */
+/*   Updated: 2022/10/08 15:44:17 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include "libft.h"
 
-void	ft_minishell(char **env)
-{
-	return ;
-}
+//checks if the argument int c is alphabetical, returns 0 if false and 1 if true
 
-int	main(int argc, char **argv, char **env)
+int	ft_isalpha(int c)
 {
-	ft_minishell(char **env);
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+		return (1);
 	return (0);
 }
+
+/*int	main(void)
+{
+	printf("%d", isalpha('a'));
+	printf("%d", ft_isalpha('a'));
+	return (0);
+}*/

@@ -1,24 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/09 12:45:41 by amagnell         ###   ########.fr       */
+/*   Created: 2022/09/21 18:22:45 by amagnell          #+#    #+#             */
+/*   Updated: 2022/10/10 16:15:14 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include "libft.h"
 
-void	ft_minishell(char **env)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	return ;
+	size_t			i;
+	unsigned char	*a;
+	unsigned char	*b;
+
+	a = (unsigned char *)src;
+	b = (unsigned char *)dst;
+	i = 0;
+	if (!dst && !src)
+		return (dst);
+	while (i < n)
+	{
+		b[i] = a[i];
+		i++;
+	}
+	return (dst);
 }
 
-int	main(int argc, char **argv, char **env)
+/*int	main (void)
 {
-	ft_minishell(char **env);
+	char	str[] = "holas";
+	printf("%s", ft_memcpy(str + 2, str, strlen(str + 2)));
 	return (0);
-}
+}*/

@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/09 12:45:41 by amagnell         ###   ########.fr       */
+/*   Created: 2022/09/16 15:38:25 by amagnell          #+#    #+#             */
+/*   Updated: 2022/10/08 18:07:44 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include "libft.h"
 
-void	ft_minishell(char **env)
+int	ft_isprint(int c)
 {
-	return ;
-}
-
-int	main(int argc, char **argv, char **env)
-{
-	ft_minishell(char **env);
+	if (c >= 32 && c <= 126)
+		return (1);
 	return (0);
 }
+
+/*int	main(void)
+{
+	printf("%d", isprint(' '));
+	printf("%d", ft_isprint(' '));
+	return (0);
+}*/
