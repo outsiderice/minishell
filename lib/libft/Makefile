@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/07 18:06:24 by amagnell          #+#    #+#              #
-#    Updated: 2023/12/09 18:37:12 by amagnell         ###   ########.fr        #
+#    Updated: 2024/05/09 13:36:42 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,6 @@ SRCS 		:=	src/ft_isalpha.c \
 				src/ft_putstr.c \
 				src/ft_putunbr.c \
 				src/ft_sort_format.c
-# SRCS 		:= $(SRC_DIR)/%.c
 
 BUILD_DIR 	:= .build
 OBJS 		:= $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
