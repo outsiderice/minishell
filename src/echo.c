@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:22:05 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/14 13:08:14 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/14 14:41:27 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void	ft_echo(char **str)
 	return ;
 }
 
+
+
+probando merging
+
+hello
 // int	main(int argc, char **argv)
 // {
 // 	ft_echo(argv);
