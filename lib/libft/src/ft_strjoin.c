@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/09 12:45:41 by amagnell         ###   ########.fr       */
+/*   Created: 2022/10/31 18:27:56 by amagnell          #+#    #+#             */
+/*   Updated: 2022/10/31 18:42:42 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include "libft.h"
 
-void	ft_minishell(char **env)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	return ;
-}
+	char	*s3;
+	int		i;
+	int		j;
 
-int	main(int argc, char **argv, char **env)
-{
-	ft_minishell(char **env);
-	return (0);
+	i = -1;
+	j = -1;
+	s3 = malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (s3 == NULL)
+		return (NULL);
+	while (s1[++i])
+		s3[i] = s1[i];
+	while (s2[++j])
+		s3[i + j] = s2[j];
+	s3[i + j] = '\0';
+	return (s3);
 }

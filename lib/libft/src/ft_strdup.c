@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/09 12:45:41 by amagnell         ###   ########.fr       */
+/*   Created: 2022/10/29 16:52:18 by amagnell          #+#    #+#             */
+/*   Updated: 2022/10/29 18:25:27 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include "libft.h"
 
-void	ft_minishell(char **env)
-{
-	return ;
-}
+//Makes a copy of string s1 and returns a pointer to it.
 
-int	main(int argc, char **argv, char **env)
+char	*ft_strdup(const char *s1)
 {
-	ft_minishell(char **env);
-	return (0);
+	char	*s2;
+
+	s2 = malloc(ft_strlen(s1) + 1);
+	if (s2 == NULL)
+		return (NULL);
+	ft_memcpy(s2, s1, ft_strlen (s1) + 1);
+	return (s2);
 }

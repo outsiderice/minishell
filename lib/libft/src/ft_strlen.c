@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/09 12:45:41 by amagnell         ###   ########.fr       */
+/*   Created: 2022/09/16 17:17:06 by amagnell          #+#    #+#             */
+/*   Updated: 2022/10/08 19:51:50 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include "libft.h"
 
-void	ft_minishell(char **env)
+//count string length excluding null.
+
+size_t	ft_strlen(const char *s)
 {
-	return ;
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
 }
 
-int	main(int argc, char **argv, char **env)
+/*int	main(void)
 {
-	ft_minishell(char **env);
+	printf("%zu", strlen("fuck"));
+	printf("%zu", ft_strlen("fuck"));
 	return (0);
-}
+}*/

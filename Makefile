@@ -3,43 +3,91 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+         #
+#    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/05/08 13:04:23 by amagnell         ###   ########.fr        #
+#    Updated: 2024/05/09 13:32:55 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#---------------------------#
-#		VARIABLES			#
-#---------------------------#
+#-------------------------------------------#
+#	TARGET									#
+#-------------------------------------------#
+NAME := minishell
 
-NAME	= eggshell
+#-------------------------------------------#
+#	INGREDIENTS								#
+#-------------------------------------------#
+LIBS		:=	ft readline
+LIBFT_DIR	:=	lib/libft
+RDLINE_DIR	:=	lib/readline
+LIBFT		:=	lib/libft/libft.a
+RDLINE		:=	lib/readline/libreadline.a
+LIBS_TARGET	:=	$(LIBFT) $(RDLINE)
 
-SRCS	= src/main.c
+INCS		:=	inc	\
+				lib/libft/include
 
-OBJS	=
+SRC_DIR		:=	src
+SRCS 		:=	src/main.c
 
-#---------------------------#
-#		COMPILATION			#
-#---------------------------#
+BUILD_DIR 	:=	.build
+OBJS		:=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+DEPS		:=	$(OBJS:%.o=%.d)
 
-$(NAME)	: $(OBJS)
+CC 			:=	gcc
+CFLAGS 		:=	-Wall -Wextra -Werror
+CPPFLAGS 	:=	$(addprefix -I, $(INCS)) -MMD -MP
+LDFLAGS		:=	$(addprefix -L, $(dir $(LIBS_TARGET)))
+LDLIBS		:=	$(addprefix -l, $(LIBS))
 
-#---------------------------#
-#		COMMANDS			#
-#---------------------------#
+#-------------------------------------------#
+#	UTILS									#
+#-------------------------------------------#
+RM 			:=	rm -f
+MAKEFLAGS	+= --no-print-directory
+DIR_DUP		=	mkdir -p $(@D)
 
-.PHONY: all clean fclean re
+#-------------------------------------------#
+#	RECIPES									#
+#-------------------------------------------#
+all: libft readline $(NAME)
 
-all		: $(NAME)
+$(NAME): $(LIBS_TARGET) $(OBJS)
+	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $(NAME)
+	$(info Created $@)
 
-clean	:
-	rm -f $(OBJS) $(DEPS)
+libft:
+	$(MAKE) $(MAKEFLAGS) -C $(LIBFT_DIR)
 
-fclean	: clean
-	rm -f $(NAME)
-	
-re		:
+readline:
+	@if [ ! -f $(RDLINE_DIR)config.status ]; then\
+		cd $(RDLINE_DIR) && ./configure &> /dev/null; \
+	fi
+	$(MAKE) $(MAKEFLAGS) -C $(RDLINE_DIR)
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INCS)
+	$(DIR_DUP)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
+	$(info Created $@)
+
+-include $(DEPS)
+
+clean:
+	for f in $(dir $(LIBS_TARGET)); do $(MAKE) -C $$f clean; done
+	$(RM) $(OBJS) $(DEPS)
+
+fclean: clean
+	for f in $(dir $(LIBS_TARGET)); do $(MAKE) -C $$f fclean; done
+	$(RM) $(NAME)
+
+re:
 	$(MAKE) fclean
 	$(MAKE) all
+
+#-------------------------------------------#
+#	SPECIAL RULES							#
+#-------------------------------------------#
+
+.PHONY: all re clean fclean libft readline
+.SILENT:

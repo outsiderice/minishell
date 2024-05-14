@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/09 12:45:41 by amagnell         ###   ########.fr       */
+/*   Created: 2022/10/06 14:07:58 by amagnell          #+#    #+#             */
+/*   Updated: 2022/10/14 11:03:34 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include "libft.h"
 
-void	ft_minishell(char **env)
-{
-	return ;
-}
+//if int c is lowercase converts it to uppercase.
 
-int	main(int argc, char **argv, char **env)
+int	ft_toupper(int c)
 {
-	ft_minishell(char **env);
-	return (0);
+	if (c >= 'a' && c <= 'z')
+		return (c + 'A' - 'a');
+	return (c);
 }

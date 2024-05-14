@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/09 12:45:41 by amagnell         ###   ########.fr       */
+/*   Created: 2022/10/06 14:13:41 by amagnell          #+#    #+#             */
+/*   Updated: 2022/10/19 12:21:06 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include "libft.h"
 
-void	ft_minishell(char **env)
-{
-	return ;
-}
+//locates first ocurrence of c (converted to an unsigned char) in string s
+//returns a pointer to the byte located or NULL if there's no c character in
+//n bytes.
 
-int	main(int argc, char **argv, char **env)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	ft_minishell(char **env);
-	return (0);
+	size_t			i;
+	unsigned char	*a;
+
+	i = 0;
+	a = (unsigned char *)s;
+	while (i < n)
+	{
+		if (a[i] == (unsigned char)c)
+			return (&a[i]);
+		i++;
+	}
+	return (NULL);
 }

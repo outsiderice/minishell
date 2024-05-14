@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putptr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/09 12:45:41 by amagnell         ###   ########.fr       */
+/*   Created: 2023/06/18 14:07:19 by amagnell          #+#    #+#             */
+/*   Updated: 2023/10/14 20:49:48 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include "libft.h"
 
-void	ft_minishell(char **env)
+int	ft_putptr(unsigned long ptr)
 {
-	return ;
-}
+	int	count;
 
-int	main(int argc, char **argv, char **env)
-{
-	ft_minishell(char **env);
-	return (0);
+	count = ft_putstr("0x");
+	if (count == -1)
+		return (-1);
+	count = count + ft_nbrs((unsigned long)ptr, "p");
+	return (count);
 }

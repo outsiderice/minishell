@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/09 12:45:41 by amagnell         ###   ########.fr       */
+/*   Created: 2022/10/06 14:11:02 by amagnell          #+#    #+#             */
+/*   Updated: 2022/10/19 16:17:39 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include "libft.h"
 
-void	ft_minishell(char **env)
+char	*ft_strrchr(const char *s, int c)
 {
-	return ;
-}
+	int		i;
+	char	*a;
 
-int	main(int argc, char **argv, char **env)
-{
-	ft_minishell(char **env);
-	return (0);
+	i = ft_strlen(s);
+	a = (char *)s;
+	if ((char)c == '\0')
+		return (&a[i]);
+	while (i > 0)
+	{
+		i--;
+		if (a[i] == (char)c)
+			return (&a[i]);
+	}
+	return (NULL);
 }
