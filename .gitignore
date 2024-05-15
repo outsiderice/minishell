@@ -7,3 +7,4 @@ lib/readline/config.log
 *.log
 *.dylib
 minishell
+.vscode/settings.json
