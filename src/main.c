@@ -6,11 +6,12 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/15 14:53:41 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:30:26 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"minishell.h"
+#include "minishell.h"
+#include <stdio.h>
 
 char	*ft_readline(void)
 {
@@ -18,7 +19,7 @@ char	*ft_readline(void)
 	char	*prompt;
 
 	prompt = "eggshell~$";
-	line = readline (prompt);
+	line = readline(prompt);
 	if (!line)
 		exit(EXIT_FAILURE);
 	return (line);
