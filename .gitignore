@@ -1,2 +1,9 @@
 
 lib/readline/config.log
+*.o
+*.d
+*.a
+*.so
+*.log
+*.dylib
+minishell

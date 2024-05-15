@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/05/09 13:32:55 by amagnell         ###   ########.fr        #
+#    Updated: 2024/05/15 15:07:32 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,12 +18,13 @@ NAME := minishell
 #-------------------------------------------#
 #	INGREDIENTS								#
 #-------------------------------------------#
-LIBS		:=	ft readline
+LIBS		:=	ft readline termcap
 LIBFT_DIR	:=	lib/libft
 RDLINE_DIR	:=	lib/readline
 LIBFT		:=	lib/libft/libft.a
 RDLINE		:=	lib/readline/libreadline.a
-LIBS_TARGET	:=	$(LIBFT) $(RDLINE)
+RDLINEHIS	:=	lib/readline/libhistory.a
+LIBS_TARGET	:=	$(LIBFT) $(RDLINE) $(RDLINEHIS)
 
 INCS		:=	inc	\
 				lib/libft/include
@@ -68,7 +69,7 @@ readline:
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INCS)
 	$(DIR_DUP)
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) $(CPPFLAGS) -D READLINE_LIBRARY=1 -c -o $@ $<
 	$(info Created $@)
 
 -include $(DEPS)
