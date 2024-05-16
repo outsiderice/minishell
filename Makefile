@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/05/15 15:07:32 by amagnell         ###   ########.fr        #
+#    Updated: 2024/05/16 10:20:42 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,9 @@ INCS		:=	inc	\
 				lib/libft/include
 
 SRC_DIR		:=	src
-SRCS 		:=	src/main.c
+SRCS 		:=	src/main.c \
+				src/get_input.c \
+				src/check_input.c
 
 BUILD_DIR 	:=	.build
 OBJS		:=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
