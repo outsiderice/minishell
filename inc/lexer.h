@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_input.h                                      :+:      :+:    :+:   */
+/*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/16 10:22:19 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/16 13:43:06 by amagnell         ###   ########.fr       */
+/*   Created: 2024/05/16 12:47:27 by amagnell          #+#    #+#             */
+/*   Updated: 2024/05/16 13:42:56 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECK_INPUT_H
-# define CHECK_INPUT_H
+#ifndef LEXER_H
+# define LEXER_H
 
-int	ft_check_input(const char *line);
-int	ft_quote_len(const char *line, char type, int start);
+void ft_lexer(const char *line);
 
 #endif
