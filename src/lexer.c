@@ -1,17 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/16 10:31:35 by amagnell         ###   ########.fr       */
+/*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
+/*   Updated: 2024/05/16 17:46:25 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include <stdlib.h>
+#include "lexer.h"
+# include "../lib/libft/include/libft.h"
 
-#endif
+void ft_lexer(const char *line)
+{
+    char    **array;
+
+    array = ft_split(line, ' ');
+    return ;
+}
