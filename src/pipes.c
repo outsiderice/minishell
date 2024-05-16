@@ -6,11 +6,11 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:57:54 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/15 18:32:58 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/16 10:28:16 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "pipes.h"
 
 //fork?
 
