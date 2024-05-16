@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 16:23:50 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/16 17:23:40 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:52:47 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	count_words(char const *s, int c)
 	a = -1;
 	wordcount = 0;
 	i = 0;
-	ft_printf("in split\n");
+	ft_printf("in split, s is %s\n", s); //test
 	while (s[i])
 	{
 		if (s[i] == '"' || s[i] == '\'')
@@ -41,6 +41,7 @@ static int	count_words(char const *s, int c)
 		}
 		i++;
 	}
+	ft_printf("wordcount is %d\n", wordcount); //test
 	return (wordcount);
 }
 
@@ -63,12 +64,10 @@ static char	**fill_arr(char **arr, char const *s, char c)
 	unsigned int	start;
 	int				i;
 	int				j;
-	int				t; //solo para testear
 
 	j = 0;
 	i = -1;
 	start = 0;
-	t = 0; //solo para testear
 	while (s[++i])
 	{
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
@@ -85,11 +84,6 @@ static char	**fill_arr(char **arr, char const *s, char c)
 			start = i + 1;
 	}
 	arr[j] = NULL;
-	while(t < j) // para testear
-	{
-		ft_printf("%s\n", *arr[t]);
-		t++;
-	}
 	return (arr);
 }
 
@@ -100,6 +94,8 @@ char	**ft_split(char const *s, char c)
 	arr = malloc(sizeof(char *) * (count_words(s, c) + 1));
 	if (!arr)
 		return (NULL);
+	ft_printf("before fill\n"); //test
 	arr = fill_arr(arr, s, c);
+	ft_printf("end of split\n"); //test
 	return (arr);
 }
