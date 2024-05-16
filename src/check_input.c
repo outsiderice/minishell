@@ -6,22 +6,24 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:43:53 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/15 18:31:25 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/16 10:34:43 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "check_input.h"
+# include "../lib/libft/include/libft.h"
+# include <stdlib.h>
 
 //Check quotes and store the info needed to split them as a pack later.
 //Also store the type, wheteher they're " or '
 
-ft_check_pipes(char *line)
-{
-	//if there's pipes make a first split and start the whole pipe process
-	//if there's no pipes do 2nd split by spaces
-}
+// ft_check_pipes(char *line)
+// {
+// 	//if there's pipes make a first split and start the whole pipe process
+// 	//if there's no pipes do 2nd split by spaces
+// }
 
-int	ft_qte_len(char *line, char type, int start)
+int	ft_quote_len(char *line, char type, int start)
 {
 	int	i;
 
@@ -41,7 +43,7 @@ int	ft_qte_len(char *line, char type, int start)
 	exit (EXIT_FAILURE);
 }
 
-int	ft_check_qtes(char *line)
+int	ft_check_quotes(char *line)
 {
 	int	i;
 	int	qt_len;
@@ -51,8 +53,7 @@ int	ft_check_qtes(char *line)
 	{
 		if (line[i] == '"' || line[i] == '\'')
 		{
-			qt_len = ft_quotes(&line[i], line[i], i);
-			ft_printf("qt len is %d\n", qt_len);
+			qt_len = ft_quote_len(&line[i], line[i], i);
 			i = i + qt_len;
 		}
 		i++;
@@ -62,7 +63,7 @@ int	ft_check_qtes(char *line)
 
 int	ft_check_input(char *line)
 {
-	ft_check_qtes(line);
-	ft_check_pipes(line);
+	ft_check_quotes(line);
+	// ft_check_pipes(line);
 	return (EXIT_SUCCESS);
 }
