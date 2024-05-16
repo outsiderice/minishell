@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 16:23:50 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/16 13:54:17 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:23:40 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ static int	count_words(char const *s, int c)
 
 	a = -1;
 	wordcount = 0;
-	i = -1;
+	i = 0;
 	ft_printf("in split\n");
-	while (s[++i])
+	while (s[i])
 	{
 		if (s[i] == '"' || s[i] == '\'')
-			i = i + ft_quote_len(&s[i], s[i], i);
+			i = i + ft_quote_len(&s[i], s[i]);
 		if (s[i] == c)
 			a = -1;
 		if (s[i] != c && a == -1)
@@ -39,6 +39,7 @@ static int	count_words(char const *s, int c)
 			a = 1;
 			wordcount++;
 		}
+		i++;
 	}
 	return (wordcount);
 }

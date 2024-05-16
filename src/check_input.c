@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:43:53 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/16 14:04:52 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:18:03 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,25 @@ void	ft_check_pipes(const char *line)
 	ft_lexer(line);
 }
 
-int	ft_quote_len(const char *line, char type, int start)
+int	ft_quote_len(const char *line, char type)
 {
 	int	i;
 
-	i = 0;
-	start++;
-	// ft_printf("%s", line);
-	while (line[start] && line[start] != type)
+	i = 1;
+	ft_printf("		%s\n", line);
+	while (line[i] && line[i] != type)
 	{
-		ft_printf("%c\n", (char) line[start]);
-		start++;
+		ft_printf("		string is at %d and i is %d\n", i, i);
+		ft_printf("%c\n", (char) line[i]);
 		i++;
 	}
-	if (line[start] == type)
+	if (line[i] == type)
 	{
 		i++;
 		return (i);
 	}
-	ft_printf("error\n");
+	ft_printf("		char is %c and i is %d\n", line[i], i);
+	ft_printf("		error\n");
 	exit (EXIT_FAILURE);
 }
 
@@ -55,14 +55,18 @@ int	ft_check_quotes(const char *line)
 	int	qt_len;
 
 	i = 0;
+	ft_printf("i = %d\n", i);
 	while (line[i])
 	{
 		if (line[i] == '"' || line[i] == '\'')
 		{
-			qt_len = ft_quote_len(&line[i], line[i], i);
+			qt_len = ft_quote_len(&line[i], line[i]);
 			i = i + qt_len;
+			ft_printf("i is now %d\n", i);
 		}
-		i++;
+		else
+			i++;
+		ft_printf("i is %d\n", i);
 	}
 	return (0);
 }
@@ -70,6 +74,6 @@ int	ft_check_quotes(const char *line)
 int	ft_check_input(const char *line)
 {
 	ft_check_quotes(line);
-	// ft_check_pipes(line);
+	ft_check_pipes(line);
 	return (EXIT_SUCCESS);
 }
