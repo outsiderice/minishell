@@ -31,7 +31,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = /Users/amagnell/Documents/GitHub/minishell/lib/readline
+BUILD_DIR = /Users/kate/Desktop/Projects/42/minishell/lib/readline
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}

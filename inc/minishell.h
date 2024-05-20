@@ -14,4 +14,11 @@
 # define MINISHELL_H
 # include <stdlib.h>
 
+typedef struct s_env
+{
+	char	*v_name;
+    char	*v_cont;
+	struct s_list	*next;
+}	t_env;
+
 #endif

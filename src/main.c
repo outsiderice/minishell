@@ -31,9 +31,11 @@ void	ft_minishell(char **env)
 
 int	main(int argc, char **argv, char **env)
 {
+	char **env_va
 	(void)argv;
 	if (argc != 1)
 		return (EXIT_FAILURE);
+	
 	ft_minishell(env);
 	return (0);
 }
