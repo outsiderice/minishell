@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/20 09:30:14 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/20 10:37:49 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void	ft_minishell(char **env)
 	while (2)
 	{
 		line = ft_readline();
-		ft_check_input((const char *)line);
+		if (!line)
+			exit(EXIT_FAILURE);
+		if (ft_strlen(line) > 0)
+			ft_check_input((const char *)line);
 		free (line);
 	}
 	return ;
