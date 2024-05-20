@@ -6,13 +6,13 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:27 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/16 13:42:56 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/20 09:24:57 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-void ft_lexer(const char *line);
+void	ft_lexer(const char *line);
 
 #endif

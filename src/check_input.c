@@ -6,14 +6,14 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:43:53 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/16 17:52:48 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/20 09:33:06 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "check_input.h"
-# include "../lib/libft/include/libft.h"
-# include <stdlib.h>
-# include "lexer.h"
+#include "../lib/libft/include/libft.h"
+#include <stdlib.h>
+#include "lexer.h"
 
 //Check quotes and store the info needed to split them as a pack later.
 //Also store the type, wheteher they're " or '

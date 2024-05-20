@@ -6,14 +6,13 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 16:23:50 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/16 17:52:47 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/20 09:27:25 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-# include "../../../inc/lexer.h"
-# include "../../../inc/check_input.h"
-
+#include "../../../inc/lexer.h"
+#include "../../../inc/check_input.h"
 
 //splits string s into an array of strings using char c as a delimiter.
 //Array ends with a NULL pointer.
@@ -27,7 +26,6 @@ static int	count_words(char const *s, int c)
 	a = -1;
 	wordcount = 0;
 	i = 0;
-	ft_printf("in split, s is %s\n", s); //test
 	while (s[i])
 	{
 		if (s[i] == '"' || s[i] == '\'')
@@ -41,7 +39,6 @@ static int	count_words(char const *s, int c)
 		}
 		i++;
 	}
-	ft_printf("wordcount is %d\n", wordcount); //test
 	return (wordcount);
 }
 
@@ -94,8 +91,6 @@ char	**ft_split(char const *s, char c)
 	arr = malloc(sizeof(char *) * (count_words(s, c) + 1));
 	if (!arr)
 		return (NULL);
-	ft_printf("before fill\n"); //test
 	arr = fill_arr(arr, s, c);
-	ft_printf("end of split\n"); //test
 	return (arr);
 }

@@ -1,9 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pwd.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/20 09:34:18 by amagnell          #+#    #+#             */
+/*   Updated: 2024/05/20 09:34:26 by amagnell         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 #include "../../lib/libft/include/libft.h"
 #include <unistd.h>
 #include <stdio.h>
-
-
 
 /*  FT_PWD
 	This function should receive main struct as a parameter,

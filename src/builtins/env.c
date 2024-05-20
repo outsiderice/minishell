@@ -28,16 +28,16 @@ int	ft_env(t_env *env_list) //linked structure,
 // env variables and to create our list of env variables, as dup does not work 
 // as I though and we have to do it manually
 // this function will be at least 2 or 3 separated functions
-t_env *start_env(char **env)
+t_env	*start_env(char **env)
 {
 	int		i;
 	int		x;
 	t_env	*new_env;
 	t_env	*first;
 	t_env	*follow;
-	
+
 	i = 0;
-	int x = 0;
+	x = 0;
 	new_env = NULL;
 	if (env[0] == NULL)
 		return (new_env);
@@ -51,14 +51,12 @@ t_env *start_env(char **env)
 		if (!follow)
 			return (NULL);
 		while (env[i][k] !=)
-		aux->v_name = split0;
-		aux->v_cont = split1;
-		new_env->next = aux;
-
-		i++;
+		{
+			aux->v_name = split0;
+			aux->v_cont = split1;
+			new_env->next = aux;
+			i++;
+		}
 	}
-	return new_env;
+	return (new_env);
 }
-
-
-
