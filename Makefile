@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/05/16 13:43:53 by amagnell         ###   ########.fr        #
+#    Updated: 2024/05/20 17:33:25 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRC_DIR		:=	src
 SRCS 		:=	src/main.c \
 				src/get_input.c \
 				src/check_input.c \
-				src/lexer.c
+				src/tokenizer.c
 
 BUILD_DIR 	:=	.build
 OBJS		:=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)

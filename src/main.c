@@ -6,13 +6,14 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/20 10:37:49 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/20 10:54:57 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "get_input.h"
 #include "check_input.h"
+#include "../lib/libft/include/libft.h"
 
 void	ft_minishell(char **env)
 {
@@ -34,7 +35,7 @@ void	ft_minishell(char **env)
 
 int	main(int argc, char **argv, char **env)
 {
-	char	**env_va;
+	//char	**env_va;
 
 	(void)argv;
 	if (argc != 1)

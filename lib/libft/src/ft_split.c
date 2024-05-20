@@ -6,12 +6,12 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 16:23:50 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/20 09:27:25 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/20 12:28:42 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "../../../inc/lexer.h"
+#include "../../../inc/tokens.h"
 #include "../../../inc/check_input.h"
 
 //splits string s into an array of strings using char c as a delimiter.
