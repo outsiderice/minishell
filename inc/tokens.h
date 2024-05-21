@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:27 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/21 15:31:29 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:48:11 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct	s_tokens
 void	ft_tokenize(const char *line);
 
 /*          UTILS          */
-t_tokens	*ft_addtok(t_tokens *tok, char *line, int len);
+t_tokens	*ft_addtok(const char *line, int len);
 void		ft_init_tokens(t_tokens *tok);
 int			ft_ismetachar(char c);
 

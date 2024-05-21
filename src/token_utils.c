@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:03:14 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/21 15:36:19 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:47:53 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	ft_init_tokens(t_tokens *tok)
 	tok->next = NULL;
 }
 
-t_tokens	*ft_addtok(t_tokens *tok, char *line, int len)
+t_tokens	*ft_addtok(const char *line, int len)
 {
 	t_tokens	*new_tok;
 
 	new_tok = malloc(sizeof(t_tokens) * 1);
 	if (!new_tok)
 		return (NULL); //add proper protection later
-	if (ft_ismetachar(&line) == 0)
+	if (ft_ismetachar(*line) == 0)
 		new_tok->type = 1;
 	else
 		new_tok->type = 2;
