@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/21 12:49:16 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:51:08 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,18 @@ int	ft_isoperator(char *line, t_tokens *tok)
 	i = 1;
 	if (line[0] == line[1])
 		i = 2;
-	ft_addtok(&tok, i);
+	ft_addtok(&tok, &*line, i);
+	return (i);
+}
+int	ft_isword(char *line, t_tokens *tok)
+{
+	int	i;
+	
+	i = 0;
+	//while (line[i] != '"' && line[i] != '\'' && line[i] != ' ' && line[i] != '	')
+	while (ft_ismetachar(line[i]) == 0)
+		i++;
+	ft_addtok(&tok, &*line, i);
 	return (i);
 }
 void	ft_get_toks(const char *line, t_tokens *tok)
