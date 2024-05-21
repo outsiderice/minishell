@@ -6,13 +6,14 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/21 09:27:06 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/21 11:16:19 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokens.h"
 #include "../lib/libft/include/libft.h"
 #include <stdio.h>
+#include "check_input.h"
 
 void	ft_init_tokens(t_tokens *tok)
 {
@@ -20,17 +21,35 @@ void	ft_init_tokens(t_tokens *tok)
 	tok->token = NULL;
 	tok->next = NULL;
 }
-char	ft_isspace(char c)
+
+//skips unquoted spaces
+int	ft_space_len(char *line)
 {
-	if (c == ' ' || c == '	')
-		return (c);
-	return ((char)NULL);
+	int	i;
+
+	i = 0;
+	while (line[i] && (line[i] == ' ' || line[i] == '	'))
+		i++;
+	return (i);
+}
+void	ft_get_toks(const char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '"' || line[i] == '\'')
+			i = i + ft_quote_len;
+		else if (line[i] == ' ' || line[i] == '	')
+			i = i + ft_space_len;
+	}
 }
 
 void	ft_tokenize(const char *line)
 {
 	t_tokens	tok;
 
+	ft_get_toks(line);
 	ft_init_tokens(&tok);
-	return ;
 }

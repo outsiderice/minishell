@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:43:53 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/21 09:04:09 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/21 11:13:58 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	ft_check_pipes(const char *line)
 	// if (*line == '|')
 	// 	pipe_syntax(line);
 	ft_tokenize(line);
-	return ;
 }
 
 int	ft_quote_len(const char *line, char type)
@@ -33,21 +32,14 @@ int	ft_quote_len(const char *line, char type)
 	int	i;
 
 	i = 1;
-	//ft_printf("		%s\n", line); //test
 	while (line[i] && line[i] != type)
-	{
-		// ft_printf("		string is at %d and i is %d\n", i, i); //test
-		// ft_printf("%c\n", (char) line[i]); //test
 		i++;
-	}
 	if (line[i] == type)
 	{
 		i++;
 		return (i);
 	}
-	//ft_printf("		char is %c and i is %d\n", line[i], i); //test
-	//ft_printf("		error\n"); //test
-	exit (EXIT_FAILURE);
+	exit (EXIT_FAILURE); //change for error and new prompt line
 }
 
 int	ft_check_quotes(const char *line)
