@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:27 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/21 15:30:53 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:31:29 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,6 @@ typedef struct	s_tokens
 	char			*token;
 	struct s_tokens	*next;
 }					t_tokens;
-
-/*          MACROS         */
-# define METACHAR	'"', \
-					'\'', \
-					' ', \
-					'	', \
-					'<', \
-					'>', \
 
 void	ft_tokenize(const char *line);
 

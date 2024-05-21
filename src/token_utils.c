@@ -6,12 +6,13 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:03:14 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/21 15:30:47 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:36:19 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokens.h"
 #include <stdlib.h>
+#include "../lib/libft/include/libft.h"
 
 void	ft_init_tokens(t_tokens *tok)
 {
@@ -27,7 +28,12 @@ t_tokens	*ft_addtok(t_tokens *tok, char *line, int len)
 	new_tok = malloc(sizeof(t_tokens) * 1);
 	if (!new_tok)
 		return (NULL); //add proper protection later
-	new_tok->type = ;
+	if (ft_ismetachar(&line) == 0)
+		new_tok->type = 1;
+	else
+		new_tok->type = 2;
+	new_tok->token = ft_substr(line, 0, len);
+	new_tok->next = NULL;
 	return (new_tok);
 }
 
