@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/21 12:04:22 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/21 12:49:16 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,12 @@ int	ft_space_len(char *line)
 }
 int	ft_isoperator(char *line, t_tokens *tok)
 {
-	char	c;
-	int		i;
+	int	i;
 
-	i = 0;
-	c = line[i];
-	i++;
-	if
+	i = 1;
+	if (line[0] == line[1])
+		i = 2;
+	ft_addtok(&tok, i);
 	return (i);
 }
 void	ft_get_toks(const char *line, t_tokens *tok)
