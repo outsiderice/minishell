@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/21 14:51:08 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:53:15 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ int	ft_isword(char *line, t_tokens *tok)
 	int	i;
 	
 	i = 0;
-	//while (line[i] != '"' && line[i] != '\'' && line[i] != ' ' && line[i] != '	')
-	while (ft_ismetachar(line[i]) == 0)
+	while (line[i] && ft_ismetachar(line[i]) == 0)
 		i++;
 	ft_addtok(&tok, &*line, i);
 	return (i);
