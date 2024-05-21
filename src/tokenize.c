@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/21 11:16:19 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/21 12:04:22 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,6 @@
 #include "../lib/libft/include/libft.h"
 #include <stdio.h>
 #include "check_input.h"
-
-void	ft_init_tokens(t_tokens *tok)
-{
-	tok->type = 0;
-	tok->token = NULL;
-	tok->next = NULL;
-}
 
 //skips unquoted spaces
 int	ft_space_len(char *line)
@@ -32,7 +25,18 @@ int	ft_space_len(char *line)
 		i++;
 	return (i);
 }
-void	ft_get_toks(const char *line)
+int	ft_isoperator(char *line, t_tokens *tok)
+{
+	char	c;
+	int		i;
+
+	i = 0;
+	c = line[i];
+	i++;
+	if
+	return (i);
+}
+void	ft_get_toks(const char *line, t_tokens *tok)
 {
 	int	i;
 
@@ -40,16 +44,21 @@ void	ft_get_toks(const char *line)
 	while (line[i])
 	{
 		if (line[i] == '"' || line[i] == '\'')
-			i = i + ft_quote_len;
+			i = i + ft_quote_len(&line[i], line[i]);
 		else if (line[i] == ' ' || line[i] == '	')
-			i = i + ft_space_len;
+			i = i + ft_space_len(&line[i]);
+		else if (line[i] == '<' || line[i] == '>')
+			i = i + ft_isoperator(&line[i], tok);
+		else
+			i = i + ft_isword(&line[i], tok);
 	}
 }
+
 
 void	ft_tokenize(const char *line)
 {
 	t_tokens	tok;
 
-	ft_get_toks(line);
 	ft_init_tokens(&tok);
+	ft_get_toks(line, &tok);
 }
