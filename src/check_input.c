@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:43:53 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/20 12:29:59 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/21 09:04:09 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_check_pipes(const char *line)
 	// 	line++;
 	// if (*line == '|')
 	// 	pipe_syntax(line);
-	ft_lexer(line);
+	ft_tokenize(line);
 	return ;
 }
 
