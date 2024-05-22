@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/21 15:49:36 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/22 10:04:14 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,29 @@ int	ft_space_len(const char *line)
 	return (i);
 }
 
-int	ft_isoperator(const char *line)
+int	ft_isoperator(const char *line, t_tokens **tokens)
 {
 	int	i;
 
 	i = 1;
 	if (line[0] == line[1])
 		i = 2;
-	ft_addtok(&*line, i);
+	ft_addtok(&*line, i, tokens);
 	return (i);
 }
 
-int	ft_isword(const char *line)
+int	ft_isword(const char *line, t_tokens **tokens)
 {
 	int	i;
 
 	i = 0;
 	while (line[i] && ft_ismetachar(line[i]) == 0)
 		i++;
-	ft_addtok(&*line, i);
+	ft_addtok(&*line, i, tokens);
 	return (i);
 }
 
-void	ft_get_toks(const char *line)
+void	ft_get_toks(const char *line, t_tokens **tokens)
 {
 	int	i;
 
@@ -60,16 +60,26 @@ void	ft_get_toks(const char *line)
 		else if (line[i] == ' ' || line[i] == '	')
 			i = i + ft_space_len(&line[i]);
 		else if (line[i] == '<' || line[i] == '>')
-			i = i + ft_isoperator(&line[i]);
+			i = i + ft_isoperator(&line[i], tokens);
 		else
-			i = i + ft_isword(&line[i]);
+			i = i + ft_isword(&line[i], tokens);
 	}
 }
 
 void	ft_tokenize(const char *line)
 {
-	t_tokens	tok;
-
-	ft_init_tokens(&tok);
-	ft_get_toks(line);
+	t_tokens	*tokens;
+	t_tokens	*temp;
+	
+	tokens = NULL;
+	printf("1 where\n");
+	ft_get_toks(line, &tokens);
+	printf("2 where\n");
+	while (tokens != NULL)
+	{
+		printf("token stored is %s\n", tokens->token);
+		temp = tokens;
+		tokens = tokens->next;
+		free(temp);
+	}
 }
