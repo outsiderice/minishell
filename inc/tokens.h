@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:27 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/22 10:05:21 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:27:45 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 /*          STRUCT         */
 //type = 1 ->word
-//type = 2 ->operator //might assign from 2-5 for redirections if needed
+//type = 2 ->operator AKA <, >, <<, >>//might assign from 2-5 for redirections if needed
 typedef struct	s_tokens
 {
 	int				type;
