@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   get_input.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/20 09:25:12 by amagnell         ###   ########.fr       */
+/*   Created: 2024/05/16 10:02:32 by amagnell          #+#    #+#             */
+/*   Updated: 2024/05/16 10:31:54 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include <stdlib.h>
+#ifndef GET_INPUT_H
+# define GET_INPUT_H
 
-typedef struct s_env
-{
-	char			*v_name;
-	char			*v_cont;
-	struct s_list	*next;
-}	t_env;
+char	*ft_readline(void);
 
 #endif

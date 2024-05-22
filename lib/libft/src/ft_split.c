@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 16:23:50 by amagnell          #+#    #+#             */
-/*   Updated: 2023/02/10 20:21:52 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/21 11:17:43 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "../../../inc/tokens.h"
+#include "../../../inc/check_input.h"
 
 //splits string s into an array of strings using char c as a delimiter.
 //Array ends with a NULL pointer.
@@ -23,9 +25,11 @@ static int	count_words(char const *s, int c)
 
 	a = -1;
 	wordcount = 0;
-	i = -1;
-	while (s[++i])
+	i = 0;
+	while (s[i])
 	{
+		if (s[i] == '"' || s[i] == '\'')
+			i = i + ft_quote_len(&s[i], s[i]);
 		if (s[i] == c)
 			a = -1;
 		if (s[i] != c && a == -1)
@@ -33,6 +37,7 @@ static int	count_words(char const *s, int c)
 			a = 1;
 			wordcount++;
 		}
+		i++;
 	}
 	return (wordcount);
 }
