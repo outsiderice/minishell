@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/22 17:36:42 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:50:16 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_isword(const char *line, t_tokens **tokens)
 void	ft_get_toks(const char *line, t_tokens **tokens)
 {
 	int	i;
-	int	j; 
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -64,7 +64,7 @@ void	ft_get_toks(const char *line, t_tokens **tokens)
 	{
 		if (line[i] == '"' || line[i] == '\'')
 		{
-			j = i;	
+			j = i;
 			i = i + ft_quote_len(&line[i], line[i]);
 			ft_addtok(&line[j], i - j, tokens);
 		}
@@ -77,18 +77,15 @@ void	ft_get_toks(const char *line, t_tokens **tokens)
 	}
 }
 
-//!!type is wrong right now, because metachar in add_tok, check
-//
+//separates each token into a node in list tokens and assigns a type
 void	ft_tokenize(const char *line)
 {
 	t_tokens	*tokens;
 	t_tokens	*temp;
-	
+
 	tokens = NULL;
-	printf("1 where\n");
 	ft_get_toks(line, &tokens);
-	printf("2 where\n");
-	while (tokens != NULL)
+	while (tokens != NULL)		//while to check what's saved is correct
 	{
 		printf("token stored is <%s>\n", tokens->token);
 		printf("token type is %d\n", tokens->type);
