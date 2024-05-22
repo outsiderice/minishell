@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/22 15:20:52 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:56:27 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ft_tokenize(const char *line)
 	printf("2 where\n");
 	while (tokens != NULL)
 	{
-		printf("token stored is <%s>\n", tokens->token);
+		printf("token stored is <%s>, type is %d\n", tokens->token, tokens->type);
 		temp = tokens;
 		tokens = tokens->next;
 		free(temp);
