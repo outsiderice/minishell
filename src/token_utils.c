@@ -6,63 +6,58 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:03:14 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/22 15:41:29 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:34:30 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokens.h"
 #include <stdlib.h>
 #include "../lib/libft/include/libft.h"
-#include <stdio.h> //for printf, delete later
+#include <stdio.h> //for test printf, delete later
 
-// void	ft_init_tokens(t_tokens **tokens)
-// {
-// 	t_tokens *tok;
-	
-// 	tok->type = 0;
-// 	tok->token = NULL;
-// 	tok->next = NULL;
-// }
+//adds a new token to the end of the list
+void	ft_tok_addback(t_tokens **tokens, t_tokens *new_tok)
+{
+	t_tokens	*temp;
 
+	temp = *tokens;
+	while (temp->next != NULL)
+		temp = temp->next;
+	temp->next = new_tok;
+}
+
+//adds a new token to the tokens list
 void	ft_addtok(const char *line, int len, t_tokens **tokens)
 {
 	t_tokens	*new_tok;
-	t_tokens	*temp;
 
-	printf("adding new tok\n");
 	new_tok = malloc(sizeof(t_tokens) * 1);
 	if (!new_tok)
 	{
 		printf("bad malloc\n");
 		return ; //add proper protection later
 	}
-	if (ft_ismetachar(*line) == 0)
-		new_tok->type = 1;
-	else
+	if (ft_ismetachar(*line) == 3)
 		new_tok->type = 2;
+	else
+		new_tok->type = 1;
 	new_tok->token = ft_substr(line, 0, len);
 	new_tok->next = NULL;
-	printf("after new_tok values assignment\n");
 	if (*tokens == NULL)
 		*tokens = new_tok;
 	else
-	{
-		printf("*tokens is not empty\n");
-		temp = *tokens;
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = new_tok;
-	}
-	printf("new tok added\n");
+		ft_tok_addback(tokens, new_tok);
 }
 
+//checks if c is a metacharacter
+//returns a number depending on which type or 0 if it isn't
 int	ft_ismetachar(char c)
 {
 	if (c == '"' || c == '\'')
 		return (1);
 	if (c == ' ' || c == '	')
-		return (1);
+		return (2);
 	if (c == '<' || c == '>')
-		return (1);
+		return (3);
 	return (0);
 }

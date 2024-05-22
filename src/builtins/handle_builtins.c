@@ -16,3 +16,17 @@ int	handle_builtins()
 	
 
 }
+/*
+ft_buliting(t_tokens **tokens)
+{
+    t_tokens *current;
+
+    if (current->token ftstrncompare(echo) && strlen)
+    ft_echo
+    {
+        *current
+
+
+    }
+}
+*/
