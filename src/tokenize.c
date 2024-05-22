@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/22 10:04:14 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:10:50 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,18 @@ int	ft_isword(const char *line, t_tokens **tokens)
 void	ft_get_toks(const char *line, t_tokens **tokens)
 {
 	int	i;
+	int	j; 
 
 	i = 0;
+	j = 0;
 	while (line[i])
 	{
 		if (line[i] == '"' || line[i] == '\'')
+		{
+			j = i;	
 			i = i + ft_quote_len(&line[i], line[i]);
+			ft_addtok(&line[j], i - j, tokens);
+		}
 		else if (line[i] == ' ' || line[i] == '	')
 			i = i + ft_space_len(&line[i]);
 		else if (line[i] == '<' || line[i] == '>')
@@ -77,7 +83,7 @@ void	ft_tokenize(const char *line)
 	printf("2 where\n");
 	while (tokens != NULL)
 	{
-		printf("token stored is %s\n", tokens->token);
+		printf("token stored is <%s>\n", tokens->token);
 		temp = tokens;
 		tokens = tokens->next;
 		free(temp);
