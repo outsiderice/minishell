@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/22 15:10:50 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:20:52 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	ft_space_len(const char *line)
 	i = 0;
 	while (line[i] && (line[i] == ' ' || line[i] == '	'))
 		i++;
+	printf("space len is %d\n", i);
 	return (i);
 }
 

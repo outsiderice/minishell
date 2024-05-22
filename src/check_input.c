@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:43:53 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/22 15:12:07 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:20:33 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../lib/libft/include/libft.h"
 #include <stdlib.h>
 #include "tokens.h"
+#include <stdio.h> //for printf take out later
 
 //Check quotes and store the info needed to split them as a pack later.
 //Also store the type, wheteher they're " or '
