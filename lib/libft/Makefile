@@ -6,20 +6,20 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/07 18:06:24 by amagnell          #+#    #+#              #
-#    Updated: 2024/05/21 15:45:04 by amagnell         ###   ########.fr        #
+#    Updated: 2024/05/23 08:48:09 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #-------------------------------------------#
 #	TARGET									#
 #-------------------------------------------#
-NAME := libft.a
+NAME = libft.a
 
 #-------------------------------------------#
 #	INGREDIENTS								#
 #-------------------------------------------#
-SRC_DIR 	:=	src
-SRCS 		:=	src/ft_isalpha.c \
+SRC_DIR 	=	src
+SRCS 		=	src/ft_isalpha.c \
 				src/ft_isdigit.c \
 				src/ft_isalnum.c \
 				src/ft_isascii.c \
@@ -62,20 +62,20 @@ SRCS 		:=	src/ft_isalpha.c \
 				src/ft_putunbr.c \
 				src/ft_sort_format.c
 
-BUILD_DIR 	:= .build
-OBJS 		:= $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
-DEPS 		:= $(OBJS:%.o=%.d)
+BUILD_DIR 	= .build
+OBJS 		= $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+DEPS 		= $(OBJS:%.o=%.d)
 
-CC  		:= clang
-CFLAGS 		:= -Wall -Wextra -Werror
-CPPFLAGS 	:= -MMD -MP -I include
-AR 			:= ar
-ARFLAGS		:= -r -c -s
+CC  		= clang
+CFLAGS 		= -Wall -Wextra -Werror
+CPPFLAGS 	= -MMD -MP -I include
+AR 			= ar
+ARFLAGS		= -r -c -s
 
 #-------------------------------------------#
 #	UTILS									#
 #-------------------------------------------#
-RM := rm -f
+RM = rm -f
 MAKEFLAGS += --no-print-directory
 DIR_DUP =  mkdir -p $(@D)
 
