@@ -6,14 +6,14 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/23 13:22:11 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:41:38 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "tokens.h"
 
+
+
 void	ft_parse(t_tokens *tokens)
 {}
-
-
