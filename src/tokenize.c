@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/22 17:50:16 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:19:44 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,5 @@ void	ft_tokenize(const char *line)
 
 	tokens = NULL;
 	ft_get_toks(line, &tokens);
-	while (tokens != NULL)		//while to check what's saved is correct
-	{
-		printf("token stored is <%s>\n", tokens->token);
-		printf("token type is %d\n", tokens->type);
-		temp = tokens;
-		tokens = tokens->next;
-		free(temp);
-	}
+	ft_parse(tokens);
 }
