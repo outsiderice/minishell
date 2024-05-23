@@ -6,50 +6,50 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/05/21 15:45:20 by amagnell         ###   ########.fr        #
+#    Updated: 2024/05/23 08:47:54 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #-------------------------------------------#
 #	TARGET									#
 #-------------------------------------------#
-NAME := minishell
+NAME = minishell
 
 #-------------------------------------------#
 #	INGREDIENTS								#
 #-------------------------------------------#
-LIBS		:=	ft readline termcap
-LIBFT_DIR	:=	lib/libft
-RDLINE_DIR	:=	lib/readline
-LIBFT		:=	lib/libft/libft.a
-RDLINE		:=	lib/readline/libreadline.a
-RDLINEHIS	:=	lib/readline/libhistory.a
-LIBS_TARGET	:=	$(LIBFT) $(RDLINE) $(RDLINEHIS)
+LIBS		=	ft readline termcap
+LIBFT_DIR	=	lib/libft
+RDLINE_DIR	=	lib/readline
+LIBFT		=	lib/libft/libft.a
+RDLINE		=	lib/readline/libreadline.a
+RDLINEHIS	=	lib/readline/libhistory.a
+LIBS_TARGET	=	$(LIBFT) $(RDLINE) $(RDLINEHIS)
 
-INCS		:=	inc	\
+INCS		=	inc	\
 				lib/libft/include
 
-SRC_DIR		:=	src
-SRCS 		:=	src/main.c \
+SRC_DIR		=	src
+SRCS 		=	src/main.c \
 				src/get_input.c \
 				src/check_input.c \
 				src/tokenize.c \
 				src/token_utils.c
 
-BUILD_DIR 	:=	.build
-OBJS		:=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
-DEPS		:=	$(OBJS:%.o=%.d)
+BUILD_DIR 	=	.build
+OBJS		=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+DEPS		=	$(OBJS:%.o=%.d)
 
-CC 			:=	gcc
-CFLAGS 		:=	-Wall -Wextra -Werror
-CPPFLAGS 	:=	$(addprefix -I, $(INCS)) -MMD -MP
-LDFLAGS		:=	$(addprefix -L, $(dir $(LIBS_TARGET)))
-LDLIBS		:=	$(addprefix -l, $(LIBS))
+CC 			=	gcc
+CFLAGS 		=	-Wall -Wextra -Werror
+CPPFLAGS 	=	$(addprefix -I, $(INCS)) -MMD -MP
+LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_TARGET)))
+LDLIBS		=	$(addprefix -l, $(LIBS))
 
 #-------------------------------------------#
 #	UTILS									#
 #-------------------------------------------#
-RM 			:=	rm -f
+RM 			=	rm -f
 MAKEFLAGS	+= --no-print-directory
 DIR_DUP		=	mkdir -p $(@D)
 
