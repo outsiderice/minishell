@@ -52,11 +52,13 @@ t_env	*start_env(char **env)
 			return (NULL);
 		while (env[i][k] !=)
 		{
-			aux->v_name = split0;
-			aux->v_cont = split1;
+			aux->v_name = split before =
+			aux->v_cont = split after =
 			new_env->next = aux;
 			i++;
 		}
 	}
 	return (new_env);
 }
+
+int	ft_()

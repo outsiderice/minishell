@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/20 09:25:12 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:17:01 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,15 @@ typedef struct s_env
 {
 	char			*v_name;
 	char			*v_cont;
-	struct s_list	*next;
+	struct s_env	*next;
 }	t_env;
+
+//provisional structure for arguments to check the builtins
+
+typedef struct s_args
+{
+	char			*arg;
+	struct s_args	*next;
+}	t_args;
 
 #endif
