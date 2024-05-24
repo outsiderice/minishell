@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/24 16:06:47 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:48:30 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	ft_get_toks(const char *line, t_tokens **tokens)
 void	ft_tokenize(const char *line)
 {
 	t_tokens	*tokens;
-	t_tokens	*temp;
 
 	tokens = NULL;
 	ft_get_toks(line, &tokens);
