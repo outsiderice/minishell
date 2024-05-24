@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 09:34:18 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/20 09:34:26 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:06:12 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-#include "../../lib/libft/include/libft.h"
-#include <unistd.h>
-#include <stdio.h>
 
 /*  FT_PWD
 	This function should receive main struct as a parameter,
@@ -32,27 +29,28 @@
 	On failure: eeturns NULL and sets errno to indicate the error.
 	!! It is necessary to free allocated memory.
 */
-void	ft_pwd(void)
+
+int	ft_pwd(void)
 {
 	char	*pwd;
 
-	//mini_shell->exit_status = 0;
 	pwd = getcwd(NULL, 0);
 	if (pwd != NULL)
 	{
 		ft_putendl_fd(pwd, STDOUT_FILENO);
 		free(pwd);
+		return (0); //or save exit status in mini_shell->exit_status = 0;
 	}
 	else
 	{
-		printf("error pwd");
-		// handle better this error, maybe perror?
+		printf("error pwd");// handle better this error, maybe perror?
+		return (1); //or save exit status in mini_shell->exit_status = 1;
 	}
 }
 
 /*
 int	main(void)
 {
-	ft_pwd();
+	printf("%d\n", ft_pwd());
 	return (1);
 }*/

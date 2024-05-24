@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/24 16:13:22 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:15:07 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_env
 {
 	char			*v_name;
 	char			*v_cont;
-	struct s_list	*next;
+	struct s_env	*next;
 }	t_env;
 
 
@@ -68,5 +68,13 @@ void	ft_tokenize(const char *line);
 
 /*    parser.c    */
 void	ft_parse(t_tokens *tokens);
+
+//provisional structure for arguments to check the builtins
+
+typedef struct s_args
+{
+	char			*arg;
+	struct s_args	*next;
+}	t_args;
 
 #endif

@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/24 16:04:57 by kkoval            #+#    #+#             */
+/*   Updated: 2024/05/24 16:05:00 by kkoval           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
-#include "../../lib/libft/include/libft.h"
 
 //env shows all of the enviroment variables
 //STDOUT_FILENO is functionally equivalent to using the integer 1 directly
@@ -52,11 +63,13 @@ t_env	*start_env(char **env)
 			return (NULL);
 		while (env[i][k] !=)
 		{
-			aux->v_name = split0;
-			aux->v_cont = split1;
+			aux->v_name = split before =
+			aux->v_cont = split after =
 			new_env->next = aux;
 			i++;
 		}
 	}
 	return (new_env);
 }
+
+int	ft_()
