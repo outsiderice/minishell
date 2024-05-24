@@ -6,14 +6,11 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 09:34:18 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/23 16:07:02 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/05/24 16:06:12 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-#include "../../lib/libft/include/libft.h"
-#include <unistd.h>
-#include <stdio.h>
 
 /*  FT_PWD
 	This function should receive main struct as a parameter,
