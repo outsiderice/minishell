@@ -6,25 +6,34 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/24 15:58:59 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:41:20 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//ft_init_gen
+void	ft_init_ms(t_ms *ms, t_env *envlst)
+{
+
+	ms->env = envlst;
+	ms->tokens = NULL;
+	//ms->args = NULL;
+	//ms->pipes = NULL;
+	ms->exec_value = -1;
+	ms->sh_lvl = -1; //HOW?
+	ms->old_pwd = NULL;
+	ms->new_pwd = getcwd(NULL, 0);
+	ms->pid = getpid();
+}
 
 //starts readline loop
 //starts signals loop
 //inits gen struct
-void	ft_minishell(char **env)
+void	ft_minishell(t_ms *ms)
 {
 	char	*line;
 
-	(void)env; //delete when env dealt with
 	line = NULL;
-	//init gen
-	//copy to t-env env_list -- Kat
 	while (2)
 	{
 		line = ft_readline();
@@ -40,11 +49,13 @@ void	ft_minishell(char **env)
 //passes env to minishell
 int	main(int argc, char **argv, char **env)
 {
-	//char	**env_va;
+	t_ms	ms;
 
 	(void)argv;
 	if (argc != 1)
 		return (EXIT_FAILURE);
-	ft_minishell(env);
+	//ft_init_env;
+	ft_init_ms(&ms, env);
+	ft_minishell(&ms);
 	return (0);
 }

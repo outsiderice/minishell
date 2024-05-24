@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/24 16:15:07 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:20:23 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ typedef struct s_env
 
 /*    main.c    */
 void	ft_minishell(char **env);
+
+/*    environment.c   */		//to initialize t_env
+
+/*    signals.c    */
+
 
 /*    get_input.c    */
 char	*ft_readline(void);
