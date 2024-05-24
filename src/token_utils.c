@@ -6,14 +6,11 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:03:14 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/22 17:50:51 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:12:17 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokens.h"
-#include <stdlib.h>
-#include "../lib/libft/include/libft.h"
-#include <stdio.h> //for test printf, delete later
+#include "minishell.h"
 
 //adds a new token to the end of the list
 void	ft_tok_addback(t_tokens **tokens, t_tokens *new_tok)

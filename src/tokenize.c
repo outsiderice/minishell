@@ -6,14 +6,11 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/23 13:19:44 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:06:47 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokens.h"
-#include "../lib/libft/include/libft.h"
-#include <stdio.h> // for test printf
-#include "check_input.h"
+#include "minishell.h"
 
 //skips unquoted spaces and returns the len of spaces
 int	ft_space_len(const char *line)

@@ -6,21 +6,25 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/21 09:35:50 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:58:59 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "get_input.h"
-#include "check_input.h"
-#include "../lib/libft/include/libft.h"
 
+//ft_init_gen
+
+//starts readline loop
+//starts signals loop
+//inits gen struct
 void	ft_minishell(char **env)
 {
 	char	*line;
 
-	(void)env;
+	(void)env; //delete when env dealt with
 	line = NULL;
+	//init gen
+	//copy to t-env env_list -- Kat
 	while (2)
 	{
 		line = ft_readline();
@@ -30,8 +34,10 @@ void	ft_minishell(char **env)
 			ft_check_input((const char *)line);
 		free (line);
 	}
+	//start signals -	Kat
 }
 
+//passes env to minishell
 int	main(int argc, char **argv, char **env)
 {
 	//char	**env_va;

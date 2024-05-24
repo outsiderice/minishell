@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_input.h                                        :+:      :+:    :+:   */
+/*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/16 10:02:32 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/16 10:31:54 by amagnell         ###   ########.fr       */
+/*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
+/*   Updated: 2024/05/24 16:12:37 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_INPUT_H
-# define GET_INPUT_H
+#include "minishell.h"
 
-char	*ft_readline(void);
-
-#endif
+//find the $ which must be expanded
+//look for the value and substiute for what's found in env 
+//or an empty string if not found
+//remove quotes
+void	ft_expansion(t_tokens **tokens)
+{
+	//ft_find_dollars
+	//ft_removequotes
+	ft_parse();
+}
