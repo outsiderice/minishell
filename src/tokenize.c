@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/27 13:33:27 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:57:14 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@ int	ft_space_len(const char *line)
 	i = 0;
 	while (line[i] && (line[i] == ' ' || line[i] == '	'))
 		i++;
-	printf("space len is %d\n", i);
 	return (i);
 }
 
-//checks if it's <, <<, > or >> and saves it to the token struct
-//returns the len of the operator.
+//returns the len of the operator
 int	ft_isoperator(const char *line, t_tokens **tokens)
 {
 	int	i;
@@ -33,7 +31,6 @@ int	ft_isoperator(const char *line, t_tokens **tokens)
 	i = 1;
 	if (line[0] == line[1])
 		i = 2;
-	ft_addtok(&*line, i, tokens);
 	return (i);
 }
 
@@ -45,42 +42,49 @@ int	ft_isword(const char *line, t_tokens **tokens)
 	i = 0;
 	while (line[i] && ft_ismetachar(line[i]) == 0)
 		i++;
-	ft_addtok(&*line, i, tokens);
 	return (i);
 }
 
-//iterates input line and saves the tokens to the token struct
-void	ft_get_toks(const char *line, t_tokens **tokens)
+//gets the len of the token and stores it to the struct
+//returns the len of the latest token
+int	ft_get_toks(const char *line, t_tokens **tokens)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	while (line[i])
+	if (line[i] == '"' || line[i] == '\'')
 	{
-		if (line[i] == '"' || line[i] == '\'')
-		{
-			j = i;
-			i = i + ft_quote_len(&line[i], line[i]);
-			ft_addtok(&line[j], i - j, tokens);
-		}
-		else if (line[i] == ' ' || line[i] == '	')
-			i = i + ft_space_len(&line[i]);
-		else if (line[i] == '<' || line[i] == '>')
-			i = i + ft_isoperator(&line[i], tokens);
-		else
-			i = i + ft_isword(&line[i], tokens);
+		i = ft_quote_len(&line[i], line[i]);
+		ft_addtok(&line[0], i, tokens);
 	}
+	else if (ft_ismetachar(line[i]) == 2 || ft_ismetachar(line[i]) == 3)
+	{
+		i = ft_isoperator(&line[i], tokens);
+		ft_addtok(&line[0], i, tokens);
+	}
+	else
+	{
+		i = ft_isword(&line[i], tokens);
+		ft_addtok(&line[0], i, tokens);
+	}
+	return (i);
 }
 
-//separates each token into a node in list tokens and assigns a type
+//skips spaces and the rest gets stored as a token
 void	ft_tokenize(const char *line, t_ms *ms)
 {
-	t_tokens	*tokens;
+	t_tokens	*toks;
+	int			i;
 
-	tokens = NULL;
-	ft_get_toks(line, &tokens);
-	ms->tokens = tokens;
+	i = 0;
+	toks = NULL;
+	while (line[i])
+	{
+		if (ft_ismetachar(line[i]) < 4)
+			i = i + ft_get_toks(&line[i], toks);
+		else
+			i = i + ft_space_len(&line[i]);
+	}
+	ms->tokens = toks;
 	//ft_parse(tokens);
 }
