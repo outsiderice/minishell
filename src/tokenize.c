@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/24 16:48:30 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:33:27 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,12 @@ void	ft_get_toks(const char *line, t_tokens **tokens)
 }
 
 //separates each token into a node in list tokens and assigns a type
-void	ft_tokenize(const char *line)
+void	ft_tokenize(const char *line, t_ms *ms)
 {
 	t_tokens	*tokens;
 
 	tokens = NULL;
 	ft_get_toks(line, &tokens);
-	ft_parse(tokens);
+	ms->tokens = tokens;
+	//ft_parse(tokens);
 }

@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:03:14 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/27 13:00:07 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:02:58 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_addtok(const char *line, int len, t_tokens **tokens)
 		new_tok->type = 2;
 	else
 		new_tok->type = 1;
-	new_tok->token = ft_substr(line, 0, len);
+	new_tok->tok = ft_substr(line, 0, len);
 	new_tok->next = NULL;
 	if (*tokens == NULL)
 		*tokens = new_tok;
