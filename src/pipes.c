@@ -6,17 +6,11 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:57:54 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/27 17:20:09 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/27 18:54:22 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-ft_pipe_syntax()
-{
-    //check that there's things to both sides of the pipes 
-    //if not error
-}
 
 ft_pipes()
 {

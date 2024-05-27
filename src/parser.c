@@ -6,11 +6,20 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/27 17:27:42 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/27 19:00:28 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_pipe_syntax(t_tokens *tok)
+{
+	if (tok->type == 2)
+		printf("pipe syntax error\n");	//add proper error and nl
+	tok = tok->next;
+	if (tok->next == NULL || tok->next->type == 2)
+		printf("pipe syntax error\n");	//add proper error and nl
+}
 
 //ft_parse checks:
 //that there's tokens which are not '|' at both sides of a pipe
@@ -24,10 +33,10 @@ void	ft_parse(t_ms *ms)
 	current = ms->tokens;
 	while (current->next != NULL)
 	{
-		if (current->type == 2)
-			ft_pipe_syntax();
+		if (current->next->type == 2)
+			ft_pipe_syntax(&current);
 		if (current->type == 3)
-			ft_redir_syntax();
+			ft_redir_syntax(&current);
 		current = current->next;
 	}
 }
