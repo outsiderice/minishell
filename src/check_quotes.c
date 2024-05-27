@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:43:53 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/24 16:05:53 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:22:51 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	ft_quote_len(const char *line, char type)
 }
 
 //checks that there's no open quotes
-//after that calls tokenizer
 int	ft_check_quotes(const char *line)
 {
 	int	i;
@@ -42,13 +41,12 @@ int	ft_check_quotes(const char *line)
 	{
 		if (line[i] == '"' || line[i] == '\'')
 		{
-			if (qt_len = ft_quote_len(&line[i], line[i]) == -1)
+			if ((qt_len = ft_quote_len(&line[i], line[i])) == -1)
 				(printf("open quotes\n")); //change for ft_error and new prompt line
 			i = i + qt_len;
 		}
 		else
 			i++;
 	}
-	ft_tokenize(line);
 	return (0);
 }

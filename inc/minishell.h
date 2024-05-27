@@ -56,6 +56,18 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef	struct s_ms
+{
+	t_env		*env;
+	t_tokens	*tokens;
+	//t_args		*args;
+	//t_pipes		*pipes;
+	int			exec_value;
+	int			sh_lvl;
+	char		*new_pwd;
+	char		*old_pwd;
+	int			pid;
+}	t_ms;
 
 /*    main.c    */
 void	ft_minishell(t_ms *ms);
@@ -73,13 +85,17 @@ int		ft_check_quotes(const char *line);
 int		ft_quote_len(const char *line, char type);
 
 /*    tokenize.c    */
-void	ft_tokenize(const char *line);
+void	ft_tokenize(const char *line, t_ms *ms);
 // void		ft_get_toks(const char *line, t_tokens **tokens);
 // int		ft_isword(const char *line, t_tokens **tokens);
 // int		ft_isoperator(const char *line, t_tokens **tokens);
 
+/*    token_utils.c    */
+void	ft_addtok(const char *line, int len, int type, t_tokens **tokens);
+int		ft_ismetachar(char c);
+
 /*    parser.c    */
-void	ft_parse(t_tokens *tokens);
+void	ft_parse(t_ms *ms);
 
 //provisional structure for arguments to check the builtins
 
