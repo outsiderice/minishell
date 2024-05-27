@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:03:14 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/27 14:23:28 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:16:15 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_tok_addback(t_tokens **tokens, t_tokens *new_tok)
 }
 
 //adds a new token to the tokens list
-void	ft_addtok(const char *line, int len, t_tokens **tokens)
+void	ft_addtok(const char *line, int len, int type, t_tokens **tokens)
 {
 	t_tokens	*new_tok;
 
@@ -34,10 +34,7 @@ void	ft_addtok(const char *line, int len, t_tokens **tokens)
 		printf("bad malloc\n");
 		return ; //add proper protection later
 	}
-	if (ft_ismetachar(*line) == 3)
-		new_tok->type = 2;
-	else
-		new_tok->type = 1;
+	new_tok->type = type;
 	new_tok->tok = ft_substr(line, 0, len);
 	new_tok->next = NULL;
 	if (*tokens == NULL)
