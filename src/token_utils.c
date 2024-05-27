@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:03:14 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/24 16:12:17 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:00:07 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ int	ft_ismetachar(char c)
 {
 	if (c == '"' || c == '\'')
 		return (1);
-	if (c == ' ' || c == '	')
+	if (c == '|')
 		return (2);
-	if (c == '<' || c == '>')
+	if (c == ' ' || c == '	')
 		return (3);
+	if (c == '<' || c == '>')
+		return (4);
 	return (0);
 }
