@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/24 16:44:49 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:35:33 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <dirent.h>
 # include "../lib/readline/readline.h"
 # include "../lib/readline/history.h"
 # include "../lib/libft/include/libft.h"
@@ -26,7 +27,7 @@ typedef	struct s_ms
 {
 	t_env		*env;
 	t_tokens	*tokens;
-	//t_args		*args;
+	t_args		*args;
 	//t_pipes		*pipes;
 	int			exec_value;
 	int			sh_lvl;
@@ -34,6 +35,12 @@ typedef	struct s_ms
 	char		*old_pwd;
 	int			pid;
 }	t_ms;
+
+typedef struct s_args
+{
+	char			*arg;
+	struct s_args	*next;
+}	t_args;
 
 typedef struct s_tokens
 {
@@ -76,10 +83,6 @@ void	ft_parse(t_tokens *tokens);
 
 //provisional structure for arguments to check the builtins
 
-typedef struct s_args
-{
-	char			*arg;
-	struct s_args	*next;
-}	t_args;
+
 
 #endif
