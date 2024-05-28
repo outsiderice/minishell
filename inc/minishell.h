@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/27 17:35:33 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/05/28 11:31:35 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ void	ft_tokenize(const char *line, t_ms *ms);
 /*    token_utils.c    */
 void	ft_addtok(const char *line, int len, int type, t_tokens **tokens);
 int		ft_ismetachar(char c);
+
+/*    expand.c    */
+void	ft_expansion_check(t_ms *ms);
 
 /*    parser.c    */
 void	ft_parse(t_ms *ms);
