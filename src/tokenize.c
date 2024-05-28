@@ -6,20 +6,27 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/28 17:18:54 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:49:15 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//checks if the token after the latest can be appended to it
-//stores the token, simple or complex and returns token len
+//stores the token and it's type to the struct
+//returns the token len
 int	ft_complex_tok(const char *line)
 {
 	int i;
+	int	end;
 
 	i = 0;
-	printf("current char is %c\n", line[i]);
+	end = 0;
+	while (end == 0)
+	{
+		//goes until the end of the token
+		if (ft_ismetachar(line[i]) != 1 && ft_ismetachar(line[i]) != 0)
+			end = 1;
+	}
 	return (i);
 }
 
@@ -32,10 +39,7 @@ int	ft_get_tok(const char *line, t_tokens **tokens)
 
 	i = 0;
 	if (line[i] == '"' || line[i] == '\'')
-	{
-		i = ft_quote_len(&line[i], line[i]);
-		i = i + ft_complex_tok(&line[i]);
-	}
+		i = ft_complex_tok(&line[i]);
 	else if (ft_ismetachar(line[i]) == 2)
 	{
 		i = ft_isoperator(&line[i]);
@@ -47,10 +51,7 @@ int	ft_get_tok(const char *line, t_tokens **tokens)
 		ft_addtok(&line[0], i, 3, tokens);
 	}
 	else
-	{
-		i = ft_isword(&line[i]);
-		i = i + ft_complex_tok(&line[i]);
-	}
+		i = ft_complex_tok(&line[i]);
 	return (i);
 }
 
