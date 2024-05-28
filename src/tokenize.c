@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/27 15:41:20 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/28 11:17:26 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	ft_get_tok(const char *line, t_tokens **tokens)
 }
 
 //skips spaces and the rest gets stored as a token
+//calls for expansion check
+//and finally calls ft_parse
 void	ft_tokenize(const char *line, t_ms *ms)
 {
 	t_tokens	*toks;
@@ -91,5 +93,6 @@ void	ft_tokenize(const char *line, t_ms *ms)
 			i = i + ft_space_len(&line[i]);
 	}
 	ms->tokens = toks;
+	ft_expansion_check(ms);
 	ft_parse(ms);
 }
