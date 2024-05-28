@@ -22,7 +22,7 @@ int	ft_echo(t_args *args)
 	if (args == NULL)
 		ft_putchar_fd("\n", STDOUT_FILENO);
 	else if (!ft_strncmp(args->arg, "-n", 2) && ft_strlen(args->arg) == 2)
-		ft_print_args(args);
+		ft_print_args(args->next);
 	else if (args != NULL)
 	{	
 		ft_print_args(args);
@@ -37,6 +37,8 @@ void	ft_print_args(t_args *args)
 	{
 		ft_putstr_fd(args->arg, STDOUT_FILENO);
 		args = args->next;
+		if (args != NULL)
+			ft_putchar_fd(' ', STDOUT_FILENO);
 	}
 }
 
