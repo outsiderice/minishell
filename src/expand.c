@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/28 11:28:32 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/28 11:41:04 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,14 @@
 //	when a dollar sign is found calls an expansion function
 void	ft_expansion_check(t_ms *ms)
 {
-	
+	t_tokens	*current;
+
+	current = ms->tokens;
+	while (current->next != NULL)
+	{
+		if (current->type == 0 || (current->type == 1 && current->tok[0] == '"'))
+			if (ft_strrchr(current->tok, '$') == '$')
+				ft_expand();
+		current = current->next;
+	}
 }
