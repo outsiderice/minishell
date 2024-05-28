@@ -6,44 +6,13 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/28 16:46:53 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:03:55 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//skips unquoted spaces and returns the len of spaces
-int	ft_space_len(const char *line)
-{
-	int	i;
 
-	i = 0;
-	while (line[i] && (line[i] == ' ' || line[i] == '	'))
-		i++;
-	return (i);
-}
-
-//returns the len of the operator
-int	ft_isoperator(const char *line)
-{
-	int	i;
-
-	i = 1;
-	if (line[0] == line[1])
-		i = 2;
-	return (i);
-}
-
-//returns the len of the word
-int	ft_isword(const char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && ft_ismetachar(line[i]) == 0)
-		i++;
-	return (i);
-}
 
 //gets the len and type of the token and stores it to the struct
 //when a token could be complex it delegates to ft_complex_token
