@@ -8,3 +8,5 @@ lib/readline/config.log
 *.dylib
 minishell
 .vscode/settings.json
+infile
+outfile
