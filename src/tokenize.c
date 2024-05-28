@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/28 17:49:15 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:53:57 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int	ft_complex_tok(const char *line)
 	end = 0;
 	while (end == 0)
 	{
-		//goes until the end of the token
+		if (ft_ismetachar(line[i]) == 1)
+			i = ft_quote_len(&line[i], line[i]);
+		else
+			i = ft_isword(&line[i]);
 		if (ft_ismetachar(line[i]) != 1 && ft_ismetachar(line[i]) != 0)
 			end = 1;
 	}
