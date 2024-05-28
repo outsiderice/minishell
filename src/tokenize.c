@@ -6,13 +6,22 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/28 17:03:55 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:18:54 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+//checks if the token after the latest can be appended to it
+//stores the token, simple or complex and returns token len
+int	ft_complex_tok(const char *line)
+{
+	int i;
 
+	i = 0;
+	printf("current char is %c\n", line[i]);
+	return (i);
+}
 
 //gets the len and type of the token and stores it to the struct
 //when a token could be complex it delegates to ft_complex_token
@@ -25,7 +34,7 @@ int	ft_get_tok(const char *line, t_tokens **tokens)
 	if (line[i] == '"' || line[i] == '\'')
 	{
 		i = ft_quote_len(&line[i], line[i]);
-		i = ft_complex_token(&line[i]);
+		i = i + ft_complex_tok(&line[i]);
 	}
 	else if (ft_ismetachar(line[i]) == 2)
 	{
@@ -40,7 +49,7 @@ int	ft_get_tok(const char *line, t_tokens **tokens)
 	else
 	{
 		i = ft_isword(&line[i]);
-		i = ft_complex_token(&line[i]);
+		i = i + ft_complex_tok(&line[i]);
 	}
 	return (i);
 }
@@ -63,6 +72,6 @@ void	ft_tokenize(const char *line, t_ms *ms)
 			i = i + ft_space_len(&line[i]);
 	}
 	ms->tokens = toks;
-	ft_expansion_check(ms);
-	ft_parse(ms);
+	// ft_expansion_check(ms);
+	// ft_parse(ms);
 }

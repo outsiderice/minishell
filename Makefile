@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/05/27 13:21:54 by amagnell         ###   ########.fr        #
+#    Updated: 2024/05/28 17:24:05 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ SRCS 		=	src/main.c \
 				src/get_input.c \
 				src/check_quotes.c \
 				src/tokenize.c \
-				src/token_utils.c
+				src/token_utils.c \
+				src/tokens_lst_utils.c
 
 BUILD_DIR 	=	.build
 OBJS		=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)

@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/28 17:07:52 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:21:02 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void	ft_tokenize(const char *line, t_ms *ms);
 
 /*    token_utils.c    */
 int		ft_ismetachar(char c);
-//int	ft_space_len(const char *line)
-// int		ft_isoperator(const char *line, t_tokens **tokens);
-// int		ft_isword(const char *line, t_tokens **tokens);
+int		ft_space_len(const char *line);
+int		ft_isoperator(const char *line);
+int		ft_isword(const char *line);
 
 
 /*    tokens_lst_utils.c    */
