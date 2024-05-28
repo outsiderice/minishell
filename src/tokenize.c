@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/28 16:02:56 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:46:53 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	ft_isword(const char *line)
 }
 
 //gets the len and type of the token and stores it to the struct
+//when a token could be complex it delegates to ft_complex_token
 //returns the len of the latest token
 int	ft_get_tok(const char *line, t_tokens **tokens)
 {
@@ -55,7 +56,7 @@ int	ft_get_tok(const char *line, t_tokens **tokens)
 	if (line[i] == '"' || line[i] == '\'')
 	{
 		i = ft_quote_len(&line[i], line[i]);
-		ft_addtok(&line[0], i, 1, tokens);
+		i = ft_complex_token(&line[i]);
 	}
 	else if (ft_ismetachar(line[i]) == 2)
 	{
@@ -70,7 +71,7 @@ int	ft_get_tok(const char *line, t_tokens **tokens)
 	else
 	{
 		i = ft_isword(&line[i]);
-		ft_addtok(&line[0], i, 0, tokens);
+		i = ft_complex_token(&line[i]);
 	}
 	return (i);
 }

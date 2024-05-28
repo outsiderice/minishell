@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:03:14 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/28 12:59:04 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:56:03 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ int	ft_ismetachar(char c)
 	if (c == '<' || c == '>')
 		return (3);
 	if (c == ' ' || c == '	')
-		return (4);
+		return (4);  // :D Blai has been here - pedra
 	return (0);
 }
