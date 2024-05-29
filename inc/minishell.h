@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/28 17:21:02 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/29 16:06:06 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 # include "../lib/libft/include/libft.h"
 
 /*    STRUCTURES    */
+//type 0 = word, quoted or unquoted
+//type 1 = unused in this version, originally quoted word
+//type 2 = operator, a pipe
+//type 3 = operator, a redirection
 typedef struct s_tokens
 {
 	int				type;

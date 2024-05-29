@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/28 17:53:57 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/29 16:00:38 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //stores the token and it's type to the struct
 //returns the token len
-int	ft_complex_tok(const char *line)
+int	ft_complex_tok(const char *line, t_tokens **tokens)
 {
 	int i;
 	int	end;
@@ -30,6 +30,7 @@ int	ft_complex_tok(const char *line)
 		if (ft_ismetachar(line[i]) != 1 && ft_ismetachar(line[i]) != 0)
 			end = 1;
 	}
+	ft_addtok(&line[0], i, 0, tokens);
 	return (i);
 }
 
@@ -42,7 +43,7 @@ int	ft_get_tok(const char *line, t_tokens **tokens)
 
 	i = 0;
 	if (line[i] == '"' || line[i] == '\'')
-		i = ft_complex_tok(&line[i]);
+		i = ft_complex_tok(&line[i], tokens);
 	else if (ft_ismetachar(line[i]) == 2)
 	{
 		i = ft_isoperator(&line[i]);
@@ -54,7 +55,7 @@ int	ft_get_tok(const char *line, t_tokens **tokens)
 		ft_addtok(&line[0], i, 3, tokens);
 	}
 	else
-		i = ft_complex_tok(&line[i]);
+		i = ft_complex_tok(&line[i], tokens);
 	return (i);
 }
 
@@ -76,6 +77,5 @@ void	ft_tokenize(const char *line, t_ms *ms)
 			i = i + ft_space_len(&line[i]);
 	}
 	ms->tokens = toks;
-	// ft_expansion_check(ms);
 	// ft_parse(ms);
 }
