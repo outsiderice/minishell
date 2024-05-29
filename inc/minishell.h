@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/29 16:06:06 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/29 16:31:37 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-typedef	struct s_ms
+typedef struct s_ms
 {
 	t_env		*env;
 	t_tokens	*tokens;
@@ -60,7 +60,6 @@ void	ft_minishell(t_ms *ms);
 
 /*    signals.c    */
 
-
 /*    get_input.c    */
 char	*ft_readline(void);
 
@@ -78,16 +77,18 @@ int		ft_space_len(const char *line);
 int		ft_isoperator(const char *line);
 int		ft_isword(const char *line);
 
-
 /*    tokens_lst_utils.c    */
 void	ft_addtok(const char *line, int len, int type, t_tokens **tokens);
 // void	ft_tok_addback(t_tokens **tokens, t_tokens *new_tok);
 
+/*    parser.c    */
+void	ft_parse(t_ms *ms);
+
 /*    expand.c    */
 void	ft_expansion_check(t_ms *ms);
 
-/*    parser.c    */
-void	ft_parse(t_ms *ms);
+/*    execution.c    */
+void    exeggutor(t_ms *ms);
 
 //provisional structure for arguments to check the builtins
 

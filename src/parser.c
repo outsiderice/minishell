@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/28 15:37:40 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/29 16:29:07 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ void	ft_parse(t_ms *ms)
 			ft_redir_syntax(&current);
 		current = current->next;
 	}
+	exeggutor(ms);
 }
