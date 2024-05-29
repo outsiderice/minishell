@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/29 17:43:25 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:59:34 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_ms
 {
 	t_env		*env;
 	t_tokens	*tokens;
-	//t_args		*args;
+	t_args		*args;
 	//t_pipes		*pipes;
 	int			exec_value;
 	int			sh_lvl;

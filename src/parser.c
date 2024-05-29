@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/29 16:29:07 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/29 18:15:53 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ void	ft_redir_syntax(t_tokens *tok)
 //ft_parse checks:
 //that there's tokens which are not '|' at both sides of a pipe
 //that there's a word type token after a redirection << >> > <
+//calls function to fill args
 //if the both are true it will go on to execution
 void	ft_parse(t_ms *ms)
 {
 	t_tokens	*current;
 	
-	current = ms->tokens;
+	current = ms->tokens; 
 	while (current->next != NULL)
 	{
 		if (current->next->type == 2)
@@ -47,5 +48,6 @@ void	ft_parse(t_ms *ms)
 			ft_redir_syntax(&current);
 		current = current->next;
 	}
+	//fill args
 	exeggutor(ms);
 }
