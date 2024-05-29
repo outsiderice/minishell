@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/05/27 17:55:38 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/05/29 16:51:57 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	handle_builtins(t_ms *ms) //probably has to be **msh to do exil propery and 
 	//possible exit_status variable
 	if (ms->args == NULL) // only stays here to check bad redirection
 		printf("YOU SHALL NOT PASS TO BUILTINS, without builtin commands\n");
-	if (!ft_strncmp(ms->args->arg, "echo", 4) && ft_strlen(ms->args->arg) == 4)
+	else if (!ft_strncmp(ms->args->arg, "echo", 4) && ft_strlen(ms->args->arg) == 4)
 		ms->exec_value = ft_echo(ms->args->next);
 	if (!ft_strncmp(ms->args->arg, "pwd", 3) && ft_strlen(ms->args->arg) == 3)
 		ms->exec_value = ft_pwd();
@@ -58,6 +58,7 @@ int	handle_builtins(t_ms *ms) //probably has to be **msh to do exil propery and 
 	else 
 		return (-1); //for now, error handelling;
 }
+
 
 /* TODO
 	- free the first argument as we pass it to builtin? 

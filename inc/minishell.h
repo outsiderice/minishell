@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/29 16:40:30 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:43:25 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ typedef struct s_env
 	char			*v_cont;
 	struct s_env	*next;
 }	t_env;
+
+typedef struct s_args
+{
+	char			*arg;
+	struct s_args	*next;
+}	t_args;
 
 typedef struct s_ms
 {
@@ -90,6 +96,9 @@ void	ft_expansion_check(t_ms *ms);
 
 /*    execution.c    */
 void    exeggutor(t_ms *ms);
+
+/*    builtins_utils.c    */
+int ft_str_compare(char *str1, char *str2);
 
 //provisional structure for arguments to check the builtins
 

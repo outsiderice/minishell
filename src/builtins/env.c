@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:04:57 by kkoval            #+#    #+#             */
-/*   Updated: 2024/05/27 18:08:41 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/05/29 17:37:59 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	ft_env(t_env *env_list) //linked structure,
 		ft_putendl_fd(env_list->v_cont, STDOUT_FILENO);
 		env_list = env_list->next;
 	}
+	ms->exit_value = 0;
 	return (EXIT_SUCCESS); // macro variable that equals 0
 }
 
