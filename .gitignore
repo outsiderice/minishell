@@ -10,3 +10,4 @@ minishell
 .vscode/settings.json
 infile
 outfile
+src/builtins/a.out

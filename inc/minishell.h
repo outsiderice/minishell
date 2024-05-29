@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/29 16:31:37 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/29 16:40:30 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <dirent.h>
 # include "../lib/readline/readline.h"
 # include "../lib/readline/history.h"
 # include "../lib/libft/include/libft.h"
@@ -92,10 +93,6 @@ void    exeggutor(t_ms *ms);
 
 //provisional structure for arguments to check the builtins
 
-typedef struct s_args
-{
-	char			*arg;
-	struct s_args	*next;
-}	t_args;
+
 
 #endif

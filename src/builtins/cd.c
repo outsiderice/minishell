@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:04:18 by kkoval            #+#    #+#             */
-/*   Updated: 2024/05/24 16:04:27 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/05/27 17:50:57 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,46 @@
 	4. How far can we cd back? -- Should not cd more that to \
 */
 
+//To list the directories (or files) 
+//in a directory in C, you can use the POSIX opendir, readdir, and closedir functions, which are part of the dirent.h
 
-void	ft_cd(t_struct *m_sh) // this is an imaginary structure
+
+int	ft_cd(t_struct *ms, t_args args)
 {
 	char	*path; // line that will retain the path to go
 
 	path = NULL;
+	if (args == NULL)
+		return (ft_cd_no_arg(ms));
+	// if argument is = . should give error because the permission is denied -> check access
+	else 
+	{
+
+
+	}	
+	if (pwd != NULL)
+	{
+		ft_putendl_fd(pwd, STDOUT_FILENO);
+		free(pwd);
+		return (0); //or save exit status in mini_shell->exit_status = 0;
+	}
 	if (m_sh->comand_arg > 2) // args control;  
 		retunr(printf("error message, too many arguments\n")); // adjust the message
 	
 }
+
+int	ft_cd_no_arg(t_struct *ms)
+{
+	char	*path;
+
+	path = getcwd(NULL, 0);
+	if (!path)
+		return (1);
+	// if old_pwd is not NULL, should we free it first?
+	ms->old_pwd = *path; // should it be malloc instead?
+	free(path);
+	return (0);
+} 
 
 
 
