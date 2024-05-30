@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/27 19:10:12 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/30 12:52:21 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,30 @@ void	ft_pipe_syntax(t_tokens *tok)
 //if the token next to a redirection is not a word (type 0) give an error and nl
 void	ft_redir_syntax(t_tokens *tok)
 {
-	if (tok->next == NULL || tok->next->type != 0) //expansion needs to be before this
+	if (tok->next == NULL || (tok->next->type != 0 && tok->next->type != 1))
 		printf("redir syntax error\n"); //add proper error and nl
+}
+
+void	ft_get_args(t_ms *ms)
+{
+	while (ms->tokens->type != 2)
+	{
+		//make arg_arr
+		//if ms->tokens->type == 3
+			//set_redir() get input and output fd
+	}
 }
 
 //ft_parse checks:
 //that there's tokens which are not '|' at both sides of a pipe
 //that there's a word type token after a redirection << >> > <
-//if the both are true it will go on to execution
+//if the first two are true:
+//it will check if there's anything to expand, get_args and then call execution
 void	ft_parse(t_ms *ms)
 {
 	t_tokens	*current;
 	
-	current = ms->tokens;
+	current = ms->tokens; 
 	while (current->next != NULL)
 	{
 		if (current->next->type == 2)
@@ -47,4 +58,7 @@ void	ft_parse(t_ms *ms)
 			ft_redir_syntax(&current);
 		current = current->next;
 	}
+	//ft_expansion_check();
+	ft_get_args(ms);
+	exeggutor(ms);
 }
