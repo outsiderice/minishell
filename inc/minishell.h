@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/29 17:59:34 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/30 12:02:18 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ typedef struct s_env
 
 typedef struct s_args
 {
-	char			*arg;
+	int				input;
+	int				output;
+	int				argc;
+	char			**argv;
 	struct s_args	*next;
 }	t_args;
 
@@ -52,7 +55,7 @@ typedef struct s_ms
 	t_env		*env;
 	t_tokens	*tokens;
 	t_args		*args;
-	//t_pipes		*pipes;
+	char		**envp;
 	int			exec_value;
 	int			sh_lvl;
 	char		*new_pwd;
