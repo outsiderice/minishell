@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/30 11:28:10 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/05/30 12:52:21 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,15 @@ void	ft_redir_syntax(t_tokens *tok)
 		printf("redir syntax error\n"); //add proper error and nl
 }
 
-void	ft_get_args()
-{}
+void	ft_get_args(t_ms *ms)
+{
+	while (ms->tokens->type != 2)
+	{
+		//make arg_arr
+		//if ms->tokens->type == 3
+			//set_redir() get input and output fd
+	}
+}
 
 //ft_parse checks:
 //that there's tokens which are not '|' at both sides of a pipe
@@ -52,6 +59,6 @@ void	ft_parse(t_ms *ms)
 		current = current->next;
 	}
 	//ft_expansion_check();
-	ft_get_args();
+	ft_get_args(ms);
 	exeggutor(ms);
 }
