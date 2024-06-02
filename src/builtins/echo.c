@@ -17,7 +17,7 @@
 // echo -n with with no arguments just shows the next line
 // how to check for unexpected error for 1
 
-int	ft_echo(t_args *args)
+int	ft_echo(t_args **args)
 {
 	if (args == NULL)
 		ft_putchar_fd("\n", STDOUT_FILENO);
