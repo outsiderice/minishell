@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/30 12:02:18 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/02 13:17:56 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 /*    STRUCTURES    */
 //type 0 = word, quoted or unquoted
-//type 1 = unused in this version, originally quoted word
+//type 1 = filename preceded by a redirection
 //type 2 = operator, a pipe
 //type 3 = operator, a redirection
 typedef struct s_tokens
@@ -98,7 +98,7 @@ void	ft_parse(t_ms *ms);
 void	ft_expansion_check(t_ms *ms);
 
 /*    execution.c    */
-void    exeggutor(t_ms *ms);
+void	exeggutor(t_ms *ms);
 
 /*    builtins_utils.c    */
 int ft_str_compare(char *str1, char *str2);
