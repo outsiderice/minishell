@@ -6,19 +6,18 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/27 13:21:24 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/02 15:26:05 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_init_ms(t_ms *ms/*, t_env *envlst*/)
+void	ft_init_ms(t_ms *ms)
 {
 
-	//ms->env = envlst;
+	ms->env = NULL;
 	ms->tokens = NULL;
 	//ms->args = NULL;
-	//ms->pipes = NULL;
 	ms->exec_value = -1;
 	ms->sh_lvl = -1; //HOW?
 	ms->old_pwd = NULL;
@@ -50,16 +49,37 @@ void	ft_minishell(t_ms *ms)
 }
 
 //passes env to minishell
-int	main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **envp)
 {
 	t_ms	ms;
+	t_env	*first;
 
 	(void)argv;
-	(void)env;
 	if (argc != 1)
 		return (EXIT_FAILURE);
-	//ft_init_env;
-	ft_init_ms(&ms/*, env*/);
+	ft_init_ms(&ms);
+	// while (*envp)
+	// {
+	// 	printf("%s\n", *envp);
+	// 	envp++;
+	// }
+	// printf("\n\n\n");
+	ms.env = start_env(envp);
+	first = ms.env;
+	while (ms.env != NULL)
+	{
+		printf("%s", ms.env->v_name);
+		printf("=");
+		printf("%s\n", ms.env->v_cont);
+		ms.env = ms.env->next;
+	}
+	printf("\n\n\n");
+	ms.envp = ft_list_to_array(first);
+	while (*ms.envp)
+	{
+		printf("%s\n", *ms.envp);
+		ms.envp++;
+	}
 	ft_minishell(&ms);
 	return (0);
 }

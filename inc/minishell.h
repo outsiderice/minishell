@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/30 12:02:18 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/02 15:08:04 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <dirent.h>
-//# include "../lib/readline/readline.h"
-//# include "../lib/readline/history.h"
+# include "../lib/readline/readline.h"
+# include "../lib/readline/history.h"
 # include "../lib/libft/include/libft.h"
 
 /*    STRUCTURES    */
@@ -67,6 +67,8 @@ typedef struct s_ms
 void	ft_minishell(t_ms *ms);
 
 /*    environment.c   */		//to initialize t_env
+t_env	*start_env(char **env_p);
+char 	**ft_list_to_array(t_env *env);
 
 /*    signals.c    */
 

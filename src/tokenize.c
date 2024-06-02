@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/29 16:15:39 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/02 15:11:24 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ void	ft_tokenize(const char *line, t_ms *ms)
 			i = i + ft_space_len(&line[i]);
 	}
 	ms->tokens = toks;
-	ft_parse(ms);
+	// ft_parse(ms);
 }
