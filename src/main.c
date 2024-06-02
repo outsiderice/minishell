@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/02 15:26:05 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/02 15:27:49 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,34 +52,12 @@ void	ft_minishell(t_ms *ms)
 int	main(int argc, char **argv, char **envp)
 {
 	t_ms	ms;
-	t_env	*first;
 
 	(void)argv;
 	if (argc != 1)
 		return (EXIT_FAILURE);
 	ft_init_ms(&ms);
-	// while (*envp)
-	// {
-	// 	printf("%s\n", *envp);
-	// 	envp++;
-	// }
-	// printf("\n\n\n");
 	ms.env = start_env(envp);
-	first = ms.env;
-	while (ms.env != NULL)
-	{
-		printf("%s", ms.env->v_name);
-		printf("=");
-		printf("%s\n", ms.env->v_cont);
-		ms.env = ms.env->next;
-	}
-	printf("\n\n\n");
-	ms.envp = ft_list_to_array(first);
-	while (*ms.envp)
-	{
-		printf("%s\n", *ms.envp);
-		ms.envp++;
-	}
 	ft_minishell(&ms);
 	return (0);
 }
