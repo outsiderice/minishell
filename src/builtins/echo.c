@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:22:05 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/27 16:22:57 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/02 18:11:53 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@
 // echo -n with with no arguments just shows the next line
 // how to check for unexpected error for 1
 
-int	ft_echo(t_args **args)
+int	ft_echo(char **args)
 {
-	if (args == NULL)
+	int	i;
+
+	i = 1;
+	if (*args == NULL)
 		ft_putchar_fd("\n", STDOUT_FILENO);
-	else if (!ft_strncmp(args->arg, "-n", 2) && ft_strlen(args->arg) == 2)
-		ft_print_args(args->next);
+	else if (ft_str_compare(*args, "-n") == 0)
+		ft_print_args(args[i++]);
 	else if (args != NULL)
 	{	
 		ft_print_args(args);
@@ -31,12 +34,12 @@ int	ft_echo(t_args **args)
 	return (0);
 }
 
-void	ft_print_args(t_args *args)
+void	ft_print_args(char *args)
 {
 	while (args != NULL)
 	{
-		ft_putstr_fd(args->arg, STDOUT_FILENO);
-		args = args->next;
+		ft_putstr_fd(args, STDOUT_FILENO);
+		args++;
 		if (args != NULL)
 			ft_putchar_fd(' ', STDOUT_FILENO);
 	}
