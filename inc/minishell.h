@@ -18,8 +18,8 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <dirent.h>
-# include "../lib/readline/readline.h"
-# include "../lib/readline/history.h"
+//# include "../lib/readline/readline.h"
+//# include "../lib/readline/history.h"
 # include "../lib/libft/include/libft.h"
 
 /*    STRUCTURES    */

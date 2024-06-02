@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:05:17 by kkoval            #+#    #+#             */
-/*   Updated: 2024/05/24 16:05:20 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/05/29 16:00:15 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 		declare -x HOME="/Users/kate"
 		declare -x HOMEBREW_CELLAR="/opt/homebrew/Cellar"
 		etc...
+	4. How to handle single quotation - A LOT OF FUN TO HANDLE
 */
 
 /*A parameter is an entity that stores values. It can be a name, a number, or one of the special characters listed below. A variable is a parameter denoted by a name. 

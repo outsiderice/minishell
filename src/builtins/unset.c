@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:45:00 by kkoval            #+#    #+#             */
-/*   Updated: 2024/05/30 14:48:47 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/02 13:20:01 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,3 +46,4 @@ int ft_unset(t_env **env, t_args *args)
 		args = args->next;
     }
 }
+
