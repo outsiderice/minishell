@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 09:34:18 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/24 16:06:12 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/05/27 16:23:47 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_pwd(void)
 	else
 	{
 		printf("error pwd");// handle better this error, maybe perror?
-		return (1); //or save exit status in mini_shell->exit_status = 1;
+		return (1);
 	}
 }
 
