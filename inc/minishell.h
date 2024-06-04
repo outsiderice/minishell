@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/27 15:12:40 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/02 15:08:04 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,16 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <dirent.h>
 # include "../lib/readline/readline.h"
 # include "../lib/readline/history.h"
 # include "../lib/libft/include/libft.h"
 
 /*    STRUCTURES    */
+//type 0 = word, quoted or unquoted
+//type 1 = filename preceded by a redirection
+//type 2 = operator, a pipe
+//type 3 = operator, a redirection
 typedef struct s_tokens
 {
 	int				type;
@@ -36,12 +41,21 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-typedef	struct s_ms
+typedef struct s_args
+{
+	int				input;
+	int				output;
+	int				argc;
+	char			**argv;
+	struct s_args	*next;
+}	t_args;
+
+typedef struct s_ms
 {
 	t_env		*env;
 	t_tokens	*tokens;
-	//t_args		*args;
-	//t_pipes		*pipes;
+	t_args		*args;
+	char		**envp;
 	int			exec_value;
 	int			sh_lvl;
 	char		*new_pwd;
@@ -53,9 +67,10 @@ typedef	struct s_ms
 void	ft_minishell(t_ms *ms);
 
 /*    environment.c   */		//to initialize t_env
+t_env	*start_env(char **env_p);
+char 	**ft_list_to_array(t_env *env);
 
 /*    signals.c    */
-
 
 /*    get_input.c    */
 char	*ft_readline(void);
@@ -67,22 +82,31 @@ int		ft_quote_len(const char *line, char type);
 /*    tokenize.c    */
 void	ft_tokenize(const char *line, t_ms *ms);
 // void		ft_get_toks(const char *line, t_tokens **tokens);
-// int		ft_isword(const char *line, t_tokens **tokens);
-// int		ft_isoperator(const char *line, t_tokens **tokens);
 
 /*    token_utils.c    */
-void	ft_addtok(const char *line, int len, int type, t_tokens **tokens);
 int		ft_ismetachar(char c);
+int		ft_space_len(const char *line);
+int		ft_isoperator(const char *line);
+int		ft_isword(const char *line);
+
+/*    tokens_lst_utils.c    */
+void	ft_addtok(const char *line, int len, int type, t_tokens **tokens);
+// void	ft_tok_addback(t_tokens **tokens, t_tokens *new_tok);
 
 /*    parser.c    */
-void	ft_parse(t_tokens *tokens);
+void	ft_parse(t_ms *ms);
+
+/*    expand.c    */
+void	ft_expansion_check(t_ms *ms);
+
+/*    execution.c    */
+void	exeggutor(t_ms *ms);
+
+/*    builtins_utils.c    */
+int ft_str_compare(char *str1, char *str2);
 
 //provisional structure for arguments to check the builtins
 
-typedef struct s_args
-{
-	char			*arg;
-	struct s_args	*next;
-}	t_args;
+
 
 #endif

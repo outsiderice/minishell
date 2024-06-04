@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/05/24 16:04:44 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/05/29 16:51:57 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,44 +22,70 @@
 // 0 success, 1 unexplained fail 2 missuse of shell commands
 //Case incensitive will accept pwd, PWD, pwD etc..
 
+typedef	struct s_ms
+{
+	t_env		*env;
+	t_tokens	*tokens;
+	t_args		*args;
+	//t_pipes		*pipes;
+	int			exec_value;
+	int			sh_lvl;
+	char		*new_pwd;
+	char		*old_pwd;
+	int			pid;
+}	t_ms;
+
+typedef struct s_args
+{
+	int				input;
+	int				output;
+	int				argc;
+	char			**argv;
+	struct s_args	*next;
+}	t_args;
 
 //this function has to return some sort of value for control check purposes or not :)
-int	handle_builtins(t_env *env_list, t_args *args_list) //probably has to be **args_list to free properly after use
+int	handle_builtins(t_ms *ms) //probably has to be **msh to do exil propery and equal pointer to null
 {
-	//possible exit_status variable
-	if (args_list == NULL) // only stays here to check bad redirection
-		printf("YOU SHALL NOT PASS TO BUILTINS, without builtin commans\n");
-	if (!ft_strncmp(args_list->arg, "echo", 4) && ft_strlen(args_list->arg) == 4)
-		return ft_echo(args_list->next); // we send the next arg with is either the extension or the string or nothing to print
-	else if (!ft_strncmp(args_list->arg, "pwd", 3) && ft_strlen(args_list->arg) == 3)
-		return (ft_pwd());
-	else if (!ft_strncmp(args_list->arg, "cd", 2) && ft_strlen(args_list->arg) == 2)
-		return (ft_cd(env_list, args_list));
-	else if (!ft_strncmp(args_list->arg, "env", 3) && ft_strlen(args_list->arg) == 3)
-		ft_env(env_list);
-	else if (!ft_strncmp(args_list->arg, "export", 6) && ft_strlen(args_list->arg) == 6)
-		ft_cd();
-	else if (!ft_strncmp(args_list->arg, "unset", 5) && ft_strlen(args_list->arg) == 5)
-		return (ft_unset(env_list, args_list)); //probably the &env_list
-	else if (!ft_strncmp(args_list->arg, "exit", 4) && ft_strlen(args_list->arg) == 4)
-		return (ft_exit()); // for now void, the final aim is to have all of allocated memory passed to the function
+	char **b_args;
+
+	b_args = ms->args->argv; 
+	if (ms->args == NULL) // only stays here to check bad redirection
+		printf("YOU SHALL NOT PASS TO BUILTINS, without builtin commands\n");
+
+
+	else if (ft_str_compare(ms->args->argv[0], "echo") == 0)
+		ms->exec_value = ft_echo(ms->args->argv[1]);
+
+
+	else if (ft_str_compare(ms->args->argv[0], "pwd") == 0)
+		ms->exec_value = ft_pwd();
+
+
+	else if (ft_str_compare(ms->args->argv[0], "cd") == 0)
+		ms->exec_value = ft_cd(ms, ms->args->argv[]); // to complete 
+
+
+	else if (!ft_strncmp(ms->args->arg, "env", 3) && ft_strlen(ms->args->arg) == 3)
+		ms->exec_value = ft_env(ms->env); //done, but needs checker
+
+
+	else if (!ft_strncmp(ms->args->arg, "export", 6) && ft_strlen(ms->args->arg) == 6)
+		ms->exec_value(ft_export()); 
+
+
+	else if (!ft_strncmp(ms->args->arg, "unset", 5) && ft_strlen(ms->args->arg) == 5)
+		ms->exec_value(ft_unset(ms->env, ms->args)); //probably the &env_list
+
+
+	else if (!ft_strncmp(ms->args->arg, "exit", 4) && ft_strlen(ms->args->arg) == 4)
+		ms->exec_value(ft_exit()); // for now void, the final aim is to have all of allocated memory passed to the function
 	else 
-		return (-1) //for now, error handelling;
+		return (-1); //for now, error handelling;
 }
 
 
-//free args
-/*
-ft_buliting(t_tokens **tokens)
-{
-    t_tokens *current;
-
-    if (current->token ftstrncompare(echo) && strlen)
-    ft_echo
-    {
-        *current
-
-
-    }
-}
+/* TODO
+	- free the first argument as we pass it to builtin? 
+	- gestionar return y exec_value
 */
