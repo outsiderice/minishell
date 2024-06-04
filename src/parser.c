@@ -24,10 +24,13 @@ void	ft_pipe_syntax(t_tokens *tok)
 }
 
 //if the token next to a redirection is not a word (type 0) give an error and nl
+//if the following token is type 0 changes it's type from 0 to 1 (filename)
 void	ft_redir_syntax(t_tokens *tok)
 {
 	if (tok->next == NULL || (tok->next->type != 0 && tok->next->type != 1))
 		printf("redir syntax error\n"); //add proper error and nl
+	else
+		tok->next->type = 1;
 }
 
 void	ft_get_args(t_ms *ms)
