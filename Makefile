@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/06/02 15:12:03 by amagnell         ###   ########.fr        #
+#    Updated: 2024/06/06 12:47:01 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,10 @@ NAME = minishell
 #-------------------------------------------#
 LIBS		=	ft readline termcap
 LIBFT_DIR	=	lib/libft
-RDLINE_DIR	=	lib/readline
+ReDLINE_DIR	=	lib/readline
 LIBFT		=	lib/libft/libft.a
-RDLINE		=	lib/readline/libreadline.a
-RDLINEHIS	=	lib/readline/libhistory.a
+ReDLINE		=	lib/readline/libreadline.a
+ReDLINEHIS	=	lib/readline/libhistory.a
 LIBS_TARGET	=	$(LIBFT) $(RDLINE) $(RDLINEHIS)
 
 INCS		=	inc	\
@@ -37,7 +37,7 @@ SRCS 		=	src/main.c \
 				src/token_utils.c \
 				src/tokens_lst_utils.c \
 				src/handle_env.c \
-				# src/parser.c
+				src/parser.c
 
 BUILD_DIR 	=	.build
 OBJS		=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
@@ -59,7 +59,7 @@ DIR_DUP		=	mkdir -p $(@D)
 #-------------------------------------------#
 #	RECIPES									#
 #-------------------------------------------#
-all: libft readline $(NAME)
+all: libft  $(NAME) #readline
 
 $(NAME): $(LIBS_TARGET) $(OBJS)
 	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $(NAME)
@@ -68,15 +68,15 @@ $(NAME): $(LIBS_TARGET) $(OBJS)
 libft:
 	$(MAKE) $(MAKEFLAGS) -C $(LIBFT_DIR)
 
-readline:
-	@if [ ! -f $(RDLINE_DIR)config.status ]; then\
+#readline:
+#	@if [ ! -f $(RDLINE_DIR)config.status ]; then\
 		cd $(RDLINE_DIR) && ./configure &> /dev/null; \
 	fi
-	$(MAKE) $(MAKEFLAGS) -C $(RDLINE_DIR)
+#	$(MAKE) $(MAKEFLAGS) -C $(RDLINE_DIR)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INCS)
 	$(DIR_DUP)
-	$(CC) $(CFLAGS) $(CPPFLAGS) -D READLINE_LIBRARY=1 -c -o $@ $<
+	$(CC) $(CFLAGS) $(CPPFLAGS)  -c -o $@ $< # -D READLINE_LIBRARY=1
 	$(info Created $@)
 
 -include $(DEPS)
