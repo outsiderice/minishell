@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/02 15:07:30 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:32:43 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_pipe_syntax(t_tokens *tok)
 		printf("pipe syntax error\n");	//add proper error and nl
 }
 
-//if the token next to a redirection is not a word (type 0) give an error and nl
+//if the token next to a redirection is not a type 0 (word) give an error and nl
 //if the following token is type 0 changes it's type from 0 to 1 (filename)
 void	ft_redir_syntax(t_tokens *tok)
 {
@@ -31,16 +31,6 @@ void	ft_redir_syntax(t_tokens *tok)
 		printf("redir syntax error\n"); //add proper error and nl
 	else
 		tok->next->type = 1;
-}
-
-void	ft_get_args(t_ms *ms)
-{
-	while (ms->tokens->type != 2)
-	{
-		//make arg_arr
-		//if ms->tokens->type == 3
-			//set_redir() get input and output fd
-	}
 }
 
 //ft_parse checks:
@@ -62,6 +52,5 @@ void	ft_parse(t_ms *ms)
 		current = current->next;
 	}
 	//ft_expansion_check();
-	// ft_get_args(ms);
-	// exeggutor(ms);
+	// ft_prep_args(ms);
 }
