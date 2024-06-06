@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/06/06 12:47:01 by amagnell         ###   ########.fr        #
+#    Updated: 2024/06/06 17:26:56 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,8 @@ NAME = minishell
 #-------------------------------------------#
 LIBS		=	ft readline termcap
 LIBFT_DIR	=	lib/libft
-ReDLINE_DIR	=	lib/readline
 LIBFT		=	lib/libft/libft.a
-ReDLINE		=	lib/readline/libreadline.a
-ReDLINEHIS	=	lib/readline/libhistory.a
-LIBS_TARGET	=	$(LIBFT) $(RDLINE) $(RDLINEHIS)
+LIBS_TARGET	=	$(LIBFT)
 
 INCS		=	inc	\
 				lib/libft/include
@@ -44,9 +41,9 @@ OBJS		=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS		=	$(OBJS:%.o=%.d)
 
 CC 			=	gcc
-CFLAGS 		=	-Wall -Wextra -Werror
+CFLAGS 		=	-Wall -Wextra -Werror #-fsanitize=address
 CPPFLAGS 	=	$(addprefix -I, $(INCS)) -MMD -MP
-LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_TARGET)))
+LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_TARGET))) -no-pie
 LDLIBS		=	$(addprefix -l, $(LIBS))
 
 #-------------------------------------------#
@@ -59,24 +56,18 @@ DIR_DUP		=	mkdir -p $(@D)
 #-------------------------------------------#
 #	RECIPES									#
 #-------------------------------------------#
-all: libft  $(NAME) #readline
+all: libft $(NAME) #readline 
 
 $(NAME): $(LIBS_TARGET) $(OBJS)
-	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $(NAME)
+	$(CC) $(LDFLAGS) $(OBJS) -fsanitize=address $(LDLIBS) -o $(NAME)
 	$(info Created $@)
 
 libft:
 	$(MAKE) $(MAKEFLAGS) -C $(LIBFT_DIR)
 
-#readline:
-#	@if [ ! -f $(RDLINE_DIR)config.status ]; then\
-		cd $(RDLINE_DIR) && ./configure &> /dev/null; \
-	fi
-#	$(MAKE) $(MAKEFLAGS) -C $(RDLINE_DIR)
-
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INCS)
 	$(DIR_DUP)
-	$(CC) $(CFLAGS) $(CPPFLAGS)  -c -o $@ $< # -D READLINE_LIBRARY=1
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $< -D READLINE_LIBRARY=1
 	$(info Created $@)
 
 -include $(DEPS)
@@ -97,5 +88,5 @@ re:
 #	SPECIAL RULES							#
 #-------------------------------------------#
 
-.PHONY: all re clean fclean libft readline
+.PHONY: all re clean fclean libft #readline
 .SILENT:
