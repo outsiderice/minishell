@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/06 09:15:49 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:03:56 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <dirent.h>
+# include <errno.h>
 # include "../lib/readline/readline.h"
 # include "../lib/readline/history.h"
 # include "../lib/libft/include/libft.h"
@@ -43,7 +44,7 @@ typedef struct s_env
 
 typedef struct s_args
 {
-	int				fd[2];
+	int				fd[2]; // for pipe
 	int				argc;
 	char			**argv;
 	struct s_args	*next;
