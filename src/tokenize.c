@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/02 15:11:24 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:58:47 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,15 @@ void	ft_tokenize(const char *line, t_ms *ms)
 			i = i + ft_get_tok(&line[i], &toks);
 		else
 			i = i + ft_space_len(&line[i]);
+		printf("6, 7, 8\n");
 	}
+	while (toks->next != NULL)
+	{
+		printf("token is %s, type %d\n", toks->tok, toks->type);
+		toks = toks->next;
+	}
+	printf("token is %s, type %d\n", toks->tok, toks->type);
 	ms->tokens = toks;
+	
 	// ft_parse(ms);
 }
