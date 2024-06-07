@@ -11,3 +11,4 @@ minishell
 infile
 outfile
 src/builtins/a.out
+.vscode
