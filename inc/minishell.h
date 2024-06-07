@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/07 12:47:20 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:10:17 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_args
 {
 	int				fd[2]; // for pipe
 	int				argc;
+	int				redir_fd; // fd of file opened for redirection
 	char			**argv;
 	struct s_args	*next;
 }	t_args;
@@ -76,8 +77,11 @@ char 	**ft_list_to_array(t_env *env);
 /*    get_input.c    */
 char	*ft_readline(void);
 
+/*    error.c    */
+void	ft_error(t_ms **ms, char *line);
+
 /*    check_quotes.c    */
-int		ft_check_quotes(const char *line);
+int		ft_check_quotes(const char *line, t_ms *ms);
 int		ft_quote_len(const char *line, char type);
 
 /*    tokenize.c    */
