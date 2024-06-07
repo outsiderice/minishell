@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/05/29 16:51:57 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:18:39 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef	struct s_ms
 	t_tokens	*tokens;
 	t_args		*args;
 	//t_pipes		*pipes;
-	int			exec_value;
+	int			exitstatus;
 	int			sh_lvl;
 	char		*new_pwd;
 	char		*old_pwd;
@@ -55,31 +55,31 @@ int	handle_builtins(t_ms *ms) //probably has to be **msh to do exil propery and 
 
 
 	else if (ft_str_compare(ms->args->argv[0], "echo") == 0)
-		ms->exec_value = ft_echo(ms->args->argv[1]);
+		ms->exitstat = ft_echo(ms->args->argv[1]);
 
 
 	else if (ft_str_compare(ms->args->argv[0], "pwd") == 0)
-		ms->exec_value = ft_pwd();
+		ms->exitstat = ft_pwd();
 
 
 	else if (ft_str_compare(ms->args->argv[0], "cd") == 0)
-		ms->exec_value = ft_cd(ms, ms->args->argv[]); // to complete 
+		ms->exitstat = ft_cd(ms, ms->args->argv[]); // to complete 
 
 
 	else if (!ft_strncmp(ms->args->arg, "env", 3) && ft_strlen(ms->args->arg) == 3)
-		ms->exec_value = ft_env(ms->env); //done, but needs checker
+		ms->exitstat = ft_env(ms->env); //done, but needs checker
 
 
 	else if (!ft_strncmp(ms->args->arg, "export", 6) && ft_strlen(ms->args->arg) == 6)
-		ms->exec_value(ft_export()); 
+		ms->exitstat(ft_export()); 
 
 
 	else if (!ft_strncmp(ms->args->arg, "unset", 5) && ft_strlen(ms->args->arg) == 5)
-		ms->exec_value(ft_unset(ms->env, ms->args)); //probably the &env_list
+		ms->exitstat(ft_unset(ms->env, ms->args)); //probably the &env_list
 
 
 	else if (!ft_strncmp(ms->args->arg, "exit", 4) && ft_strlen(ms->args->arg) == 4)
-		ms->exec_value(ft_exit()); // for now void, the final aim is to have all of allocated memory passed to the function
+		ms->exitstat(ft_exit()); // for now void, the final aim is to have all of allocated memory passed to the function
 	else 
 		return (-1); //for now, error handelling;
 }
@@ -87,5 +87,5 @@ int	handle_builtins(t_ms *ms) //probably has to be **msh to do exil propery and 
 
 /* TODO
 	- free the first argument as we pass it to builtin? 
-	- gestionar return y exec_value
+	- gestionar return y exitstatus
 */

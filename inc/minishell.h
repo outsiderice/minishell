@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/06 17:19:56 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:18:04 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_ms
 	t_tokens	*tokens;
 	t_args		*args;
 	char		**envp;
-	int			exec_value;
+	int			exitstatus;
 	int			sh_lvl;
 	char		*new_pwd;
 	char		*old_pwd;
@@ -81,7 +81,7 @@ void	ft_check_quotes(const char *line);
 int		ft_quote_len(const char *line, char type);
 
 /*    tokenize.c    */
-void	ft_tokenize(const char *line, t_ms *ms);
+int		ft_tokenize(const char *line, t_ms *ms);
 // void		ft_get_toks(const char *line, t_tokens **tokens);
 
 /*    token_utils.c    */

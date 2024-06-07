@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/06 17:17:20 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:23:03 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_init_ms(t_ms *ms)
 	ms->env = NULL;
 	ms->tokens = NULL;
 	//ms->args = NULL;
-	ms->exec_value = -1;
+	ms->exitstatus = -1;
 	ms->sh_lvl = -1; //HOW?
 	ms->old_pwd = NULL;
 	ms->new_pwd = getcwd(NULL, 0);
@@ -27,7 +27,6 @@ void	ft_init_ms(t_ms *ms)
 
 //starts readline loop
 //starts signals loop
-//inits gen struct
 void	ft_minishell(t_ms *ms)
 {
 	char	*line;
@@ -40,13 +39,14 @@ void	ft_minishell(t_ms *ms)
 		{
 			ft_check_quotes((const char *)line);
 			ft_tokenize(line, ms);
+			ft_parse(ms);
 		}
 		free (line);
 	}
 	//start signals -	Kat
 }
 
-//passes env to minishell
+//inits ms and env structs and stores envp
 int	main(int argc, char **argv, char **envp)
 {
 	t_ms	ms;
