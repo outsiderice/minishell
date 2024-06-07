@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/06 12:33:27 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/07 09:29:17 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,18 @@
 void	ft_pipe_syntax(t_tokens *tok)
 {
 	if (tok->type == 2)
-		printf("pipe syntax error\n");	//add proper error and nl
-	tok = tok->next;
+	{
+		printf("pipe syntax error\n");
+		exit(1) ;
+	}	//add proper error and nl
+	if (tok->next)
+		tok = tok->next;
 	if (tok->next == NULL || tok->next->type == 2)
+	{
 		printf("pipe syntax error\n");	//add proper error and nl
+		exit(1) ;
+	}
+	return ;
 }
 
 //if the token next to a redirection is not a type 0 (word) give an error and nl
@@ -42,14 +50,15 @@ void	ft_parse(t_ms *ms)
 {
 	t_tokens	*current;
 	
-	current = ms->tokens; 
-	while (current->next != NULL)
+	current = ms->tokens;
+	while (current != NULL)
 	{
 		printf("in parse loop \n");
-		if (current->next->type == 2)
+		if (current->type == 2 || (current->next && current->next->type == 2))
 			ft_pipe_syntax(current);
 		if (current->type == 3)
 			ft_redir_syntax(current);
+		printf("next node please\n");
 		current = current->next;
 	}
 	//ft_expansion_check();
