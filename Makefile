@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/06/02 15:12:03 by amagnell         ###   ########.fr        #
+#    Updated: 2024/06/06 17:26:56 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,8 @@ NAME = minishell
 #-------------------------------------------#
 LIBS		=	ft readline termcap
 LIBFT_DIR	=	lib/libft
-RDLINE_DIR	=	lib/readline
 LIBFT		=	lib/libft/libft.a
-RDLINE		=	lib/readline/libreadline.a
-RDLINEHIS	=	lib/readline/libhistory.a
-LIBS_TARGET	=	$(LIBFT) $(RDLINE) $(RDLINEHIS)
+LIBS_TARGET	=	$(LIBFT)
 
 INCS		=	inc	\
 				lib/libft/include
@@ -37,16 +34,16 @@ SRCS 		=	src/main.c \
 				src/token_utils.c \
 				src/tokens_lst_utils.c \
 				src/handle_env.c \
-				# src/parser.c
+				src/parser.c
 
 BUILD_DIR 	=	.build
 OBJS		=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS		=	$(OBJS:%.o=%.d)
 
 CC 			=	gcc
-CFLAGS 		=	-Wall -Wextra -Werror
+CFLAGS 		=	-Wall -Wextra -Werror #-fsanitize=address
 CPPFLAGS 	=	$(addprefix -I, $(INCS)) -MMD -MP
-LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_TARGET)))
+LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_TARGET))) -no-pie
 LDLIBS		=	$(addprefix -l, $(LIBS))
 
 #-------------------------------------------#
@@ -59,24 +56,18 @@ DIR_DUP		=	mkdir -p $(@D)
 #-------------------------------------------#
 #	RECIPES									#
 #-------------------------------------------#
-all: libft readline $(NAME)
+all: libft $(NAME) #readline 
 
 $(NAME): $(LIBS_TARGET) $(OBJS)
-	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $(NAME)
+	$(CC) $(LDFLAGS) $(OBJS) -fsanitize=address $(LDLIBS) -o $(NAME)
 	$(info Created $@)
 
 libft:
 	$(MAKE) $(MAKEFLAGS) -C $(LIBFT_DIR)
 
-readline:
-	@if [ ! -f $(RDLINE_DIR)config.status ]; then\
-		cd $(RDLINE_DIR) && ./configure &> /dev/null; \
-	fi
-	$(MAKE) $(MAKEFLAGS) -C $(RDLINE_DIR)
-
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INCS)
 	$(DIR_DUP)
-	$(CC) $(CFLAGS) $(CPPFLAGS) -D READLINE_LIBRARY=1 -c -o $@ $<
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $< -D READLINE_LIBRARY=1
 	$(info Created $@)
 
 -include $(DEPS)
@@ -97,5 +88,5 @@ re:
 #	SPECIAL RULES							#
 #-------------------------------------------#
 
-.PHONY: all re clean fclean libft readline
+.PHONY: all re clean fclean libft #readline
 .SILENT:

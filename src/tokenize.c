@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/02 15:11:24 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/07 09:14:31 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ int	ft_complex_tok(const char *line, t_tokens **tokens)
 
 	i = 0;
 	end = 0;
-	while (end == 0)
+	while (end == 0 && line[i])
 	{
 		if (ft_ismetachar(line[i]) == 1)
-			i = ft_quote_len(&line[i], line[i]);
+			i = i + ft_quote_len(&line[i], line[i]);
 		else
-			i = ft_isword(&line[i]);
+			i = i + ft_isword(&line[i]);
 		if (ft_ismetachar(line[i]) != 1 && ft_ismetachar(line[i]) != 0)
 			end = 1;
 	}
@@ -77,5 +77,5 @@ void	ft_tokenize(const char *line, t_ms *ms)
 			i = i + ft_space_len(&line[i]);
 	}
 	ms->tokens = toks;
-	// ft_parse(ms);
+	ft_parse(ms);
 }

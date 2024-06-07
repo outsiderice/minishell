@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/02 15:27:49 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/06 17:17:20 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	ft_minishell(t_ms *ms)
 	while (2)
 	{
 		line = ft_readline();
-		if (!line)
-			exit(EXIT_FAILURE);
 		if (ft_strlen(line) > 0)
 		{
 			ft_check_quotes((const char *)line);

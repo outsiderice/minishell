@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/02 15:08:04 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/06 17:19:56 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <dirent.h>
+# include <errno.h>
+# include <fcntl.h>
 # include "../lib/readline/readline.h"
 # include "../lib/readline/history.h"
 # include "../lib/libft/include/libft.h"
@@ -43,8 +45,7 @@ typedef struct s_env
 
 typedef struct s_args
 {
-	int				input;
-	int				output;
+	int				fd[2]; // for pipe
 	int				argc;
 	char			**argv;
 	struct s_args	*next;
@@ -76,7 +77,7 @@ char 	**ft_list_to_array(t_env *env);
 char	*ft_readline(void);
 
 /*    check_quotes.c    */
-int		ft_check_quotes(const char *line);
+void	ft_check_quotes(const char *line);
 int		ft_quote_len(const char *line, char type);
 
 /*    tokenize.c    */
@@ -104,9 +105,5 @@ void	exeggutor(t_ms *ms);
 
 /*    builtins_utils.c    */
 int ft_str_compare(char *str1, char *str2);
-
-//provisional structure for arguments to check the builtins
-
-
 
 #endif
