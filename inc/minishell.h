@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/07 11:18:04 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/07 12:47:20 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char 	**ft_list_to_array(t_env *env);
 char	*ft_readline(void);
 
 /*    check_quotes.c    */
-void	ft_check_quotes(const char *line);
+int		ft_check_quotes(const char *line);
 int		ft_quote_len(const char *line, char type);
 
 /*    tokenize.c    */

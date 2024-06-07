@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/07 09:29:17 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:50:03 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //checks that there's an acceptable token on both sides of a '|'
 //if there isn't it gives an error and new line
-void	ft_pipe_syntax(t_tokens *tok)
+int	ft_pipe_syntax(t_tokens *tok)
 {
 	if (tok->type == 2)
 	{
@@ -62,5 +62,4 @@ void	ft_parse(t_ms *ms)
 		current = current->next;
 	}
 	//ft_expansion_check();
-	//ft_prep_args(ms);
 }
