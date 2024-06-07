@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/07 08:47:33 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/07 08:54:20 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,10 @@ int	ft_complex_tok(const char *line, t_tokens **tokens)
 
 	i = 0;
 	end = 0;
-	printf("inside complex tok\n");
 	while (end == 0 && line[i])
 	{
-		printf("end is 0, iterate the line\n");
 		if (ft_ismetachar(line[i]) == 1)
-		{
-			printf("char is a quote, call quote len\n");
 			i = i + ft_quote_len(&line[i], line[i]);
-		}
 		else
 			i = i + ft_isword(&line[i]);
 		if (ft_ismetachar(line[i]) != 1 && ft_ismetachar(line[i]) != 0)
@@ -80,7 +75,6 @@ void	ft_tokenize(const char *line, t_ms *ms)
 			i = i + ft_get_tok(&line[i], &toks);
 		else
 			i = i + ft_space_len(&line[i]);
-		printf("6, 7, 8\n");
 	}
 	while (toks->next != NULL)
 	{
@@ -89,5 +83,5 @@ void	ft_tokenize(const char *line, t_ms *ms)
 	}
 	printf("token is %s, type %d\n", toks->tok, toks->type);
 	ms->tokens = toks;
-	// ft_parse(ms);
+	ft_parse(ms);
 }

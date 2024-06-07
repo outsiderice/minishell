@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:43:53 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/07 08:31:12 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/07 08:53:32 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,13 @@ int	ft_quote_len(const char *line, char type)
 	int	i;
 
 	i = 1;
-	// printf("inside qte len\n");
 	while (line[i] && line[i] != type)
-	{
-		// printf("qte_len, before i++, i =%d\n", i);
 		i++;
-	}
-	// printf("found the 0 or another quote\n");
 	if (line[i] == type)
 	{
-		// printf("i++ for the ending quote\n");
 		i++;
-		// printf("qte_len-> i returned =%d\n", i);
 		return (i);
 	}
-	// printf("the quotes are open\n");
 	return (-1);
 }
 
@@ -58,10 +50,7 @@ void	ft_check_quotes(const char *line)
 			i = i + qt_len;
 		}
 		else
-		{
-			printf("ft_check quotes->line[i] is not a quote, i++\n");
 			i++;
-		}
 		return ;
 	}
 	return ;
