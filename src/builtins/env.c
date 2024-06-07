@@ -16,7 +16,7 @@
 // STDOUT_FILENO is equivalent to using the integer 1, is file descriptor for standart output.
 // EXIT_SUCCESS); // macro variable that equals 0
 
-/* TO DO
+/* TO CONSIDER
 	1. what if env is empty?
 	2. what is there is no path in env?
 	3. in Bash, an exit status of 126 ----> 
@@ -24,7 +24,6 @@
 		env: Music/: Permission denied
 		bash-3.2$ echo $?
 		126
-
 */
 
 int	ft_env(t_env *env_list)
