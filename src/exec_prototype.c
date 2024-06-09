@@ -152,6 +152,16 @@ char	*ft_join_path(char *path, char *cmd)
 	return (res); 
 }
 
+int	ft_exec()
+{
+	
+	builtin? en caso de si lo hace aqui
+	pipe fork dup
+	
+
+	fork
+}
+
 int main(int ac, char **av, char **env_p) 
 {
     (void) ac;
