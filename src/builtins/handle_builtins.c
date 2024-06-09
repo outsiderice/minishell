@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/05/29 16:51:57 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:18:39 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,47 @@
 // 0 success, 1 unexplained fail 2 missuse of shell commands
 //Case incensitive will accept pwd, PWD, pwD etc..
 
+typedef	struct s_ms
+{
+	t_env		*env;
+	t_tokens	*tokens;
+	t_args		*args;
+	//t_pipes		*pipes;
+	int			exitstatus;
+	int			sh_lvl;
+	char		*new_pwd;
+	char		*old_pwd;
+	int			pid;
+}	t_ms;
+
+typedef struct s_args
+{
+	int				input;
+	int				output;
+	int				argc;
+	char			**argv;
+	struct s_args	*next;
+}	t_args;
+
+//this function has to return some sort of value for control check purposes or not :)
 int	handle_builtins(t_ms *ms) //probably has to be **msh to do exil propery and equal pointer to null
 {
 	if (ms->args == NULL) // only stays here to check bad redirection
 		printf("YOU SHALL NOT PASS TO BUILTINS, without builtin commands\n");
 	else if (ft_str_compare(ms->args->argv[0], "echo") == 0)
-		ms->exec_value = ft_echo(ms->args->argv);
+		ms->exitstatus = ft_echo(ms->args->argv);
 	else if (ft_str_compare(ms->args->argv[0], "pwd") == 0)
-		ms->exec_value = ft_pwd(ms);
+		ms->exitstatus = ft_pwd(ms);
 	else if (ft_str_compare(ms->args->argv[0], "cd") == 0)
-		ms->exec_value = ft_cd(ms, ms->args->argv); // to complete 
+		ms->exitstatus = ft_cd(ms, ms->args->argv); // to complete 
 	else if (ft_str_compare(ms->args->argv[0], "env") == 0)
-		ms->exec_value = ft_env(ms->env);
+		ms->exitstatus = ft_env(ms->env);
 	else if (ft_str_compare(ms->args->argv[0], "export") == 0)
-		ms->exec_value = ft_export(&ms, ms->args->argv); 
+		ms->exitstatus = ft_export(&ms, ms->args->argv); 
 	else if (ft_str_compare(ms->args->argv[0], "unset") == 0)
-		ms->exec_value = ft_unset(&ms->env, ms->args->argv);
+		ms->exitstatus = ft_unset(&ms->env, ms->args->argv);
 	else if (ft_str_compare(ms->args->argv[0], "exit") == 0)
-		ms->exec_value = (ft_exit(&ms)); // this should have access to the adress
+		ms->exitstatus = (ft_exit(&ms)); // this should have access to the adress
 	else 
 		return (-1); // means that it is not a builtin
 }

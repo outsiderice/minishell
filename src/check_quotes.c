@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:43:53 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/27 13:22:51 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/07 12:46:34 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	ft_quote_len(const char *line, char type)
 	return (-1);
 }
 
-//checks that there's no open quotes
 int	ft_check_quotes(const char *line)
 {
 	int	i;
@@ -41,8 +40,12 @@ int	ft_check_quotes(const char *line)
 	{
 		if (line[i] == '"' || line[i] == '\'')
 		{
-			if ((qt_len = ft_quote_len(&line[i], line[i])) == -1)
-				(printf("open quotes\n")); //change for ft_error and new prompt line
+			qt_len = ft_quote_len(&line[i], line[i]);
+			if (qt_len == -1)
+			{
+				printf("Unexpected syntax: open quotes\n"); //change for ft_error and new prompt line
+				return(1);
+			}
 			i = i + qt_len;
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/02 15:08:04 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/07 12:47:20 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <dirent.h>
+# include <errno.h>
+# include <fcntl.h>
 # include "../lib/readline/readline.h"
 # include "../lib/readline/history.h"
 # include "../lib/libft/include/libft.h"
 
 /*    STRUCTURES    */
 //type 0 = word, quoted or unquoted
-//type 1 = unused in this version, originally quoted word
+//type 1 = filename preceded by a redirection
 //type 2 = operator, a pipe
 //type 3 = operator, a redirection
 typedef struct s_tokens
@@ -43,8 +45,7 @@ typedef struct s_env
 
 typedef struct s_args
 {
-	int				input;
-	int				output;
+	int				fd[2]; // for pipe
 	int				argc;
 	char			**argv;
 	struct s_args	*next;
@@ -56,7 +57,7 @@ typedef struct s_ms
 	t_tokens	*tokens;
 	t_args		*args;
 	char		**envp;
-	int			exec_value;
+	int			exitstatus;
 	int			sh_lvl;
 	char		*new_pwd;
 	char		*old_pwd;
@@ -80,7 +81,7 @@ int		ft_check_quotes(const char *line);
 int		ft_quote_len(const char *line, char type);
 
 /*    tokenize.c    */
-void	ft_tokenize(const char *line, t_ms *ms);
+int		ft_tokenize(const char *line, t_ms *ms);
 // void		ft_get_toks(const char *line, t_tokens **tokens);
 
 /*    token_utils.c    */
@@ -100,13 +101,9 @@ void	ft_parse(t_ms *ms);
 void	ft_expansion_check(t_ms *ms);
 
 /*    execution.c    */
-void    exeggutor(t_ms *ms);
+void	exeggutor(t_ms *ms);
 
 /*    builtins_utils.c    */
 int ft_str_compare(char *str1, char *str2);
-
-//provisional structure for arguments to check the builtins
-
-
 
 #endif
