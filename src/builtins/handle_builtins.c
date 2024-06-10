@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/07 11:18:39 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:51:48 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,13 @@
 
 int	is_builtin(char *cmd)
 {
-	//comprobar
-	return (0);
+    if ((ft_compare_str(cmd, "echo") == 0) || (ft_compare_str(cmd, "pwd") == 0) ||
+        (ft_compare_str(cmd, "cd") == 0) || (ft_compare_str(cmd, "env") == 0) ||
+        (ft_compare_str(cmd, "export") == 0) || (ft_compare_str(cmd, "unset") == 0) ||
+        (ft_compare_str(cmd, "exit") == 0)) {
+        return 1;
+    }
+    return 0;
 }
 
 int	handle_builtins(t_ms *ms) //probably has to be **msh to do exil propery and equal pointer to null
@@ -52,3 +57,14 @@ int	handle_builtins(t_ms *ms) //probably has to be **msh to do exil propery and 
 		return (-1); // means that it is not a builtin
 	return (0);
 }
+
+int is_builtin(char *cmd) {
+    if ((ft_compare_str(cmd, "echo") == 0) || (ft_compare_str(cmd, "pwd") == 0) ||
+        (ft_compare_str(cmd, "cd") == 0) || (ft_compare_str(cmd, "env") == 0) ||
+        (ft_compare_str(cmd, "export") == 0) || (ft_compare_str(cmd, "unset") == 0) ||
+        (ft_compare_str(cmd, "exit") == 0)) {
+        return 1;
+    }
+    return 0;
+}
+
