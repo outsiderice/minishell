@@ -3,6 +3,7 @@
 #include <dirent.h>
 //#include <errno.h>
 #include "../lib/libft/include/libft.h"
+//#include "../inc/minishell.h"
 
 // gcc -I../lib/libft/include exec_prototype.c -L../lib/libft -lft -o executable
 
@@ -15,9 +16,8 @@ typedef struct s_env
 
 typedef struct s_args
 {
-	int				input;
-	int				output;
-	int				argc;
+	int				fd[2];
+	//int				argc;
 	char			**argv;
 	struct s_args	*next;
 }	t_args;
@@ -26,11 +26,62 @@ typedef struct s_ms
 {
 	t_env		*env;
 	t_args		*args;
-	char		**envp;
+	//char		**env_p;
+	//char		**paths;
+	int			sh_lvl;
 	int			exec_value;
 	int			pid;
 }	t_ms;
 
+void	ft_init_ms(t_ms *ms)
+{
+	ms->env = NULL;
+	ms->args = NULL;
+	ms->exec_value = -1;
+	ms->sh_lvl = -1; //HOW?
+	ms->pid = getpid();
+}
+
+int	ft_lstlen(t_env *env)
+{
+	int	len;
+
+	len = 0;
+	while (env != NULL)
+	{
+		env = env->next;
+		len++;
+	}
+	return (len);
+}
+
+int	is_builtin(char *cmd)
+{
+	//comprobar
+	return (0);
+}
+
+char **ft_list_to_array(t_env *env)
+{
+	char	**env_a;
+	char 	*aux;
+	int		i;
+
+	env_a = malloc(sizeof(char *) * ft_lstlen(env) + 1);
+	if (!env_a)
+		return (NULL);
+	i = 0;
+	while (env != NULL) 
+	{
+		aux = ft_strjoin(env->v_name, "="); // needs to be checkes for NULL?
+		env_a[i] = ft_strjoin(aux, env->v_cont);
+		free (aux);
+		i++;
+		env = env->next;
+	}
+	env_a[i] = NULL;
+	return (env_a);
+}
 
 int ft_str_compare(char *str1, char *str2)
 {
@@ -152,41 +203,125 @@ char	*ft_join_path(char *path, char *cmd)
 	return (res); 
 }
 
-int	ft_exec()
-{
-	
-	builtin? en caso de si lo hace aqui
-	pipe fork dup
-	
 
-	fork
-}
-
-int main(int ac, char **av, char **env_p) 
+int	ft_exec_cmd(char **args, t_env *env)
 {
-    (void) ac;
-    (void) av;
 	int		i;
-    t_env   *env;
+	char	*cmd;
 	char	**paths;
-	char	*cmd = "ls";
-	char 	*args[3];
-	args[0] = "ls";
-	args[1] = "-la";
-	args[2] = NULL;
+	char	**envp;
 
 	i = 0;
-    env = start_env(env_p);
+	cmd = args[0];
+
+	envp = ft_list_to_array(env);
+	if (envp == NULL)
+		return (-1); // handle this error
 	paths = ft_get_paths(env);
+	if (paths == NULL)
+		return (-1); //handle this error, no path variable in env
 	while (paths[i] != NULL && is_file_in_dir(cmd, paths[i]))
 		i++;
 	if (paths[i] == NULL)
 		printf("command not found\n");
 	else
 	{
-		execv(ft_join_path(paths[i], cmd), args);
+		execve(ft_join_path(paths[i], cmd), args, envp);
 		printf("%s\n", paths[i]);
 	}
+	// free envp;
+	return (0);
+}
+
+int	ft_exec(t_ms *ms)
+{
+	t_args	*args;
+	int	pid;
+
+	args = ms->args;
+	while (args != NULL)
+	{
+		if (is_builtin(args->argv[0]))
+		{
+			//if (handle_builtins(ms) == -1) // check for error
+			return (-1); //error
+		}
+		else
+		{
+			if (pipe(args->fd) == -1)
+				return (-1); // pipe error
+			pid = fork();
+			if (pid == 0)
+			{
+				close(args->fd[0]);
+				ft_exec_cmd(args->argv, ms->env); // donde se gestiona exitstatus? aqui ya habra fd
+				close(args->fd[1]);
+			}
+			else 
+			{
+				close(args->fd[1]);
+				//read(fd[0], buffer, algun valor);
+				// aqui se hace el dup??
+				// aqui se gestionan las señales??
+				close(args->fd[0]);
+				wait(NULL);
+			}
+		}
+		args = args->next;
+	}
+	//free(ms->args); // hemos acabado los argumentos
+	//ms->args = NULL; // reseteamos la variable
+	return (0);
+}
+
+
+
+int main(int ac, char **av, char **env_p) 
+{
+	/*char 	*args[3];
+	args[0] = "ls";
+	args[1] = "-la";
+	args[2] = NULL;
+    (void) ac;
+    (void) av;
+	int		i;
+    t_env   *env;
+	char	**paths;
+	char	*cmd = "ls";
+	*/
+	(void) ac;
+    (void) av;
+	int		i;
+	t_ms 	ms;
+	t_args	*first;
+	t_args	*aux;
+	t_args  *args;
+	char 	*tmp[3];
+
+	args = malloc(sizeof(t_args) * 1);
+	if (!args)
+		return (1);
+	first = args;
+	tmp[0] = "ls";
+	tmp[1] = "-la";
+	tmp[2] = NULL;
+	args->argv = tmp;
+
+	aux = malloc(sizeof(t_args) * 1);
+	aux->argv = tmp;
+	args->next = aux;
+	args = args->next;
+
+	aux = malloc(sizeof(t_args) * 1);
+	aux->argv = tmp;
+	args->next = aux;
+
+	i = 0;
+	ft_init_ms(&ms);
+	ms.args = first;
+
+    ms.env = start_env(env_p);
+	ft_exec(&ms);
 	
    return (0);
 }

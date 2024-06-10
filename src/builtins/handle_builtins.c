@@ -21,29 +21,15 @@
 // 0 success, 1 unexplained fail 2 missuse of shell commands
 //Case incensitive will accept pwd, PWD, pwD etc..
 
-typedef	struct s_ms
-{
-	t_env		*env;
-	t_tokens	*tokens;
-	t_args		*args;
-	//t_pipes		*pipes;
-	int			exitstatus;
-	int			sh_lvl;
-	char		*new_pwd;
-	char		*old_pwd;
-	int			pid;
-}	t_ms;
-
-typedef struct s_args
-{
-	int				input;
-	int				output;
-	int				argc;
-	char			**argv;
-	struct s_args	*next;
-}	t_args;
-
 //this function has to return some sort of value for control check purposes or not :)
+
+
+int	is_builtin(char *cmd)
+{
+	//comprobar
+	return (0);
+}
+
 int	handle_builtins(t_ms *ms) //probably has to be **msh to do exil propery and equal pointer to null
 {
 	if (ms->args == NULL) // only stays here to check bad redirection
@@ -64,4 +50,5 @@ int	handle_builtins(t_ms *ms) //probably has to be **msh to do exil propery and 
 		ms->exitstatus = (ft_exit(&ms)); // this should have access to the adress
 	else 
 		return (-1); // means that it is not a builtin
+	return (0);
 }

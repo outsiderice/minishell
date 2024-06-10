@@ -16,7 +16,7 @@ void	ft_init_ms(t_ms *ms)
 {
 	ms->env = NULL;
 	ms->tokens = NULL;
-	//ms->args = NULL;
+	ms->args = NULL;
 	ms->exitstatus = -1;
 	ms->sh_lvl = -1; //HOW?
 	ms->old_pwd = NULL;
@@ -40,7 +40,8 @@ void	ft_minishell(t_ms *ms)
 		if (ft_strlen(line) > 0)
 		{
 			if (ft_check_quotes((const char *)line) != 0)
-				syntax_error();
+				//syntax_error(); ---- me petaba el make
+				printf("hola"); // temp solo para hacer el make
 			ft_tokenize(line, ms);
 			ft_parse(ms);
 			// ft_exeggutor();

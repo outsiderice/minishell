@@ -28,7 +28,7 @@ int	ft_pipe_syntax(t_tokens *tok)
 		printf("pipe syntax error\n");	//add proper error and nl
 		exit(1) ;
 	}
-	return ;
+	return (0); //Kate (no se que tiene que devolver pero el make se quejaba)
 }
 
 //if the token next to a redirection is not a type 0 (word) give an error and nl
