@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/10 12:23:22 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/10 13:14:26 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_args	*add_args_node(char *aux, t_tokens *last_tok)
 {
 	t_args	*node;
 
+	printf("in add_args\n");
 	node = NULL;
 	if (last_tok->type == 2)
 		pipe(node->fd);
