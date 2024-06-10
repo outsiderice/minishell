@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/10 19:56:27 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/10 20:24:33 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,68 +16,6 @@
 //saves if it's input or output
 // void	handle_redir()
 // {}
-
-//Creates and returns a t_args node
-// int	add_args_node(char *aux, t_tokens *last_tok)
-// {
-// 	t_args	*node;
-
-// 	node = malloc(sizeof(t_args) * 1);
-// 	if (!node)
-// 		return (NULL);	//free everything if failed?
-// 	if (last_tok->type == 2)
-// 		pipe(node->fd);
-// 	//node->redir_fd = ; //change later
-// 	node->argv = ft_split(aux, ',');
-// 	free(aux);
-// 	node->next = NULL;
-// 	return (0);
-// }
-
-//Creates nodes for t_args
-//Fills current_tok node argv until it finds a '|' or NULL.
-//if it finds a redirection calls ft_handle_redirs
-// void	ft_prep_args(t_ms **ms)
-// {
-// 	char		*aux;
-// 	char		*aux2;
-// 	t_tokens	*current_tok;
-// 	t_args		*first;
-	
-// 	current_tok = ms->tokens;
-// 	while (current_tok != NULL)
-// 	{
-// 		aux2 = NULL;
-// 		while (current_tok->type != 2)
-// 		{
-// 			if (current_tok->type == 0)
-// 			{
-// 				aux = ft_strjoin(current_tok->tok, ","); //malloc inside
-// 				aux2 = ft_strjoin(aux2, aux); //malloc inside
-// 				free(aux);
-// 				aux = NULL;
-// 			}
-// 			else if (current_tok->type == 3)
-// 				printf ("calls handle_redir\n");//handle_redir();
-// 			current_tok = current_tok->next;
-// 			printf("on next token\n");
-// 		}
-// 		if (current_tok != NULL)
-// 			ms->args = add_args_node(aux2, current_tok);
-// 		else
-// 			ms->args = add_args_node(aux2, NULL);
-// 		printf("returned new args node\n");
-// 		free(aux2);
-// 		ms->args = ms->args->next;
-// 		current_tok = current_tok->next;
-// 	}
-// 	while ((*ms)->args->argv)
-// 	{
-// 		printf("%s/n", *ms->args->argv);
-// 		ms->args->argv++;
-// 	}
-// 	printf("end of prep args\n");
-// }
 
 //Counts how many consecutive tokens of the same TYPE there are from CURRENT
 //Returns COUNT
@@ -137,7 +75,7 @@ int	new_args_node(t_args **args, char **arr)
 
 //Fills array arr with consecutive tokens of the same type
 //Returns pointer to tokens
-t_tokens	*fill_arg(t_args *args, t_tokens *tok)
+t_tokens	*fill_arg(t_args **args, t_tokens *tok)
 {
 	char		**arr;
 	int			arr_len;
@@ -146,8 +84,7 @@ t_tokens	*fill_arg(t_args *args, t_tokens *tok)
 
 	printf("inisde fill arg\n");
 	i = 0;
-	arr_len = 0;
-	ft_count_toks(tok, 0);
+	arr_len = ft_count_toks(tok, 0);
 	arr = malloc(sizeof(char *) * (arr_len + 1));
 	if (!arr)
 	{
@@ -160,7 +97,7 @@ t_tokens	*fill_arg(t_args *args, t_tokens *tok)
 		tok = tok->next;
 		i++;
 	}
-	new_args_node(&args, arr);
+	new_args_node(args, arr);
 	return (tok);
 }
 
@@ -179,7 +116,7 @@ void	ft_prep_args(t_ms *ms)
 		while (current_tok && current_tok->type != 2)
 		{
 			if (current_tok->type == 0)
-				fill_arg(args, current_tok);
+				fill_arg(&args, current_tok);
 			current_tok = current_tok->next;
 		}
 	}
@@ -190,7 +127,7 @@ void	ft_prep_args(t_ms *ms)
 		printf("in printing loop\n");
 		while (args->argv[i] != NULL)
 		{
-			printf("%s/n", *args->argv);
+			printf("%s\n", *args->argv);
 			i++;
 		}
 		args = args->next;
