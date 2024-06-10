@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_env.c                                       :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:08:33 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/07 12:09:13 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:41:50 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,25 @@
 // #include "../../lib/libft/include/libft.h"
 
 // counts the nodes to make future malloc to create an char **
+int	ft_shll_lvl(t_env *env)
+{
+	int	sh_lvl;
+
+	sh_lvl = 0;
+	while (env != NULL)
+	{
+		if	(ft_str_compare(env->v_name, "SHLVL" == 0))
+		{
+			if (is_numeric(env->v_cont == 1)) //if case it is numeric
+				sh_lvl = ft_atoi(env->v_cont);
+			return (sh_lvl + 1);
+		}
+		env = env->next;
+	}
+	return (1);
+}
+
+
 int	ft_lstlen(t_env *env)
 {
 	int	len;
