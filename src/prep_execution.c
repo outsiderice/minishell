@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/10 20:24:33 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/10 20:54:40 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,6 @@ void	add_last_arg(t_args **args, t_args *new_arg)
 
 	printf("inisde add_last\n");
 	last = *args;
-	while (last)
-	{
-		printf("*argv is = %s\n", *last->argv);
-		last = last->next;
-	}
 	while (last && last->next != NULL)
 	{
 		last = last->next;
@@ -122,15 +117,22 @@ void	ft_prep_args(t_ms *ms)
 	}
 	printf("i want to print what's inside\n");
 	int i = 0;
-	while (args != NULL)
+	if (args->next == NULL)
+		printf("no more args\n");
+	while (args->next != NULL)
 	{
-		printf("in printing loop\n");
-		while (args->argv[i] != NULL)
+		ft_printf("in printing loop\n");
+		while (args != NULL && args->argv[i] != NULL)
 		{
-			printf("%s\n", *args->argv);
+			ft_printf("%s\n", args->argv[i]);
 			i++;
 		}
 		args = args->next;
+	}
+	while (args != NULL && args->argv[i] != NULL)
+	{
+		ft_printf("%s\n", args->argv[i]);
+		i++;
 	}
 	printf("end of prep args\n");
 }
