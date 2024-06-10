@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/10 19:25:05 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/10 19:56:27 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,17 +180,20 @@ void	ft_prep_args(t_ms *ms)
 		{
 			if (current_tok->type == 0)
 				fill_arg(args, current_tok);
-			printf("added node, keep iterating list\n");
 			current_tok = current_tok->next;
 		}
-		printf("while current_tok exists\n");
-		current_tok = current_tok->next;
 	}
 	printf("i want to print what's inside\n");
-	while (ms->args->argv)
+	int i = 0;
+	while (args != NULL)
 	{
-		printf("%s/n", *ms->args->argv);
-		ms->args->argv++;
+		printf("in printing loop\n");
+		while (args->argv[i] != NULL)
+		{
+			printf("%s/n", *args->argv);
+			i++;
+		}
+		args = args->next;
 	}
 	printf("end of prep args\n");
 }
