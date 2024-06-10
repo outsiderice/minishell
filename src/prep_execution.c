@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/07 14:54:35 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/10 09:43:18 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,45 @@
 
 //opens the filename given by the input
 //saves if it's input or output
-void	handle_redir()
-{}
+// void	handle_redir()
+// {}
+
+t_args	*add_args_node(char *aux)
+{
+	t_args	*node;
+
+	(void)node->fd; //change later
+	node->redir_fd = NULL; //change later
+	node->argv = ft_split(aux, ',');
+	free(aux);
+	node->next = NULL;
+	return (node);
+}
 
 //Creates nodes for s_args
 //Fills current node argv until it finds a '|' or NULL.
 //if it finds a redirection calls ft_handle_redirs
 void	ft_prep_args(t_ms *ms)
 {
-	t_tokens	*current;
-	int			i;
-	int			str_count;
-
-	i = 0;
-	str_count = 0;
+	char		*aux;
+	char		*aux2;
+	
 	while (ms->tokens != NULL)
 	{
-		current = ms->tokens;
-		while (current->type != 2)
+		while (ms->tokens->type != 2)
 		{
-			if (current->type == 0 || current->type == 1)
-				str_count++;
-			if (current->type == 3)
-				handle_redir();
-			current = current->next;
+			if (ms->tokens->type == 0 || ms->tokens->type == 1)
+			{
+				aux = ft_strjoin(ms->tokens->tok, ",");
+				aux2 = ft_strjoin(aux2, aux);
+				free(aux);
+			}
+			else if (ms->tokens->type == 3)
+				printf ("calls handle_redir\n");//handle_redir();
+			ms->tokens = ms->tokens->next;
 		}
-		ft_fill_arr(ms,&ms->tokens, str_count);
+		ms->args = add_args_node(aux);
+		ms->args = ms->args->next;
 		ms->tokens = ms->tokens->next;
 	}
 }
