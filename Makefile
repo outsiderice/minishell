@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/06/06 17:26:56 by amagnell         ###   ########.fr        #
+#    Updated: 2024/06/10 12:12:04 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,9 @@ SRCS 		=	src/main.c \
 				src/token_utils.c \
 				src/tokens_lst_utils.c \
 				src/handle_env.c \
-				src/parser.c
+				src/parser.c \
+				src/prep_execution.c \
+				src/execution.c
 
 BUILD_DIR 	=	.build
 OBJS		=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)

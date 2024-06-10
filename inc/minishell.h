@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/10 10:33:54 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/10 12:15:39 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,14 @@ void	ft_parse(t_ms *ms);
 /*    expand.c    */
 void	ft_expansion_check(t_ms *ms);
 
+/*    prep_execution.c    */
+void	ft_prep_args(t_ms *ms);
+
 /*    execution.c    */
 void	exeggutor(t_ms *ms);
+
+/*    handle_builtins.c    */
+
 
 /*    builtins_utils.c    */
 int ft_str_compare(char *str1, char *str2);

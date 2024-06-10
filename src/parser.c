@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/07 11:50:03 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/10 12:20:13 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_pipe_syntax(t_tokens *tok)
 		printf("pipe syntax error\n");	//add proper error and nl
 		exit(1) ;
 	}
-	return ;
+	return (0);
 }
 
 //if the token next to a redirection is not a type 0 (word) give an error and nl
@@ -61,5 +61,6 @@ void	ft_parse(t_ms *ms)
 		printf("next node please\n");
 		current = current->next;
 	}
+	printf("end of parse\n");
 	//ft_expansion_check();
 }

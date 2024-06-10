@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:26:40 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/07 11:51:12 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/10 12:16:03 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 void	exeggutor(t_ms *ms)
 {
 	ft_prep_args(ms);
-	if (handle_builtins() != -1)
-		printf("one full command executed\n");//free stuff and newline
-	else
-		printf("other exec\n")//execve();
+	// if (handle_builtins() != -1)
+	// 	printf("one full command executed\n");//free stuff and newline
+	// else
+	// 	printf("other exec\n")//execve();
 }
