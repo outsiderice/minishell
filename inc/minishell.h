@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/10 12:15:39 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:17:48 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ typedef struct s_env
 typedef struct s_args
 {
 	int				fd[2]; // for pipe
-	// int				argc; //for now not needed, easy to add if needed
 	int				redir_fd; // fd of file opened for redirection
+	int				redir_type; //each type, <, <<, > and >> are a different number, no redir is -1
 	char			**argv;
 	struct s_args	*next;
-	//I think we might need prev
+	struct s_args	*prev;
 }	t_args;
 
 typedef struct s_ms
