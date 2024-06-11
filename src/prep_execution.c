@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/11 12:34:15 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:04:19 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,10 @@ char	**fill_arg(t_tokens *tok)
 		return (NULL); //add proper handling
 	}
 	arr[arr_len] = NULL;
-	while (arr[i])
+	printf("before while to fill array\n");
+	while (i < arr_len)
 	{
+		printf("inside loop\n");
 		arr[i] = ft_strdup(tok->tok);
 		printf("arr[i] = %s, tok is = %s\n", arr[i], tok->tok);
 		tok = tok->next;
