@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/06/11 09:50:05 by amagnell         ###   ########.fr        #
+#    Updated: 2024/06/11 14:25:59 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ OBJS		=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS		=	$(OBJS:%.o=%.d)
 
 CC 			=	gcc
-CFLAGS 		=	-Wall -Wextra -Werror #-fsanitize=address
+CFLAGS 		=	-Wall -Wextra -Werror
 CPPFLAGS 	=	$(addprefix -I, $(INCS)) -MMD -MP
 LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_TARGET))) -no-pie
 LDLIBS		=	$(addprefix -l, $(LIBS))
@@ -61,13 +61,13 @@ DIR_DUP		=	mkdir -p $(@D)
 all: libft $(NAME) #readline 
 
 $(NAME): $(LIBS_TARGET) $(OBJS)
-	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $(NAME)
+	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -fsanitize=address -o $(NAME)
 	$(info Created $@)
 
 libft:
 	$(MAKE) $(MAKEFLAGS) -C $(LIBFT_DIR)
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INCS)
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INCS) Makefile
 	$(DIR_DUP)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $< -D READLINE_LIBRARY=1
 	$(info Created $@)
