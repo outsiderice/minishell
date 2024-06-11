@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/10 20:54:40 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/11 09:12:05 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	add_last_arg(t_args **args, t_args *new_arg)
 {
 	t_args	*last;
 
-	printf("inisde add_last\n");
+	printf("inside add_last\n");
 	last = *args;
 	while (last && last->next != NULL)
 	{

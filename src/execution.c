@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:26:40 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/10 15:59:32 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/11 09:48:00 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 void	exeggutor(t_ms *ms)
 {
 	ft_prep_args(ms);
+	//heredoc
+	//check_files
 	// if (handle_builtins() != -1)
 	// 	printf("one full command executed\n");//free stuff and newline
 	// else
