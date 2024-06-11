@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:22:05 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/11 17:06:10 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:23:50 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_print_args(char **args)
 	}
 }
 
-int	ft_echo(char *args)
+int	ft_echo(char **args)
 {
 	int	i;
 

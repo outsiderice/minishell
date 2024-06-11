@@ -237,16 +237,20 @@ int	ft_exec(t_ms *ms)
 	t_args	*args;
 	int	pid;
 
+	printf("HOLA DESDE EXEC\n");
 	args = ms->args;
 	while (args != NULL)
 	{
+		printf("args is not null\n");
 		if (is_builtin(args->argv[0]) == 0)
 		{
+			printf("is a builtin\n");
 			if (handle_builtins(ms) == -1) // check for error
 				return (-1); //error
 		}
 		else
 		{
+			printf("not a builtin\n");
 			if (pipe(args->fd) == -1)
 				return (-1); // pipe error
 			pid = fork();
@@ -266,6 +270,7 @@ int	ft_exec(t_ms *ms)
 				wait(NULL);
 			}
 		}
+		printf("next args\n");
 		args = args->next;
 	}
 	//free(ms->args); // hemos acabado los argumentos

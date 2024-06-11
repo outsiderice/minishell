@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/11 17:05:00 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:32:41 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	handle_builtins(t_ms *ms) //probably has to be **msh to do exil propery and 
 {
 	if (ms->args == NULL) // only stays here to check bad redirection
 		printf("YOU SHALL NOT PASS TO BUILTINS, without builtin commands\n");
-	else if (ft_str_compare(ms->args->argv[0], "echo") == 0)
-		ms->exitstatus = ft_echo(ms->args->argv[1]);
+	// else if (ft_str_compare(ms->args->argv[0], "echo") == 0)
+	// 	ms->exitstatus = ft_echo(ms->args->argv);
 	else if (ft_str_compare(ms->args->argv[0], "pwd") == 0)
 		ms->exitstatus = ft_pwd();
 	// else if (ft_str_compare(ms->args->argv[0], "cd") == 0)

@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/11 16:16:29 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:30:13 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ void	ft_prep_args(t_ms *ms)
 			arr = NULL;
 		}
 	}
+	ms->args = args;
 	//Test to print what's in args structure
 	int i = 0;
 	printf("1\n");
@@ -226,5 +227,6 @@ void	ft_prep_args(t_ms *ms)
 		printf("\nStored in args node:<%s>\n\n", args->argv[i]);
 		i++;
 	}
+
 	//End of test delete later
 }
