@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 12:00:39 by amagnell          #+#    #+#             */
-/*   Updated: 2022/10/11 17:45:01 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:08:30 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-//Copies src in dstsize - 1 and adds NULL at the end.
-//Returns the total length of src.
-
+// Copies src in dstsize - 1 and adds NULL at the end.
+// Returns the total length of src.
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;

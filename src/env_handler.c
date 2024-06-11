@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:08:33 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/02 15:10:08 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/07 12:09:13 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_env	*start_env(char **env_p)
 	{
 		current = malloc(sizeof(t_env) * 1);
 		if (!current)
-			return (NULL); //function that would make free if needed
+			return (NULL); //function that would make free if needed //A- not needed here I think
 		if (ft_assign(env_p[i], &current) == -1)
 			return (NULL); // function that would make free 
 		if (i == 0)

@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/06/06 17:26:56 by amagnell         ###   ########.fr        #
+#    Updated: 2024/06/11 18:25:06 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,15 +33,22 @@ SRCS 		=	src/main.c \
 				src/tokenize.c \
 				src/token_utils.c \
 				src/tokens_lst_utils.c \
-				src/handle_env.c \
-				src/parser.c
+				src/env_handler.c \
+				src/parser.c \
+				src/prep_execution.c \
+				src/execution.c \
+				src/exec_prototype.c \
+				src/builtins/handle_builtins.c \
+				src/builtins/pwd.c \
+				src/builtins/env.c \
+				src/builtins/builtins_utils.c \
 
 BUILD_DIR 	=	.build
 OBJS		=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS		=	$(OBJS:%.o=%.d)
 
 CC 			=	gcc
-CFLAGS 		=	-Wall -Wextra -Werror #-fsanitize=address
+CFLAGS 		=	-Wall -Wextra -Werror
 CPPFLAGS 	=	$(addprefix -I, $(INCS)) -MMD -MP
 LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_TARGET))) -no-pie
 LDLIBS		=	$(addprefix -l, $(LIBS))
@@ -59,13 +66,13 @@ DIR_DUP		=	mkdir -p $(@D)
 all: libft $(NAME) #readline 
 
 $(NAME): $(LIBS_TARGET) $(OBJS)
-	$(CC) $(LDFLAGS) $(OBJS) -fsanitize=address $(LDLIBS) -o $(NAME)
+	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS)  -o $(NAME) #-fsanitize=address
 	$(info Created $@)
 
 libft:
 	$(MAKE) $(MAKEFLAGS) -C $(LIBFT_DIR)
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INCS)
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INCS) Makefile
 	$(DIR_DUP)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $< -D READLINE_LIBRARY=1
 	$(info Created $@)

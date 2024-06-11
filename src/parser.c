@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/07 09:29:17 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:12:23 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //checks that there's an acceptable token on both sides of a '|'
 //if there isn't it gives an error and new line
-void	ft_pipe_syntax(t_tokens *tok)
+int	ft_pipe_syntax(t_tokens *tok)
 {
 	if (tok->type == 2)
 	{
@@ -28,7 +28,7 @@ void	ft_pipe_syntax(t_tokens *tok)
 		printf("pipe syntax error\n");	//add proper error and nl
 		exit(1) ;
 	}
-	return ;
+	return (0);
 }
 
 //if the token next to a redirection is not a type 0 (word) give an error and nl
@@ -53,14 +53,11 @@ void	ft_parse(t_ms *ms)
 	current = ms->tokens;
 	while (current != NULL)
 	{
-		printf("in parse loop \n");
 		if (current->type == 2 || (current->next && current->next->type == 2))
-			ft_pipe_syntax(current);
+			ft_pipe_syntax(current); //needs fix
 		if (current->type == 3)
 			ft_redir_syntax(current);
-		printf("next node please\n");
 		current = current->next;
 	}
 	//ft_expansion_check();
-	//ft_prep_args(ms);
 }

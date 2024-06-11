@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/06 17:19:56 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:25:47 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@ typedef struct s_env
 typedef struct s_args
 {
 	int				fd[2]; // for pipe
-	int				argc;
+	int				redir_fd; // fd of file opened for redirection
+	int				redir_type; //each type, <, <<, > and >> are a different number, no redir is -1
 	char			**argv;
 	struct s_args	*next;
+	struct s_args	*prev;
 }	t_args;
 
 typedef struct s_ms
@@ -57,7 +59,7 @@ typedef struct s_ms
 	t_tokens	*tokens;
 	t_args		*args;
 	char		**envp;
-	int			exec_value;
+	int			exitstatus;
 	int			sh_lvl;
 	char		*new_pwd;
 	char		*old_pwd;
@@ -76,12 +78,15 @@ char 	**ft_list_to_array(t_env *env);
 /*    get_input.c    */
 char	*ft_readline(void);
 
+/*    error.c    */
+void	ft_error(t_ms **ms, char *line);
+
 /*    check_quotes.c    */
-void	ft_check_quotes(const char *line);
+int		ft_check_quotes(const char *line, t_ms *ms);
 int		ft_quote_len(const char *line, char type);
 
 /*    tokenize.c    */
-void	ft_tokenize(const char *line, t_ms *ms);
+int		ft_tokenize(const char *line, t_ms *ms);
 // void		ft_get_toks(const char *line, t_tokens **tokens);
 
 /*    token_utils.c    */
@@ -100,8 +105,23 @@ void	ft_parse(t_ms *ms);
 /*    expand.c    */
 void	ft_expansion_check(t_ms *ms);
 
+/*    prep_execution.c    */
+void	ft_prep_args(t_ms *ms);
+
 /*    execution.c    */
 void	exeggutor(t_ms *ms);
+
+/*    exec_prototype.c    */
+int		ft_exec(t_ms *ms);
+
+/*    handle_builtins.c    */
+int	is_builtin(char *cmd);
+int	handle_builtins(t_ms *ms);
+// int	ft_echo(char **args);
+int	ft_pwd(void);
+int	ft_env(t_env *env_list);
+// int	ft_export(t_env *env_list, t_args *args_list);
+// int ft_unset(t_env **env, t_args *args);
 
 /*    builtins_utils.c    */
 int ft_str_compare(char *str1, char *str2);
