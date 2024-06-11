@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/07 11:18:39 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:05:00 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 int	is_builtin(char *cmd)
 {
+	(void)cmd;
 	//comprobar
 	return (0);
 }
@@ -35,19 +36,19 @@ int	handle_builtins(t_ms *ms) //probably has to be **msh to do exil propery and 
 	if (ms->args == NULL) // only stays here to check bad redirection
 		printf("YOU SHALL NOT PASS TO BUILTINS, without builtin commands\n");
 	else if (ft_str_compare(ms->args->argv[0], "echo") == 0)
-		ms->exitstatus = ft_echo(ms->args->argv);
+		ms->exitstatus = ft_echo(ms->args->argv[1]);
 	else if (ft_str_compare(ms->args->argv[0], "pwd") == 0)
-		ms->exitstatus = ft_pwd(ms);
-	else if (ft_str_compare(ms->args->argv[0], "cd") == 0)
-		ms->exitstatus = ft_cd(ms, ms->args->argv); // to complete 
+		ms->exitstatus = ft_pwd();
+	// else if (ft_str_compare(ms->args->argv[0], "cd") == 0)
+	// 	ms->exitstatus = ft_cd(ms, ms->args->argv); // to complete 
 	else if (ft_str_compare(ms->args->argv[0], "env") == 0)
 		ms->exitstatus = ft_env(ms->env);
-	else if (ft_str_compare(ms->args->argv[0], "export") == 0)
-		ms->exitstatus = ft_export(&ms, ms->args->argv); 
-	else if (ft_str_compare(ms->args->argv[0], "unset") == 0)
-		ms->exitstatus = ft_unset(&ms->env, ms->args->argv);
-	else if (ft_str_compare(ms->args->argv[0], "exit") == 0)
-		ms->exitstatus = (ft_exit(&ms)); // this should have access to the adress
+	// else if (ft_str_compare(ms->args->argv[0], "export") == 0)
+	// 	ms->exitstatus = ft_export(&ms, ms->args->argv); 
+	// else if (ft_str_compare(ms->args->argv[0], "unset") == 0)
+	// 	ms->exitstatus = ft_unset(&ms->env, ms->args->argv);
+	// else if (ft_str_compare(ms->args->argv[0], "exit") == 0)
+	// 	ms->exitstatus = (ft_exit(&ms)); // this should have access to the adress
 	else 
 		return (-1); // means that it is not a builtin
 	return (0);

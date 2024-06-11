@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/10 16:17:48 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:55:25 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,17 @@ void	ft_prep_args(t_ms *ms);
 /*    execution.c    */
 void	exeggutor(t_ms *ms);
 
-/*    handle_builtins.c    */
+/*    exec_prototype.c    */
+int		ft_exec(t_ms *ms);
 
+/*    handle_builtins.c    */
+int	is_builtin(char *cmd);
+int	handle_builtins(t_ms *ms);
+int	ft_echo(char **args);
+int	ft_pwd(void);
+int	ft_env(t_env *env_list);
+// int	ft_export(t_env *env_list, t_args *args_list);
+// int ft_unset(t_env **env, t_args *args);
 
 /*    builtins_utils.c    */
 int ft_str_compare(char *str1, char *str2);

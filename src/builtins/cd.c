@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:04:18 by kkoval            #+#    #+#             */
-/*   Updated: 2024/05/27 17:50:57 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/11 16:49:40 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 //in a directory in C, you can use the POSIX opendir, readdir, and closedir functions, which are part of the dirent.h
 
 
-int	ft_cd(t_struct *ms, t_args args)
+int	ft_cd(t_ms *ms, t_args *args)
 {
 	char	*path; // line that will retain the path to go
 

@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/06/11 16:03:59 by amagnell         ###   ########.fr        #
+#    Updated: 2024/06/11 16:58:47 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,13 @@ SRCS 		=	src/main.c \
 				src/env_handler.c \
 				src/parser.c \
 				src/prep_execution.c \
-				src/execution.c
+				src/execution.c \
+				src/exec_prototype.c \
+				src/builtins/handle_builtins.c \
+				src/builtins/pwd.c \
+				src/builtins/env.c \
+				src/builtins/builtins_utils.c \
+				src/builtins/echo.c
 
 BUILD_DIR 	=	.build
 OBJS		=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
