@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/11 11:42:13 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:34:15 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ int	new_args_node(t_args **args, char **arr)
 // }
 
 //Fills array arr with consecutive tokens of the same type
-//Returns pointer to tokens
-t_tokens	*fill_arg(t_args **args, t_tokens *tok)
+//Returns the array
+char	**fill_arg(t_tokens *tok)
 {
 	char		**arr;
 	int			arr_len;
@@ -114,28 +114,34 @@ t_tokens	*fill_arg(t_args **args, t_tokens *tok)
 		tok = tok->next;
 		i++;
 	}
-	new_args_node(args, arr);
-	return (tok);
+	return (arr);
 }
 
 //Creates nodes for t_args from t_tokens
-//when a '|' token is found it starts a new node
 void	ft_prep_args(t_ms *ms)
 {
-	t_args		*args;
-	t_tokens	*current_tok;
-
-	current_tok = ms->tokens;
-	args = NULL;
-	while (current_tok != NULL)
+	t_args		*args;	//pointer to args, which is unitinialized
+	t_tokens	*current_tok;	//pointer to toks because we dont want to lose the first position
+	char		**arr;
+	
+	/*to fill a node of args, just ONE node, I need the array*/
+	current_tok = ms->tokens; 
+	args = NULL; 
+	while (current_tok != NULL) 
 	{
 		while (current_tok && current_tok->type != 2)
 		{
 			if (current_tok->type == 0)
-				fill_arg(&args, current_tok);
+			{
+				arr = fill_arg(current_tok);
+				break ;
+			}
 			current_tok = current_tok->next;
 		}
+		new_args_node(&args, arr);
+		current_tok = current_tok->next;
 	}
+	//Test to print what's in args structure
 	int i = 0;
 	while (args->next != NULL)
 	{
@@ -152,4 +158,5 @@ void	ft_prep_args(t_ms *ms)
 		ft_printf("\nStored in args node:<%s>\n\n", args->argv[i]);
 		i++;
 	}
+	//End of test delete later
 }
