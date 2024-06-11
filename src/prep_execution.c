@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/11 09:12:05 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:42:13 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	add_last_arg(t_args **args, t_args *new_arg)
 {
 	t_args	*last;
 
-	printf("inside add_last\n");
 	last = *args;
 	while (last && last->next != NULL)
 	{
@@ -51,12 +50,14 @@ void	add_last_arg(t_args **args, t_args *new_arg)
 int	new_args_node(t_args **args, char **arr)
 {
 	t_args	*new_arg;
+	t_args	*last;
 	
-	printf("inisde args node\n");
 	new_arg = malloc(sizeof(t_args) * 1);
 	if (!new_arg)
 		return(-1);	//malloc protecc
 	new_arg->argv = arr;
+	int i = 0;
+	printf("argv[0] == %s\n", new_arg->argv[i]);
 	new_arg->redir_fd = -1;
 	new_arg->redir_type = -1;
 	new_arg->next = NULL;
@@ -64,9 +65,30 @@ int	new_args_node(t_args **args, char **arr)
 	if (*args == NULL)
 		*args = new_arg;
 	else
-		add_last_arg(args, new_arg);
+	{
+		last = *args;
+		while (last && last->next != NULL)
+			last = last->next;
+		new_arg->prev = last;
+		last->next = new_arg;
+	}
+		// add_last_arg(args, new_arg);
 	return (0);
 }
+
+// static void	free_str(char **arr)
+// {
+// 	int	j;
+
+// 	j = 0;
+// 	while (arr[j])
+// 	{
+// 		free(arr[j]);
+// 		j++;
+// 	}
+// 	free (arr);
+// 	return ;
+// }
 
 //Fills array arr with consecutive tokens of the same type
 //Returns pointer to tokens
@@ -76,19 +98,19 @@ t_tokens	*fill_arg(t_args **args, t_tokens *tok)
 	int			arr_len;
 	int			i;
 
-
-	printf("inisde fill arg\n");
 	i = 0;
 	arr_len = ft_count_toks(tok, 0);
 	arr = malloc(sizeof(char *) * (arr_len + 1));
 	if (!arr)
 	{
+		printf("FUCK\n");
 		return (NULL); //add proper handling
 	}
 	arr[arr_len] = NULL;
 	while (arr[i])
 	{
 		arr[i] = ft_strdup(tok->tok);
+		printf("arr[i] = %s, tok is = %s\n", arr[i], tok->tok);
 		tok = tok->next;
 		i++;
 	}
@@ -103,7 +125,6 @@ void	ft_prep_args(t_ms *ms)
 	t_args		*args;
 	t_tokens	*current_tok;
 
-	printf("inisde prep args\n");
 	current_tok = ms->tokens;
 	args = NULL;
 	while (current_tok != NULL)
@@ -115,24 +136,20 @@ void	ft_prep_args(t_ms *ms)
 			current_tok = current_tok->next;
 		}
 	}
-	printf("i want to print what's inside\n");
 	int i = 0;
-	if (args->next == NULL)
-		printf("no more args\n");
 	while (args->next != NULL)
 	{
-		ft_printf("in printing loop\n");
 		while (args != NULL && args->argv[i] != NULL)
 		{
-			ft_printf("%s\n", args->argv[i]);
+			ft_printf("\nStored in args:<%s>\n\n", args->argv[i]);
 			i++;
 		}
 		args = args->next;
+		printf("\n~On to next node~\n\n");
 	}
 	while (args != NULL && args->argv[i] != NULL)
 	{
-		ft_printf("%s\n", args->argv[i]);
+		ft_printf("\nStored in args node:<%s>\n\n", args->argv[i]);
 		i++;
 	}
-	printf("end of prep args\n");
 }

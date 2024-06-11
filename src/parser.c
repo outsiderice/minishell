@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/10 13:11:07 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:12:23 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,11 @@ void	ft_parse(t_ms *ms)
 	current = ms->tokens;
 	while (current != NULL)
 	{
-		printf("in parse loop \n");
 		if (current->type == 2 || (current->next && current->next->type == 2))
-			ft_pipe_syntax(current);
+			ft_pipe_syntax(current); //needs fix
 		if (current->type == 3)
 			ft_redir_syntax(current);
-		printf("next node please\n");
 		current = current->next;
 	}
-	printf("end of parse\n");
 	//ft_expansion_check();
 }
