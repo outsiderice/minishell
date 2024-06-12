@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/11 18:30:13 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:37:09 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ void	ft_prep_args(t_ms *ms)
 			new_args_node(&args, arr);
 			arr = NULL;
 		}
+	//when there's pipes it gets stuck in a infinite loop, add something to itereate here.
 	}
 	ms->args = args;
 	//Test to print what's in args structure
