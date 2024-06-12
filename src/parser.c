@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/11 10:12:23 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:35:00 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,20 @@
 
 //checks that there's an acceptable token on both sides of a '|'
 //if there isn't it gives an error and new line
-int	ft_pipe_syntax(t_tokens *tok)
+int	ft_pipe_syntax(t_tokens *tok, t_tokens *first_tok)
 {
-	if (tok->type == 2)
+	// t_tokens	*pipe;
+
+	// pipe = tok;
+	printf("PARSER tok is = %s\n", tok->tok);
+	if (first_tok->type == 2)
 	{
-		printf("pipe syntax error\n");
+		printf("pipe syntax error 1\n");
 		exit(1) ;
 	}	//add proper error and nl
-	if (tok->next)
-		tok = tok->next;
 	if (tok->next == NULL || tok->next->type == 2)
 	{
-		printf("pipe syntax error\n");	//add proper error and nl
+		printf("pipe syntax error 2\n");	//add proper error and nl
 		exit(1) ;
 	}
 	return (0);
@@ -49,12 +51,14 @@ void	ft_redir_syntax(t_tokens *tok)
 void	ft_parse(t_ms *ms)
 {
 	t_tokens	*current;
+	t_tokens	*first;
 	
+	first = ms->tokens;
 	current = ms->tokens;
 	while (current != NULL)
 	{
-		if (current->type == 2 || (current->next && current->next->type == 2))
-			ft_pipe_syntax(current); //needs fix
+		if (current->type == 2)
+			ft_pipe_syntax(current, first); //needs fix
 		if (current->type == 3)
 			ft_redir_syntax(current);
 		current = current->next;
