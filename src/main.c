@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/12 14:57:37 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:59:52 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,12 @@ void	ft_minishell(t_ms *ms)
 			printf("line!\n");
 			if (ft_tokenize(line, ms) == 0)
 			{
-			printf("1 what\n");
 			ft_parse(ms);
-			printf("2\n");
 			exeggutor(ms);
-			printf("3\n");
-			printf("~freed line~\n\n");
 			}
 			free (line);
 			line = NULL;
+			printf("~freed line~\n\n");
 		}
 	}
 }
