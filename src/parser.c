@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/12 12:35:00 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:42:51 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@
 //if there isn't it gives an error and new line
 int	ft_pipe_syntax(t_tokens *tok, t_tokens *first_tok)
 {
-	// t_tokens	*pipe;
-
-	// pipe = tok;
-	printf("PARSER tok is = %s\n", tok->tok);
 	if (first_tok->type == 2)
 	{
 		printf("pipe syntax error 1\n");
