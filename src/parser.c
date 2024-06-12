@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/12 12:42:51 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:33:12 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,16 @@ int	ft_pipe_syntax(t_tokens *tok, t_tokens *first_tok)
 
 //if the token next to a redirection is not a type 0 (word) give an error and nl
 //if the following token is type 0 changes it's type from 0 to 1 (filename)
-void	ft_redir_syntax(t_tokens *tok)
+int	ft_redir_syntax(t_tokens *tok)
 {
 	if (tok->next == NULL || (tok->next->type != 0 && tok->next->type != 1))
+	{
 		printf("redir syntax error\n"); //add proper error and nl
+		exit(1) ;
+	}
 	else
 		tok->next->type = 1;
+	return (0);
 }
 
 //ft_parse checks:
@@ -54,7 +58,7 @@ void	ft_parse(t_ms *ms)
 	while (current != NULL)
 	{
 		if (current->type == 2)
-			ft_pipe_syntax(current, first); //needs fix
+			ft_pipe_syntax(current, first);
 		if (current->type == 3)
 			ft_redir_syntax(current);
 		current = current->next;
