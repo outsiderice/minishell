@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/11 10:22:15 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:55:06 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int	ft_tokenize(const char *line, t_ms *ms)
 
 	i = 0;
 	toks = NULL;
+	if (!line[i])
+		return (EXIT_FAILURE);
 	if (ft_check_quotes((const char *)line, ms) != 0)
 	{
 		// ft_error(ms, line);

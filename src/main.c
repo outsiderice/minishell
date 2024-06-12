@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/11 11:04:15 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:00:29 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,21 @@ void	ft_minishell(t_ms *ms)
 	char	*line;
 
 	line = NULL;
-	while (2)
+	printf("eggshell go!\n");
+	while (42)
 	{
+		printf("inside 42\n");
 		//start signals -	Kat
 		line = ft_readline();
 		while (line)
 		{
-			ft_tokenize(line, ms);
-			ft_parse(ms);
-			exeggutor(ms);
-			free(line);
+			printf("line!\n");
+			if (ft_tokenize(line, ms) == 0)
+			{
+				ft_parse(ms);
+				exeggutor(ms);
+			}
+			free (line);
 			line = NULL;
 			printf("~freed line~\n\n");
 		}
