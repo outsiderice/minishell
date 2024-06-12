@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/12 14:37:09 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:59:26 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	**fill_arg(t_tokens **tok, t_tokens *ptr)
 	arr = malloc(sizeof(char *) * (arr_len + 1));
 	if (!arr)
 	{
-		printf("FUCK\n");
+		printf("bad malloc\n");
 		return (NULL); //add proper handling
 	}
 	arr[arr_len] = NULL;
@@ -113,11 +113,11 @@ char	**fill_arg(t_tokens **tok, t_tokens *ptr)
 	{
 		printf("inside loop\n");
 		arr[i] = ft_strdup((*tok)->tok);
-		printf("arr[i] = %s, tok is = %s\n", arr[i], (*tok)->tok);
+		printf("arr[%d] = %s, tok is = %s\n", i, arr[i], (*tok)->tok);
 		(*tok) = (*tok)->next;
 		i++;
 	}
-	printf("enf of fill\n");
+	printf("end of fill\n");
 	return (arr);
 }
 
@@ -203,16 +203,20 @@ void	ft_prep_args(t_ms *ms)
 				arr = fill_arg(&current_tok, current_tok);
 			new_args_node(&args, arr);
 			arr = NULL;
+			//also needs to handle redirs, how?
 		}
-	//when there's pipes it gets stuck in a infinite loop, add something to itereate here.
+		if (current_tok != NULL && current_tok->type == 2)
+		{
+			current_tok = current_tok->next;
+			printf("~create next node~\n");
+		}
 	}
 	ms->args = args;
 	//Test to print what's in args structure
 	int i = 0;
-	printf("1\n");
 	while (args->next != NULL)
 	{
-		printf("2\n");
+		i = 0;
 		while (args != NULL && args->argv[i] != NULL)
 		{
 			printf("\nStored in args:<%s>\n\n", args->argv[i]);
@@ -221,13 +225,11 @@ void	ft_prep_args(t_ms *ms)
 		args = args->next;
 		printf("\n~On to next node~\n\n");
 	}
-	printf("3\n");
-	printf("%p of argv\n", args->argv[i]);
+	i = 0;
 	while (args != NULL && args->argv[i] != NULL)
 	{
 		printf("\nStored in args node:<%s>\n\n", args->argv[i]);
 		i++;
 	}
-
 	//End of test delete later
 }
