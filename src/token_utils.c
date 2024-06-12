@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:03:14 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/28 17:03:41 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:38:44 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	ft_isoperator(const char *line)
 	int	i;
 
 	i = 1;
+	if (line[0] == '|')
+		return (i);
 	if (line[0] == line[1])
 		i = 2;
 	return (i);
