@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/12 14:33:12 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:56:25 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,22 @@ int	ft_redir_syntax(t_tokens *tok)
 	return (0);
 }
 
+// Ft_expand_check:
+// if it finds a $ call a ft to check if they should be expanded
+// 
+void	ft_expand_check(t_ms *ms)
+{
+	t_tokens	*tok;
+
+	tok = ms->tokens;
+	while (tok != NULL) 
+	{
+		if (tok->type == 0 || tok->type == 1 && ft_strchr(tok->tok, '$'))
+			is_expandable_dollar(ms->tokens);
+		tok = tok->next;
+	}
+}
+
 //ft_parse checks:
 //that there's tokens which are not '|' at both sides of a pipe
 //that there's a word type token after a redirection << >> > <
@@ -63,5 +79,5 @@ void	ft_parse(t_ms *ms)
 			ft_redir_syntax(current);
 		current = current->next;
 	}
-	//ft_expansion_check();
+	ft_expansion_check(ms);
 }

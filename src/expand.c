@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/05/30 16:43:29 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:20:48 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,17 @@
 //or an empty string if not found
 //remove quotes
 
-//find $ signs to be expanded in the tokens
-//when a viable $ is found calls ft_expand
-void	ft_expansion_check(t_ms *ms)
+//
+int	is_expandable_dollar(t_tokens *tok)
 {
-	t_tokens	*current;
+	int	i;
 
-	current = ms->tokens;
-	while (current->next != NULL)
+	i = 0;
+	while(tok->tok[i])
 	{
-		if (current->type == 0 || (current->type == 1 && current->tok[0] == '"'))
-			if (ft_strrchr(current->tok, '$') == '$')
-				ft_expand();
-		current = current->next;
+		if (tok->tok[i] == '\'')
+			i = i + ft_quote_len(tok->tok, '\'');
+		if (tok->tok[i] == '$')
+			expand_dollar(tok->tok, i); //find the ending delimiter, create a substr of the part after the delimiter if needed, find the env variable and make another string use strjoin with the first part and then if needed the 3rd???
 	}
 }
