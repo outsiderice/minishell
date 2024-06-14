@@ -13,13 +13,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <dirent.h>
+#include <sys/wait.h>
 //#include <errno.h>
 #include "../lib/libft/include/libft.h"
-//#include "../inc/minishell.h"
+#include "../inc/minishell.h"
 
 // gcc -I../lib/libft/include exec_prototype.c -L../lib/libft -lft -o executable
 
-typedef struct s_env
+/*typedef struct s_env
 {
 	char			*v_name;
 	char			*v_cont;
@@ -52,27 +53,24 @@ void	ft_init_ms(t_ms *ms)
 	ms->exec_value = -1;
 	ms->sh_lvl = -1; //HOW?
 	ms->pid = getpid();
-}
-
-int	ft_lstlen(t_env *env)
-{
-	int	len;
-
-	len = 0;
-	while (env != NULL)
-	{
-		env = env->next;
-		len++;
 	}
-	return (len);
-}
+	*/
 
-int	is_builtin(char *cmd)
-{
-	//comprobar
-	return (0);
-}
 
+// int	ft_lstlen(t_env *env)
+// {
+// 	int	len;
+
+// 	len = 0;
+// 	while (env != NULL)
+// 	{
+// 		env = env->next;
+// 		len++;
+// 	}
+// 	return (len);
+// }
+
+/*
 char **ft_list_to_array(t_env *env)
 {
 	char	**env_a;
@@ -160,6 +158,7 @@ t_env	*start_env(char **env_p)
 	}
 	return (first);
 }
+*/
 
 char **ft_get_paths(t_env *env)
 {
@@ -167,7 +166,7 @@ char **ft_get_paths(t_env *env)
     while(env != NULL && ft_str_compare(env->v_name, "PATH") == 1)
         env = env->next;
     if (env == NULL)
-        return (NULL);
+		return (NULL);
 	paths = ft_split(env->v_cont, ':');
 	if (!paths)
 		return (NULL);
@@ -250,16 +249,20 @@ int	ft_exec(t_ms *ms)
 	t_args	*args;
 	int	pid;
 
+	printf("HOLA DESDE EXEC\n");
 	args = ms->args;
 	while (args != NULL)
 	{
-		if (is_builtin(args->argv[0]))
+		printf("args is not null\n");
+		if (is_builtin(args->argv[0]) == 0)
 		{
-			//if (handle_builtins(ms) == -1) // check for error
-			return (-1); //error
+			printf("is a builtin\n");
+			if (handle_builtins(ms) == -1) // check for error
+				return (-1); //error
 		}
 		else
 		{
+			printf("not a builtin\n");
 			if (pipe(args->fd) == -1)
 				return (-1); // pipe error
 			pid = fork();
@@ -279,6 +282,7 @@ int	ft_exec(t_ms *ms)
 				wait(NULL);
 			}
 		}
+		printf("next args\n");
 		args = args->next;
 	}
 	//free(ms->args); // hemos acabado los argumentos
@@ -287,10 +291,11 @@ int	ft_exec(t_ms *ms)
 }
 
 
+/*
 
 int main(int ac, char **av, char **env_p) 
 {
-	/*char 	*args[3];
+	char 	*args[3];
 	args[0] = "ls";
 	args[1] = "-la";
 	args[2] = NULL;
@@ -300,7 +305,7 @@ int main(int ac, char **av, char **env_p)
     t_env   *env;
 	char	**paths;
 	char	*cmd = "ls";
-	*/
+	
 	(void) ac;
     (void) av;
 	int		i;
@@ -336,4 +341,4 @@ int main(int ac, char **av, char **env_p)
 	ft_exec(&ms);
 	
    return (0);
-}
+}*/

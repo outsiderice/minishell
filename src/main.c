@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/10 17:45:03 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/12 15:00:29 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,24 @@ void	ft_minishell(t_ms *ms)
 	char	*line;
 
 	line = NULL;
-	while (2)
+	printf("eggshell go!\n");
+	while (42)
 	{
+		printf("inside 42\n");
 		//start signals -	Kat
 		line = ft_readline();
-		if (ft_strlen(line) > 0)
+		while (line)
 		{
-			if (ft_check_quotes((const char *)line) != 0)
-				//syntax_error(); ---- me petaba el make
-				printf("hola"); // temp solo para hacer el make
-			ft_tokenize(line, ms);
-			ft_parse(ms);
-			// ft_exeggutor();
+			printf("line!\n");
+			if (ft_tokenize(line, ms) == 0)
+			{
+				ft_parse(ms);
+				exeggutor(ms);
+			}
+			free (line);
+			line = NULL;
+			printf("~freed line~\n\n");
 		}
-		free (line);
 	}
 }
 

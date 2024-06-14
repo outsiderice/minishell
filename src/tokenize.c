@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/07 11:08:28 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:55:06 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,12 @@ int	ft_tokenize(const char *line, t_ms *ms)
 
 	i = 0;
 	toks = NULL;
+	if (!line[i])
+		return (EXIT_FAILURE);
+	if (ft_check_quotes((const char *)line, ms) != 0)
+	{
+		// ft_error(ms, line);
+	}
 	while (line[i])
 	{
 		if (ft_ismetachar(line[i]) < 4)
@@ -77,5 +83,13 @@ int	ft_tokenize(const char *line, t_ms *ms)
 			i = i + ft_space_len(&line[i]);
 	}
 	ms->tokens = toks;
+	//Test to see what tokens are stored
+	while (toks->next != NULL)
+	{
+		printf("\nToken is %s\nType %d\n\n", toks->tok, toks->type);
+		toks = toks->next;
+	}
+	printf("\nToken is %s\nType %d\n\n", toks->tok, toks->type);
+	//Test ends here, delete later
 	return (0);
 }

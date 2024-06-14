@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/29 16:26:40 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/11 18:28:10 by amagnell         ###   ########.fr       */
+/*   Created: 2024/06/07 14:38:39 by amagnell          #+#    #+#             */
+/*   Updated: 2024/06/07 15:12:14 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//checks if it's a builtin and if it isn't calls execve
-void	exeggutor(t_ms *ms)
+void    ft_error(t_ms **ms, char *line)
 {
-	ft_prep_args(ms);
-	//heredoc
-	//check_files
-	// if (handle_builtins() != -1)
-	// 	printf("one full command executed\n");//free stuff and newline
-	// else
-	// 	printf("other exec\n")//execve();
-	printf("1\n");
-	ft_exec(ms);
+    if ((*ms)->exitstatus == 2)
+    {
+        printf("eggshell: syntax error near unexpected token\n");
+        free(line);
+        return ;
+    }
+    
 }
