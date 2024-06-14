@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
+#    By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/06/11 18:25:06 by amagnell         ###   ########.fr        #
+#    Updated: 2024/06/14 17:01:34 by kkoval           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS 		=	src/main.c \
 				src/token_utils.c \
 				src/tokens_lst_utils.c \
 				src/env_handler.c \
+				src/env2.c\
 				src/parser.c \
 				src/prep_execution.c \
 				src/execution.c \

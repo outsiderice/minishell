@@ -2,7 +2,8 @@
 //#include "../../lib/libft/include/libft.h"
 #include <stdio.h>
 
-int is_numeric(char *str) {
+int is_numeric(char *str) 
+{
     if (!str || *str == '\0')
         return (0);
     if (*str == '-' || *str == '+')
@@ -16,9 +17,9 @@ int is_numeric(char *str) {
     return (1);
 }
 
-int	main(void)
+/*int	main(void)
 {
-/*Test 1: 12345 is numeric
+Test 1: 12345 is numeric
 Test 2: -6789 is numeric
 Test 3: 12a45 is not numeric
 Test 4:  is not numeric
@@ -28,7 +29,7 @@ Test 7: -0 is numeric
 Test 8: ' 123' is not numeric
 Converted number from test1: 12345
 Converted number from test2: -6789
-Converted number from test5: 123*/
+Converted number from test5: 123
 
 	printf("%d\n", is_numeric("12345"));
 	printf("%d\n", is_numeric("-6789"));
@@ -40,4 +41,4 @@ Converted number from test5: 123*/
 	printf("%d\n", is_numeric(" 123"));
 
 	return (0);
-}
+}*/
