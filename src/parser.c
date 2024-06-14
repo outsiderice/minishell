@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/13 15:56:25 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:34:24 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ int	ft_redir_syntax(t_tokens *tok)
 }
 
 // Ft_expand_check:
+//iterates tokens to find things to expand
 // if it finds a $ call a ft to check if they should be expanded
-// 
+// if it finds a quote it calls the funciton to expand them
 void	ft_expand_check(t_ms *ms)
 {
 	t_tokens	*tok;
@@ -53,8 +54,10 @@ void	ft_expand_check(t_ms *ms)
 	tok = ms->tokens;
 	while (tok != NULL) 
 	{
-		if (tok->type == 0 || tok->type == 1 && ft_strchr(tok->tok, '$'))
-			is_expandable_dollar(ms->tokens);
+		// if (tok->type == 0 || tok->type == 1 && ft_strchr(tok->tok, '$'))
+		// 	is_expandable_dollar(tok);
+		if (ft_strchr(tok->tok, '\'') || ft_strchr(tok->tok, '"'))
+			expand_quotes();
 		tok = tok->next;
 	}
 }
