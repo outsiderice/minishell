@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/11 18:32:41 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:52:57 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 
 int	is_builtin(char *cmd)
 {
-    if ((ft_compare_str(cmd, "echo") == 0) || (ft_compare_str(cmd, "pwd") == 0) ||
-        (ft_compare_str(cmd, "cd") == 0) || (ft_compare_str(cmd, "env") == 0) ||
-        (ft_compare_str(cmd, "export") == 0) || (ft_compare_str(cmd, "unset") == 0) ||
-        (ft_compare_str(cmd, "exit") == 0)) {
+    if ((ft_str_compare(cmd, "echo") == 0) || (ft_str_compare(cmd, "pwd") == 0) ||
+        (ft_str_compare(cmd, "cd") == 0) || (ft_str_compare(cmd, "env") == 0) ||
+        (ft_str_compare(cmd, "export") == 0) || (ft_str_compare(cmd, "unset") == 0) ||
+        (ft_str_compare(cmd, "exit") == 0)) {
         return 1;
     }
     return 0;
@@ -57,14 +57,3 @@ int	handle_builtins(t_ms *ms) //probably has to be **msh to do exil propery and 
 		return (-1); // means that it is not a builtin
 	return (0);
 }
-
-int is_builtin(char *cmd) {
-    if ((ft_compare_str(cmd, "echo") == 0) || (ft_compare_str(cmd, "pwd") == 0) ||
-        (ft_compare_str(cmd, "cd") == 0) || (ft_compare_str(cmd, "env") == 0) ||
-        (ft_compare_str(cmd, "export") == 0) || (ft_compare_str(cmd, "unset") == 0) ||
-        (ft_compare_str(cmd, "exit") == 0)) {
-        return 1;
-    }
-    return 0;
-}
-
