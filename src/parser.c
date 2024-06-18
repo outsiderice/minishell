@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/18 09:24:07 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:13:30 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_redir_syntax(t_tokens *tok)
 	return (0);
 }
 
-// Ft_expand_check:
+// Ft_expansion_check:
 //iterates tokens to find things to expand
 // if it finds a $ call a ft to check if they should be expanded
 // if it finds a quote it calls the funciton to expand them
@@ -62,6 +62,8 @@ void	ft_expansion_check(t_ms *ms)
 			tok->tok = expand_quotes(tok);
 			printf("modified tok is %s\n", tok->tok);
 		}
+		if (ft_strlen(tok->tok) == 0)
+			del_tok(&(ms->tokens), tok);
 		tok = tok->next;
 	}
 }

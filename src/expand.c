@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/18 11:20:37 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/18 12:06:12 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	expand_dollar()
 // 	}
 // }
 
-// When it finds a quote it calls rm_delimiters
-// Returns the string NEW_TOK
+// It removes paired quotes as it finds them and creates a new string
+// Returns the new string created NEW_TOK
 char	*expand_quotes(t_tokens *tok)
 {
 	int		i;

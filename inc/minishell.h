@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/18 09:24:17 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:08:49 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int		ft_isword(const char *line);
 /*    tokens_lst_utils.c    */
 void	ft_addtok(const char *line, int len, int type, t_tokens **tokens);
 // void	ft_tok_addback(t_tokens **tokens, t_tokens *new_tok);
+void	del_tok(t_tokens **lst, t_tokens *tok);
 
 /*    parser.c    */
 void	ft_parse(t_ms *ms);
