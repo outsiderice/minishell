@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/11 18:25:47 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/18 09:24:17 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	ft_addtok(const char *line, int len, int type, t_tokens **tokens);
 void	ft_parse(t_ms *ms);
 
 /*    expand.c    */
-void	ft_expansion_check(t_ms *ms);
+char	*expand_quotes(t_tokens *tok);
 
 /*    prep_execution.c    */
 void	ft_prep_args(t_ms *ms);
