@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/18 11:17:05 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:20:37 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	*expand_quotes(t_tokens *tok)
 			aux = rm_delimiters(tok, i);
 			new_tok = ft_strjoin(new_tok, aux);
 			i = i + ft_strlen(aux) + 1;
+			free(aux);
 		}
 		i++;
 	}
