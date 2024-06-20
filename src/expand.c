@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/20 19:08:55 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:40:48 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,12 @@ char	*is_expandable_dollar(t_ms *ms, t_tokens *tok)
 	{
 		if (tok->tok[i] == '\'')
 			i = i + ft_quote_len(&tok->tok[i], '\'');
-		else if (tok->tok[i] == '$')
+		if (tok->tok[i] == '$')
 		{
-			printf("before retokenize i is %d\n", i);
-			new_tok = ft_retokenize(ms, tok, &i, i);
-			printf("after retokenize i is %d and char is %c\n", i, tok->tok[i]);
+			if (new_tok == NULL)
+				new_tok = ft_retokenize(ms, tok, &i, i);
+			else
+				new_tok = ft_retokenize(ms, tok, &i, i);
 		}
 		i++;
 	}

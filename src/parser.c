@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/20 17:39:43 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:17:32 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,12 @@ void	ft_expansion_check(t_ms *ms)
 	{
 		if ((tok->type == 0 || tok->type == 1) && ft_strchr(tok->tok, '$'))
 		{
-			printf("dollar inside tok\n");
 			tok->tok = is_expandable_dollar(ms, tok);
 			printf("after expanding dollar, %s\n", tok->tok);
 		}
 		if (ft_strchr(tok->tok, '\'') || ft_strchr(tok->tok, '"'))
 		{
-			printf("there's a quote to expand\n");
+			printf("\nthere's a quote to expand\n");
 			tok->tok = expand_quotes(tok);
 		}
 		if (ft_strlen(tok->tok) == 0)
