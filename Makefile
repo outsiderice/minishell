@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/06/18 11:39:08 by amagnell         ###   ########.fr        #
+#    Updated: 2024/06/20 18:53:24 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCS 		=	src/main.c \
 				src/env_handler.c \
 				src/parser.c \
 				src/expand.c \
+				src/expand_utils.c \
 				src/prep_execution.c \
 				src/execution.c \
 				src/exec_prototype.c \

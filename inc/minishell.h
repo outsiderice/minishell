@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/20 15:52:44 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:53:56 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		ft_isword(const char *line);
 /*    tokens_lst_utils.c    */
 void	ft_addtok(const char *line, int len, int type, t_tokens **tokens);
 // void	ft_tok_addback(t_tokens **tokens, t_tokens *new_tok);
-void	del_tok(t_tokens **lst, t_tokens *tok);
+// void	del_tok(t_tokens **lst, t_tokens *tok);
 
 /*    parser.c    */
 void	ft_parse(t_ms *ms);
@@ -106,6 +106,10 @@ void	ft_parse(t_ms *ms);
 /*    expand.c    */
 char	*expand_quotes(t_tokens *tok);
 char	*is_expandable_dollar(t_ms *ms, t_tokens *tok);
+int		find_dollar_end(const char *name);
+
+/*    expand_utils.c   */
+char	*rm_delimiters(t_tokens *tok, int i);
 
 /*    prep_execution.c    */
 void	ft_prep_args(t_ms *ms);
