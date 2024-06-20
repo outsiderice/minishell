@@ -6,11 +6,24 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/18 12:06:12 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/20 09:36:12 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// find end of env variable name and return it's length
+int	find_dollar_end(const char *name)
+{
+	int	i;
+
+	i = 1;
+	if (ft_isdigit(name[i]) == 1)
+		return (i);
+	while (name[i] && (ft_isalnum(name[i]) == 1 || name[i] == '_'))
+		i++;
+	return (i);
+}
 
 // 	Removes the characters at both ends of TOK
 char	*rm_delimiters(t_tokens *tok, int i)
@@ -18,7 +31,11 @@ char	*rm_delimiters(t_tokens *tok, int i)
 	char	*str;
 	int		len;
 
-	len = ft_quote_len(&tok->tok[i], tok->tok[i]);
+
+	if (ft_ismetachar(tok->tok[i]) == 1)
+		len = ft_quote_len(&tok->tok[i], tok->tok[i]);
+	else
+		len = find_dollar_end();
 	str = ft_substr(tok->tok, i + 1, len - 2);
 	return(str);
 }

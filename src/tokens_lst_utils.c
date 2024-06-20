@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:01:59 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/18 13:20:21 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/20 09:09:48 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	del_tok(t_tokens **lst, t_tokens *tok)
 {
 	t_tokens	*to_del;
 	t_tokens	*prev;
-
+//needs fix for when first token is removed
 	to_del = *lst;
 	while (to_del != NULL && to_del != tok)
 	{
