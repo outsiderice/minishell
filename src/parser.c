@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/20 12:05:34 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:52:18 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_expansion_check(t_ms *ms)
 	while (tok != NULL) 
 	{
 		if ((tok->type == 0 || tok->type == 1) && ft_strchr(tok->tok, '$'))
-			is_expandable_dollar(ms, tok);
+			tok->tok = is_expandable_dollar(ms, tok);
 		printf("unmodified tok is %s\n", tok->tok);
 		if (ft_strchr(tok->tok, '\'') || ft_strchr(tok->tok, '"'))
 		{

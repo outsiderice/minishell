@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/20 11:56:53 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:25:37 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	find_dollar_end(const char *name)
 	return (i);
 }
 
-// 	Removes the characters at both ends of TOK
+// Removes the characters at both ends of TOK
 char	*rm_delimiters(t_tokens *tok, int i)
 {
 	char	*str;
@@ -42,35 +42,51 @@ char	*rm_delimiters(t_tokens *tok, int i)
 }
 
 // gets the var name and looks for it in env
-//
-int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
+// returns the content of the var if found or and empty string if not
+char	*expand_dollar(t_ms *ms, t_tokens *tok, int *i, int j)
 {
 	char	*var_name;
-	// char	*content;
-	(void)ms;
+	char	*content;
+	t_env	*env;
 
-	var_name = rm_delimiters(tok, i);
+	env = ms->env;
+	var_name = rm_delimiters(tok, j);
 	printf("var name is %s\n", var_name);
-	//find name in env
-	i = ft_strlen(var_name);
-	return (i);
+	*i = j + ft_strlen(var_name) + 1;
+	while (env != NULL && ft_str_compare(env->v_name, var_name) != 0)
+		env = env->next;
+	if (!env)
+		return (ft_strdup(""));
+	content = env->v_cont;
+	return (content);
 }
 
 // checks if a '$' is expandable or not
 // if it is calls a function to expand it
-void	is_expandable_dollar(t_ms *ms, t_tokens *tok)
+// returns the expanded var
+char	*is_expandable_dollar(t_ms *ms, t_tokens *tok)
 {
-	int	i;
-
+	int		i;
+	char	*new_tok;
+	char	*aux;
+	
 	i = 0;
+	new_tok = NULL;
 	while(tok->tok[i])
 	{
 		if (tok->tok[i] == '\'')
 			i = i + ft_quote_len(&tok->tok[i], '\'');
 		if (tok->tok[i] == '$')
-			i = i + expand_dollar(ms, tok, i);
+		{
+			if (new_tok == NULL)
+				new_tok = ft_substr(tok->tok, 0, i);
+			aux = expand_dollar(ms, tok, &i, i);
+			new_tok = ft_strjoin(new_tok, aux);
+			free(aux);
+		}
 		i++;
 	}
+	return (new_tok);
 }
 
 // It removes paired quotes as it finds them and creates a new string
