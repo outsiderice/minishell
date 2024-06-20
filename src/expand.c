@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/20 09:36:12 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:52:31 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ int	find_dollar_end(const char *name)
 
 	i = 1;
 	if (ft_isdigit(name[i]) == 1)
-		return (i);
+		return (3);
 	while (name[i] && (ft_isalnum(name[i]) == 1 || name[i] == '_'))
 		i++;
+	i++;
 	return (i);
 }
 
@@ -31,38 +32,46 @@ char	*rm_delimiters(t_tokens *tok, int i)
 	char	*str;
 	int		len;
 
-
 	if (ft_ismetachar(tok->tok[i]) == 1)
 		len = ft_quote_len(&tok->tok[i], tok->tok[i]);
 	else
-		len = find_dollar_end();
+		len = find_dollar_end(&tok->tok[i]);
 	str = ft_substr(tok->tok, i + 1, len - 2);
+	printf("str is %s\n", str);
 	return(str);
 }
 
-//find the ending delimiter, create a substr of the part after the delimiter if needed, 
-//find the env variable and make another string 
-//use strjoin with the first part and then if needed the 3rd???
-void	expand_dollar()
+// find the ending delimiter
+//
+int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 {
-	
+	char	*var_name;
+	// char	*content;
+	(void)ms;
+
+	var_name = rm_delimiters(tok, i);
+	printf("var name is %s\n", var_name);
+	//find name in env
+	i = ft_strlen(var_name);
+	return (i);
 }
 
 //checks if a '$' is expandable or not
-//if it is calls a function to expand it
-// int	is_expandable_dollar(t_tokens *tok)
-// {
-// 	int	i;
+// if it is calls a function to expand it
+void	is_expandable_dollar(t_ms *ms, t_tokens *tok)
+{
+	int	i;
 
-// 	i = 0;
-// 	while(tok->tok[i])
-// 	{
-// 		if (tok->tok[i] == '\'')
-// 			i = i + ft_quote_len(&tok->tok[i], '\'');
-// 		if (tok->tok[i] == '$')
-// 			expand_dollar(tok->tok, i); //find the ending delimiter, create a substr of the part after the delimiter if needed, find the env variable and make another string use strjoin with the first part and then if needed the 3rd???
-// 	}
-// }
+	i = 0;
+	while(tok->tok[i])
+	{
+		if (tok->tok[i] == '\'')
+			i = i + ft_quote_len(&tok->tok[i], '\'');
+		if (tok->tok[i] == '$')
+			i = i + expand_dollar(ms, tok, i);
+		i++;
+	}
+}
 
 // It removes paired quotes as it finds them and creates a new string
 // Returns the new string created NEW_TOK

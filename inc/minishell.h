@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/18 13:08:49 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:29:20 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	ft_parse(t_ms *ms);
 
 /*    expand.c    */
 char	*expand_quotes(t_tokens *tok);
+void	is_expandable_dollar(t_ms *ms, t_tokens *tok);
 
 /*    prep_execution.c    */
 void	ft_prep_args(t_ms *ms);
