@@ -6,32 +6,32 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:01:59 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/20 09:09:48 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:05:55 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // deletes tok
-void	del_tok(t_tokens **lst, t_tokens *tok)
-{
-	t_tokens	*to_del;
-	t_tokens	*prev;
-//needs fix for when first token is removed
-	to_del = *lst;
-	while (to_del != NULL && to_del != tok)
-	{
-		prev = to_del;
-		to_del = to_del->next;
-	}
-	if (to_del == NULL)
-		return ;
-	if (prev == NULL)
-		*lst = to_del->next;
-	else
-		prev->next = to_del->next;
-	free(to_del);
-}
+// void	del_tok(t_tokens **lst, t_tokens *tok)
+// {
+// 	t_tokens	*to_del;
+// 	t_tokens	*prev;
+// //needs fix for when first token is removed
+// 	to_del = *lst;
+// 	while (to_del != NULL && to_del != tok)
+// 	{
+// 		prev = to_del;
+// 		to_del = to_del->next;
+// 	}
+// 	if (to_del == NULL)
+// 		return ;
+// 	if (prev == NULL)
+// 		*lst = to_del->next;
+// 	else
+// 		prev->next = to_del->next;
+// 	free(to_del);
+// }
 
 //adds a new token to the end of the list
 void	ft_tok_addback(t_tokens **tokens, t_tokens *new_tok)
