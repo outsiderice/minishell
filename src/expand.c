@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/20 16:25:37 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:28:23 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*expand_dollar(t_ms *ms, t_tokens *tok, int *i, int j)
 
 // checks if a '$' is expandable or not
 // if it is calls a function to expand it
-// returns the expanded var
+// returns the token with all it's expanded vars
 char	*is_expandable_dollar(t_ms *ms, t_tokens *tok)
 {
 	int		i;
