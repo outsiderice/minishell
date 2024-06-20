@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/20 11:52:31 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:56:53 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*rm_delimiters(t_tokens *tok, int i)
 	return(str);
 }
 
-// find the ending delimiter
+// gets the var name and looks for it in env
 //
 int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 {
@@ -56,7 +56,7 @@ int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 	return (i);
 }
 
-//checks if a '$' is expandable or not
+// checks if a '$' is expandable or not
 // if it is calls a function to expand it
 void	is_expandable_dollar(t_ms *ms, t_tokens *tok)
 {
