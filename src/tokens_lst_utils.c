@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:01:59 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/20 12:05:55 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:54:34 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_addtok(const char *line, int len, int type, t_tokens **tokens)
 	if (!new_tok)
 	{
 		printf("bad malloc\n");
-		return ; //add proper protection later
+		return ;//add proper protection later
 	}
 	new_tok->type = type;
 	new_tok->tok = ft_substr(line, 0, len);

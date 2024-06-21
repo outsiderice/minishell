@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/20 19:17:32 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:46:34 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	ft_pipe_syntax(t_tokens *tok, t_tokens *first_tok)
 	if (first_tok->type == 2)
 	{
 		printf("pipe syntax error 1\n");
-		exit(1) ;
+		exit(1);
 	}	//add proper error and nl
 	if (tok->next == NULL || tok->next->type == 2)
 	{
 		printf("pipe syntax error 2\n");	//add proper error and nl
-		exit(1) ;
+		exit(1);
 	}
 	return (0);
 }
@@ -36,7 +36,7 @@ int	ft_redir_syntax(t_tokens *tok)
 	if (tok->next == NULL || (tok->next->type != 0 && tok->next->type != 1))
 	{
 		printf("redir syntax error\n"); //add proper error and nl
-		exit(1) ;
+		exit(1);
 	}
 	else
 		tok->next->type = 1;
@@ -52,7 +52,7 @@ void	ft_expansion_check(t_ms *ms)
 	t_tokens	*tok;
 
 	tok = ms->tokens;
-	while (tok != NULL) 
+	while (tok != NULL)
 	{
 		if ((tok->type == 0 || tok->type == 1) && ft_strchr(tok->tok, '$'))
 		{
@@ -79,7 +79,7 @@ void	ft_parse(t_ms *ms)
 {
 	t_tokens	*current;
 	t_tokens	*first;
-	
+
 	first = ms->tokens;
 	current = ms->tokens;
 	while (current != NULL)

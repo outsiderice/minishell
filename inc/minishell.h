@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/21 08:45:37 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:37:55 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_args
 {
 	int				fd[2]; // for pipe
 	int				redir_fd; // fd of file opened for redirection
-	int				redir_type; //each type, <, <<, > and >> are a different number, no redir is -1
+	int				redir_type; //<, <<, > and >> are different, -1 for empty
 	char			**argv;
 	struct s_args	*next;
 	struct s_args	*prev;
@@ -71,7 +71,7 @@ void	ft_minishell(t_ms *ms);
 
 /*    environment.c   */		//to initialize t_env
 t_env	*start_env(char **env_p);
-char 	**ft_list_to_array(t_env *env);
+char	**ft_list_to_array(t_env *env);
 
 /*    signals.c    */
 
@@ -107,9 +107,11 @@ void	ft_parse(t_ms *ms);
 char	*expand_quotes(t_tokens *tok);
 char	*is_expandable_dollar(t_ms *ms, t_tokens *tok);
 int		find_dollar_end(const char *name);
+char	*add_shit(char	*str, char *src, int *ptr);
 
 /*    expand_utils.c   */
-char	*rm_delimiters(char *tok, int i);
+char	*rm_delimiters(char *tok, int *i);
+char	*append_end(char *start, char *original, int i);
 
 /*    prep_execution.c    */
 void	ft_prep_args(t_ms *ms);
@@ -121,15 +123,15 @@ void	exeggutor(t_ms *ms);
 int		ft_exec(t_ms *ms);
 
 /*    handle_builtins.c    */
-int	is_builtin(char *cmd);
-int	handle_builtins(t_ms *ms);
+int		is_builtin(char *cmd);
+int		handle_builtins(t_ms *ms);
 // int	ft_echo(char **args);
-int	ft_pwd(void);
-int	ft_env(t_env *env_list);
+int		ft_pwd(void);
+int		ft_env(t_env *env_list);
 // int	ft_export(t_env *env_list, t_args *args_list);
 // int ft_unset(t_env **env, t_args *args);
 
 /*    builtins_utils.c    */
-int ft_str_compare(char *str1, char *str2);
+int		ft_str_compare(char *str1, char *str2);
 
 #endif

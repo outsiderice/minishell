@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/12 14:55:06 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:53:08 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //returns the token len
 int	ft_complex_tok(const char *line, t_tokens **tokens)
 {
-	int i;
+	int	i;
 	int	end;
 
 	i = 0;
