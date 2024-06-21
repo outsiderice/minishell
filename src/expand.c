@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/20 19:40:48 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/21 08:46:19 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*expand_dollar(t_ms *ms, t_tokens *tok, int *i, int j)
 	t_env	*env;
 
 	env = ms->env;
-	var_name = rm_delimiters(tok, j);
+	var_name = rm_delimiters(tok->tok, j);
 	*i = j + ft_strlen(var_name) + 1;
 	while (env != NULL && ft_str_compare(env->v_name, var_name) != 0)
 		env = env->next;
@@ -111,7 +111,7 @@ char	*expand_quotes(t_tokens *tok)
 		{
 			if (new_tok == NULL)
 				new_tok = ft_substr(tok->tok, 0, i);
-			aux = rm_delimiters(tok, i);
+			aux = rm_delimiters(tok->tok, i);
 			new_tok = ft_strjoin(new_tok, aux);
 			i = i + ft_strlen(aux) + 1;
 			free(aux);
