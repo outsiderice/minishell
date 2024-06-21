@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/06/20 18:53:24 by amagnell         ###   ########.fr        #
+#    Updated: 2024/06/21 19:31:45 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ INCS		=	inc	\
 
 SRC_DIR		=	src
 SRCS 		=	src/main.c \
+				src/error.c \
 				src/get_input.c \
 				src/check_quotes.c \
 				src/tokenize.c \
