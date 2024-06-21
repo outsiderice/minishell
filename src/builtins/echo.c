@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:22:05 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/14 19:55:31 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/21 13:05:08 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+//#include "../../inc/minishell.h"
+#include "../../lib/libft/include/libft.h"
 #include <stdio.h>
+#include <string.h>
 
 //echo -n "hola" "hola"
 //echo with no argument print \n
@@ -19,56 +21,84 @@
 // how to check for unexpected error for 1
 // implement -n -nnnnnnnn and etc
 
+
+int	ft_n_check(char *str)
+{
+	if (str == NULL || *str != '-')
+        return (0);
+	str++;
+	while (*str == 'n')
+		str++;
+	if (*str == '\0')
+		return (1);
+	return (0);
+}
+
 void	ft_print_args(char **args)
 {
-	while (args != NULL)
+	while (*args != NULL)
 	{
 		ft_putstr_fd(*args, STDOUT_FILENO);
 		args++;
-		if (args != NULL)
+		if (*args != NULL)
 			ft_putchar_fd(' ', STDOUT_FILENO);
 	}
 }
 
 int	ft_echo(char **args)
 {
+	int do_jump;
+
 	args++;
-	if (*args == NULL)
+	do_jump = ft_n_check(*args);
+	while (ft_n_check(*args) == 1)
+		args++;
+	ft_print_args(args);
+	if (do_jump == 0)
 		ft_putchar_fd('\n', STDOUT_FILENO);
-	else if (ft_str_compare(*args, "-n") == 0)
-		ft_print_args(args[i++]);
-	else if (args != NULL)
-	{	
-		ft_print_args(args);
-		ft_putchar_fd("\n", STDOUT_FILENO);
-	}
 	return (0);
 }
-
+/*
  int	main(int ac, char **av)
 {
 	char	**args;
 	int		i;
 	int		x;
-	int		len;
-
+	int 	j;
+	
+	if (ac < 2)
+		return (0);
 	args = malloc(sizeof(char *) * ac);
 	if (!args)
 		return (0);
 	i = 1;
 	x = 0;
-	while(i < ac)
+	while (i < ac)
 	{
-		len = strlen(av[i]);
-		args[x] = malloc(sizeof(char) * (len + 1));
-		if (!args[x])
-			return (0); // bueno y free pero es main de mentira :)
 		args[x] = strdup(av[i]);
-		printf("%s\n", args[x]);
+		if (!args[x])
+		{
+			j = 0;
+			while (j < x)
+			{
+				free(args[j]);
+				j++;
+			}
+			free(args);
+			return (0);
+		}
+		//printf("%s\n", args[x]);
 		i++;
 		x++;
 	}
-	args[3] = NULL;
+	args[x] = NULL;
  	ft_echo(args);
+	j = 0;
+	while (args[j] != NULL)
+    {
+        free(args[j]);
+		j++;
+    }
+    free(args);
 	return (1);
-}
+}*/
