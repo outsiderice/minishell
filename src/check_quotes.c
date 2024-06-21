@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:43:53 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/21 15:38:48 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/21 20:07:32 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ int	ft_check_quotes(const char *line, t_ms *ms)
 			if (qt_len == -1)
 			{
 				ms->exitstatus = 2;
-				return (1);
+				return (EXIT_FAILURE);
 			}
 			i = i + qt_len;
 		}
 		else
 			i++;
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
