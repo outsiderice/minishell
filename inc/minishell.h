@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/21 15:37:55 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:25:42 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char	*ft_readline(void);
 
 /*    error.c    */
 void	ft_error(t_ms **ms, char *line);
+int		error_msg(char *msg, char *deets);
 
 /*    check_quotes.c    */
 int		ft_check_quotes(const char *line, t_ms *ms);
