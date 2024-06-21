@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/21 19:36:27 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:51:59 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ int	main(int argc, char **argv, char **envp)
 	ft_init_ms(&ms);
 	ms.env = start_env(envp);
 	if (ms.env == NULL)
-		return (EXIT_FAILURE);
+	{
+		//function which frees ms and env
+		return (error_msg("env memory allocation failure\n", NULL));
+	}
 	ft_minishell(&ms);
 	return (0);
 }

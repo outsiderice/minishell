@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:08:33 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/21 15:42:40 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:56:57 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,19 @@ int	ft_assign(char *env_p, t_env **current)
 	char	*equal_ptr;
 	int		env_len;
 
-	if (env_p == NULL) //Error, nothing to save
+	if (env_p == NULL)
 		return (-1);
 	equal_ptr = ft_strchr(env_p, '=');
-	if (equal_ptr == NULL) //Error
+	if (equal_ptr == NULL)
 		return (-1);
 	env_len = ft_strlen(env_p);
-	equal = equal_ptr - env_p; // maybe wrong
+	equal = equal_ptr - env_p;
 	(*current)->v_name = ft_substr(env_p, 0, equal);
 	(*current)->v_cont = ft_substr(env_p, equal + 1, env_len);
 	if ((*current)->v_name == NULL || (*current)->v_cont == NULL)
-		return (-1); // something went wrong
+		return (-1);
 	(*current)->next = NULL;
-	return (0); // everything is ok
+	return (0);
 }
 
 //goes through the char ** and takes each char and creates nodes
@@ -88,9 +88,9 @@ t_env	*start_env(char **env_p)
 	{
 		current = malloc(sizeof(t_env) * 1);
 		if (!current)
-			return (NULL); //function that would make free if needed //A- not needed here I think
+			return (NULL);
 		if (ft_assign(env_p[i], &current) == -1)
-			return (NULL); // function that would make free 
+			return (NULL);
 		if (i == 0)
 			first = current;
 		else
