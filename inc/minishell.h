@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/24 12:04:58 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:53:57 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	**ft_list_to_array(t_env *env);
 char	*ft_readline(void);
 
 /*    error.c    */
-void	ft_error(t_ms **ms, char *line);
+// void	ft_error(t_ms **ms, char *line);
 int		error_msg(char *msg, char *deets);
 
 /*    check_quotes.c    */
@@ -102,7 +102,7 @@ int		ft_addtok(const char *line, int len, int type, t_tokens **tokens);
 // void	del_tok(t_tokens **lst, t_tokens *tok);
 
 /*    parser.c    */
-void	ft_parse(t_ms *ms);
+int		ft_parse(t_ms *ms);
 
 /*    expand.c    */
 char	*expand_quotes(t_tokens *tok);

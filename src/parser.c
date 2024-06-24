@@ -6,48 +6,49 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/21 15:46:34 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:54:45 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 //checks that there's an acceptable token on both sides of a '|'
-//if there isn't it gives an error and new line
+//if there isn't it prints an error message and returns 1, else it returns 0
 int	ft_pipe_syntax(t_tokens *tok, t_tokens *first_tok)
 {
 	if (first_tok->type == 2)
 	{
-		printf("pipe syntax error 1\n");
-		exit(1);
-	}	//add proper error and nl
+		error_msg("syntax error near unexpected token,", tok->tok);
+		return (EXIT_FAILURE);
+	}
 	if (tok->next == NULL || tok->next->type == 2)
 	{
-		printf("pipe syntax error 2\n");	//add proper error and nl
-		exit(1);
+		error_msg("syntax error near unexpected token,", tok->tok);
+		return (EXIT_FAILURE);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
-//if the token next to a redirection is not a type 0 (word) give an error and nl
+//if the token next to a redirection is not a type 0 (word) returns 1
 //if the following token is type 0 changes it's type from 0 to 1 (filename)
+//if succesful returns 0
 int	ft_redir_syntax(t_tokens *tok)
 {
 	if (tok->next == NULL || (tok->next->type != 0 && tok->next->type != 1))
 	{
-		printf("redir syntax error\n"); //add proper error and nl
-		exit(1);
+		error_msg("syntax error near unexpected token,", tok->tok);
+		return (EXIT_FAILURE);
 	}
 	else
 		tok->next->type = 1;
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 // Ft_expansion_check:
 // iterates tokens to find things to expand
 // if it finds a $ call a ft to check if they should be expanded
 // if it finds a quote it calls the funciton to expand them
-void	ft_expansion_check(t_ms *ms)
+int	ft_expansion_check(t_ms *ms)
 {
 	t_tokens	*tok;
 
@@ -68,14 +69,15 @@ void	ft_expansion_check(t_ms *ms)
 			tok->tok = " ";
 		tok = tok->next;
 	}
+	return (EXIT_SUCCESS);
 }
 
 //ft_parse checks:
 //that there's tokens which are not '|' at both sides of a pipe
 //that there's a word type token after a redirection << >> > <
 //if the first two are true:
-//it will check if there's anything to expand, get_args and then call execution
-void	ft_parse(t_ms *ms)
+//it will check if there's anything to expand
+int	ft_parse(t_ms *ms)
 {
 	t_tokens	*current;
 	t_tokens	*first;
@@ -85,10 +87,17 @@ void	ft_parse(t_ms *ms)
 	while (current != NULL)
 	{
 		if (current->type == 2)
-			ft_pipe_syntax(current, first);
+			if (ft_pipe_syntax(current, first) == 1)
+				return (EXIT_FAILURE);
 		if (current->type == 3)
-			ft_redir_syntax(current);
+			if (ft_redir_syntax(current) == 1)
+				return (EXIT_FAILURE);
 		current = current->next;
 	}
-	ft_expansion_check(ms);
+	if (ft_expansion_check(ms) == 1)
+	{
+		error_msg("expansion memory allocation failure\n", NULL);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }
