@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/24 12:06:26 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:16:19 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ int	ft_complex_tok(const char *line, t_tokens **tokens)
 		if (ft_ismetachar(line[i]) != 1 && ft_ismetachar(line[i]) != 0)
 			end = 1;
 	}
-	ft_addtok(&line[0], i, 0, tokens);
+	end = ft_addtok(&line[0], i, 0, tokens);
+	if (end == -1)
+		return (-1);
 	return (i);
 }
 
@@ -40,22 +42,26 @@ int	ft_complex_tok(const char *line, t_tokens **tokens)
 int	ft_get_tok(const char *line, t_tokens **tokens)
 {
 	int	i;
+	int	check;
 
 	i = 0;
+	check = 0;
 	if (line[i] == '"' || line[i] == '\'')
 		i = ft_complex_tok(&line[i], tokens);
 	else if (ft_ismetachar(line[i]) == 2)
 	{
 		i = ft_isoperator(&line[i]);
-		ft_addtok(&line[0], i, 2, tokens);
+		check = ft_addtok(&line[0], i, 2, tokens);
 	}
 	else if (ft_ismetachar(line[i]) == 3)
 	{
 		i = ft_isoperator(&line[i]);
-		ft_addtok(&line[0], i, 3, tokens);
+		check = ft_addtok(&line[0], i, 3, tokens);
 	}
 	else
 		i = ft_complex_tok(&line[i], tokens);
+	if (check == -1)
+		return (-1);
 	return (i);
 }
 
@@ -64,12 +70,19 @@ int	ft_get_tok(const char *line, t_tokens **tokens)
 int	ft_tokenize(const char *line, t_tokens **toks)
 {
 	int	i;
+	int	j;
 	
 	i = 0;
+	j = 0;
 	while (line[i])
 	{
 		if (ft_ismetachar(line[i]) < 4)
-			i = i + ft_get_tok(&line[i], toks);
+		{
+			j = ft_get_tok(&line[i], toks);
+			if (j == -1)
+				return (-1);
+			i = i + j;
+		}
 		else
 			i = i + ft_space_len(&line[i]);
 	}
