@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/24 12:19:11 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:30:55 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,7 @@ int	ft_tokenize(const char *line, t_tokens **toks)
 int	ft_tok_checks(const char *line, t_ms *ms)
 {
 	t_tokens	*toks;
-	int			len;
 
-	len = 0;
 	toks = NULL;
 	if (!line[0])
 		return (EXIT_FAILURE);
@@ -104,8 +102,7 @@ int	ft_tok_checks(const char *line, t_ms *ms)
 		error_msg("syntax error near unexpected token,", "open quotes");	
 		return (EXIT_FAILURE);
 	}
-	len = ft_tokenize(line, &toks);
-	if (len == -1)
+	if (ft_tokenize(line, &toks) == -1)
 	{
 		error_msg("token memory allocation failure\n", NULL);
 		return (EXIT_FAILURE);
