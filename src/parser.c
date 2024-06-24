@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/24 15:40:14 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:11:38 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	ft_redir_syntax(t_tokens *tok)
 // iterates tokens to find things to expand
 // if it finds a $ call a ft to check if they should be expanded
 // if it finds a quote it calls the funciton to expand them
+// returns 1 
 int	ft_expansion_check(t_ms *ms)
 {
 	t_tokens	*tok;
@@ -57,16 +58,14 @@ int	ft_expansion_check(t_ms *ms)
 	{
 		if ((tok->type == 0 || tok->type == 1) && ft_strchr(tok->tok, '$'))
 		{
-			tok->tok = is_expandable_dollar(ms, tok);
-			printf("after expanding dollar, %s\n", tok->tok);
+			if (is_expandable_dollar(ms, tok) == 1)
+				return (EXIT_FAILURE);
 		}
 		if (ft_strchr(tok->tok, '\'') || ft_strchr(tok->tok, '"'))
 		{
-			printf("\nthere's a quote to expand\n");
-			tok->tok = expand_quotes(tok);
+			if (expand_quotes(tok) == 1)
+				return (EXIT_FAILURE);
 		}
-		if (tok->tok == NULL)
-			return (EXIT_FAILURE);
 		if (ft_strlen(tok->tok) == 0)
 			tok->tok = " ";
 		tok = tok->next;

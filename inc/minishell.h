@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/24 12:53:57 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:09:52 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ int		ft_addtok(const char *line, int len, int type, t_tokens **tokens);
 int		ft_parse(t_ms *ms);
 
 /*    expand.c    */
-char	*expand_quotes(t_tokens *tok);
-char	*is_expandable_dollar(t_ms *ms, t_tokens *tok);
+int		expand_quotes(t_tokens *tok);
+int		is_expandable_dollar(t_ms *ms, t_tokens *tok);
 int		find_dollar_end(const char *name);
 char	*add_shit(char	*str, char *src, int *ptr);
 
