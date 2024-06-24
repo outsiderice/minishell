@@ -6,14 +6,14 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/24 12:16:19 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:19:11 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 //stores the token and it's type to the struct
-//returns the token len
+//returns the token len or -1 if allocation fails
 int	ft_complex_tok(const char *line, t_tokens **tokens)
 {
 	int	i;
@@ -37,7 +37,6 @@ int	ft_complex_tok(const char *line, t_tokens **tokens)
 }
 
 //gets the len and type of the token and stores it to the struct
-//when a token could be complex it delegates to ft_complex_token
 //returns the len of the latest token or -1 if allocation fails
 int	ft_get_tok(const char *line, t_tokens **tokens)
 {
