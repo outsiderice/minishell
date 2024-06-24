@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/24 12:54:45 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:40:14 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	ft_expansion_check(t_ms *ms)
 			printf("\nthere's a quote to expand\n");
 			tok->tok = expand_quotes(tok);
 		}
+		if (tok->tok == NULL)
+			return (EXIT_FAILURE);
 		if (ft_strlen(tok->tok) == 0)
 			tok->tok = " ";
 		tok = tok->next;
