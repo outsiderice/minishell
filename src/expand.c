@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/21 15:08:13 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:39:50 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ Yes. next.
 fuck complex tokens. anyway lets reason this out once more:
 -in the case of "hello"
 easy peasy just remove the delimiting quotes
--in the case of 'hi'bye 
-i remove the quotes alright*/
+-in the case of 'hi'bye */
+
 
 // find end of env variable name and return it's length
 int	find_dollar_end(const char *name)

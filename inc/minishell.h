@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/21 19:25:42 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:04:58 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int		ft_check_quotes(const char *line, t_ms *ms);
 int		ft_quote_len(const char *line, char type);
 
 /*    tokenize.c    */
-int		ft_tokenize(const char *line, t_ms *ms);
+int		ft_tok_checks(const char *line, t_ms *ms);
 // void		ft_get_toks(const char *line, t_tokens **tokens);
 
 /*    token_utils.c    */
@@ -97,7 +97,7 @@ int		ft_isoperator(const char *line);
 int		ft_isword(const char *line);
 
 /*    tokens_lst_utils.c    */
-void	ft_addtok(const char *line, int len, int type, t_tokens **tokens);
+int		ft_addtok(const char *line, int len, int type, t_tokens **tokens);
 // void	ft_tok_addback(t_tokens **tokens, t_tokens *new_tok);
 // void	del_tok(t_tokens **lst, t_tokens *tok);
 

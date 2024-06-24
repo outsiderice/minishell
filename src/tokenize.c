@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/21 20:11:44 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:06:26 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_complex_tok(const char *line, t_tokens **tokens)
 
 //gets the len and type of the token and stores it to the struct
 //when a token could be complex it delegates to ft_complex_token
-//returns the len of the latest token
+//returns the len of the latest token or -1 if allocation fails
 int	ft_get_tok(const char *line, t_tokens **tokens)
 {
 	int	i;
@@ -59,28 +59,44 @@ int	ft_get_tok(const char *line, t_tokens **tokens)
 	return (i);
 }
 
-//skips spaces and the rest gets stored as a token
-//calls for expansion check
-int	ft_tokenize(const char *line, t_ms *ms)
+//skips spaces and otherwise fills t_tokens
+//returns the length of the token or -1 if allocation fails
+int	ft_tokenize(const char *line, t_tokens **toks)
+{
+	int	i;
+	
+	i = 0;
+	while (line[i])
+	{
+		if (ft_ismetachar(line[i]) < 4)
+			i = i + ft_get_tok(&line[i], toks);
+		else
+			i = i + ft_space_len(&line[i]);
+	}
+	return (i);
+}
+
+//checks if there're open quotes and that token allocation went correctly
+//returns 1 if it encounters an error or 0 if everything is ok
+int	ft_tok_checks(const char *line, t_ms *ms)
 {
 	t_tokens	*toks;
-	int			i;
+	int			len;
 
-	i = 0;
+	len = 0;
 	toks = NULL;
-	if (!line[i])
+	if (!line[0])
 		return (EXIT_FAILURE);
 	if (ft_check_quotes((const char *)line, ms) != 0)
 	{
 		error_msg("syntax error near unexpected token,", "open quotes");	
 		return (EXIT_FAILURE);
 	}
-	while (line[i])
+	len = ft_tokenize(line, &toks);
+	if (len == -1)
 	{
-		if (ft_ismetachar(line[i]) < 4)
-			i = i + ft_get_tok(&line[i], &toks);
-		else
-			i = i + ft_space_len(&line[i]);
+		error_msg("token memory allocation failure\n", NULL);
+		return (EXIT_FAILURE);
 	}
 	ms->tokens = toks;
 	//Test to see what tokens are stored
