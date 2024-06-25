@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/25 12:04:18 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/25 12:22:56 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_retokenize(t_tokens *tok, int i, char *content, int v)
 	if (!start)
 		return (-1);
 	printf("stored start = <%s>\n", start);
-	end = ft_substr(tok->tok, i + c_len - 2, ft_strlen(tok->tok) - (i + v));
+	end = ft_substr(tok->tok, i + v + 1, ft_strlen(tok->tok) - (i + v));
 	if (!end)
 		return (-1);
 	printf("stored end = <%s>\n", end);
@@ -107,6 +107,7 @@ int	is_expandable_dollar(t_ms *ms, t_tokens *tok)
 		else if (tok->tok[i] == '$')
 		{
 			i = expand_dollar(ms, tok, i);
+			if (i == -1)
 				return (EXIT_FAILURE);
 		}
 		else
