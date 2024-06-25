@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/25 13:28:18 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:42:53 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_retokenize(t_tokens *tok, int i, char *content, int v)
 }
 
 // gets the var name and looks for it in env
-// returns the character after the last on of the expanded var
+// returns the character after the last one of the expanded var
 int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 {
 	char		*var_name;
@@ -71,7 +71,7 @@ int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 		free (var_name);
 		return (-1);
 	}
-	printf("stored content = <%s>\n AND tok->tok[i] is %c", content, tok->tok[i]);
+	printf("stored content = <%s>\n AND tok->tok[i] is %c\n", content, tok->tok[i]);
 	i = ft_retokenize(tok, i, content, ft_strlen(var_name) + 1);
 	free (var_name);
 	free (content);
@@ -85,10 +85,10 @@ int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 int	is_expandable_dollar(t_ms *ms, t_tokens *tok)
 {
 	int		i;
-	
+
 	i = 0;
 	printf("is it a expandable dollar?\n");
-	while(tok->tok[i])
+	while (tok->tok[i])
 	{
 		if (tok->tok[i] == '\'')
 			i = i + ft_quote_len(&tok->tok[i], '\'');
@@ -104,8 +104,9 @@ int	is_expandable_dollar(t_ms *ms, t_tokens *tok)
 	return (EXIT_SUCCESS);
 }
 
-//while it's not a quote add
-char *add_shit(char *tok, int i)
+//iterates TOK while tok[i] is not a quote
+//adds all the characters found to string SHIT and returns it
+char	*add_shit(char *tok, int i)
 {
 	char	*shit;
 	int		shit_len;
@@ -128,7 +129,7 @@ int	expand_quotes(t_tokens *tok)
 {
 	int		i;
 	char	*aux;
-	
+
 	i = 0;
 	printf("there are quotes to expand\n");
 	while (tok->tok[i])
