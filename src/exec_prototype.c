@@ -3,7 +3,7 @@
 #include <dirent.h>
 #include <sys/wait.h>
 //#include <errno.h>
-#include "../lib/libft/include/libft.h"
+#include "../lib/libft/libft.h"
 #include "../inc/minishell.h"
 
 // gcc -I../lib/libft/include exec_prototype.c -L../lib/libft -lft -o executable

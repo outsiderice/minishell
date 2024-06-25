@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 14:10:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/13 15:51:58 by amagnell         ###   ########.fr       */
+/*   Updated: 2022/11/01 15:23:57 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 //Locates the first instance of int c (converted to char) in char *s.
 //It should be able to locate '\0' at the end of the line if it's the argument.
 //Returns a pointer (*a) to the located character.
+
 char	*ft_strchr(const char *s, int c)
 {
 	int				i;

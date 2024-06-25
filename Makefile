@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/06/21 19:31:45 by amagnell         ###   ########.fr        #
+#    Updated: 2024/06/25 16:20:19 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ LIBFT		=	lib/libft/libft.a
 LIBS_TARGET	=	$(LIBFT)
 
 INCS		=	inc	\
-				lib/libft/include
+				lib/libft
 
 SRC_DIR		=	src
 SRCS 		=	src/main.c \
@@ -53,7 +53,7 @@ DEPS		=	$(OBJS:%.o=%.d)
 CC 			=	gcc
 CFLAGS 		=	-Wall -Wextra -Werror
 CPPFLAGS 	=	$(addprefix -I, $(INCS)) -MMD -MP
-LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_TARGET))) -no-pie
+LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_TARGET)))
 LDLIBS		=	$(addprefix -l, $(LIBS))
 
 #-------------------------------------------#
@@ -73,7 +73,7 @@ $(NAME): $(LIBS_TARGET) $(OBJS)
 	$(info Created $@)
 
 libft:
-	$(MAKE) $(MAKEFLAGS) -C $(LIBFT_DIR)
+	@make $(MAKEFLAGS) -C $(LIBFT_DIR)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INCS) Makefile
 	$(DIR_DUP)

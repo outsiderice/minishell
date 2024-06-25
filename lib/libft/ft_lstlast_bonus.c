@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/16 17:59:58 by amagnell          #+#    #+#             */
-/*   Updated: 2022/10/08 20:14:05 by amagnell         ###   ########.fr       */
+/*   Created: 2023/09/19 18:47:30 by amagnell          #+#    #+#             */
+/*   Updated: 2024/06/17 10:57:19 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+// Iterates LST until it's last node and returns a pointer to it
+t_list	*ft_lstlast(t_list *lst)
 {
-	size_t			i;
-	unsigned char	*a;
+	t_list	*last;
 
-	a = (unsigned char *)b;
-	i = 0;
-	while (i < len)
+	last = NULL;
+	while (lst != NULL)
 	{
-		a[i] = c;
-		i++;
+		last = lst;
+		lst = lst->next;
 	}
-	return (b);
+	return (last);
 }

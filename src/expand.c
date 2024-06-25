@@ -6,26 +6,11 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/25 12:22:56 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:42:53 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*all_join(char *s1, char *s2, char *s3)
-{
-	char	*result;
-	char	*aux;
-
-	aux = ft_strjoin(s1, s2);
-	if (!aux)
-		return (NULL);
-	result = ft_strjoin(aux, s3);
-	free(aux);
-	if (!result)
-		return (NULL);
-	return (result);
-}
 
 // creates new_tok out of content and the beginning and end of the old tok
 // stores it to the tok
@@ -43,11 +28,14 @@ int	ft_retokenize(t_tokens *tok, int i, char *content, int v)
 	if (!start)
 		return (-1);
 	printf("stored start = <%s>\n", start);
-	end = ft_substr(tok->tok, i + v + 1, ft_strlen(tok->tok) - (i + v));
+	end = ft_substr(tok->tok, i + v, ft_strlen(tok->tok) - (i + v));
 	if (!end)
 		return (-1);
 	printf("stored end = <%s>\n", end);
-	new_tok = all_join(start, content, end);
+	if (c_len == 0)
+		new_tok = ft_strjoin(start, end);
+	else
+		new_tok = all_join(start, content, end);
 	printf("stored new_tok = <%s>\n", new_tok);
 	free(start);
 	free(end);
@@ -56,11 +44,11 @@ int	ft_retokenize(t_tokens *tok, int i, char *content, int v)
 	free(tok->tok);
 	tok->tok = new_tok;
 	printf("changed tok->tok = <%s>\n", tok->tok);
-	return (i + c_len + 1);
+	return (i + c_len + i);
 }
 
 // gets the var name and looks for it in env
-// returns the character after the last on of the expanded var
+// returns the character after the last one of the expanded var
 int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 {
 	char		*var_name;
@@ -83,8 +71,8 @@ int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 		free (var_name);
 		return (-1);
 	}
-	printf("stored content = <%s>\n", content);
-	i = ft_retokenize(tok, i, content, ft_strlen(var_name));
+	printf("stored content = <%s>\n AND tok->tok[i] is %c\n", content, tok->tok[i]);
+	i = ft_retokenize(tok, i, content, ft_strlen(var_name) + 1);
 	free (var_name);
 	free (content);
 	if (i == -1)
@@ -97,10 +85,10 @@ int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 int	is_expandable_dollar(t_ms *ms, t_tokens *tok)
 {
 	int		i;
-	
+
 	i = 0;
 	printf("is it a expandable dollar?\n");
-	while(tok->tok[i])
+	while (tok->tok[i])
 	{
 		if (tok->tok[i] == '\'')
 			i = i + ft_quote_len(&tok->tok[i], '\'');
@@ -116,13 +104,32 @@ int	is_expandable_dollar(t_ms *ms, t_tokens *tok)
 	return (EXIT_SUCCESS);
 }
 
+//iterates TOK while tok[i] is not a quote
+//adds all the characters found to string SHIT and returns it
+char	*add_shit(char *tok, int i)
+{
+	char	*shit;
+	int		shit_len;
+
+	shit_len = 0;
+	while (tok[i] && ft_ismetachar(tok[i] != 1))
+	{
+		i++;
+		shit_len++;
+	}
+	shit = ft_substr(tok, i - shit_len, shit_len);
+	if (!shit)
+		return (NULL);
+	return (shit);
+}
+
 // It removes paired quotes as it finds them and creates a new string
 // Returns the new string created NEW_TOK
 int	expand_quotes(t_tokens *tok)
 {
 	int		i;
 	char	*aux;
-	
+
 	i = 0;
 	printf("there are quotes to expand\n");
 	while (tok->tok[i])
@@ -132,13 +139,20 @@ int	expand_quotes(t_tokens *tok)
 			aux = rm_delimiters(tok->tok, i);
 			if (!aux)
 				return (EXIT_FAILURE);
+			printf("stored aux = <%s>\n", aux);
 			i = ft_retokenize(tok, i, aux, ft_strlen(aux) + 2);
-			free(aux);
-			if (i == -1)
-				return (EXIT_FAILURE);
 		}
 		else
-			i++;
+		{
+			printf("tok->tok[i] is: %c\n", tok->tok[i]);
+			aux = add_shit(tok->tok, i);
+			printf("stored aux = <%s>\n", aux);
+			if (!aux)
+				return (EXIT_FAILURE);
+			i = ft_retokenize(tok, i, aux, ft_strlen(aux));
+		}
+		if (i == -1)
+			return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
