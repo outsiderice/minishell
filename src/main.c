@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/12 15:00:29 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:53:20 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_init_ms(t_ms *ms)
 	ms->sh_lvl = -1; //HOW?
 	ms->old_pwd = NULL;
 	ms->new_pwd = getcwd(NULL, 0);
-	//if (ms->new_pwd == NULL) exit ("getcwd error")//protection for if new_pwd returns NULL?
+	if (ms->new_pwd == NULL)
+		exit (error_msg("getcwd:Returned NULL new_pwd\n", NULL));
 	ms->pid = getpid();
 }
 
@@ -36,16 +37,15 @@ void	ft_minishell(t_ms *ms)
 	printf("eggshell go!\n");
 	while (42)
 	{
-		printf("inside 42\n");
 		//start signals -	Kat
 		line = ft_readline();
 		while (line)
 		{
 			printf("line!\n");
-			if (ft_tokenize(line, ms) == 0)
+			if (ft_tok_checks(line, ms) == 0)
 			{
-				ft_parse(ms);
-				exeggutor(ms);
+				if (ft_parse(ms) == 0)
+					exeggutor(ms);
 			}
 			free (line);
 			line = NULL;
@@ -65,7 +65,10 @@ int	main(int argc, char **argv, char **envp)
 	ft_init_ms(&ms);
 	ms.env = start_env(envp);
 	if (ms.env == NULL)
-		return (EXIT_FAILURE);
+	{
+		//function which frees ms and env
+		return (error_msg("env memory allocation failure\n", NULL));
+	}
 	ft_minishell(&ms);
 	return (0);
 }

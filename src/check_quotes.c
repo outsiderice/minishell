@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:43:53 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/10 12:02:42 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/21 20:12:22 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	ft_quote_len(const char *line, char type)
 	return (-1);
 }
 
+//checks if there's open quotes, returns 1 if there's open quotes 0 if not
 int	ft_check_quotes(const char *line, t_ms *ms)
 {
 	int	i;
@@ -44,12 +45,12 @@ int	ft_check_quotes(const char *line, t_ms *ms)
 			if (qt_len == -1)
 			{
 				ms->exitstatus = 2;
-				return(1);
+				return (EXIT_FAILURE);
 			}
 			i = i + qt_len;
 		}
 		else
 			i++;
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }

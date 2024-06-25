@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/06/11 18:25:06 by amagnell         ###   ########.fr        #
+#    Updated: 2024/06/21 19:31:45 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ INCS		=	inc	\
 
 SRC_DIR		=	src
 SRCS 		=	src/main.c \
+				src/error.c \
 				src/get_input.c \
 				src/check_quotes.c \
 				src/tokenize.c \
@@ -35,6 +36,8 @@ SRCS 		=	src/main.c \
 				src/tokens_lst_utils.c \
 				src/env_handler.c \
 				src/parser.c \
+				src/expand.c \
+				src/expand_utils.c \
 				src/prep_execution.c \
 				src/execution.c \
 				src/exec_prototype.c \
@@ -66,7 +69,7 @@ DIR_DUP		=	mkdir -p $(@D)
 all: libft $(NAME) #readline 
 
 $(NAME): $(LIBS_TARGET) $(OBJS)
-	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS)  -o $(NAME) #-fsanitize=address
+	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -fsanitize=address -o $(NAME) #
 	$(info Created $@)
 
 libft:

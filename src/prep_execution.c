@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/12 15:59:26 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:51:12 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ int	new_args_node(t_args **args, char **arr)
 {
 	t_args	*new_arg;
 	t_args	*last;
-	
+
 	new_arg = malloc(sizeof(t_args) * 1);
 	if (!new_arg)
-		return(-1);	//malloc protecc
+		return (-1);	//malloc protecc
 	new_arg->argv = arr;
 	int i = 0;
 	printf("argv[0] == %s\n", new_arg->argv[i]);
@@ -111,7 +111,6 @@ char	**fill_arg(t_tokens **tok, t_tokens *ptr)
 	printf("before while to fill array\n");
 	while (i < arr_len)
 	{
-		printf("inside loop\n");
 		arr[i] = ft_strdup((*tok)->tok);
 		printf("arr[%d] = %s, tok is = %s\n", i, arr[i], (*tok)->tok);
 		(*tok) = (*tok)->next;
@@ -121,69 +120,6 @@ char	**fill_arg(t_tokens **tok, t_tokens *ptr)
 	return (arr);
 }
 
-// //Creates nodes for t_args from t_tokens
-// void	ft_prep_args(t_ms *ms)
-// {
-// 	t_args		*args;	//pointer to args, which is unitinialized
-// 	t_tokens	*current_tok;	//pointer to toks because we dont want to lose the first position
-// 	char		**arr;
-	
-// 	/*to fill a node of args, just ONE node, I need the array*/
-// 	current_tok = ms->tokens; 
-// 	args = NULL; 
-// 	while (current_tok != NULL) 
-// 	{
-// 		if (current_tok && current_tok->type != 2)
-// 		{
-// 			if (current_tok->type == 0)
-// 			{
-// 				arr = fill_arg(current_tok);
-// 				break ;
-// 			}
-// 			current_tok = current_tok->next;
-// 		}
-// 		new_args_node(&args, arr);
-// 		arr = NULL;
-// 		current_tok = current_tok->next;
-// 	}
-// 	//Test to print what's in args structure
-// 	int i = 0;
-// 	while (args->next != NULL)
-// 	{
-// 		while (args != NULL && args->argv[i] != NULL)
-// 		{
-// 			printf("\nStored in args:<%s>\n\n", args->argv[i]);
-// 			i++;
-// 		}
-// 		args = args->next;
-// 		printf("\n~On to next node~\n\n");
-// 	}
-// 	printf("%p of argv\n", args->argv[i]);
-// 	while (args != NULL && args->argv[i] != NULL)
-// 	{
-// 		printf("\nStored in args node:<%s>\n\n", args->argv[i]);
-// 		i++;
-// 	}
-// 	//End of test delete later
-// }
-
-// void	fun(int	**a, int *c)
-// {
-// 	*a = c; 
-// }
-
-// void	fun(void)
-// {
-// 	t_list	*a; t_tokes *a
-// 	t_list	*b;
-// 	t_list	*c;
-
-
-// 	a = b;
-// 	fun2(&a, c);
-// 	print(a); == c
-// }
-
 //Creates nodes for t_args from t_tokens
 void	ft_prep_args(t_ms *ms)
 {
@@ -192,8 +128,8 @@ void	ft_prep_args(t_ms *ms)
 	char		**arr;
 	
 	/*to fill a node of args, just ONE node, I need the array*/
-	current_tok = ms->tokens; 
-	args = NULL; 
+	current_tok = ms->tokens;
+	args = NULL;
 	while (current_tok != NULL) 
 	{
 		printf("inside prep loop\n");

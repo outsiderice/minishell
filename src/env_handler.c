@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_env.c                                       :+:      :+:    :+:   */
+/*   env_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:08:33 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/07 12:09:13 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:56:57 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@ int	ft_lstlen(t_env *env)
 }
 
 // converts a list to a char **
-char **ft_list_to_array(t_env *env)
+char	**ft_list_to_array(t_env *env)
 {
 	char	**env_a;
-	char 	*aux;
+	char	*aux;
 	int		i;
 
 	env_a = malloc(sizeof(char *) * ft_lstlen(env) + 1);
 	if (!env_a)
 		return (NULL);
 	i = 0;
-	while (env != NULL) 
+	while (env != NULL)
 	{
 		aux = ft_strjoin(env->v_name, "="); // needs to be checkes for NULL?
 		env_a[i] = ft_strjoin(aux, env->v_cont);
@@ -51,46 +51,46 @@ char **ft_list_to_array(t_env *env)
 }
 
 //it assigns names and values to the nodes
-int		ft_assign(char *env_p, t_env **current)
+int	ft_assign(char *env_p, t_env **current)
 {
 	int		equal;
 	char	*equal_ptr;
 	int		env_len;
 
-	if (env_p == NULL) //Error, nothing to save
+	if (env_p == NULL)
 		return (-1);
 	equal_ptr = ft_strchr(env_p, '=');
-	if (equal_ptr == NULL) //Error
+	if (equal_ptr == NULL)
 		return (-1);
-	env_len = ft_strlen(env_p); 
-	equal = equal_ptr - env_p; // maybe wrong
-    (*current)->v_name = ft_substr(env_p, 0, equal);
+	env_len = ft_strlen(env_p);
+	equal = equal_ptr - env_p;
+	(*current)->v_name = ft_substr(env_p, 0, equal);
 	(*current)->v_cont = ft_substr(env_p, equal + 1, env_len);
 	if ((*current)->v_name == NULL || (*current)->v_cont == NULL)
-		return (-1); // something went wrong
+		return (-1);
 	(*current)->next = NULL;
-	return (0); // everything is ok
+	return (0);
 }
 
 //goes through the char ** and takes each char and creates nodes
 // maybe should 
 t_env	*start_env(char **env_p)
 {
-    int		i;
-    t_env	*first;
-    t_env	*current;
+	int		i;
+	t_env	*first;
+	t_env	*current;
 	t_env	*prev;
-    
-    i = 0;
+
+	i = 0;
 	if (env_p == NULL || env_p[0] == NULL)
-        return (NULL);
+		return (NULL);
 	while (env_p[i] != NULL)
 	{
 		current = malloc(sizeof(t_env) * 1);
 		if (!current)
-			return (NULL); //function that would make free if needed //A- not needed here I think
+			return (NULL);
 		if (ft_assign(env_p[i], &current) == -1)
-			return (NULL); // function that would make free 
+			return (NULL);
 		if (i == 0)
 			first = current;
 		else
