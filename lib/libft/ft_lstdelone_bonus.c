@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/18 14:07:25 by amagnell          #+#    #+#             */
-/*   Updated: 2023/10/14 20:48:56 by amagnell         ###   ########.fr       */
+/*   Created: 2023/09/25 18:19:25 by amagnell          #+#    #+#             */
+/*   Updated: 2024/06/17 10:54:07 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putstr(const char *str)
+// deletes node pointed to by LST using DEL
+void	ft_lstdelone(t_list *lst, void (*del) (void *))
 {
-	int	j;
-	int	count;
-
-	j = 0;
-	count = 0;
-	if (str == NULL)
-		return (write(1, "(null)", 6));
-	while (str[j] != '\0')
+	if (lst)
 	{
-		count = count + ft_putchar(str[j]);
-		if (count == -1)
-			return (-1);
-		j++;
+		del(lst->content);
+		free(lst);
 	}
-	return (count);
 }

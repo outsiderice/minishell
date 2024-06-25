@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 18:30:27 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/25 10:54:54 by amagnell         ###   ########.fr       */
+/*   Updated: 2022/10/31 18:18:34 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// creates a string from S at START which is at most LEN size.
-// Returns the substring created or NULL if it fails.
+//creates a string from S at START which is at most LEN size.
+//Returns the substring created or NULL if it fails.
+
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*str;

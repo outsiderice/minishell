@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/25 12:49:35 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:53:00 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <fcntl.h>
 # include "../lib/readline/readline.h"
 # include "../lib/readline/history.h"
-# include "../lib/libft/include/libft.h"
+# include "../lib/libft/libft.h"
 
 /*    STRUCTURES    */
 //type 0 = word, quoted or unquoted

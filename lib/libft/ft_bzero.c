@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putunbr.c                                       :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/26 19:34:39 by amagnell          #+#    #+#             */
-/*   Updated: 2023/10/14 20:50:13 by amagnell         ###   ########.fr       */
+/*   Created: 2022/09/17 18:43:11 by amagnell          #+#    #+#             */
+/*   Updated: 2024/06/17 10:48:06 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putunbr(int count, unsigned long long nbr, char *base, const char *type)
+// Writes 0s to n bytes of string pointed by s.
+void	ft_bzero(void *s, size_t n)
 {
-	if (nbr >= (unsigned long)ft_strlen(base))
-	{
-		count = ft_putnbr(count, nbr / ft_strlen(base), base, type);
-		if (count == -1)
-			return (-1);
-		count = ft_putnbr(count, nbr % ft_strlen(base), base, type);
-	}
-	else if (nbr < (unsigned long)ft_strlen(base))
-		count = count + ft_putchar(base[nbr]);
-	return (count);
+	ft_memset(s, 0, n);
 }

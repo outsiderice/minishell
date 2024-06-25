@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 12:29:11 by amagnell          #+#    #+#             */
-/*   Updated: 2023/10/28 20:09:58 by amagnell         ###   ########.fr       */
+/*   Created: 2023/09/25 19:07:30 by amagnell          #+#    #+#             */
+/*   Updated: 2024/06/17 10:56:21 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-//allocates memory to COUNT number of objects which are SIZE bytes of memory.
-//the allocated memory is filled with 0s
-//returns a pointer to the allocated memory.
-
-void	*ft_calloc(size_t count, size_t size)
+// Iterate LST to apply f to all its CONTENT
+void	ft_lstiter(t_list *lst, void (*f) (void *))
 {
-	void	*ptr;
+	t_list	*node;
 
-	ptr = malloc (count * size);
-	if (!ptr)
-		return (NULL);
-	ft_bzero(ptr, (count * size));
-	return (ptr);
+	while (lst != NULL)
+	{
+		node = lst;
+		lst = lst->next;
+		f(node->content);
+	}
 }
-
-/*int	main(void)
-{
-	ft_calloc();
-	return (0);
-}*/
