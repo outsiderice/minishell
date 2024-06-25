@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:27:10 by kkoval            #+#    #+#             */
-/*   Updated: 2024/05/29 15:27:18 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/25 17:28:36 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,26 @@ int ft_str_compare(char *str1, char *str2)
         return (0);
 	return (1);
 }
+
+int	ft_get_env(m_env *env)
+{
+	while (env != NULL)
+	{
+		
+	}
+}
+
+char	ft_get_env_value(t_env *env, char *name)
+{
+	if ()
+	while (env != NULL)
+	{
+		if (env->v_name)
+
+		env = env->next;
+	}
+}
+
 
 /*int main(void)
 {

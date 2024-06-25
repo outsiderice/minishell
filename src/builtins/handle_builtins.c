@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/21 13:18:01 by kate             ###   ########.fr       */
+/*   Updated: 2024/06/25 13:33:45 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	handle_builtins(t_ms *ms) //probably has to be **msh to do exil propery and 
 	// else if (ft_str_compare(ms->args->argv[0], "unset") == 0)
 	// 	ms->exitstatus = ft_unset(&ms->env, ms->args->argv);
 	else if (ft_str_compare(ms->args->argv[0], "exit") == 0)
-		ms->exitstatus = (ft_exit(ms)); // this should have access to the adress
+		ms->exitstatus = (ft_exit(ms->args->argv)); // this should have access to the adress
 	else 
 		return (-1); // means that it is not a builtin
 	return (0);

@@ -113,10 +113,11 @@ int	ft_exit(char **args) //possibly save the readline history
 		return (0);
 	}
 	exit_status = ft_atoi_long_long(*args);
+	//ft_free_ms(ms);
 	//exit(exit_status);
 	return (1);
 }
-
+/*
  int	main(int ac, char **av)
 {
 	char	**args;
@@ -159,4 +160,4 @@ int	ft_exit(char **args) //possibly save the readline history
     }
     free(args);
 	return (1);
-}
+}*/

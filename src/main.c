@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/14 16:23:52 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/25 15:44:26 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_init_ms(t_ms *ms, char **envp)
 	ms->args = NULL;
 	ms->exitstatus = -1;
 	ms->sh_lvl = ft_shll_lvl(ms->env);
-	ms->old_pwd = NULL;
+	ms->old_pwd = getcwd(NULL, 0);
 	ms->new_pwd = getcwd(NULL, 0);
 	//if (ms->new_pwd == NULL) exit ("getcwd error")//protection for if new_pwd returns NULL?
 	ms->pid = getpid();
