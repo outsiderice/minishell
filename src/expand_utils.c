@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:42:25 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/25 11:20:07 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:38:54 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,55 +27,17 @@ int	find_dollar_end(const char *name)
 }
 
 // Removes the characters at both ends of TOK
-char	*rm_delimiters(char *tok, int *i)
+char	*rm_delimiters(char *tok, int i)
 {
 	char	*str;
 	int		len;
-	int		j;
 
-	j = *i;
-	if (ft_ismetachar(tok[j]) == 1)
-		len = ft_quote_len(&tok[j], tok[j]);
+	if (ft_ismetachar(tok[i]) == 1)
+		len = ft_quote_len(&tok[i], tok[i]);
 	else
-		len = find_dollar_end(&tok[j]);
-	str = ft_substr(tok, j + 1, len - 2);
+		len = find_dollar_end(&tok[i]);
+	str = ft_substr(tok, i + 1, len - 2);
 	if (!str)
 		return (NULL);
-	*i = j + len;
 	return(str);
-}
-
-//
-char	*append_end(char *start, char *original, int i)
-{
-	char	*new_tok;
-	char	*aux;
-
-	i++;
-	aux = ft_substr(original, i, ft_strlen(original) - i);
-	new_tok = ft_strjoin(start, aux);
-	free(aux);
-	return (new_tok);
-}
-
-//adds shit to the new_tok
-char	*add_shit(char	*str, char *src, int *ptr)
-{
-	int		start;
-	int		end;
-	char	*shit;
-	char	*new_tok;
-
-	start = *ptr;
-	end = start;
-	while (ft_ismetachar(src[end]) != 1)
-		end++;
-	shit = ft_substr(src, start, end - start);
-	*ptr = end;
-	if (!str)
-		return (shit);
-	new_tok = ft_strjoin(str, shit);
-	free(str);
-	free(shit);
-	return (new_tok);
 }

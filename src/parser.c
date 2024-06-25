@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/24 16:11:38 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:34:16 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ int	ft_expansion_check(t_ms *ms)
 			if (is_expandable_dollar(ms, tok) == 1)
 				return (EXIT_FAILURE);
 		}
-		if (ft_strchr(tok->tok, '\'') || ft_strchr(tok->tok, '"'))
-		{
-			if (expand_quotes(tok) == 1)
-				return (EXIT_FAILURE);
-		}
+		// if (ft_strchr(tok->tok, '\'') || ft_strchr(tok->tok, '"'))
+		// {
+		// 	if (expand_quotes(tok) == 1)
+		// 		return (EXIT_FAILURE);
+		// }
 		if (ft_strlen(tok->tok) == 0)
 			tok->tok = " ";
 		tok = tok->next;
@@ -100,5 +100,6 @@ int	ft_parse(t_ms *ms)
 		error_msg("expansion memory allocation failure\n", NULL);
 		return (EXIT_FAILURE);
 	}
+	printf("expansion check done\n");
 	return (EXIT_SUCCESS);
 }
