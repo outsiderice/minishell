@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/06/25 16:20:19 by amagnell         ###   ########.fr        #
+#    Updated: 2024/06/25 16:55:08 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ DIR_DUP		=	mkdir -p $(@D)
 all: libft $(NAME) #readline 
 
 $(NAME): $(LIBS_TARGET) $(OBJS)
-	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -fsanitize=address -o $(NAME) #
+	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS)  -o $(NAME) #-fsanitize=address
 	$(info Created $@)
 
 libft:
@@ -83,12 +83,12 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INCS) Makefile
 -include $(DEPS)
 
 clean:
-	for f in $(dir $(LIBS_TARGET)); do $(MAKE) -C $$f clean; done
 	$(RM) $(OBJS) $(DEPS)
+	@make clean -C $(LIBFT_DIR)
 
 fclean: clean
-	for f in $(dir $(LIBS_TARGET)); do $(MAKE) -C $$f fclean; done
 	$(RM) $(NAME)
+	@make fclean -C $(LIBFT_DIR)
 
 re:
 	$(MAKE) fclean
