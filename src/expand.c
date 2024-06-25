@@ -6,74 +6,78 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/24 16:24:44 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/25 10:53:47 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* ok, so expansion it does stuff brrrrr
-we've come to the conclusion that dollars should be expanded before quotes, is that right?
-Yes. next.
-fuck complex tokens. anyway lets reason this out once more:
--in the case of "hello"
-easy peasy just remove the delimiting quotes
--in the case of 'hi'bye */
-
-
-// find end of env variable name and return it's length
-int	find_dollar_end(const char *name)
+char	*all_join(char *s1, char *s2, char *s3)
 {
-	int	i;
+	char	*result;
+	char	*aux;
 
-	i = 1;
-	if (ft_isdigit(name[i]) == 1)
-		return (3);
-	while (name[i] && (ft_isalnum(name[i]) == 1 || name[i] == '_'))
-		i++;
-	i++;
-	return (i);
+	aux = ft_strjoin(s1, s2);
+	if (!aux)
+		return (NULL);
+	result = ft_strjoin(aux, s3);
+	free(aux);
+	if (!result)
+		return (NULL);
+	return (result);
 }
 
+// creates new_tok out of content and the beginning and end of the old tok
+// stores it to the tok
+// returns i at the character after the last char of content
+// or returns -1 if allocation fails
+int	ft_retokenize(t_tokens *tok, int i, char *content)
+{
+	char	*start;
+	char	*end;
+	int		c_len;
+	char	*new_tok;
 
-
-// expands the variable and substitutes the var name with it
-//returns the token with the expanded $
-// char	*ft_retokenize(t_ms *ms, t_tokens *tok, int *i, int j)
-// {
-// 	char	*new_tok;
-// 	char	*start;
-// 	char	*aux;
-// 	char	*end;
-	
-// 	start = ft_substr(tok->tok, 0, j);
-// 	aux = expand_dollar(ms, tok, &j, j);
-// 	end = ft_substr(tok->tok, j, ft_strlen(tok->tok) - j);
-// 	new_tok = ft_strjoin(start, aux);
-// 	free(aux);
-// 	aux = ft_strjoin(new_tok, end);
-// 	free(start);
-// 	free(new_tok);
-// 	free(end);
-// 	*i = j;
-// 	return (aux);
-// }
+	c_len = ft_strlen(content);
+	start = ft_substr(tok->tok, 0, i);
+	if (!start)
+		return (-1);
+	end = ft_substr(tok->tok, i + c_len, ft_strlen(tok->tok) - (i + c_len));
+	if (!end)
+		return (-1);
+	new_tok = all_join(start, content, end);
+	free(start);
+	free(end);
+	if (!new_tok)
+		return (-1);
+	return (i + c_len);
+}
 
 // gets the var name and looks for it in env
-// returns the content of the var if found or and empty string if not
-int	expand_dollar(t_ms *ms, t_tokens **tokens, t_tokens	*tok, int i)
+// returns the character after the last on of the expanded var
+int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 {
-	char	*var_name;
-	char	*content;
-	t_env	*env;
+	char		*var_name;
+	char		*start;
+	char		*content;
+	t_env		*env;
 
 	env = ms->env;
-	var_name = rm_delimiters(tok->tok, &j);
+	var_name = rm_delimiters(tok->tok, &i);
 	while (env != NULL && ft_str_compare(env->v_name, var_name) != 0)
 		env = env->next;
 	if (!env)
-		return (ft_strdup(""));
-	content = env->v_cont;
+	{
+		content = ft_strdup("");
+		if (!content)
+			return (-1);
+	}
+	else
+		content = env->v_cont;
+	i = ft_retokenize(tok, i, content);
+	free (content);
+	if (i == -1)
+		return (-1);
 	return (i);
 }
 
@@ -90,8 +94,8 @@ int	is_expandable_dollar(t_ms *ms, t_tokens *tok)
 			i = i + ft_quote_len(&tok->tok[i], '\'');
 		else if (tok->tok[i] == '$')
 		{
-			i = expand_dollar(ms, &tok, tok, i); //is passesd **tok to change token inside returns i, it being the character after whatever was expanded
-			if (tok->tok == NULL)
+			i = expand_dollar(ms, tok, i); //is passed **tok to change token inside returns i, it being the character after whatever was expanded
+			if (tok->tok == NULL || i == -1)
 				return (EXIT_FAILURE);
 		}
 		else
