@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:42:25 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/25 11:38:54 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/25 12:54:08 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,20 @@ char	*rm_delimiters(char *tok, int i)
 	if (!str)
 		return (NULL);
 	return(str);
+}
+
+//joins three strings into result
+char	*all_join(char *s1, char *s2, char *s3)
+{
+	char	*result;
+	char	*aux;
+
+	aux = ft_strjoin(s1, s2);
+	if (!aux)
+		return (NULL);
+	result = ft_strjoin(aux, s3);
+	free(aux);
+	if (!result)
+		return (NULL);
+	return (result);
 }

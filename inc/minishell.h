@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/25 11:39:25 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/25 12:49:35 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int		is_expandable_dollar(t_ms *ms, t_tokens *tok);
 
 /*    expand_utils.c   */
 char	*rm_delimiters(char *tok, int i);
+char	*all_join(char *s1, char *s2, char *s3);
 // int		find_dollar_end(const char *name);
 
 /*    prep_execution.c    */
