@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:42:25 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/25 09:43:06 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:20:07 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char	*rm_delimiters(char *tok, int *i)
 	else
 		len = find_dollar_end(&tok[j]);
 	str = ft_substr(tok, j + 1, len - 2);
+	if (!str)
+		return (NULL);
 	*i = j + len;
 	return(str);
 }

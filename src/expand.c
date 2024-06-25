@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/25 10:53:47 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:24:23 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 
 	env = ms->env;
 	var_name = rm_delimiters(tok->tok, &i);
+	if (!var_name)
+		return (-1);
 	while (env != NULL && ft_str_compare(env->v_name, var_name) != 0)
 		env = env->next;
 	if (!env)
@@ -140,25 +142,23 @@ int	is_expandable_dollar(t_ms *ms, t_tokens *tok)
 int	expand_quotes(t_tokens *tok)
 {
 	int		i;
-	char	*new_tok;
 	char	*aux;
 	
 	i = 0;
-	new_tok = NULL;
 	while (tok->tok[i])
 	{
 		if (ft_ismetachar(tok->tok[i]) == 1)
 		{
-			if (new_tok == NULL)
-				new_tok = ft_substr(tok->tok, 0, i);
 			aux = rm_delimiters(tok->tok, &i);
-			new_tok = ft_strjoin(new_tok, aux);
-			printf("i is %d char is %c\n", i, tok->tok[i]);
+			if (!aux)
+				return (EXIT_FAILURE);
+			i = ft_retokenize(tok, i, aux);
 			free(aux);
+			if (i == -1)
+				return (EXIT_FAILURE);
 		}
 		else
-			new_tok = add_shit(new_tok, &tok->tok[i], &i);
-		printf("new_tok = %s\n", new_tok);
+			i++;
 	}
-	return (new_tok);
+	return (EXIT_SUCCESS);
 }
