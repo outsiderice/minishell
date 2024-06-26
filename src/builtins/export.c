@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:05:17 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/26 13:03:08 by kate             ###   ########.fr       */
+/*   Updated: 2024/06/26 13:09:56 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,6 @@ Bash POSIX Mode), these builtins may appear in a command after one or more insta
 //FUNCTION TO CHECK IF IT SHOULD BE STORRED
 
 //EXPORT WITH NO ARGUMENTS -> declare -x VARIABLE_NAME="value"\n in alphabetical order si quieres
-/*
-typedef struct s_env
-{
-	char			*v_name;
-	char			*v_cont;
-	struct s_env	*next;
-}	t_env;
-
-//provisional structure for arguments to check the builtins
-
-typedef struct s_args
-{
-	char			*arg;
-	struct s_args	*next;
-}	t_args;
-*/
 
 //CHECKS THE VALIDITY OF ARGUMENT TO BE ADDED 
 

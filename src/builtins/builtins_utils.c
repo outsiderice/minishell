@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:27:10 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/25 17:28:36 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/26 14:21:44 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int ft_str_compare(char *str1, char *str2)
         return (0);
 	return (1);
 }
-
-int	ft_get_env(m_env *env)
+/*
+int	ft_get_env(t_env *env)
 {
 	while (env != NULL)
 	{
@@ -48,7 +48,7 @@ char	ft_get_env_value(t_env *env, char *name)
 
 		env = env->next;
 	}
-}
+}*/
 
 
 /*int main(void)

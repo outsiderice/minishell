@@ -6,14 +6,11 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:22:05 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/21 13:05:08 by kate             ###   ########.fr       */
+/*   Updated: 2024/06/26 14:29:47 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../../inc/minishell.h"
-#include "../../lib/libft/include/libft.h"
-#include <stdio.h>
-#include <string.h>
+#include "../../inc/minishell.h"
 
 //echo -n "hola" "hola"
 //echo with no argument print \n

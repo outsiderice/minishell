@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../../inc/minishell.h"
-#include "../../lib/libft/include/libft.h"
-#include <string.h>
-#include <limits.h>
+#include "../../inc/minishell.h"
 
 /* Cntol C and exit can be the same?????
 	function to free the minishell struct
@@ -21,22 +18,6 @@
 	call the function to free the t_arg list
 	function to exit status
 */
-
-int is_numeric(char *str) 
-{
-    if (!str || *str == '\0')
-        return (0);
-    if (*str == '-' || *str == '+')
-        str++;
-    while (*str) 
-	{
-        if (*str < '0' || *str > '9') 
-            return (0);
-        str++;
-    }
-    return (1);
-}
-
 
 int ft_atoi_long_long(char *str)
 {
@@ -64,6 +45,8 @@ int	ft_check_lli(char *str)
 	unsigned long long int	res;
 	int						sign;
 
+	res = 0;
+	sign = 1;
 	if (is_numeric(str) == 0 || ft_strlen(str) > 20)
 		return (0);
 	if (*str == '-')
@@ -110,12 +93,12 @@ int	ft_exit(char **args) //possibly save the readline history
 	if (args_len > 1)
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", 1);
-		return (0);
+		return (exit_status);
 	}
 	exit_status = ft_atoi_long_long(*args);
 	//ft_free_ms(ms);
 	//exit(exit_status);
-	return (1);
+	return (exit_status); // en realidad no devuellve estoo pero los flags se qiejan
 }
 /*
  int	main(int ac, char **av)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/25 13:33:45 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/26 14:33:21 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,9 @@ int	is_builtin(char *cmd)
     if ((ft_str_compare(cmd, "echo") == 0) || (ft_str_compare(cmd, "pwd") == 0) ||
         (ft_str_compare(cmd, "cd") == 0) || (ft_str_compare(cmd, "env") == 0) ||
         (ft_str_compare(cmd, "export") == 0) || (ft_str_compare(cmd, "unset") == 0) ||
-        (ft_str_compare(cmd, "exit") == 0)) {
-        return 1;
-    }
-    return 0;
+        (ft_str_compare(cmd, "exit") == 0))
+        return (1);
+    return (0);
 }
 
 int	handle_builtins(t_ms *ms) //probably has to be **msh to do exil propery and equal pointer to null
