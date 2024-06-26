@@ -3,12 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
+#    By: kate <kate@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/06/25 16:55:08 by amagnell         ###   ########.fr        #
+#    Updated: 2024/06/26 14:29:24 by kate             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 #-------------------------------------------#
 #	TARGET									#
@@ -35,6 +36,7 @@ SRCS 		=	src/main.c \
 				src/token_utils.c \
 				src/tokens_lst_utils.c \
 				src/env_handler.c \
+				src/env2.c\
 				src/parser.c \
 				src/expand.c \
 				src/expand_utils.c \
@@ -45,6 +47,8 @@ SRCS 		=	src/main.c \
 				src/builtins/pwd.c \
 				src/builtins/env.c \
 				src/builtins/builtins_utils.c \
+				src/builtins/exit.c \
+				src/builtins/echo.c \
 
 BUILD_DIR 	=	.build
 OBJS		=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)

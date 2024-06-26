@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/25 16:35:16 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:28:59 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 /*    LIBRARIES    */
 # include <stdlib.h>
 # include <stdio.h>
+# include <string.h>
 # include <unistd.h>
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <limits.h>
 # include "../lib/readline/readline.h"
 # include "../lib/readline/history.h"
 # include "../lib/libft/libft.h"
@@ -72,6 +74,7 @@ void	ft_minishell(t_ms *ms);
 /*    environment.c   */		//to initialize t_env
 t_env	*start_env(char **env_p);
 char	**ft_list_to_array(t_env *env);
+int		ft_shll_lvl(t_env *env);
 
 /*    signals.c    */
 
@@ -125,10 +128,12 @@ int		ft_exec(t_ms *ms);
 /*    handle_builtins.c    */
 int		is_builtin(char *cmd);
 int		handle_builtins(t_ms *ms);
-// int	ft_echo(char **args);
+int		ft_echo(char **args);
 int		ft_pwd(void);
 int		ft_env(t_env *env_list);
-// int	ft_export(t_env *env_list, t_args *args_list);
+int		ft_export(t_ms *ms, char **args);
+int 	is_numeric(char *str);
+int		ft_exit(char **args);
 // int ft_unset(t_env **env, t_args *args);
 
 /*    builtins_utils.c    */

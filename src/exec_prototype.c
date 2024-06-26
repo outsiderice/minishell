@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_prototype.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
+/*   Updated: 2024/06/26 14:35:44 by kate             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <dirent.h>
@@ -242,7 +254,7 @@ int	ft_exec(t_ms *ms)
 	while (args != NULL)
 	{
 		printf("args is not null\n");
-		if (is_builtin(args->argv[0]) == 0)
+		if (is_builtin(args->argv[0]) == 1)
 		{
 			printf("is a builtin\n");
 			if (handle_builtins(ms) == -1) // check for error
