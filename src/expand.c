@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/25 15:42:53 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:22:17 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,16 +110,19 @@ char	*add_shit(char *tok, int i)
 {
 	char	*shit;
 	int		shit_len;
+	int		j;
 
+	j = i;
 	shit_len = 0;
-	while (tok[i] && ft_ismetachar(tok[i] != 1))
+	while (tok[i] && ft_ismetachar(tok[i]) == 0)
 	{
-		i++;
 		shit_len++;
+		i++;
 	}
-	shit = ft_substr(tok, i - shit_len, shit_len);
+	shit = ft_substr(tok, j, shit_len);
 	if (!shit)
 		return (NULL);
+	printf("shit is %s\n", shit);
 	return (shit);
 }
 
@@ -141,6 +144,7 @@ int	expand_quotes(t_tokens *tok)
 				return (EXIT_FAILURE);
 			printf("stored aux = <%s>\n", aux);
 			i = ft_retokenize(tok, i, aux, ft_strlen(aux) + 2);
+			printf("[i] after retoken is %c\n", tok->tok[i]);
 		}
 		else
 		{
