@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/26 12:58:28 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:03:55 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_retokenize(t_tokens *tok, int i, char *content, int v)
 	free(tok->tok);
 	tok->tok = new_tok;
 	printf("changed tok->tok = <%s>\n", tok->tok);
-	return (i + c_len + i);
+	return (i + c_len);
 }
 
 // gets the var name and looks for it in env
