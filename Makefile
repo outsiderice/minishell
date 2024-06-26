@@ -3,12 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+         #
+#    By: kate <kate@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/06/14 17:01:34 by kkoval           ###   ########.fr        #
+#    Updated: 2024/06/26 13:05:52 by kate             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 #-------------------------------------------#
 #	TARGET									#
@@ -24,10 +25,11 @@ LIBFT		=	lib/libft/libft.a
 LIBS_TARGET	=	$(LIBFT)
 
 INCS		=	inc	\
-				lib/libft/include
+				lib/libft
 
 SRC_DIR		=	src
 SRCS 		=	src/main.c \
+				src/error.c \
 				src/get_input.c \
 				src/check_quotes.c \
 				src/tokenize.c \
@@ -36,6 +38,8 @@ SRCS 		=	src/main.c \
 				src/env_handler.c \
 				src/env2.c\
 				src/parser.c \
+				src/expand.c \
+				src/expand_utils.c \
 				src/prep_execution.c \
 				src/execution.c \
 				src/exec_prototype.c \
@@ -51,7 +55,7 @@ DEPS		=	$(OBJS:%.o=%.d)
 CC 			=	gcc
 CFLAGS 		=	-Wall -Wextra -Werror
 CPPFLAGS 	=	$(addprefix -I, $(INCS)) -MMD -MP
-LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_TARGET))) -no-pie
+LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_TARGET)))
 LDLIBS		=	$(addprefix -l, $(LIBS))
 
 #-------------------------------------------#
@@ -71,7 +75,7 @@ $(NAME): $(LIBS_TARGET) $(OBJS)
 	$(info Created $@)
 
 libft:
-	$(MAKE) $(MAKEFLAGS) -C $(LIBFT_DIR)
+	@make $(MAKEFLAGS) -C $(LIBFT_DIR)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INCS) Makefile
 	$(DIR_DUP)
@@ -81,12 +85,12 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INCS) Makefile
 -include $(DEPS)
 
 clean:
-	for f in $(dir $(LIBS_TARGET)); do $(MAKE) -C $$f clean; done
 	$(RM) $(OBJS) $(DEPS)
+	@make clean -C $(LIBFT_DIR)
 
 fclean: clean
-	for f in $(dir $(LIBS_TARGET)); do $(MAKE) -C $$f fclean; done
 	$(RM) $(NAME)
+	@make fclean -C $(LIBFT_DIR)
 
 re:
 	$(MAKE) fclean

@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/18 14:07:02 by amagnell          #+#    #+#             */
-/*   Updated: 2023/10/14 20:49:13 by amagnell         ###   ########.fr       */
+/*   Created: 2023/09/19 18:47:30 by amagnell          #+#    #+#             */
+/*   Updated: 2024/06/17 10:57:19 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putchar(char c)
+// Iterates LST until it's last node and returns a pointer to it
+t_list	*ft_lstlast(t_list *lst)
 {
-	return (write (1, &c, 1));
+	t_list	*last;
+
+	last = NULL;
+	while (lst != NULL)
+	{
+		last = lst;
+		lst = lst->next;
+	}
+	return (last);
 }

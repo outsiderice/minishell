@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putptr.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/18 14:07:19 by amagnell          #+#    #+#             */
-/*   Updated: 2023/10/14 20:49:48 by amagnell         ###   ########.fr       */
+/*   Created: 2023/09/25 19:20:21 by amagnell          #+#    #+#             */
+/*   Updated: 2024/06/17 11:01:14 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putptr(unsigned long ptr)
+t_list	*ft_lstmap(t_list *lst, void *(*f) (void *), void (*del) (void *))
 {
-	int	count;
+	t_list	*new_lst;
+	t_list	*new_node;
+	void	*content;
 
-	count = ft_putstr("0x");
-	if (count == -1)
-		return (-1);
-	count = count + ft_nbrs((unsigned long)ptr, "p");
-	return (count);
+	new_lst = NULL;
+	while (lst != NULL)
+	{
+		content = f(lst->content);
+		new_node = ft_lstnew(content);
+		if (!new_node)
+		{
+			ft_lstdelone(new_node, del);
+			free(new_node);
+			return (NULL);
+		}
+		ft_lstadd_back(&new_lst, new_node);
+		lst = lst->next;
+	}
+	return (new_lst);
 }

@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/16 17:59:58 by amagnell          #+#    #+#             */
-/*   Updated: 2022/10/08 20:14:05 by amagnell         ###   ########.fr       */
+/*   Created: 2022/09/16 15:30:57 by amagnell          #+#    #+#             */
+/*   Updated: 2024/06/10 09:04:03 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+// Checks if int c is an ASCII character, 0 to octal 0177
+// Returns 0 if false and 1 if true
+int	ft_isascii(int c)
 {
-	size_t			i;
-	unsigned char	*a;
-
-	a = (unsigned char *)b;
-	i = 0;
-	while (i < len)
-	{
-		a[i] = c;
-		i++;
-	}
-	return (b);
+	if (c >= 0 && c <= 127)
+		return (1);
+	return (0);
 }
+
+/*int	main(void)
+{
+	printf("%d", isascii(' '));
+	printf("%d", ft_isascii(' '));
+	return (0);
+}*/

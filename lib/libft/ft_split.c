@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 16:23:50 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/10 16:56:27 by amagnell         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:03:49 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static int	count_words(char const *s, int c)
 
 	a = -1;
 	wordcount = 0;
-	i = 0;
-	while (s[i])
+	i = -1;
+	while (s[++i])
 	{
 		if (s[i] == c)
 			a = -1;
@@ -33,7 +33,6 @@ static int	count_words(char const *s, int c)
 			a = 1;
 			wordcount++;
 		}
-		i++;
 	}
 	return (wordcount);
 }

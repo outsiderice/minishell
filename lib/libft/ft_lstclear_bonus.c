@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putunbr.c                                       :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/26 19:34:39 by amagnell          #+#    #+#             */
-/*   Updated: 2023/10/14 20:50:13 by amagnell         ###   ########.fr       */
+/*   Created: 2023/09/25 18:33:52 by amagnell          #+#    #+#             */
+/*   Updated: 2024/06/17 10:53:07 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putunbr(int count, unsigned long long nbr, char *base, const char *type)
+// deletes LST node by node using DEL
+void	ft_lstclear(t_list **lst, void (*del) (void *))
 {
-	if (nbr >= (unsigned long)ft_strlen(base))
+	t_list	*node;
+	t_list	*to_delete;
+
+	node = *lst;
+	while (node != NULL)
 	{
-		count = ft_putnbr(count, nbr / ft_strlen(base), base, type);
-		if (count == -1)
-			return (-1);
-		count = ft_putnbr(count, nbr % ft_strlen(base), base, type);
+		to_delete = node;
+		node = node->next;
+		del(to_delete->content);
+		free(to_delete);
 	}
-	else if (nbr < (unsigned long)ft_strlen(base))
-		count = count + ft_putchar(base[nbr]);
-	return (count);
+	*lst = NULL;
 }

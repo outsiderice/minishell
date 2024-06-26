@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42barcel>       +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/17 18:43:11 by amagnell          #+#    #+#             */
-/*   Updated: 2022/09/19 19:16:35 by amagnell         ###   ########.fr       */
+/*   Created: 2022/09/16 15:38:25 by amagnell          #+#    #+#             */
+/*   Updated: 2024/06/10 09:07:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+// Checks if int c is a printable character, including space.
+int	ft_isprint(int c)
 {
-	ft_memset(s, 0, n);
+	if (c >= 32 && c <= 126)
+		return (1);
+	return (0);
 }
+
+/*int	main(void)
+{
+	printf("%d", isprint(' '));
+	printf("%d", ft_isprint(' '));
+	return (0);
+}*/
