@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/26 12:22:17 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:58:28 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 	}
 	printf("stored content = <%s>\n AND tok->tok[i] is %c\n", content, tok->tok[i]);
 	i = ft_retokenize(tok, i, content, ft_strlen(var_name) + 1);
+	printf("where are you?\n");
 	free (var_name);
 	free (content);
 	if (i == -1)
@@ -84,13 +85,21 @@ int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 // returns the token with all it's variables expanded
 int	is_expandable_dollar(t_ms *ms, t_tokens *tok)
 {
-	int		i;
+	int	i;
+	int	in_qt;
 
 	i = 0;
+	in_qt = 0;
 	printf("is it a expandable dollar?\n");
 	while (tok->tok[i])
 	{
-		if (tok->tok[i] == '\'')
+		if (tok->tok[i] == '"')
+		{
+			in_qt++;
+			if (in_qt == 2)
+				in_qt = 0;
+		}
+		if (tok->tok[i] == '\'' && in_qt == 0)
 			i = i + ft_quote_len(&tok->tok[i], '\'');
 		else if (tok->tok[i] == '$')
 		{
@@ -100,6 +109,7 @@ int	is_expandable_dollar(t_ms *ms, t_tokens *tok)
 		}
 		else
 			i++;
+		printf("stuck in a while loop\n");
 	}
 	return (EXIT_SUCCESS);
 }
