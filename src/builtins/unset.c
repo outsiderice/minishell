@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:45:00 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/25 17:28:21 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/26 19:14:57 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // it can have numerous arguments, if some of them don't exist it will 
 // skip it and keep on deleting
 
-int ft_unset(t_env **env, t_args *args)
+/*int ft_unset(t_env **env, char **args)
 {
     t_env   *first;
 	t_env 	*current;
@@ -45,7 +45,7 @@ int ft_unset(t_env **env, t_args *args)
 		env = first;
 		args = args->next;
     }
-}
+}*/
 
 
 int ft_unset(t_env **env, char **args)
@@ -56,10 +56,9 @@ int ft_unset(t_env **env, char **args)
     int i;
 
     first = *env;
-    if (args == NULL)
+    if (*args == NULL)
         return (0);
-
-    i = 0;
+    i = 1;
     while (args[i] != NULL)
     {
         current = *env;

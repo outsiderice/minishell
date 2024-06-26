@@ -6,7 +6,7 @@
 #    By: kate <kate@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/06/26 14:29:24 by kate             ###   ########.fr        #
+#    Updated: 2024/06/26 19:09:43 by kate             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRCS 		=	src/main.c \
 				src/builtins/builtins_utils.c \
 				src/builtins/exit.c \
 				src/builtins/echo.c \
+				src/builtins/unset.c \
 
 BUILD_DIR 	=	.build
 OBJS		=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
