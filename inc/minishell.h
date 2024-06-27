@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/27 14:55:21 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/27 15:18:38 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ char	*all_join(char *s1, char *s2, char *s3);
 
 /*    prep_execution.c    */
 void	ft_prep_args(t_ms *ms);
+
+/*    prep_utils.c    */
 
 /*    execution.c    */
 void	exeggutor(t_ms *ms);
