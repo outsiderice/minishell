@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/27 10:33:37 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/27 14:55:21 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int		ft_exec(t_ms *ms);
 
 /*    handle_builtins.c    */
 int		is_builtin(char *cmd);
-int		handle_builtins(t_ms *ms);
+int		handle_builtins(t_ms *ms, t_args *args);
 int		ft_echo(char **args);
 int		ft_pwd(void);
 int		ft_env(t_env *env_list);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:05:17 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/27 02:13:37 by kate             ###   ########.fr       */
+/*   Updated: 2024/06/27 15:05:38 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	ft_add_to_env(t_env *env_list, char *arg)
 	t_env 	*aux;
 	t_env	*node;
 
-	//aux = NULL;
+	aux = NULL;
 	if (env_list == NULL)
 		return (-1);
 	node = malloc(sizeof(t_env) * 1);
@@ -107,7 +107,7 @@ int	ft_add_to_env(t_env *env_list, char *arg)
 		env_list->next = aux;	
 	}	
 	aux->v_cont = ft_strdup(node->v_cont);
-	printf("New env var added: %s = %s\n", aux->v_name, aux->v_cont );
+	//printf("New env var added: %s = %s\n", aux->v_name, aux->v_cont );
 	free(node);
 	return(1);
 }
