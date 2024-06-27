@@ -6,20 +6,21 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/26 16:03:38 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/27 10:32:08 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "minishell.h"
 
-void	ft_init_ms(t_ms *ms)
+void	ft_init_ms(t_ms *ms, char **envp)
 {
-	ms->env = NULL;
+	ms->env = start_env(envp);
 	ms->tokens = NULL;
 	ms->args = NULL;
 	ms->exitstatus = -1;
-	ms->sh_lvl = -1; //HOW?
-	ms->old_pwd = NULL;
+	ms->sh_lvl = ft_shll_lvl(ms->env);
+	ms->old_pwd = getcwd(NULL, 0);
 	ms->new_pwd = getcwd(NULL, 0);
 	if (ms->new_pwd == NULL)
 		exit (error_msg("getcwd:Returned NULL new_pwd\n", NULL));
@@ -59,8 +60,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (argc != 1)
 		return (EXIT_FAILURE);
-	ft_init_ms(&ms);
-	ms.env = start_env(envp);
+	ft_init_ms(&ms, envp);
 	if (ms.env == NULL)
 	{
 		//function which frees ms and env

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:04:18 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/11 16:49:40 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/27 00:20:38 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@
 //in a directory in C, you can use the POSIX opendir, readdir, and closedir functions, which are part of the dirent.h
 
 
-int	ft_cd(t_ms *ms, t_args *args)
+int	ft_cd(t_ms *ms, char **args)
 {
 	char	*path; // line that will retain the path to go
 
 	path = NULL;
-	if (args == NULL)
+	args++;
+	if (*args == NULL)
 		return (ft_cd_no_arg(ms));
 	// if argument is = . should give error because the permission is denied -> check access
 	else 
@@ -63,7 +64,7 @@ int	ft_cd(t_ms *ms, t_args *args)
 	
 }
 
-int	ft_cd_no_arg(t_struct *ms)
+int	ft_cd_no_arg(t_ms *ms)
 {
 	char	*path;
 
@@ -76,6 +77,35 @@ int	ft_cd_no_arg(t_struct *ms)
 	return (0);
 } 
 
+int	is_home(char *str)
+{
+	if (str[0])
+}
+
+int	ft_cd(char **args)
+{
+	char	*path;
+
+	//g_var possible global variable
+	path = NULL;
+	if(args[1] && args[2])
+	{
+		ft_putstr_fd("eggshell: cd: too many arguments\n", 1);
+		return (1);
+	}
+
+	if (!args[1] || ft_strequ(args[1], "~") || ft_strequ(args[1], "--"))
+	{
+		if (!(home = get_env("HOME")))
+		{
+			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+			return (1);
+		}
+		return (set_directory(home, 1));
+	}
+	args[1] = add_home_path(args[1]);
+	return (s_path(args));
+}
 
 
 
