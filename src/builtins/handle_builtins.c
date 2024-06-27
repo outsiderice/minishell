@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/26 14:33:21 by kate             ###   ########.fr       */
+/*   Updated: 2024/06/26 20:07:23 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int	handle_builtins(t_ms *ms) //probably has to be **msh to do exil propery and 
 	// 	ms->exitstatus = ft_cd(ms, ms->args->argv); // to complete 
 	else if (ft_str_compare(ms->args->argv[0], "env") == 0)
 		ms->exitstatus = ft_env(ms->env);
-	// else if (ft_str_compare(ms->args->argv[0], "export") == 0)
-	// 	ms->exitstatus = ft_export(&ms, ms->args->argv); 
-	// else if (ft_str_compare(ms->args->argv[0], "unset") == 0)
-	// 	ms->exitstatus = ft_unset(&ms->env, ms->args->argv);
+	else if (ft_str_compare(ms->args->argv[0], "export") == 0)
+		ms->exitstatus = ft_export(ms, ms->args->argv); 
+	else if (ft_str_compare(ms->args->argv[0], "unset") == 0)
+		ms->exitstatus = ft_unset(&ms->env, ms->args->argv);
 	else if (ft_str_compare(ms->args->argv[0], "exit") == 0)
 		ms->exitstatus = (ft_exit(ms->args->argv)); // this should have access to the adress
 	else 

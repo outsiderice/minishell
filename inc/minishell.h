@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/26 14:28:59 by kate             ###   ########.fr       */
+/*   Updated: 2024/06/27 01:47:11 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	ft_minishell(t_ms *ms);
 t_env	*start_env(char **env_p);
 char	**ft_list_to_array(t_env *env);
 int		ft_shll_lvl(t_env *env);
+int		ft_assign(char *env_p, t_env **current);
 
 /*    signals.c    */
 
@@ -134,7 +135,7 @@ int		ft_env(t_env *env_list);
 int		ft_export(t_ms *ms, char **args);
 int 	is_numeric(char *str);
 int		ft_exit(char **args);
-// int ft_unset(t_env **env, t_args *args);
+int		ft_unset(t_env **env, char **args);
 
 /*    builtins_utils.c    */
 int		ft_str_compare(char *str1, char *str2);
