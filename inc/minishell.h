@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/27 15:18:38 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/28 14:22:13 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ char	*all_join(char *s1, char *s2, char *s3);
 void	ft_prep_args(t_ms *ms);
 
 /*    prep_utils.c    */
+void	prep_redir(t_tokens *tok, t_args *args);
 
 /*    execution.c    */
 void	exeggutor(t_ms *ms);
