@@ -6,16 +6,11 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/28 15:00:18 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/28 19:14:18 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-//opens the filename given by the input
-//saves if it's input or output
-// void	handle_redir()
-// {}
 
 //Counts how many consecutive tokens of the same TYPE there are from CURRENT
 //Returns COUNT
@@ -55,10 +50,8 @@ int	new_args_node(t_args **args, char **arr)
 	new_arg = malloc(sizeof(t_args) * 1);
 	if (!new_arg)
 		return (-1);	//malloc protecc
-	printf("i'm guessing here?\n");
 	new_arg->argv = arr;
-	printf("i'm guessing here?\n");
-	new_arg->redir_fd = -1;
+	new_arg->filename = NULL;
 	new_arg->redir_type = -1;
 	new_arg->next = NULL;
 	new_arg->prev = NULL;
@@ -72,24 +65,9 @@ int	new_args_node(t_args **args, char **arr)
 		new_arg->prev = last;
 		last->next = new_arg;
 	}
-	printf("hello?\n");
 		// add_last_arg(args, new_arg);
 	return (0);
 }
-
-// static void	free_str(char **arr)
-// {
-// 	int	j;
-
-// 	j = 0;
-// 	while (arr[j])
-// 	{
-// 		free(arr[j]);
-// 		j++;
-// 	}
-// 	free (arr);
-// 	return ;
-// }
 
 //Fills array arr with consecutive tokens of the same type
 //Returns the array
@@ -124,58 +102,66 @@ char	**fill_arg(t_tokens **tok, t_tokens *ptr)
 //Creates nodes for t_args from t_tokens
 void	ft_prep_args(t_ms *ms)
 {
-	t_args		*args;	//pointer to args, which is uninitialized
-	t_tokens	*current_tok;	//pointer to toks because we dont want to lose the first position
+	t_args		*args;
+	t_tokens	*current_tok;
 	char		**arr;
 	
-	/*to fill a node of args, just ONE node, I need the array*/
 	current_tok = ms->tokens;
 	args = NULL;
 	while (current_tok != NULL) 
 	{
-		printf("inside prep loop\n");
-		while (current_tok && current_tok->type != 2)
+		new_args_node(&args, NULL);
+		if (ms->args == NULL)
 		{
-			new_args_node(&args, NULL);
-			if (current_tok->type == 0)
-				arr = fill_arg(&current_tok, current_tok);
-			else if (current_tok->type == 3)
+			printf("set ms->args to first arg\n");
+			ms->args = args;
+		}
+		printf("made new args node\n");
+		while (current_tok && current_tok->type != 2) //while not finding a pipe
+		{
+			if (current_tok->type == 3 || current_tok->type == 1)
 			{
-				printf("why you dying?\n");
-				prep_redir(current_tok, args);
+				prep_redir(&current_tok, args);
+				printf("handled redir\n");
+			}
+			else if (current_tok->type == 0)
+			{
+				arr = fill_arg(&current_tok, current_tok);
+				printf("filled arr\n");
 			}
 			if (arr)
-				new_args_node(&args, arr);
-			arr = NULL;
-			printf("can you hear my voice?\n");
-			printf("you can?\n");
+			{
+				args->argv = arr;
+				//free_arr
+				arr = NULL;
+				printf("freed and set arr to null\n");
+			}
+			printf("end of pipe while\n");
 		}
-		printf("i'm guessing here?\n");
 		if (current_tok != NULL && current_tok->type == 2)
 		{
+			printf("found a pipe\n");
+
+			args = args->next;
+			printf("args set to next which should be NULL\n");
 			current_tok = current_tok->next;
-			printf("~create next node~\n");
 		}
 	}
-	ms->args = args;
-	//Test to print what's in args structure
-	int i = 0;
-	while (args->next != NULL)
+	// Test to print what's in args structure
+	args = ms->args;
+	int	argcount = 1;
+	while (args != NULL)
 	{
-		i = 0;
-		while (args != NULL && args->argv[i] != NULL)
+		printf("args number %d\n", argcount);
+		int i = 0;
+		while (args->argv != NULL && args->argv[i] != NULL)
 		{
 			printf("\nStored in args:<%s>\n\n", args->argv[i]);
 			i++;
 		}
 		args = args->next;
+		argcount++;
 		printf("\n~On to next node~\n\n");
 	}
-	i = 0;
-	while (args != NULL && args->argv[i] != NULL)
-	{
-		printf("\nStored in args node:<%s>\n\n", args->argv[i]);
-		i++;
-	}
-	//End of test delete later
+	// End of test delete later
 }
