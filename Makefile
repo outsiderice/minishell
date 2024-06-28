@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+         #
+#    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/06/27 14:56:06 by kkoval           ###   ########.fr        #
+#    Updated: 2024/06/28 14:23:01 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS 		=	src/main.c \
 				src/expand.c \
 				src/expand_utils.c \
 				src/prep_execution.c \
+				src/prep_utils.c \
 				src/execution.c \
 				src/exec_prototype.c \
 				src/builtins/handle_builtins.c \

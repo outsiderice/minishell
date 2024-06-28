@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/27 15:24:39 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/28 15:10:28 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ int	new_args_node(t_args **args, char **arr)
 	new_arg = malloc(sizeof(t_args) * 1);
 	if (!new_arg)
 		return (-1);	//malloc protecc
+	printf("i'm guessing here?\n");
 	new_arg->argv = arr;
-	int i = 0;
-	printf("argv[0] == %s\n", new_arg->argv[i]);
+	printf("i'm guessing here?\n");
 	new_arg->redir_fd = -1;
 	new_arg->redir_type = -1;
 	new_arg->next = NULL;
@@ -72,6 +72,7 @@ int	new_args_node(t_args **args, char **arr)
 		new_arg->prev = last;
 		last->next = new_arg;
 	}
+	printf("hello?\n");
 		// add_last_arg(args, new_arg);
 	return (0);
 }
@@ -123,7 +124,7 @@ char	**fill_arg(t_tokens **tok, t_tokens *ptr)
 //Creates nodes for t_args from t_tokens
 void	ft_prep_args(t_ms *ms)
 {
-	t_args		*args;	//pointer to args, which is unitinialized
+	t_args		*args;	//pointer to args, which is uninitialized
 	t_tokens	*current_tok;	//pointer to toks because we dont want to lose the first position
 	char		**arr;
 	
@@ -135,13 +136,21 @@ void	ft_prep_args(t_ms *ms)
 		printf("inside prep loop\n");
 		while (current_tok && current_tok->type != 2)
 		{
+			new_args_node(&args, NULL);
 			if (current_tok->type == 0)
 				arr = fill_arg(&current_tok, current_tok);
 			new_args_node(&args, arr);
 			arr = NULL;
 			if (current_tok->type == 3)
 				prep_redir(current_tok, args);
+			}
+			if (arr)
+				new_args_node(&args, arr);
+			arr = NULL;
+			printf("can you hear my voice?\n");
+			printf("you can?\n");
 		}
+		printf("i'm guessing here?\n");
 		if (current_tok != NULL && current_tok->type == 2)
 		{
 			current_tok = current_tok->next;
