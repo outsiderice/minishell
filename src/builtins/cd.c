@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:04:18 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/27 00:20:38 by kate             ###   ########.fr       */
+/*   Updated: 2024/06/28 19:20:49 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,50 +39,27 @@
 //in a directory in C, you can use the POSIX opendir, readdir, and closedir functions, which are part of the dirent.h
 
 
-int	ft_cd(t_ms *ms, char **args)
-{
-	char	*path; // line that will retain the path to go
 
-	path = NULL;
-	args++;
-	if (*args == NULL)
-		return (ft_cd_no_arg(ms));
-	// if argument is = . should give error because the permission is denied -> check access
-	else 
-	{
-
-
-	}	
-	if (pwd != NULL)
-	{
-		ft_putendl_fd(pwd, STDOUT_FILENO);
-		free(pwd);
-		return (0); //or save exit status in mini_shell->exit_status = 0;
-	}
-	if (m_sh->comand_arg > 2) // args control;  
-		retunr(printf("error message, too many arguments\n")); // adjust the message
-	
-}
-
-int	ft_cd_no_arg(t_ms *ms)
+int	ft_cd_home(t_env env, char *var)
 {
 	char	*path;
 
-	path = getcwd(NULL, 0);
+	path = get_env_cont(env, var);
 	if (!path)
-		return (1);
-	// if old_pwd is not NULL, should we free it first?
-	ms->old_pwd = *path; // should it be malloc instead?
+	{
+		ft_putendl_fd("bash: cd: HOME NOT SET", STDOUT_FILENO);
+		return (-1);
+	}
+	if (chdir(path) == -1)
+	{
+		ft_putendl_fd("bash: cd: cd did not worked", STDOUT_FILENO); //check for this error message
+		return (-1);
+	}
 	free(path);
 	return (0);
 } 
 
-int	is_home(char *str)
-{
-	if (str[0])
-}
-
-int	ft_cd(char **args)
+int	ft_cd(t_env *env, char **args)
 {
 	char	*path;
 
@@ -93,18 +70,73 @@ int	ft_cd(char **args)
 		ft_putstr_fd("eggshell: cd: too many arguments\n", 1);
 		return (1);
 	}
-
-	if (!args[1] || ft_strequ(args[1], "~") || ft_strequ(args[1], "--"))
+	if (!args[1] || ft_str_compare(args[1], "~") == 0)
 	{
-		if (!(home = get_env("HOME")))
+		path = ft_cd_home(env);
+		if (!path)
+			return (1);	
+		return (0);
+	}
+	if (ft_str_compare(args[1], "-") == 0)
+	{
+		path = get_env_cont(t_env *env, "OLDPWD");
+		if (!path)
 		{
-			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+			ft_putstr_fd("bash: cd: OLDPWD not set", STDOUT_FILENO); //maybe better error handeling
 			return (1);
 		}
-		return (set_directory(home, 1));
+
+
+
 	}
-	args[1] = add_home_path(args[1]);
-	return (s_path(args));
+	add_home_path(args[1]);
+	free(path);
+	return (0);
+}
+
+/*
+int	main(int ac, char **av)
+{
+	char	**args;
+	int		i;
+	int		x;
+	int 	j;
+	
+	if (ac < 2)
+		return (0);
+	args = malloc(sizeof(char *) * ac);
+	if (!args)
+		return (0);
+	i = 1;
+	x = 0;
+	while (i < ac)
+	{
+		args[x] = strdup(av[i]);
+		if (!args[x])
+		{
+			j = 0;
+			while (j < x)
+			{
+				free(args[j]);
+				j++;
+			}
+			free(args);
+			return (0);
+		}
+		//printf("%s\n", args[x]);
+		i++;
+		x++;
+	}
+	args[x] = NULL;
+ 	ft_exit(args);
+	j = 0;
+	while (args[j] != NULL)
+    {
+        free(args[j]);
+		j++;
+    }
+    free(args);
+	return (1);
 }
 
 
@@ -121,4 +153,3 @@ int	ft_cd(char **args)
 		EACCES: Permission is denied to change to the specified directory.
 		ENOTDIR: A component of the path is not a directory.
 */
-

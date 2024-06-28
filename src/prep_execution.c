@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/28 15:10:28 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/28 15:15:40 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 // void	handle_redir()
 // {}
 
-//Counts how many consecutive tokens of the same TYPE there are from CURRENT
-//Returns COUNT
 int	ft_count_toks(t_tokens *current, int type)
 {
 	int	count;
@@ -139,9 +137,9 @@ void	ft_prep_args(t_ms *ms)
 			new_args_node(&args, NULL);
 			if (current_tok->type == 0)
 				arr = fill_arg(&current_tok, current_tok);
-			new_args_node(&args, arr);
-			arr = NULL;
-			if (current_tok->type == 3)
+			else if (current_tok->type == 3)
+			{
+				printf("why you dying?\n");
 				prep_redir(current_tok, args);
 			}
 			if (arr)
