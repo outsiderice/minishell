@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/27 15:16:45 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/27 15:24:39 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	ft_prep_args(t_ms *ms)
 				arr = fill_arg(&current_tok, current_tok);
 			new_args_node(&args, arr);
 			arr = NULL;
-			else if (current_tok->type == 3)
+			if (current_tok->type == 3)
 				prep_redir(current_tok, args);
 		}
 		if (current_tok != NULL && current_tok->type == 2)
