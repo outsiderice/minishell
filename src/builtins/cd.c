@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:04:18 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/30 17:38:07 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/30 20:10:03 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	ft_abs_path(char *path)
 {
 	if (chdir(path) == -1) //chdir sets erno
 		return (-1);
+	//oldpwd = pwd;
+	//pwd = get_cwd;
 	return (0);
 }
 
@@ -57,7 +59,7 @@ int	ft_rel_path(char *path)
 		return (-1);
 	if (is_file_in_dir(path, pwd) == 1)
 	{
-		printf("bash: cd: %s: No such file or directory", path);
+		//printf("bash: cd: %s: No such file or directory", path);
 		return (-1);
 	}
 	abs_path = ft_strjoin(pwd, "/");
@@ -67,32 +69,48 @@ int	ft_rel_path(char *path)
 		ft_putendl_fd("bash: cd: cd did not worked", STDOUT_FILENO); //check for this error message
 		return (-1);
 	}
+	//oldpwd = pwd;
+	//pwd = get_cwd;
 	free(abs_path);
 	free(pwd);
 	return (0);
 }
 
-int	ft_cd_var(t_env *env, char *var_name)
+int	ft_cd_var(t_ms *ms, char *var_name)
 {
 	char	*path;
 
-	path = get_env_cont(env, var_name);
+	path = get_env_cont(ms->env, var_name);
 	if (!path)
 	{
 		printf("bash: cd: %s NOT SET", var_name);
 		return (-1);
 	}
+	ms->old_pwd = getcwd(NULL, 0);
+	if (ms->old_pwd == NULL)
+		{
+			free(path);
+			return (-1);
+		}
+	printf("%s\n", path);
 	if (chdir(path) == -1)
 	{
-		ft_putendl_fd("bash: cd: cd did not worked", STDOUT_FILENO); //check for this error message
+		//perror("bash: cd");
+		ft_putendl_fd("bash: cd: cd did not worked\n", STDOUT_FILENO); //check for this error message
 		return (-1);
+	}
+	ms->new_pwd = getcwd(NULL, 0);
+	if (ms->new_pwd == NULL)
+	{
+			free(path);
+			return (-1);
 	}
 	free(path);
 	return (0);
 }
 
 
-int	ft_cd(t_env *env, char **args)
+int	ft_cd(t_ms *ms, char **args)
 {
 	char	*path;
 	
@@ -103,63 +121,22 @@ int	ft_cd(t_env *env, char **args)
 		ft_putstr_fd("eggshell: cd: too many arguments\n", 1);
 		return (1);
 	}
-	if (!args[1] || ft_str_compare(args[1], "~") == 0)
+	else if (!args[1] || ft_str_compare(args[1], "~") == 0)
 	{
-		if (ft_cd_var(env, "HOME") == -1)
+		if (ft_cd_var(ms, "HOME") == -1)
+		{
+			printf("ha dado un error en ft_cd_var");
 			return (1);
+		}
 	}
-	if (ft_str_compare(args[1], "-") == 0)
+	else if (ft_str_compare(args[1], "-") == 0)
 	{
-		if (ft_cd_var(env, "OLDPWD") == -1)
+		if (ft_cd_var(ms, "OLDPWD") == -1)
 			return (1);	
 	}
-	if (ft_rel_path(args[1]) == -1 && ft_abs_path(args[1]) == -1)
+	else if (ft_rel_path(args[1]) == -1 && ft_abs_path(args[1]) == -1)
 		printf("bash: cd: %s: No such file or directory", args[1]);
 	free(path);
+	printf("old pwd es %s, newpwd es %s\n", ms->old_pwd, ms->new_pwd);
 	return (0);
 }
-
-/*
-int	main(int ac, char **av)
-{
-	char	**args;
-	int		i;
-	int		x;
-	int 	j;
-	
-	if (ac < 2)
-		return (0);
-	args = malloc(sizeof(char *) * ac);
-	if (!args)
-		return (0);
-	i = 1;
-	x = 0;
-	while (i < ac)
-	{
-		args[x] = strdup(av[i]);
-		if (!args[x])
-		{
-			j = 0;
-			while (j < x)
-			{
-				free(args[j]);
-				j++;
-			}
-			free(args);
-			return (0);
-		}
-		//printf("%s\n", args[x]);
-		i++;
-		x++;
-	}
-	args[x] = NULL;
- 	ft_cd(args);
-	j = 0;
-	while (args[j] != NULL)
-    {
-        free(args[j]);
-		j++;
-    }
-    free(args);
-	return (1);
-}*/

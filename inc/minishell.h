@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/30 17:48:08 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/30 20:02:41 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ int		ft_env(t_env *env_list);
 int		ft_export(t_ms *ms, char **args);
 int 	is_numeric(char *str);
 int		ft_exit(char **args);
-int		ft_cd(t_env *env, char **args);
+int		ft_cd(t_ms *ms, char **args);
 int		ft_unset(t_env **env, char **args);
 
 /*    builtins_utils.c    */

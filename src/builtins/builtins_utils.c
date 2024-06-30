@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:27:10 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/30 17:32:31 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/30 18:03:09 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int ft_str_compare(char *str1, char *str2)
     int i;
     
 	i = 0;
+	if (str1 == NULL || str2 == NULL)
+		return (1);
 	while (str1[i] != '\0' && str2[i] != '\0')
 	{
 		if (str1[i] != str2[i])

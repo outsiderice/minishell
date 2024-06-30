@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/30 17:49:42 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/30 17:57:57 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,7 @@ void	ft_prep_args(t_ms *ms)
 	while (current_tok != NULL) 
 	{
 		new_args_node(&args, NULL);
-		if (ms->args == NULL)
-		{
-			ms->args = args;
-			printf("\n\nset ms->args to first\n");
-		}
+		ms->args = args;
 		printf("made new args node\n");
 		while (current_tok && current_tok->type != 2) //while not finding a pipe
 		{
