@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/28 15:41:03 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/30 17:39:54 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <signal.h>
+# include <dirent.h>
 # include "../lib/readline/readline.h"
 # include "../lib/readline/history.h"
 # include "../lib/libft/libft.h"
@@ -129,6 +130,7 @@ void	exeggutor(t_ms *ms);
 
 /*    exec_prototype.c    */
 int		ft_exec(t_ms *ms);
+int		is_file_in_dir(char *file, char *dir);
 
 /*    handle_builtins.c    */
 int		is_builtin(char *cmd);
@@ -139,6 +141,7 @@ int		ft_env(t_env *env_list);
 int		ft_export(t_ms *ms, char **args);
 int 	is_numeric(char *str);
 int		ft_exit(char **args);
+int		ft_cd(t_env *env, char **args);
 int		ft_unset(t_env **env, char **args);
 
 /*    builtins_utils.c    */

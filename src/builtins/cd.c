@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:04:18 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/30 13:52:17 by kate             ###   ########.fr       */
+/*   Updated: 2024/06/30 17:38:07 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int	ft_cd_var(t_env *env, char *var_name)
 int	ft_cd(t_env *env, char **args)
 {
 	char	*path;
-	char	*home;
 	
 	//g_var possible global variable
 	path = NULL;
@@ -106,23 +105,16 @@ int	ft_cd(t_env *env, char **args)
 	}
 	if (!args[1] || ft_str_compare(args[1], "~") == 0)
 	{
-		path = ft_cd_var(env, "HOME");
-		if (!path)
-			return (1);	
-		return (0);
+		if (ft_cd_var(env, "HOME") == -1)
+			return (1);
 	}
 	if (ft_str_compare(args[1], "-") == 0)
 	{
-		path = ft_cd_var(env, "OLDPWD");
-		if (!path)
+		if (ft_cd_var(env, "OLDPWD") == -1)
 			return (1);	
-		return (0);
 	}
-	if (ft_rel_path(args[1]) == -1 && ft_abs_path(args[1] == -1))
-		
+	if (ft_rel_path(args[1]) == -1 && ft_abs_path(args[1]) == -1)
 		printf("bash: cd: %s: No such file or directory", args[1]);
-	free(path);
-	add_home_path(args[1]);
 	free(path);
 	return (0);
 }
@@ -161,7 +153,7 @@ int	main(int ac, char **av)
 		x++;
 	}
 	args[x] = NULL;
- 	ft_exit(args);
+ 	ft_cd(args);
 	j = 0;
 	while (args[j] != NULL)
     {
@@ -170,19 +162,4 @@ int	main(int ac, char **av)
     }
     free(args);
 	return (1);
-}
-
-
-
-/* FUNCTION PROTOTYPES
-	1. int chdir(const char *path) is used to change the current working directory of the calling process.
-	Parameter:
-		 A pointer to a string that specifies the path to the new working directory.
-	Return Value:
-		On success, chdir returns 0.
-		On failure, it returns -1 and sets the errno variable to indicate the error.
-	Common Error Codes
-		ENOENT: The directory specified by path does not exist.
-		EACCES: Permission is denied to change to the specified directory.
-		ENOTDIR: A component of the path is not a directory.
-*/
+}*/
