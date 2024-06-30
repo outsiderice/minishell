@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/30 17:38:48 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/30 20:07:26 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	add_last_arg(t_args **args, t_args *new_arg)
 }
 
 //Creates new node for args
-int	new_args_node(t_args **args, char **arr)
+int	new_args_node(t_args **args)
 {
 	t_args	*new_arg;
 	t_args	*last;
@@ -50,7 +50,7 @@ int	new_args_node(t_args **args, char **arr)
 	new_arg = malloc(sizeof(t_args) * 1);
 	if (!new_arg)
 		return (-1);	//malloc protecc
-	new_arg->argv = arr;
+	new_arg->argv = NULL;
 	new_arg->filename = NULL;
 	new_arg->redir_type = -1;
 	new_arg->next = NULL;
@@ -99,70 +99,99 @@ char	**fill_arg(t_tokens **tok, t_tokens *ptr)
 	return (arr);
 }
 
+//test function delete later
+void	print_args(t_ms *ms) 
+{
+	t_args *current;
+
+	current = ms->args;
+	while (current != NULL)
+	{
+		// Print argv
+		if (current->argv != NULL)
+		{
+			printf("\nArguments: ");
+			for (int i = 0; current->argv[i] != NULL; i++)
+			{
+				printf("%s ", current->argv[i]);
+			}
+			printf("\n");
+		}
+		else
+		{
+			printf("Arguments: NULL\n");
+		}
+
+		// Print filename
+		if (current->filename != NULL)
+		{
+			printf("Filename: %s\n", current->filename);
+		}
+		else
+		{
+			printf("Filename: NULL\n");
+		}
+
+		// Print redir_type
+		printf("Redirection Type: %d\n", current->redir_type);
+
+		// Move to the next node
+		current = current->next;
+
+		printf("\n"); // Separate each node's output for readability
+	}
+}
+
 //Creates nodes for t_args from t_tokens
 void	ft_prep_args(t_ms *ms)
 {
-	t_args		*args;
+	t_args		*head;
+	t_args		*arg;
 	t_tokens	*current_tok;
 	char		**arr;
 	
 	current_tok = ms->tokens;
-	args = NULL;
+	head = NULL;
+	arg = NULL;
 	while (current_tok != NULL) 
 	{
-		new_args_node(&args, NULL);
-		if (ms->args == NULL)
+		new_args_node(&ms->args);
+		if (head == NULL)
 		{
-			ms->args = args;
-			printf("\n\nset ms->args to first\n");
+			head = ms->args;
+			arg = head;
 		}
-		printf("made new args node\n");
+		else
+		{
+			arg->next = ms->args;
+			ms->args->prev = arg;
+			arg = ms->args;
+		}
 		while (current_tok && current_tok->type != 2) //while not finding a pipe
 		{
 			if (current_tok->type == 3 || current_tok->type == 1)
 			{
-				prep_redir(&current_tok, args);
-				printf("\nfilename = %s\nredir type %d\n\n", args->filename, args->redir_type);
+				prep_redir(&current_tok, ms->args);
+				printf("\nfilename = %s\nredir type %d\n\n", ms->args->filename, ms->args->redir_type);
 			}
 			else if (current_tok->type == 0)
 			{
 				arr = fill_arg(&current_tok, current_tok);
-				printf("filled arr\n");
 			}
 			if (arr)
 			{
-				args->argv = arr;
-				printf("set arr to args->argv[0] = %s\n", args->argv[0]);
+				ms->args->argv = arr;
+				printf("set arr to args->argv[0] = %s\n", ms->args->argv[0]);
 				//free_arr(arr);
 				arr = NULL;
-				printf("freed and set arr to null\n");
 			}
-			printf("end of pipe while\n");
 		}
 		if (current_tok != NULL && current_tok->type == 2)
 		{
-			printf("found a pipe\n");
-
-			args = args->next;
-			printf("args set to next which should be NULL\n");
 			current_tok = current_tok->next;
+			ms->args = NULL;
 		}
 	}
-	// Test to print what's in args structure
-	args = ms->args;
-	int	argcount = 1;
-	while (args != NULL)
-	{
-		printf("args number %d\n", argcount);
-		int i = 0;
-		while (args->argv != NULL && args->argv[i] != NULL)
-		{
-			printf("\nStored in args:<%s>\n\n", args->argv[i]);
-			i++;
-		}
-		argcount++;
-		args = args->next;
-		printf("\n~On to next node~\n\n");
-	}
-	// End of test delete later
+	ms->args = head;
+	print_args(ms);
 }

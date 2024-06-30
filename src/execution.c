@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:26:40 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/27 15:22:46 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/30 18:09:06 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ void	exeggutor(t_ms *ms)
 	// 	printf("one full command executed\n");//free stuff and newline
 	// else
 	// 	printf("other exec\n")//execve();
-	printf("1\n");
+	printf("about to enter exec\n");
 	ft_exec(ms);
 }
