@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/30 17:39:54 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/30 17:48:08 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_env
 typedef struct s_args
 {
 	int				fd[2]; // for pipe
-	int				redir_fd; // fd of file opened for redirection
+	char			*filename; // fd of file opened for redirection
 	int				redir_type; //<, <<, > and >> are different, -1 for empty
 	char			**argv;
 	struct s_args	*next;
@@ -123,7 +123,8 @@ char	*all_join(char *s1, char *s2, char *s3);
 void	ft_prep_args(t_ms *ms);
 
 /*    prep_utils.c    */
-void	prep_redir(t_tokens *tok, t_args *args);
+int		prep_redir(t_tokens **tok, t_args *args);
+void	free_arr(char **arr);
 
 /*    execution.c    */
 void	exeggutor(t_ms *ms);
