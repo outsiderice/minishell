@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/28 18:26:54 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/30 17:19:19 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void	ft_prep_args(t_ms *ms);
 
 /*    prep_utils.c    */
 int		prep_redir(t_tokens **tok, t_args *args);
+void	free_arr(char **arr);
 
 /*    execution.c    */
 void	exeggutor(t_ms *ms);
