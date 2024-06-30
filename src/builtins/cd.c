@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:04:18 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/28 19:20:49 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/30 13:52:17 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,47 @@
 //in a directory in C, you can use the POSIX opendir, readdir, and closedir functions, which are part of the dirent.h
 
 
+int	ft_abs_path(char *path)
+{
+	if (chdir(path) == -1) //chdir sets erno
+		return (-1);
+	return (0);
+}
 
-int	ft_cd_home(t_env env, char *var)
+int	ft_rel_path(char *path)
+{
+	char	*pwd;
+	char	*abs_path;
+
+	pwd = getcwd(NULL, 0);
+	abs_path = NULL;
+	if (pwd == NULL)
+		return (-1);
+	if (is_file_in_dir(path, pwd) == 1)
+	{
+		printf("bash: cd: %s: No such file or directory", path);
+		return (-1);
+	}
+	abs_path = ft_strjoin(pwd, "/");
+	abs_path = ft_strjoin(abs_path, path);
+	if (chdir(abs_path) == -1)
+	{
+		ft_putendl_fd("bash: cd: cd did not worked", STDOUT_FILENO); //check for this error message
+		return (-1);
+	}
+	free(abs_path);
+	free(pwd);
+	return (0);
+}
+
+int	ft_cd_var(t_env *env, char *var_name)
 {
 	char	*path;
 
-	path = get_env_cont(env, var);
+	path = get_env_cont(env, var_name);
 	if (!path)
 	{
-		ft_putendl_fd("bash: cd: HOME NOT SET", STDOUT_FILENO);
+		printf("bash: cd: %s NOT SET", var_name);
 		return (-1);
 	}
 	if (chdir(path) == -1)
@@ -57,38 +89,39 @@ int	ft_cd_home(t_env env, char *var)
 	}
 	free(path);
 	return (0);
-} 
+}
+
 
 int	ft_cd(t_env *env, char **args)
 {
 	char	*path;
-
+	char	*home;
+	
 	//g_var possible global variable
 	path = NULL;
-	if(args[1] && args[2])
+	if(args[1] && args[2]) // necesita una funcion que diga la len de args
 	{
 		ft_putstr_fd("eggshell: cd: too many arguments\n", 1);
 		return (1);
 	}
 	if (!args[1] || ft_str_compare(args[1], "~") == 0)
 	{
-		path = ft_cd_home(env);
+		path = ft_cd_var(env, "HOME");
 		if (!path)
 			return (1);	
 		return (0);
 	}
 	if (ft_str_compare(args[1], "-") == 0)
 	{
-		path = get_env_cont(t_env *env, "OLDPWD");
+		path = ft_cd_var(env, "OLDPWD");
 		if (!path)
-		{
-			ft_putstr_fd("bash: cd: OLDPWD not set", STDOUT_FILENO); //maybe better error handeling
-			return (1);
-		}
-
-
-
+			return (1);	
+		return (0);
 	}
+	if (ft_rel_path(args[1]) == -1 && ft_abs_path(args[1] == -1))
+		
+		printf("bash: cd: %s: No such file or directory", args[1]);
+	free(path);
 	add_home_path(args[1]);
 	free(path);
 	return (0);
