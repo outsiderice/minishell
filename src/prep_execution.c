@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/28 19:14:18 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/30 17:38:48 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ void	ft_prep_args(t_ms *ms)
 		new_args_node(&args, NULL);
 		if (ms->args == NULL)
 		{
-			printf("set ms->args to first arg\n");
 			ms->args = args;
+			printf("\n\nset ms->args to first\n");
 		}
 		printf("made new args node\n");
 		while (current_tok && current_tok->type != 2) //while not finding a pipe
@@ -122,7 +122,7 @@ void	ft_prep_args(t_ms *ms)
 			if (current_tok->type == 3 || current_tok->type == 1)
 			{
 				prep_redir(&current_tok, args);
-				printf("handled redir\n");
+				printf("\nfilename = %s\nredir type %d\n\n", args->filename, args->redir_type);
 			}
 			else if (current_tok->type == 0)
 			{
@@ -132,7 +132,8 @@ void	ft_prep_args(t_ms *ms)
 			if (arr)
 			{
 				args->argv = arr;
-				//free_arr
+				printf("set arr to args->argv[0] = %s\n", args->argv[0]);
+				//free_arr(arr);
 				arr = NULL;
 				printf("freed and set arr to null\n");
 			}
@@ -159,8 +160,8 @@ void	ft_prep_args(t_ms *ms)
 			printf("\nStored in args:<%s>\n\n", args->argv[i]);
 			i++;
 		}
-		args = args->next;
 		argcount++;
+		args = args->next;
 		printf("\n~On to next node~\n\n");
 	}
 	// End of test delete later
