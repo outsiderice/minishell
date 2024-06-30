@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/27 10:41:59 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/06/30 20:16:05 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void	ft_init_ms(t_ms *ms, char **envp)
 	ms->old_pwd = getcwd(NULL, 0);
 	ms->new_pwd = getcwd(NULL, 0);
 	if (ms->new_pwd == NULL || ms->old_pwd == NULL)
+	{
+		//free_env
 		exit (error_msg("getcwd:Returned NULL new_pwd\n", NULL));
+	}
 	ms->pid = getpid();
 }
 
