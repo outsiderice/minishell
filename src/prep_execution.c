@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/02 15:53:19 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:04:27 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	new_args_node(t_args **args)
 
 //Fills array arr with consecutive tokens of the same type
 //Returns the array
-char	**fill_arg(t_tokens **tok, t_tokens *ptr)
+char	**fill_argv(t_tokens **tok, t_tokens *ptr)
 {
 	char		**arr;
 	int			arr_len;
@@ -158,7 +158,7 @@ void	prep_command(t_tokens **current_tok, t_ms **ms)
 	if ((*current_tok)->type == 3 || (*current_tok)->type == 1)
 		prep_redir(current_tok, (*ms)->args);
 	else if ((*current_tok)->type == 0)
-		arr = fill_arg(current_tok, *current_tok);
+		arr = fill_argv(current_tok, *current_tok);
 	if (arr != NULL)
 	{
 		(*ms)->args->argv = arr;
