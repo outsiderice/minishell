@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/07/02 10:31:42 by amagnell         ###   ########.fr        #
+#    Updated: 2024/07/02 13:55:02 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRCS 		=	src/main.c \
 				src/builtins/echo.c \
 				src/builtins/unset.c \
 				src/builtins/export.c \
+				src/builtins/cd.c \
 
 BUILD_DIR 	=	.build
 OBJS		=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)

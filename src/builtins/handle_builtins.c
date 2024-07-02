@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/27 14:55:16 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/06/30 20:00:27 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	handle_builtins(t_ms *ms, t_args *args) //probably has to be **msh to do exi
 		ms->exitstatus = ft_echo(args->argv);
 	else if (ft_str_compare(args->argv[0], "pwd") == 0)
 		ms->exitstatus = ft_pwd();
-	// else if (ft_str_compare(ms->args->argv[0], "cd") == 0)
-	// 	ms->exitstatus = ft_cd(ms, ms->args->argv); // to complete 
+	else if (ft_str_compare(ms->args->argv[0], "cd") == 0)
+	 	ms->exitstatus = ft_cd(ms, ms->args->argv);
 	else if (ft_str_compare(args->argv[0], "env") == 0)
 		ms->exitstatus = ft_env(ms->env);
 	else if (ft_str_compare(args->argv[0], "export") == 0)

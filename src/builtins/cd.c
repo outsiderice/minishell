@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:04:18 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/27 00:20:38 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/02 03:00:21 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,86 +39,146 @@
 //in a directory in C, you can use the POSIX opendir, readdir, and closedir functions, which are part of the dirent.h
 
 
-int	ft_cd(t_ms *ms, char **args)
+/*int	ft_abs_path(char *path)
 {
-	char	*path; // line that will retain the path to go
-
-	path = NULL;
-	args++;
-	if (*args == NULL)
-		return (ft_cd_no_arg(ms));
-	// if argument is = . should give error because the permission is denied -> check access
-	else 
-	{
-
-
-	}	
-	if (pwd != NULL)
-	{
-		ft_putendl_fd(pwd, STDOUT_FILENO);
-		free(pwd);
-		return (0); //or save exit status in mini_shell->exit_status = 0;
-	}
-	if (m_sh->comand_arg > 2) // args control;  
-		retunr(printf("error message, too many arguments\n")); // adjust the message
-	
+	if (chdir(path) == -1) //chdir sets erno
+		return (-1);
+	//oldpwd = pwd;
+	//pwd = get_cwd;
+	return (0);
 }
 
-int	ft_cd_no_arg(t_ms *ms)
+int	ft_rel_path(char *path)
+{
+	char	*pwd;
+	char	*abs_path;
+
+	abs_path = NULL;
+	pwd = getcwd(NULL, 0);
+	if (pwd == NULL)
+		return (-1);
+	if (is_file_in_dir(path, pwd) == 1)
+	{
+		//printf("bash: cd: %s: No such file or directory", path);
+		return (-1);
+	}
+	abs_path = ft_strjoin(pwd, "/");
+	abs_path = ft_strjoin(abs_path, path);
+	if (chdir(abs_path) == -1)
+	{
+		ft_putendl_fd("bash: cd: cd did not worked", STDOUT_FILENO); //check for this error message
+		return (-1);
+	}
+	//oldpwd = pwd;
+	//pwd = get_cwd;
+	free(abs_path);
+	free(pwd);
+	return (0);
+}
+
+int	ft_cd_var(t_ms *ms, char *var_name)
 {
 	char	*path;
 
-	path = getcwd(NULL, 0);
+	path = get_env_cont(ms->env, var_name);
 	if (!path)
-		return (1);
-	// if old_pwd is not NULL, should we free it first?
-	ms->old_pwd = *path; // should it be malloc instead?
+	{
+		printf("bash: cd: %s NOT SET", var_name);
+		return (-1);
+	}
+	ms->old_pwd = getcwd(NULL, 0);
+	if (ms->old_pwd == NULL)
+		{
+			free(path);
+			return (-1);
+		}
+	printf("%s\n", path);
+	if (chdir(path) == -1)
+	{
+		//perror("bash: cd");
+		ft_putendl_fd("bash: cd: cd did not worked\n", STDOUT_FILENO); //check for this error message
+		return (-1);
+	}
+	ms->new_pwd = getcwd(NULL, 0);
+	if (ms->new_pwd == NULL)
+	{
+			free(path);
+			return (-1);
+	}
 	free(path);
 	return (0);
-} 
-
-int	is_home(char *str)
-{
-	if (str[0])
 }
 
-int	ft_cd(char **args)
+int	ft_is_file(t_ms *ms, char *str)
+{
+	(void*)ms;
+	(void*)str;
+	return (1);
+}*/
+
+char	*ft_get_old_path(t_ms *ms)
 {
 	char	*path;
 
+	path = get_env_cont(ms->env, "OLDPWD");
+	if (!path)
+	{
+		printf("bash: cd: OLDPWD not set");
+		return (NULL);
+	}
+	return (path);
+}
+
+char	*ft_from_abs_path(t_ms *ms, char *arg)
+{
+	char	*path;
+
+	path = get_env_cont(ms->env, "HOME");
+	if (!path)
+	{
+		printf("bash: cd: HOME NOT SET");
+		return (NULL);
+	}
+	if (arg == NULL || arg[1] == '\0')
+		return (path);
+	arg++;
+	path = ft_strjoin(path, arg);
+	return (path);
+}
+
+
+int	ft_cd(t_ms *ms, char **args)
+{
+	char	*path;
+	//char	*old_pwd;
+	
 	//g_var possible global variable
 	path = NULL;
-	if(args[1] && args[2])
+	//old_pwd = NULL;
+	if (ft_args_len(args) > 2)
 	{
 		ft_putstr_fd("eggshell: cd: too many arguments\n", 1);
 		return (1);
 	}
+	else if (!args[1] || args[1][0] == '~')
+		path = ft_from_abs_path(ms, args[1]);
 
-	if (!args[1] || ft_strequ(args[1], "~") || ft_strequ(args[1], "--"))
+	else if (ft_str_compare(args[1], "-") == 0)
+		path = ft_get_old_path(ms);
+	else
+		path = args[1];
+	/*if (ft_is_file(ms, path) == 0)
 	{
-		if (!(home = get_env("HOME")))
-		{
-			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
-			return (1);
-		}
-		return (set_directory(home, 1));
+		printf("bash: cd: %s Not a directory", path);
+		return (-1);
+	}*/
+	if (chdir(path) == -1)
+	{
+		printf("bash: cd: %s No such file or directory\n", path);
+		return (-1);
 	}
-	args[1] = add_home_path(args[1]);
-	return (s_path(args));
+	//OLDPWD es PWD, PWD es path
+	free(path);
+	printf("old pwd es %s, newpwd es %s\n", ms->old_pwd, ms->new_pwd);
+	return (0);
 }
-
-
-
-/* FUNCTION PROTOTYPES
-	1. int chdir(const char *path) is used to change the current working directory of the calling process.
-	Parameter:
-		 A pointer to a string that specifies the path to the new working directory.
-	Return Value:
-		On success, chdir returns 0.
-		On failure, it returns -1 and sets the errno variable to indicate the error.
-	Common Error Codes
-		ENOENT: The directory specified by path does not exist.
-		EACCES: Permission is denied to change to the specified directory.
-		ENOTDIR: A component of the path is not a directory.
-*/
-
