@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/02 15:50:30 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:53:19 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	add_last_arg(t_args **args, t_args *new_arg)
 int	new_args_node(t_args **args)
 {
 	t_args	*new_arg;
-	t_args	*last;
 
 	new_arg = malloc(sizeof(t_args) * 1);
 	if (!new_arg)
@@ -58,14 +57,7 @@ int	new_args_node(t_args **args)
 	if (*args == NULL)
 		*args = new_arg;
 	else
-	{
-		last = *args;
-		while (last && last->next != NULL)
-			last = last->next;
-		new_arg->prev = last;
-		last->next = new_arg;
-	}
-		// add_last_arg(args, new_arg);
+		add_last_arg(args, new_arg);
 	return (0);
 }
 
