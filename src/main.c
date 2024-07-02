@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/02 12:26:04 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:14:14 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@
 void	ft_init_ms(t_ms *ms, char **envp)
 {
 	ms->env = start_env(envp);
+	if (ms->env == NULL)
+	{
+		free_env(&ms->env);
+		return (exit (error_msg("env memory allocation failure\n", NULL)));
+	}
 	ms->tokens = NULL;
 	ms->args = NULL;
 	ms->exitstatus = -1;
 	ms->sh_lvl = ft_shll_lvl(ms->env);
 	ms->old_pwd = getcwd(NULL, 0);
-	if ( ms->old_pwd)
+	if (ms->old_pwd == NULL)
 	{
 		free_env(&ms->env);
 		exit (error_msg("getcwd:Returned NULL old_pwd\n", NULL));
@@ -69,11 +74,6 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 1)
 		return (EXIT_FAILURE);
 	ft_init_ms(&ms, envp);
-	if (ms.env == NULL)
-	{
-		//function which frees ms and env
-		return (error_msg("env memory allocation failure\n", NULL));
-	}
 	ft_minishell(&ms);
 	return (0);
 }
