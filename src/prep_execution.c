@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/01 21:36:23 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/02 15:50:30 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	**fill_arg(t_tokens **tok, t_tokens *ptr)
 	return (arr);
 }
 
-//test function delete later
+//test function DELETE LATER
 void	print_args(t_ms *ms) 
 {
 	t_args *current;
@@ -142,13 +142,44 @@ void	print_args(t_ms *ms)
 	}
 }
 
+// void	create_args(t_ms *ms, t_args *head, t_args *arg)
+// {
+// 	new_args_node(&ms->args);
+// 	if (head == NULL)
+// 	{
+// 		head = ms->args;
+// 		arg = head;
+// 	}
+// 	else
+// 	{
+// 		arg->next = ms->args;
+// 		ms->args->prev = arg;
+// 		arg = ms->args;
+// 	}
+// }
+
+void	prep_command(t_tokens **current_tok, t_ms **ms)
+{
+	char	**arr;
+
+	arr = NULL;
+	if ((*current_tok)->type == 3 || (*current_tok)->type == 1)
+		prep_redir(current_tok, (*ms)->args);
+	else if ((*current_tok)->type == 0)
+		arr = fill_arg(current_tok, *current_tok);
+	if (arr != NULL)
+	{
+		(*ms)->args->argv = arr;
+		arr = NULL;
+	}
+}
+
 //Creates nodes for t_args from t_tokens
 void	ft_prep_args(t_ms *ms)
 {
 	t_args		*head;
 	t_args		*arg;
 	t_tokens	*current_tok;
-	char		**arr;
 	
 	current_tok = ms->tokens;
 	head = NULL;
@@ -167,25 +198,8 @@ void	ft_prep_args(t_ms *ms)
 			ms->args->prev = arg;
 			arg = ms->args;
 		}
-		while (current_tok && current_tok->type != 2) //while not finding a pipe
-		{
-			if (current_tok->type == 3 || current_tok->type == 1)
-			{
-				prep_redir(&current_tok, ms->args);
-				printf("\nfilename = %s\nredir type %d\n\n", ms->args->filename, ms->args->redir_type);
-			}
-			else if (current_tok->type == 0)
-			{
-				arr = fill_arg(&current_tok, current_tok);
-			}
-			if (arr)
-			{
-				ms->args->argv = arr;
-				printf("set arr to args->argv[0] = %s\n", ms->args->argv[0]);
-				//free_arr(arr);
-				arr = NULL;
-			}
-		}
+		while (current_tok && current_tok->type != 2)
+			prep_command(&current_tok, &ms);
 		if (current_tok != NULL && current_tok->type == 2)
 		{
 			current_tok = current_tok->next;
