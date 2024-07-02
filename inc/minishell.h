@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/30 20:02:41 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/02 00:00:43 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,5 +148,6 @@ int		ft_unset(t_env **env, char **args);
 /*    builtins_utils.c    */
 int		ft_str_compare(char *str1, char *str2);
 char	*get_env_cont(t_env *env, char *str);
+int		ft_args_len(char **args);
 
 #endif

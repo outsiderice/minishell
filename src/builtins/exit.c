@@ -62,15 +62,6 @@ int	ft_check_lli(char *str)
 	return(0);
 }
 
-int	ft_args_len(char **args)
-{
-	int	len;
-
-	len = 0;
-	while (args[len] != NULL)
-		len++;
-	return (len);
-}
 // deberia de hacer frees en algun momento
 //tiene que aceptar ms comoa rgumento
 int	ft_exit(char **args) //possibly save the readline history

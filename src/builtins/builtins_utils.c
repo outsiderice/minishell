@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:27:10 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/30 18:03:09 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/02 02:53:26 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,14 @@ char	*get_env_cont(t_env *env, char *str)
 	}
 	//possible error printing function depending on the int
 	return (var);
+}
+
+int	ft_args_len(char **args)
+{
+	int	len;
+
+	len = 0;
+	while (args[len] != NULL)
+		len++;
+	return (len);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:04:18 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/30 20:10:03 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/02 03:00:21 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 //in a directory in C, you can use the POSIX opendir, readdir, and closedir functions, which are part of the dirent.h
 
 
-int	ft_abs_path(char *path)
+/*int	ft_abs_path(char *path)
 {
 	if (chdir(path) == -1) //chdir sets erno
 		return (-1);
@@ -53,8 +53,8 @@ int	ft_rel_path(char *path)
 	char	*pwd;
 	char	*abs_path;
 
-	pwd = getcwd(NULL, 0);
 	abs_path = NULL;
+	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
 		return (-1);
 	if (is_file_in_dir(path, pwd) == 1)
@@ -109,33 +109,75 @@ int	ft_cd_var(t_ms *ms, char *var_name)
 	return (0);
 }
 
+int	ft_is_file(t_ms *ms, char *str)
+{
+	(void*)ms;
+	(void*)str;
+	return (1);
+}*/
+
+char	*ft_get_old_path(t_ms *ms)
+{
+	char	*path;
+
+	path = get_env_cont(ms->env, "OLDPWD");
+	if (!path)
+	{
+		printf("bash: cd: OLDPWD not set");
+		return (NULL);
+	}
+	return (path);
+}
+
+char	*ft_from_abs_path(t_ms *ms, char *arg)
+{
+	char	*path;
+
+	path = get_env_cont(ms->env, "HOME");
+	if (!path)
+	{
+		printf("bash: cd: HOME NOT SET");
+		return (NULL);
+	}
+	if (arg == NULL || arg[1] == '\0')
+		return (path);
+	arg++;
+	path = ft_strjoin(path, arg);
+	return (path);
+}
+
 
 int	ft_cd(t_ms *ms, char **args)
 {
 	char	*path;
+	//char	*old_pwd;
 	
 	//g_var possible global variable
 	path = NULL;
-	if(args[1] && args[2]) // necesita una funcion que diga la len de args
+	//old_pwd = NULL;
+	if (ft_args_len(args) > 2)
 	{
 		ft_putstr_fd("eggshell: cd: too many arguments\n", 1);
 		return (1);
 	}
-	else if (!args[1] || ft_str_compare(args[1], "~") == 0)
-	{
-		if (ft_cd_var(ms, "HOME") == -1)
-		{
-			printf("ha dado un error en ft_cd_var");
-			return (1);
-		}
-	}
+	else if (!args[1] || args[1][0] == '~')
+		path = ft_from_abs_path(ms, args[1]);
+
 	else if (ft_str_compare(args[1], "-") == 0)
+		path = ft_get_old_path(ms);
+	else
+		path = args[1];
+	/*if (ft_is_file(ms, path) == 0)
 	{
-		if (ft_cd_var(ms, "OLDPWD") == -1)
-			return (1);	
+		printf("bash: cd: %s Not a directory", path);
+		return (-1);
+	}*/
+	if (chdir(path) == -1)
+	{
+		printf("bash: cd: %s No such file or directory\n", path);
+		return (-1);
 	}
-	else if (ft_rel_path(args[1]) == -1 && ft_abs_path(args[1]) == -1)
-		printf("bash: cd: %s: No such file or directory", args[1]);
+	//OLDPWD es PWD, PWD es path
 	free(path);
 	printf("old pwd es %s, newpwd es %s\n", ms->old_pwd, ms->new_pwd);
 	return (0);
