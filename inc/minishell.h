@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/30 17:19:19 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/02 10:34:21 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_args
 {
 	int				fd[2]; // for pipe
 	char			*filename; // fd of file opened for redirection
-	int				redir_type; //<, <<, > and >> are different, -1 for empty
+	int				redir_type; //< = 1, << = 2, > = 3, >> = 4, -1 for empty
 	char			**argv;
 	struct s_args	*next;
 	struct s_args	*prev;
@@ -86,6 +86,9 @@ char	*ft_readline(void);
 /*    error.c    */
 // void	ft_error(t_ms **ms, char *line);
 int		error_msg(char *msg, char *deets);
+
+/*    free.c    */
+void	free_env(t_env **env);
 
 /*    check_quotes.c    */
 int		ft_check_quotes(const char *line, t_ms *ms);
