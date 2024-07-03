@@ -6,38 +6,13 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:30:50 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/30 17:30:03 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:58:16 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	prep_redir(t_tokens **tok, t_args *args)
-{
-	if ((*tok)->tok[0] == '<')
-	{
-		if (ft_strlen((*tok)->tok) == 1)
-			args->redir_type = 1;
-		else
-			args->redir_type = 2;
-	}
-	else if ((*tok)->tok[0] == '>')
-	{
-		if (ft_strlen((*tok)->tok) == 1)
-			args->redir_type = 3;
-		else
-			args->redir_type = 4;
-	}
-	else if ((*tok)->type == 1)
-	{
-		args->filename = ft_strdup((*tok)->tok);
-		if (!args->filename)
-			return (EXIT_FAILURE);
-	}
-	(*tok) = (*tok)->next;
-	return(EXIT_SUCCESS);
-}
-
+// Frees a string array
 void	free_arr(char **arr)
 {
 	int	j;
@@ -50,4 +25,54 @@ void	free_arr(char **arr)
 	}
 	free (arr);
 	return ;
+}
+
+// Adds node to the end of the args list
+void	add_last_arg(t_args **args, t_args *new_arg)
+{
+	t_args	*last;
+
+	last = *args;
+	while (last && last->next != NULL)
+	{
+		last = last->next;
+	}
+	last->next = new_arg;
+	new_arg->prev = last;
+}
+
+// Creates new node for args
+// Returns 1 if there's an allocation failure or 0 if it's a success
+int	new_args_node(t_args **args)
+{
+	t_args	*new_arg;
+
+	new_arg = malloc(sizeof(t_args) * 1);
+	if (!new_arg)
+		return (EXIT_FAILURE);
+	new_arg->argv = NULL;
+	new_arg->filename = NULL;
+	new_arg->redir_type = -1;
+	new_arg->next = NULL;
+	new_arg->prev = NULL;
+	if (*args == NULL)
+		*args = new_arg;
+	else
+		add_last_arg(args, new_arg);
+	return (EXIT_SUCCESS);
+}
+
+// Counts how many consecutive tokens of the same TYPE there are from CURRENT
+// Returns COUNT
+int	ft_count_toks(t_tokens *current, int type)
+{
+	int	count;
+
+	count = 0;
+	while (current && current->type == type)
+	{
+		count++;
+		current = current->next;
+	}
+	return (count);
 }

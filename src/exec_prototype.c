@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/02 17:25:08 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/03 14:10:33 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,8 @@ int	is_file_in_dir(char *file, char *dir)
     // Open the directory stream
     dirp = opendir(dir);
 	//printf("%s\n", dir);
-    if (dirp == NULL) {
-        perror("opendir");
+    if (dirp == NULL)
         return (1);
-    }
     // Read directory entries
 	entry = readdir(dirp);
     while (entry != NULL && ft_str_compare(file, entry->d_name) == 1)
@@ -80,10 +78,11 @@ int	ft_exec_cmd(char **args, t_env *env)
 	char	*cmd;
 	char	**paths;
 	char	**envp;
+	int		exit_status;
 
 	i = 0;
 	cmd = args[0];
-
+	exit_status = 0;
 	envp = ft_list_to_array(env);
 	if (envp == NULL)
 		return (-1); // handle this error
@@ -93,14 +92,17 @@ int	ft_exec_cmd(char **args, t_env *env)
 	while (paths[i] != NULL && is_file_in_dir(cmd, paths[i]))
 		i++;
 	if (paths[i] == NULL)
-		printf("command not found\n");
+	{
+		printf("command not found\n"); //change exitstatus to 127
+		return (127);
+	}
 	else
 	{
-		execve(ft_join_path(paths[i], cmd), args, envp);
+		exit_status = execve(ft_join_path(paths[i], cmd), args, envp);
 		printf("%s\n", paths[i]);
 	}
-	// free envp;
-	return (0);
+	free_arr(envp);
+	return (exit_status);
 }
 
 int	ft_exec(t_ms *ms)
@@ -128,7 +130,7 @@ int	ft_exec(t_ms *ms)
 			if (pid == 0)
 			{
 				close(args->fd[0]);
-				ft_exec_cmd(args->argv, ms->env); // donde se gestiona exitstatus? aqui ya habra fd
+				ms->exitstatus = ft_exec_cmd(args->argv, ms->env); // donde se gestiona exitstatus? aqui ya habra fd
 				close(args->fd[1]);
 			}
 			else 

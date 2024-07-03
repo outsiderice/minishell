@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 14:38:39 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/21 20:03:34 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:53:30 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@
 // }
 
 // Pass two strings to give a personalized error msg
+// Returns 1
 int	error_msg(char *msg, char *deets)
 {
 	ft_putstr_fd("eggshell:", 2);
 	ft_putstr_fd(msg, 2);
 	if (deets)
 		ft_putstr_fd(deets, 2);
-	return (0);
+	return (EXIT_FAILURE);
 }
