@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/03 12:21:15 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:27:48 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,8 @@ int	ft_exec(t_ms *ms)
 
 	printf("HOLA DESDE EXEC\n");
 	args = ms->args;
-	while (args != NULL)
+	while (args != NULL) //while there're command lines
 	{
-		dprintf(2, "args is not null\n");
 		if (is_builtin(args->argv[0]) == 1)
 		{
 			dprintf(2, "is a builtin\n");
@@ -133,7 +132,7 @@ int	ft_exec(t_ms *ms)
 				ms->exitstatus = ft_exec_cmd(args->argv, ms->env); // donde se gestiona exitstatus? aqui ya habra fd
 				close(args->fd[1]);
 			}
-			else 
+			else
 			{
 				close(args->fd[1]);
 				//read(fd[0], buffer, algun valor);
@@ -143,64 +142,8 @@ int	ft_exec(t_ms *ms)
 				wait(NULL);
 			}
 		}
-		printf("next args\n");
+		printf("|next args|\n");
 		args = args->next;
-		// printf("args->argv[0] = %s\n", args->argv[1]);
 	}
-	//free(ms->args); // hemos acabado los argumentos
-	//ms->args = NULL; // reseteamos la variable
 	return (0);
 }
-
-
-/*
-
-int main(int ac, char **av, char **env_p) 
-{
-	char 	*args[3];
-	args[0] = "ls";
-	args[1] = "-la";
-	args[2] = NULL;
-    (void) ac;
-    (void) av;
-	int		i;
-    t_env   *env;
-	char	**paths;
-	char	*cmd = "ls";
-	
-	(void) ac;
-    (void) av;
-	int		i;
-	t_ms 	ms;
-	t_args	*first;
-	t_args	*aux;
-	t_args  *args;
-	char 	*tmp[3];
-
-	args = malloc(sizeof(t_args) * 1);
-	if (!args)
-		return (1);
-	first = args;
-	tmp[0] = "ls";
-	tmp[1] = "-la";
-	tmp[2] = NULL;
-	args->argv = tmp;
-
-	aux = malloc(sizeof(t_args) * 1);
-	aux->argv = tmp;
-	args->next = aux;
-	args = args->next;
-
-	aux = malloc(sizeof(t_args) * 1);
-	aux->argv = tmp;
-	args->next = aux;
-
-	i = 0;
-	ft_init_ms(&ms);
-	ms.args = first;
-
-    ms.env = start_env(env_p);
-	ft_exec(&ms);
-	
-   return (0);
-}*/
