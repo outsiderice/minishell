@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   env_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/30 15:08:33 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/26 13:08:30 by kate             ###   ########.fr       */
+/*   Created: 2024/07/03 15:58:57 by kkoval            #+#    #+#             */
+/*   Updated: 2024/07/03 15:58:58 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../inc/minishell.h"
 // #include "../../lib/libft/include/libft.h"
