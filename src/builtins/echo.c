@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:22:05 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/26 14:29:47 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/03 15:12:38 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_print_args(char **args)
 int	ft_echo(char **args)
 {
 	int do_jump;
-
+	
 	args++;
 	do_jump = ft_n_check(*args);
 	while (ft_n_check(*args) == 1)
