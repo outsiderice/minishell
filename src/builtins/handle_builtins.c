@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/30 20:00:27 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/03 15:00:33 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,65 @@ int	is_builtin(char *cmd)
     return (0);
 }
 
+#include <fcntl.h>
+#include <unistd.h>
+
+void handle_redirections_builtin(t_args *args) 
+{
+    int fd;
+
+    // Input redirection: '<'
+    if (args->redir_type == 1) {
+        fd = open(args->filename, O_RDONLY);
+        if (fd == -1) {
+            perror("open");
+            exit(1);
+        }
+        if (dup2(fd, STDIN_FILENO) == -1) {
+            perror("dup2");
+            exit(1);
+        }
+        close(fd);
+    }
+
+    // Output redirection: '>'
+    if (args->redir_type == 3) {
+        fd = open(args->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+        if (fd == -1) {
+            perror("open");
+            exit(1);
+        }
+        if (dup2(fd, STDOUT_FILENO) == -1) {
+            perror("dup2");
+            exit(1);
+        }
+        close(fd);
+    }
+
+    // Append redirection: '>>'
+    if (args->redir_type == 4) {
+        fd = open(args->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+        if (fd == -1) {
+            perror("open");
+            exit(1);
+        }
+        if (dup2(fd, STDOUT_FILENO) == -1) {
+            perror("dup2");
+            exit(1);
+        }
+        close(fd);
+    }
+
+    // Here-doc redirection: '<<' (Implement if necessary)
+    // You will need to handle here-doc separately, as it involves reading input until a delimiter.
+}
+
+
 int	handle_builtins(t_ms *ms, t_args *args) //probably has to be **msh to do exil propery and equal pointer to null
 {
+	if (args->redir_type != -1)    //new
+        handle_redirections_builtin(args); //new
+
 	if (ms->args == NULL) // only stays here to check bad redirection
 		printf("YOU SHALL NOT PASS TO BUILTINS, without builtin commands\n");
 	else if (ft_str_compare(args->argv[0], "echo") == 0)
