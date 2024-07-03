@@ -6,16 +6,18 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/03 11:26:49 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:48:41 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // Adds nodes to ms and links them
-void	create_args(t_ms *ms, t_args **head, t_args **arg)
+// Returns 1 on failure and 0 on success
+int	create_args(t_ms *ms, t_args **head, t_args **arg)
 {
-	new_args_node(&ms->args);
+	if (new_args_node(&ms->args))
+		return (EXIT_FAILURE);
 	if (*head == NULL)
 	{
 		*head = ms->args;
@@ -27,6 +29,7 @@ void	create_args(t_ms *ms, t_args **head, t_args **arg)
 		ms->args->prev = *arg;
 		*arg = ms->args;
 	}
+	return (EXIT_SUCCESS);
 }
 
 // Assigns redir_type and saves filename to t_args
@@ -57,7 +60,7 @@ int	prep_redir(t_tokens **tok, t_args *args)
 }
 
 // Fills array arr with consecutive tokens of the same type
-// Returns the array
+// Returns the array or NULL if it fails
 char	**fill_argv(t_tokens **tok, t_tokens *ptr)
 {
 	char		**arr;
@@ -69,31 +72,45 @@ char	**fill_argv(t_tokens **tok, t_tokens *ptr)
 	arr_len = ft_count_toks(*tok, 0);
 	arr = malloc(sizeof(char *) * (arr_len + 1));
 	if (!arr)
-		return (NULL); //add proper handling
+		return (NULL);
 	arr[arr_len] = NULL;
 	while (i < arr_len)
 	{
 		arr[i] = ft_strdup((*tok)->tok);
+		if (!arr[i])
+		{
+			free_arr(arr);
+			return (NULL);
+		}
 		(*tok) = (*tok)->next;
 		i++;
 	}
 	return (arr);
 }
 
-void	prep_command(t_tokens **current_tok, t_ms **ms)
+// Returns 1 on failure and 0 on success
+int	prep_command(t_tokens **current_tok, t_ms **ms)
 {
 	char	**arr;
 
 	arr = NULL;
 	if ((*current_tok)->type == 3 || (*current_tok)->type == 1)
-		prep_redir(current_tok, (*ms)->args);
+	{
+		if (prep_redir(current_tok, (*ms)->args) == 1)
+		return (EXIT_FAILURE);
+	}
 	else if ((*current_tok)->type == 0)
+	{
 		arr = fill_argv(current_tok, *current_tok);
+		if (!arr)
+			return (EXIT_FAILURE);
+	}
 	if (arr != NULL)
 	{
 		(*ms)->args->argv = arr;
 		arr = NULL;
 	}
+	return (EXIT_SUCCESS);
 }
 
 //test function DELETE LATER
@@ -140,7 +157,7 @@ void	print_args(t_ms *ms)
 }
 
 // Creates nodes for t_args from t_tokens
-void	ft_prep_args(t_ms *ms)
+int	ft_prep_args(t_ms *ms)
 {
 	t_args		*head;
 	t_args		*arg;
@@ -151,9 +168,13 @@ void	ft_prep_args(t_ms *ms)
 	arg = NULL;
 	while (current_tok != NULL) 
 	{
-		create_args(ms, &head, &arg);
+		if (create_args(ms, &head, &arg) == 1)
+			return (EXIT_FAILURE);
 		while (current_tok && current_tok->type != 2)
-			prep_command(&current_tok, &ms);
+		{
+			if (prep_command(&current_tok, &ms) == 1)
+				return (EXIT_FAILURE);
+		}
 		if (current_tok != NULL && current_tok->type == 2)
 		{
 			current_tok = current_tok->next;
@@ -162,4 +183,5 @@ void	ft_prep_args(t_ms *ms)
 	}
 	ms->args = head;
 	print_args(ms); //delete later
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/03 11:23:01 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:48:59 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ char	*all_join(char *s1, char *s2, char *s3);
 // int		find_dollar_end(const char *name);
 
 /*    prep_execution.c    */
-void	ft_prep_args(t_ms *ms);
+int		ft_prep_args(t_ms *ms);
 
 /*    prep_utils.c    */
 void	free_arr(char **arr);
