@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_prototype.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
+/*   Updated: 2024/07/02 17:09:56 by amagnell         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <dirent.h>
@@ -6,147 +18,6 @@
 #include "../lib/libft/libft.h"
 #include "../inc/minishell.h"
 
-// gcc -I../lib/libft/include exec_prototype.c -L../lib/libft -lft -o executable
-
-/*typedef struct s_env
-{
-	char			*v_name;
-	char			*v_cont;
-	struct s_env	*next;
-}	t_env;
-
-typedef struct s_args
-{
-	int				fd[2];
-	//int				argc;
-	char			**argv;
-	struct s_args	*next;
-}	t_args;
-
-typedef struct s_ms
-{
-	t_env		*env;
-	t_args		*args;
-	//char		**env_p;
-	//char		**paths;
-	int			sh_lvl;
-	int			exec_value;
-	int			pid;
-}	t_ms;
-
-void	ft_init_ms(t_ms *ms)
-{
-	ms->env = NULL;
-	ms->args = NULL;
-	ms->exec_value = -1;
-	ms->sh_lvl = -1; //HOW?
-	ms->pid = getpid();
-	}
-	*/
-
-
-// int	ft_lstlen(t_env *env)
-// {
-// 	int	len;
-
-// 	len = 0;
-// 	while (env != NULL)
-// 	{
-// 		env = env->next;
-// 		len++;
-// 	}
-// 	return (len);
-// }
-
-/*
-char **ft_list_to_array(t_env *env)
-{
-	char	**env_a;
-	char 	*aux;
-	int		i;
-
-	env_a = malloc(sizeof(char *) * ft_lstlen(env) + 1);
-	if (!env_a)
-		return (NULL);
-	i = 0;
-	while (env != NULL) 
-	{
-		aux = ft_strjoin(env->v_name, "="); // needs to be checkes for NULL?
-		env_a[i] = ft_strjoin(aux, env->v_cont);
-		free (aux);
-		i++;
-		env = env->next;
-	}
-	env_a[i] = NULL;
-	return (env_a);
-}
-
-int ft_str_compare(char *str1, char *str2)
-{
-    int i;
-    
-	i = 0;
-	while (str1[i] != '\0' && str2[i] != '\0')
-	{
-		if (str1[i] != str2[i])
-			return (1);
-		i++;
-	}
-	if (str1[i] == '\0' && str2[i] == '\0')
-        return (0);
-	return (1);
-}
-
-
-int		ft_assign(char *env_p, t_env **current)
-{
-	int		equal;
-	char	*equal_ptr;
-	int		env_len;
-
-	if (env_p == NULL) //Error, nothing to save
-		return (-1);
-	equal_ptr = ft_strchr(env_p, '=');
-	if (equal_ptr == NULL) //Error
-		return (-1);
-	env_len = ft_strlen(env_p); 
-	equal = equal_ptr - env_p; // maybe wrong
-    (*current)->v_name = ft_substr(env_p, 0, equal);
-	(*current)->v_cont = ft_substr(env_p, equal + 1, env_len);
-	if ((*current)->v_name == NULL || (*current)->v_cont == NULL)
-		return (-1); // something went wrong
-	(*current)->next = NULL;
-	return (0); // everything is ok
-}
-
-
-t_env	*start_env(char **env_p)
-{
-    int		i;
-    t_env	*first;
-    t_env	*current;
-	t_env	*prev;
-    
-    i = 0;
-	if (env_p == NULL || env_p[0] == NULL)
-        return (NULL);
-	while (env_p[i] != NULL)
-	{
-		current = malloc(sizeof(t_env) * 1);
-		if (!current)
-			return (NULL);
-		if (ft_assign(env_p[i], &current) == -1)
-			return (NULL);
-		if (i == 0)
-			first = current;
-		else
-			prev->next = current;
-		prev = current;
-		i++;
-	}
-	return (first);
-}
-*/
 
 char **ft_get_paths(t_env *env)
 {
@@ -169,10 +40,8 @@ int	is_file_in_dir(char *file, char *dir)
     // Open the directory stream
     dirp = opendir(dir);
 	//printf("%s\n", dir);
-    if (dirp == NULL) {
-        perror("opendir");
+    if (dirp == NULL)
         return (1);
-    }
     // Read directory entries
 	entry = readdir(dirp);
     while (entry != NULL && ft_str_compare(file, entry->d_name) == 1)
@@ -209,10 +78,11 @@ int	ft_exec_cmd(char **args, t_env *env)
 	char	*cmd;
 	char	**paths;
 	char	**envp;
+	int		exit_status;
 
 	i = 0;
 	cmd = args[0];
-
+	exit_status = 0;
 	envp = ft_list_to_array(env);
 	if (envp == NULL)
 		return (-1); // handle this error
@@ -222,14 +92,17 @@ int	ft_exec_cmd(char **args, t_env *env)
 	while (paths[i] != NULL && is_file_in_dir(cmd, paths[i]))
 		i++;
 	if (paths[i] == NULL)
-		printf("command not found\n");
+	{
+		printf("command not found\n"); //change exitstatus to 127
+		return (127);
+	}
 	else
 	{
-		execve(ft_join_path(paths[i], cmd), args, envp);
+		exit_status = execve(ft_join_path(paths[i], cmd), args, envp);
 		printf("%s\n", paths[i]);
 	}
-	// free envp;
-	return (0);
+	free_arr(envp);
+	return (exit_status);
 }
 
 int	ft_exec(t_ms *ms)
@@ -242,10 +115,10 @@ int	ft_exec(t_ms *ms)
 	while (args != NULL)
 	{
 		printf("args is not null\n");
-		if (is_builtin(args->argv[0]) == 0)
+		if (is_builtin(args->argv[0]) == 1)
 		{
 			printf("is a builtin\n");
-			if (handle_builtins(ms) == -1) // check for error
+			if (handle_builtins(ms, args) == -1) // check for error
 				return (-1); //error
 		}
 		else
@@ -257,7 +130,7 @@ int	ft_exec(t_ms *ms)
 			if (pid == 0)
 			{
 				close(args->fd[0]);
-				ft_exec_cmd(args->argv, ms->env); // donde se gestiona exitstatus? aqui ya habra fd
+				ms->exitstatus = ft_exec_cmd(args->argv, ms->env); // donde se gestiona exitstatus? aqui ya habra fd
 				close(args->fd[1]);
 			}
 			else 
@@ -272,6 +145,7 @@ int	ft_exec(t_ms *ms)
 		}
 		printf("next args\n");
 		args = args->next;
+		// printf("args->argv[0] = %s\n", args->argv[1]);
 	}
 	//free(ms->args); // hemos acabado los argumentos
 	//ms->args = NULL; // reseteamos la variable

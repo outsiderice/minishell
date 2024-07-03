@@ -6,9 +6,10 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/06/25 16:55:08 by amagnell         ###   ########.fr        #
+#    Updated: 2024/07/02 13:55:02 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 #-------------------------------------------#
 #	TARGET									#
@@ -29,22 +30,30 @@ INCS		=	inc	\
 SRC_DIR		=	src
 SRCS 		=	src/main.c \
 				src/error.c \
+				src/free.c \
 				src/get_input.c \
 				src/check_quotes.c \
 				src/tokenize.c \
 				src/token_utils.c \
 				src/tokens_lst_utils.c \
 				src/env_handler.c \
+				src/env2.c\
 				src/parser.c \
 				src/expand.c \
 				src/expand_utils.c \
 				src/prep_execution.c \
+				src/prep_utils.c \
 				src/execution.c \
 				src/exec_prototype.c \
 				src/builtins/handle_builtins.c \
 				src/builtins/pwd.c \
 				src/builtins/env.c \
 				src/builtins/builtins_utils.c \
+				src/builtins/exit.c \
+				src/builtins/echo.c \
+				src/builtins/unset.c \
+				src/builtins/export.c \
+				src/builtins/cd.c \
 
 BUILD_DIR 	=	.build
 OBJS		=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
@@ -69,7 +78,7 @@ DIR_DUP		=	mkdir -p $(@D)
 all: libft $(NAME) #readline 
 
 $(NAME): $(LIBS_TARGET) $(OBJS)
-	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS)  -o $(NAME) #-fsanitize=address
+	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -fsanitize=address -o $(NAME) #
 	$(info Created $@)
 
 libft:

@@ -6,93 +6,62 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/21 15:51:12 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:48:41 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//opens the filename given by the input
-//saves if it's input or output
-// void	handle_redir()
-// {}
-
-//Counts how many consecutive tokens of the same TYPE there are from CURRENT
-//Returns COUNT
-int	ft_count_toks(t_tokens *current, int type)
+// Adds nodes to ms and links them
+// Returns 1 on failure and 0 on success
+int	create_args(t_ms *ms, t_args **head, t_args **arg)
 {
-	int	count;
-
-	count = 0;
-	while (current && current->type == type)
+	if (new_args_node(&ms->args))
+		return (EXIT_FAILURE);
+	if (*head == NULL)
 	{
-		count++;
-		current = current->next;
+		*head = ms->args;
+		*arg = *head;
 	}
-	return (count);
-}
-
-// Adds node to the end of the args list
-void	add_last_arg(t_args **args, t_args *new_arg)
-{
-	t_args	*last;
-
-	last = *args;
-	while (last && last->next != NULL)
-	{
-		last = last->next;
-	}
-	last->next = new_arg;
-	new_arg->prev = last;
-}
-
-//Creates new node for args
-int	new_args_node(t_args **args, char **arr)
-{
-	t_args	*new_arg;
-	t_args	*last;
-
-	new_arg = malloc(sizeof(t_args) * 1);
-	if (!new_arg)
-		return (-1);	//malloc protecc
-	new_arg->argv = arr;
-	int i = 0;
-	printf("argv[0] == %s\n", new_arg->argv[i]);
-	new_arg->redir_fd = -1;
-	new_arg->redir_type = -1;
-	new_arg->next = NULL;
-	new_arg->prev = NULL;
-	if (*args == NULL)
-		*args = new_arg;
 	else
 	{
-		last = *args;
-		while (last && last->next != NULL)
-			last = last->next;
-		new_arg->prev = last;
-		last->next = new_arg;
+		(*arg)->next = ms->args;
+		ms->args->prev = *arg;
+		*arg = ms->args;
 	}
-		// add_last_arg(args, new_arg);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
-// static void	free_str(char **arr)
-// {
-// 	int	j;
+// Assigns redir_type and saves filename to t_args
+int	prep_redir(t_tokens **tok, t_args *args)
+{
+	if ((*tok)->tok[0] == '<')
+	{
+		if (ft_strlen((*tok)->tok) == 1)
+			args->redir_type = 1;
+		else
+			args->redir_type = 2;
+	}
+	else if ((*tok)->tok[0] == '>')
+	{
+		if (ft_strlen((*tok)->tok) == 1)
+			args->redir_type = 3;
+		else
+			args->redir_type = 4;
+	}
+	else if ((*tok)->type == 1)
+	{
+		args->filename = ft_strdup((*tok)->tok);
+		if (!args->filename)
+			return (EXIT_FAILURE);
+	}
+	(*tok) = (*tok)->next;
+	return(EXIT_SUCCESS);
+}
 
-// 	j = 0;
-// 	while (arr[j])
-// 	{
-// 		free(arr[j]);
-// 		j++;
-// 	}
-// 	free (arr);
-// 	return ;
-// }
-
-//Fills array arr with consecutive tokens of the same type
-//Returns the array
-char	**fill_arg(t_tokens **tok, t_tokens *ptr)
+// Fills array arr with consecutive tokens of the same type
+// Returns the array or NULL if it fails
+char	**fill_argv(t_tokens **tok, t_tokens *ptr)
 {
 	char		**arr;
 	int			arr_len;
@@ -103,69 +72,116 @@ char	**fill_arg(t_tokens **tok, t_tokens *ptr)
 	arr_len = ft_count_toks(*tok, 0);
 	arr = malloc(sizeof(char *) * (arr_len + 1));
 	if (!arr)
-	{
-		printf("bad malloc\n");
-		return (NULL); //add proper handling
-	}
+		return (NULL);
 	arr[arr_len] = NULL;
-	printf("before while to fill array\n");
 	while (i < arr_len)
 	{
 		arr[i] = ft_strdup((*tok)->tok);
-		printf("arr[%d] = %s, tok is = %s\n", i, arr[i], (*tok)->tok);
+		if (!arr[i])
+		{
+			free_arr(arr);
+			return (NULL);
+		}
 		(*tok) = (*tok)->next;
 		i++;
 	}
-	printf("end of fill\n");
 	return (arr);
 }
 
-//Creates nodes for t_args from t_tokens
-void	ft_prep_args(t_ms *ms)
+// Returns 1 on failure and 0 on success
+int	prep_command(t_tokens **current_tok, t_ms **ms)
 {
-	t_args		*args;	//pointer to args, which is unitinialized
-	t_tokens	*current_tok;	//pointer to toks because we dont want to lose the first position
-	char		**arr;
+	char	**arr;
+
+	arr = NULL;
+	if ((*current_tok)->type == 3 || (*current_tok)->type == 1)
+	{
+		if (prep_redir(current_tok, (*ms)->args) == 1)
+		return (EXIT_FAILURE);
+	}
+	else if ((*current_tok)->type == 0)
+	{
+		arr = fill_argv(current_tok, *current_tok);
+		if (!arr)
+			return (EXIT_FAILURE);
+	}
+	if (arr != NULL)
+	{
+		(*ms)->args->argv = arr;
+		arr = NULL;
+	}
+	return (EXIT_SUCCESS);
+}
+
+//test function DELETE LATER
+void	print_args(t_ms *ms) 
+{
+	t_args *current;
+
+	current = ms->args;
+	while (current != NULL)
+	{
+		// Print argv
+		if (current->argv != NULL)
+		{
+			printf("\nArguments: ");
+			for (int i = 0; current->argv[i] != NULL; i++)
+			{
+				printf("%s ", current->argv[i]);
+			}
+			printf("\n");
+		}
+		else
+		{
+			printf("Arguments: NULL\n");
+		}
+
+		// Print filename
+		if (current->filename != NULL)
+		{
+			printf("Filename: %s\n", current->filename);
+		}
+		else
+		{
+			printf("Filename: NULL\n");
+		}
+
+		// Print redir_type
+		printf("Redirection Type: %d\n", current->redir_type);
+
+		// Move to the next node
+		current = current->next;
+
+		printf("\n"); // Separate each node's output for readability
+	}
+}
+
+// Creates nodes for t_args from t_tokens
+int	ft_prep_args(t_ms *ms)
+{
+	t_args		*head;
+	t_args		*arg;
+	t_tokens	*current_tok;
 	
-	/*to fill a node of args, just ONE node, I need the array*/
 	current_tok = ms->tokens;
-	args = NULL;
+	head = NULL;
+	arg = NULL;
 	while (current_tok != NULL) 
 	{
-		printf("inside prep loop\n");
+		if (create_args(ms, &head, &arg) == 1)
+			return (EXIT_FAILURE);
 		while (current_tok && current_tok->type != 2)
 		{
-			if (current_tok->type == 0)
-				arr = fill_arg(&current_tok, current_tok);
-			new_args_node(&args, arr);
-			arr = NULL;
-			//also needs to handle redirs, how?
+			if (prep_command(&current_tok, &ms) == 1)
+				return (EXIT_FAILURE);
 		}
 		if (current_tok != NULL && current_tok->type == 2)
 		{
 			current_tok = current_tok->next;
-			printf("~create next node~\n");
+			ms->args = NULL;
 		}
 	}
-	ms->args = args;
-	//Test to print what's in args structure
-	int i = 0;
-	while (args->next != NULL)
-	{
-		i = 0;
-		while (args != NULL && args->argv[i] != NULL)
-		{
-			printf("\nStored in args:<%s>\n\n", args->argv[i]);
-			i++;
-		}
-		args = args->next;
-		printf("\n~On to next node~\n\n");
-	}
-	i = 0;
-	while (args != NULL && args->argv[i] != NULL)
-	{
-		printf("\nStored in args node:<%s>\n\n", args->argv[i]);
-		i++;
-	}
-	//End of test delete later
+	ms->args = head;
+	print_args(ms); //delete later
+	return (EXIT_SUCCESS);
 }

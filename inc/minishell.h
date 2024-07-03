@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/25 16:35:16 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:48:59 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@
 /*    LIBRARIES    */
 # include <stdlib.h>
 # include <stdio.h>
+# include <string.h>
 # include <unistd.h>
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <limits.h>
+# include <signal.h>
+# include <dirent.h>
 # include "../lib/readline/readline.h"
 # include "../lib/readline/history.h"
 # include "../lib/libft/libft.h"
@@ -46,8 +50,8 @@ typedef struct s_env
 typedef struct s_args
 {
 	int				fd[2]; // for pipe
-	int				redir_fd; // fd of file opened for redirection
-	int				redir_type; //<, <<, > and >> are different, -1 for empty
+	char			*filename; // fd of file opened for redirection
+	int				redir_type; //< = 1, << = 2, > = 3, >> = 4, -1 for empty
 	char			**argv;
 	struct s_args	*next;
 	struct s_args	*prev;
@@ -72,6 +76,8 @@ void	ft_minishell(t_ms *ms);
 /*    environment.c   */		//to initialize t_env
 t_env	*start_env(char **env_p);
 char	**ft_list_to_array(t_env *env);
+int		ft_shll_lvl(t_env *env);
+int		ft_assign(char *env_p, t_env **current);
 
 /*    signals.c    */
 
@@ -81,6 +87,10 @@ char	*ft_readline(void);
 /*    error.c    */
 // void	ft_error(t_ms **ms, char *line);
 int		error_msg(char *msg, char *deets);
+
+/*    free.c    */
+void	free_env(t_env **env);
+void	free_tok_and_args(t_tokens **toks, t_args **args);
 
 /*    check_quotes.c    */
 int		ft_check_quotes(const char *line, t_ms *ms);
@@ -114,24 +124,35 @@ char	*all_join(char *s1, char *s2, char *s3);
 // int		find_dollar_end(const char *name);
 
 /*    prep_execution.c    */
-void	ft_prep_args(t_ms *ms);
+int		ft_prep_args(t_ms *ms);
+
+/*    prep_utils.c    */
+void	free_arr(char **arr);
+int		new_args_node(t_args **args);
+int		ft_count_toks(t_tokens *current, int type);
 
 /*    execution.c    */
 void	exeggutor(t_ms *ms);
 
 /*    exec_prototype.c    */
 int		ft_exec(t_ms *ms);
+int		is_file_in_dir(char *file, char *dir);
 
 /*    handle_builtins.c    */
 int		is_builtin(char *cmd);
-int		handle_builtins(t_ms *ms);
-// int	ft_echo(char **args);
+int		handle_builtins(t_ms *ms, t_args *args);
+int		ft_echo(char **args);
 int		ft_pwd(void);
 int		ft_env(t_env *env_list);
-// int	ft_export(t_env *env_list, t_args *args_list);
-// int ft_unset(t_env **env, t_args *args);
+int		ft_export(t_ms *ms, char **args);
+int 	is_numeric(char *str);
+int		ft_exit(char **args);
+int		ft_cd(t_ms *ms, char **args);
+int		ft_unset(t_env **env, char **args);
 
 /*    builtins_utils.c    */
 int		ft_str_compare(char *str1, char *str2);
+char	*get_env_cont(t_env *env, char *str);
+int		ft_args_len(char **args);
 
 #endif
