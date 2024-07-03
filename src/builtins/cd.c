@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:04:18 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/02 03:00:21 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/02 16:24:01 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ int	ft_cd(t_ms *ms, char **args)
 	else if (ft_str_compare(args[1], "-") == 0)
 		path = ft_get_old_path(ms);
 	else
-		path = args[1];
+		path = ft_strdup(args[1]);
 	/*if (ft_is_file(ms, path) == 0)
 	{
 		printf("bash: cd: %s Not a directory", path);
@@ -178,7 +178,8 @@ int	ft_cd(t_ms *ms, char **args)
 		return (-1);
 	}
 	//OLDPWD es PWD, PWD es path
-	free(path);
+	if (path != NULL)
+		free(path);
 	printf("old pwd es %s, newpwd es %s\n", ms->old_pwd, ms->new_pwd);
 	return (0);
 }

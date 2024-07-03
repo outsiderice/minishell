@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/02 17:09:56 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/03 12:21:15 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,16 +114,16 @@ int	ft_exec(t_ms *ms)
 	args = ms->args;
 	while (args != NULL)
 	{
-		printf("args is not null\n");
+		dprintf(2, "args is not null\n");
 		if (is_builtin(args->argv[0]) == 1)
 		{
-			printf("is a builtin\n");
+			dprintf(2, "is a builtin\n");
 			if (handle_builtins(ms, args) == -1) // check for error
 				return (-1); //error
 		}
 		else
 		{
-			printf("not a builtin\n");
+			dprintf(2, "not a builtin\n");
 			if (pipe(args->fd) == -1)
 				return (-1); // pipe error
 			pid = fork();
