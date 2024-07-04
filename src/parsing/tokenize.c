@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/24 12:30:55 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:46:10 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	ft_tokenize(const char *line, t_tokens **toks)
 {
 	int	i;
 	int	j;
-	
+
 	i = 0;
 	j = 0;
 	while (line[i])
@@ -99,7 +99,7 @@ int	ft_tok_checks(const char *line, t_ms *ms)
 		return (EXIT_FAILURE);
 	if (ft_check_quotes((const char *)line, ms) != 0)
 	{
-		error_msg("syntax error near unexpected token,", "open quotes");	
+		error_msg("syntax error near unexpected token,", "open quotes");
 		return (EXIT_FAILURE);
 	}
 	if (ft_tokenize(line, &toks) == -1)

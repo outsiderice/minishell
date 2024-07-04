@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:42:25 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/25 12:54:08 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:45:13 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*rm_delimiters(char *tok, int i)
 	str = ft_substr(tok, i + 1, len - 2);
 	if (!str)
 		return (NULL);
-	return(str);
+	return (str);
 }
 
 //joins three strings into result
