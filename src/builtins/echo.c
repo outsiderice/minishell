@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:22:05 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/03 15:12:38 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/04 16:58:31 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@
 // how to check for unexpected error for 1
 // implement -n -nnnnnnnn and etc
 
-
 int	ft_n_check(char *str)
 {
 	if (str == NULL || *str != '-')
-        return (0);
+		return (0);
 	str++;
 	while (*str == 'n')
 		str++;
@@ -44,8 +43,8 @@ void	ft_print_args(char **args)
 
 int	ft_echo(char **args)
 {
-	int do_jump;
-	
+	int	do_jump;
+
 	args++;
 	do_jump = ft_n_check(*args);
 	while (ft_n_check(*args) == 1)

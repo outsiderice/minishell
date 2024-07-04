@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:27:10 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/02 02:53:26 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/04 16:48:41 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 // this functions compares without a need of strlen
-int ft_str_compare(char *str1, char *str2)
+int	ft_str_compare(char *str1, char *str2)
 {
-    int i;
-    
+    int	i;
+
 	i = 0;
 	if (str1 == NULL || str2 == NULL)
 		return (1);
@@ -27,11 +27,12 @@ int ft_str_compare(char *str1, char *str2)
 		i++;
 	}
 	if (str1[i] == '\0' && str2[i] == '\0')
-        return (0);
+		return (0);
 	return (1);
 }
 
-//checks if there is a specific variable and returns its content or NULL if it does not exist
+//checks if there is a specific variable
+//returns its content or NULL if it does not exist
 char	*get_env_cont(t_env *env, char *str)
 {
 	char	*var;
