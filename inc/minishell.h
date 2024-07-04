@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/04 17:18:07 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:28:21 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <signal.h>
+# include <sys/types.h>
 # include <dirent.h>
 # include "../lib/readline/readline.h"
 # include "../lib/readline/history.h"
