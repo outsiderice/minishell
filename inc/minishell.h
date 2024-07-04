@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/04 16:22:12 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:18:07 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ int		error_msg(char *msg, char *deets);
 void	free_env(t_env **env);
 void	free_tok_and_args(t_tokens **toks, t_args **args);
 
-
-
 /*    prep_execution.c    */
 int		ft_prep_args(t_ms *ms);
 
@@ -153,7 +151,7 @@ int		ft_echo(char **args);
 int		ft_pwd(void);
 int		ft_env(t_env *env_list);
 int		ft_export(t_ms *ms, char **args);
-int 	is_numeric(char *str);
+int		is_numeric(char *str);
 int		ft_exit(char **args);
 int		ft_cd(t_ms *ms, char **args);
 int		ft_unset(t_env **env, char **args);
