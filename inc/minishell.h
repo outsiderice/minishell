@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/03 11:48:59 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/05 02:40:36 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,11 @@ typedef struct s_args
 {
 	int				fd[2]; // for pipe
 	char			*filename; // fd of file opened for redirection
+	//char				*filename_out; 
 	int				redir_type; //< = 1, << = 2, > = 3, >> = 4, -1 for empty
+	// this would consider cases like < file1 cat >> file2
+	//int				redir_type_inp; //< = 1, << = 2, -1 for empty
+	//int				redir_type_out; //> = 1, >> = 2, -1 for empty
 	char			**argv;
 	struct s_args	*next;
 	struct s_args	*prev;
@@ -92,36 +96,7 @@ int		error_msg(char *msg, char *deets);
 void	free_env(t_env **env);
 void	free_tok_and_args(t_tokens **toks, t_args **args);
 
-/*    check_quotes.c    */
-int		ft_check_quotes(const char *line, t_ms *ms);
-int		ft_quote_len(const char *line, char type);
 
-/*    tokenize.c    */
-int		ft_tok_checks(const char *line, t_ms *ms);
-// void		ft_get_toks(const char *line, t_tokens **tokens);
-
-/*    token_utils.c    */
-int		ft_ismetachar(char c);
-int		ft_space_len(const char *line);
-int		ft_isoperator(const char *line);
-int		ft_isword(const char *line);
-
-/*    tokens_lst_utils.c    */
-int		ft_addtok(const char *line, int len, int type, t_tokens **tokens);
-// void	ft_tok_addback(t_tokens **tokens, t_tokens *new_tok);
-// void	del_tok(t_tokens **lst, t_tokens *tok);
-
-/*    parser.c    */
-int		ft_parse(t_ms *ms);
-
-/*    expand.c    */
-int		expand_quotes(t_tokens *tok);
-int		is_expandable_dollar(t_ms *ms, t_tokens *tok);
-
-/*    expand_utils.c   */
-char	*rm_delimiters(char *tok, int i);
-char	*all_join(char *s1, char *s2, char *s3);
-// int		find_dollar_end(const char *name);
 
 /*    prep_execution.c    */
 int		ft_prep_args(t_ms *ms);
@@ -138,10 +113,47 @@ void	exeggutor(t_ms *ms);
 int		ft_exec(t_ms *ms);
 int		is_file_in_dir(char *file, char *dir);
 
+/*---------------------------------------------*/
+/*               PARSING                       */
+/*---------------------------------------------*/
+/*    check_quotes.c    */
+int		ft_check_quotes(const char *line, t_ms *ms);
+int		ft_quote_len(const char *line, char type);
+
+/*    expand_utils.c   */
+char	*rm_delimiters(char *tok, int i);
+char	*all_join(char *s1, char *s2, char *s3);
+// int		find_dollar_end(const char *name);
+
+/*    expand.c    */
+int		expand_quotes(t_tokens *tok);
+int		is_expandable_dollar(t_ms *ms, t_tokens *tok);
+
+/*    parser.c    */
+int		ft_parse(t_ms *ms);
+
+/*    token_utils.c    */
+int		ft_ismetachar(char c);
+int		ft_space_len(const char *line);
+int		ft_isoperator(const char *line);
+int		ft_isword(const char *line);
+
+/*    tokenize.c    */
+int		ft_tok_checks(const char *line, t_ms *ms);
+// void		ft_get_toks(const char *line, t_tokens **tokens);
+
+/*    tokens_lst_utils.c    */
+int		ft_addtok(const char *line, int len, int type, t_tokens **tokens);
+// void	ft_tok_addback(t_tokens **tokens, t_tokens *new_tok);
+// void	del_tok(t_tokens **lst, t_tokens *tok);
+
+/*---------------------------------------------*/
+/*               BUILTINS                      */
+/*---------------------------------------------*/
 /*    handle_builtins.c    */
 int		is_builtin(char *cmd);
 int		handle_builtins(t_ms *ms, t_args *args);
-int		ft_echo(char **args);
+int		ft_echo(t_args *args);
 int		ft_pwd(void);
 int		ft_env(t_env *env_list);
 int		ft_export(t_ms *ms, char **args);

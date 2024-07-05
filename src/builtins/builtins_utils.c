@@ -5,19 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 15:58:00 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/03 15:58:03 by kkoval           ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/07/05 18:07:16 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #include "../../inc/minishell.h"
 
 // this functions compares without a need of strlen
-int ft_str_compare(char *str1, char *str2)
+int	ft_str_compare(char *str1, char *str2)
 {
-    int i;
-    
+    int	i;
+
 	i = 0;
 	if (str1 == NULL || str2 == NULL)
 		return (1);
@@ -28,11 +29,12 @@ int ft_str_compare(char *str1, char *str2)
 		i++;
 	}
 	if (str1[i] == '\0' && str2[i] == '\0')
-        return (0);
+		return (0);
 	return (1);
 }
 
-//checks if there is a specific variable and returns its content or NULL if it does not exist
+//checks if there is a specific variable
+//returns its content or NULL if it does not exist
 char	*get_env_cont(t_env *env, char *str)
 {
 	char	*var;

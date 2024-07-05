@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_prototype.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/03 14:48:06 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/05 12:12:01 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,12 +157,17 @@ int ft_exec_cmd(char **args, t_env *env) {
 
 int ft_exec(t_ms *ms) {
     t_args *args;
-    int pid;
+    pid_t pid;
 
     printf("HOLA DESDE EXEC\n");
     args = ms->args;
-    while (args != NULL) {
+    while (args != NULL)
+    {
         dprintf(2, "args is not null\n");
+        printf("Handling redirections\n");
+        //if (args->redir_type != -1) {
+        //    handle_redirections(args);
+        //}
         if (is_builtin(args->argv[0]) == 1) {
             dprintf(2, "is a builtin\n");
             if (handle_builtins(ms, args) == -1) // check for error
@@ -170,13 +175,13 @@ int ft_exec(t_ms *ms) {
         } else {
             dprintf(2, "not a builtin\n");
             pid = fork();
-            if (pid == 0) { // Child process
-                if (args->redir_type != -1) {
-                    handle_redirections(args);
-                }
+            if (pid == 0) // Child process
+            { 
+
                 ms->exitstatus = ft_exec_cmd(args->argv, ms->env);
                 exit(ms->exitstatus);
-            } else if (pid > 0) { // Parent process
+            } else if (pid > 0) // Parent process
+            { 
                 waitpid(pid, &ms->exitstatus, 0);
                 ms->exitstatus = WEXITSTATUS(ms->exitstatus);
             } else {
@@ -284,9 +289,8 @@ int	ft_exec(t_ms *ms)
 
 	printf("HOLA DESDE EXEC\n");
 	args = ms->args;
-	while (args != NULL)
+	while (args != NULL) //while there're command lines
 	{
-		dprintf(2, "args is not null\n");
 		if (is_builtin(args->argv[0]) == 1)
 		{
 			dprintf(2, "is a builtin\n");
@@ -305,7 +309,7 @@ int	ft_exec(t_ms *ms)
 				ms->exitstatus = ft_exec_cmd(args->argv, ms->env); // donde se gestiona exitstatus? aqui ya habra fd
 				close(args->fd[1]);
 			}
-			else 
+			else
 			{
 				close(args->fd[1]);
 				//read(fd[0], buffer, algun valor);
@@ -317,61 +321,6 @@ int	ft_exec(t_ms *ms)
 		}
 		dprintf(2, "next args\n");
 		args = args->next;
-		// printf("args->argv[0] = %s\n", args->argv[1]);
 	}
-	//free(ms->args); // hemos acabado los argumentos
-	//ms->args = NULL; // reseteamos la variable
 	return (0);
-}
-
-
-
-int main(int ac, char **av, char **env_p) 
-{
-	char 	*args[3];
-	args[0] = "ls";
-	args[1] = "-la";
-	args[2] = NULL;
-    (void) ac;
-    (void) av;
-	int		i;
-    t_env   *env;
-	char	**paths;
-	char	*cmd = "ls";
-	
-	(void) ac;
-    (void) av;
-	int		i;
-	t_ms 	ms;
-	t_args	*first;
-	t_args	*aux;
-	t_args  *args;
-	char 	*tmp[3];
-
-	args = malloc(sizeof(t_args) * 1);
-	if (!args)
-		return (1);
-	first = args;
-	tmp[0] = "ls";
-	tmp[1] = "-la";
-	tmp[2] = NULL;
-	args->argv = tmp;
-
-	aux = malloc(sizeof(t_args) * 1);
-	aux->argv = tmp;
-	args->next = aux;
-	args = args->next;
-
-	aux = malloc(sizeof(t_args) * 1);
-	aux->argv = tmp;
-	args->next = aux;
-
-	i = 0;
-	ft_init_ms(&ms);
-	ms.args = first;
-
-    ms.env = start_env(env_p);
-	ft_exec(&ms);
-	
-   return (0);
 }*/
