@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_prototype.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/03 16:15:57 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/05 02:52:33 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,12 +157,17 @@ int ft_exec_cmd(char **args, t_env *env) {
 
 int ft_exec(t_ms *ms) {
     t_args *args;
-    int pid;
+    pid_t pid;
 
     printf("HOLA DESDE EXEC\n");
     args = ms->args;
-    while (args != NULL) {
+    while (args != NULL)
+    {
         dprintf(2, "args is not null\n");
+        printf("Handling redirections\n");
+        if (args->redir_type != -1) {
+            handle_redirections(args);
+        }
         if (is_builtin(args->argv[0]) == 1) {
             dprintf(2, "is a builtin\n");
             if (handle_builtins(ms, args) == -1) // check for error
@@ -170,13 +175,13 @@ int ft_exec(t_ms *ms) {
         } else {
             dprintf(2, "not a builtin\n");
             pid = fork();
-            if (pid == 0) { // Child process
-                if (args->redir_type != -1) {
-                    handle_redirections(args);
-                }
+            if (pid == 0) // Child process
+            { 
+
                 ms->exitstatus = ft_exec_cmd(args->argv, ms->env);
                 exit(ms->exitstatus);
-            } else if (pid > 0) { // Parent process
+            } else if (pid > 0) // Parent process
+            { 
                 waitpid(pid, &ms->exitstatus, 0);
                 ms->exitstatus = WEXITSTATUS(ms->exitstatus);
             } else {
