@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/05 15:22:27 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/05 18:28:24 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	handle_builtins(t_ms *ms, t_args *args) //probably has to be **msh to do exi
 	else if (ft_str_compare(ms->args->argv[0], "cd") == 0)
 	 	ms->exitstatus = ft_cd(ms, ms->args->argv);
 	else if (ft_str_compare(args->argv[0], "env") == 0)
-		ms->exitstatus = ft_env(ms->env);
+		ms->exitstatus = ft_env(ms->env, ms->args);
 	else if (ft_str_compare(args->argv[0], "export") == 0)
 		ms->exitstatus = ft_export(ms, args->argv); 
 	else if (ft_str_compare(args->argv[0], "unset") == 0)

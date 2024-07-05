@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/05 02:40:36 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/05 18:27:35 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ int		is_builtin(char *cmd);
 int		handle_builtins(t_ms *ms, t_args *args);
 int		ft_echo(t_args *args);
 int		ft_pwd(void);
-int		ft_env(t_env *env_list);
+int		ft_env(t_env *env_list, t_args *args);
 int		ft_export(t_ms *ms, char **args);
 int 	is_numeric(char *str);
 int		ft_exit(char **args);
