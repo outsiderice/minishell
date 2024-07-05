@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/05 02:52:33 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/05 12:12:01 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,9 +165,9 @@ int ft_exec(t_ms *ms) {
     {
         dprintf(2, "args is not null\n");
         printf("Handling redirections\n");
-        if (args->redir_type != -1) {
-            handle_redirections(args);
-        }
+        //if (args->redir_type != -1) {
+        //    handle_redirections(args);
+        //}
         if (is_builtin(args->argv[0]) == 1) {
             dprintf(2, "is a builtin\n");
             if (handle_builtins(ms, args) == -1) // check for error
