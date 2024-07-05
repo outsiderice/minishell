@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/04 16:56:52 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/05 02:40:54 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,56 +33,39 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-#include <fcntl.h>
-#include <unistd.h>
-
 void	handle_redirections_builtin(t_args *args) 
 {
-	int	fd;
+
+	args->fd[0] = STDIN_FILENO;
+	args->fd[1] = STDOUT_FILENO;
 
     // Input redirection: '<'
 	if (args->redir_type == 1)
 	{
-		fd = open(args->filename, O_RDONLY);
-		if (fd == -1)
+		args->fd[0] = open(args->filename, O_RDONLY);
+		if (args->fd[0] == -1)
 		{
 			perror("open");
 			exit(1);
 		}
-		if (dup2(fd, STDIN_FILENO) == -1)
-		{
-			perror("dup2");
-			exit(1);
-		}
-		close(fd);
 	}
 
     // Output redirection: '>'
     if (args->redir_type == 3) {
-        fd = open(args->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-        if (fd == -1) {
+        args->fd[1] = open(args->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+        if (args->fd[1] == -1) {
             perror("open");
             exit(1);
         }
-        if (dup2(fd, STDOUT_FILENO) == -1) {
-            perror("dup2");
-            exit(1);
-        }
-        close(fd);
     }
 
     // Append redirection: '>>'
     if (args->redir_type == 4) {
-        fd = open(args->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-        if (fd == -1) {
+        args->fd[1] = open(args->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+        if (args->fd[1] == -1) {
             perror("open");
             exit(1);
         }
-        if (dup2(fd, STDOUT_FILENO) == -1) {
-            perror("dup2");
-            exit(1);
-        }
-        close(fd);
     }
 
     // Here-doc redirection: '<<' (Implement if necessary)
@@ -91,13 +74,14 @@ void	handle_redirections_builtin(t_args *args)
 
 int	handle_builtins(t_ms *ms, t_args *args) //probably has to be **msh to do exil propery and equal pointer to null
 {
-	if (args->redir_type != -1)    //new
-        handle_redirections_builtin(args); //new
+	printf("NO HA PEjkhgTADO\n");
 
+    handle_redirections_builtin(args); //new
+	printf("NO HA PETADO\n");
 	if (ms->args == NULL) // only stays here to check bad redirection
 		printf("YOU SHALL NOT PASS TO BUILTINS, without builtin commands\n");
 	else if (ft_str_compare(args->argv[0], "echo") == 0)
-		ms->exitstatus = ft_echo(args->argv);
+		ms->exitstatus = ft_echo(args);
 	else if (ft_str_compare(args->argv[0], "pwd") == 0)
 		ms->exitstatus = ft_pwd();
 	else if (ft_str_compare(ms->args->argv[0], "cd") == 0)
@@ -110,7 +94,8 @@ int	handle_builtins(t_ms *ms, t_args *args) //probably has to be **msh to do exi
 		ms->exitstatus = ft_unset(&ms->env, args->argv);
 	else if (ft_str_compare(args->argv[0], "exit") == 0)
 		ms->exitstatus = (ft_exit(args->argv)); // this should have access to the adress
-	else 
-		return (-1); // means that it is not a builtin
+
+	//if (args->redir_type != -1)    //new
+    //handle_close(args); //new
 	return (0);
 }

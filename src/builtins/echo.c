@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:22:05 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/04 16:58:31 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/05 02:46:07 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,30 @@ int	ft_n_check(char *str)
 	return (0);
 }
 
-void	ft_print_args(char **args)
+void	ft_print_args(char **argv, int fd)
 {
-	while (*args != NULL)
+	while (*argv != NULL)
 	{
-		ft_putstr_fd(*args, STDOUT_FILENO);
-		args++;
-		if (*args != NULL)
-			ft_putchar_fd(' ', STDOUT_FILENO);
+		ft_putstr_fd(*argv, fd);
+		argv++;
+		if (*argv != NULL)
+			ft_putchar_fd(' ', fd);
 	}
 }
 
-int	ft_echo(char **args)
+int	ft_echo(t_args *args)
 {
 	int	do_jump;
+	char **argv;
 
-	args++;
-	do_jump = ft_n_check(*args);
-	while (ft_n_check(*args) == 1)
-		args++;
-	ft_print_args(args);
+	argv = args->argv;
+	argv++;
+	do_jump = ft_n_check(*argv);
+	while (ft_n_check(*argv) == 1)
+		argv++;
+	ft_print_args(argv, args->fd[1]);
 	if (do_jump == 0)
-		ft_putchar_fd('\n', STDOUT_FILENO);
+		ft_putchar_fd('\n', args->fd[1]);
 	return (0);
 }
 /*

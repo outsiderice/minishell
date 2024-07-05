@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/04 16:22:12 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/05 02:40:36 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,11 @@ typedef struct s_args
 {
 	int				fd[2]; // for pipe
 	char			*filename; // fd of file opened for redirection
+	//char				*filename_out; 
 	int				redir_type; //< = 1, << = 2, > = 3, >> = 4, -1 for empty
+	// this would consider cases like < file1 cat >> file2
+	//int				redir_type_inp; //< = 1, << = 2, -1 for empty
+	//int				redir_type_out; //> = 1, >> = 2, -1 for empty
 	char			**argv;
 	struct s_args	*next;
 	struct s_args	*prev;
@@ -149,7 +153,7 @@ int		ft_addtok(const char *line, int len, int type, t_tokens **tokens);
 /*    handle_builtins.c    */
 int		is_builtin(char *cmd);
 int		handle_builtins(t_ms *ms, t_args *args);
-int		ft_echo(char **args);
+int		ft_echo(t_args *args);
 int		ft_pwd(void);
 int		ft_env(t_env *env_list);
 int		ft_export(t_ms *ms, char **args);
