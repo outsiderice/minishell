@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/02 13:55:33 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/06 22:16:51 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	ft_init_ms(t_ms *ms, char **envp)
 {
 	ms->env = start_env(envp);
-	if (ms->env == NULL)
+	if (ms->env == NULL || ft_set_shll_lvl(ms->env) == -1)
 	{
 		free_env(&ms->env);
 		return (exit (error_msg("env memory allocation failure\n", NULL)));
@@ -24,7 +24,7 @@ void	ft_init_ms(t_ms *ms, char **envp)
 	ms->tokens = NULL;
 	ms->args = NULL;
 	ms->exitstatus = -1;
-	ms->sh_lvl = ft_shll_lvl(ms->env);
+	ms->sh_lvl = ft_get_shll_lvl(ms->env);
 	ms->old_pwd = getcwd(NULL, 0);
 	if (ms->old_pwd == NULL)
 	{
