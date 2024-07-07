@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/06 22:16:51 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/06 23:54:15 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	ft_init_ms(t_ms *ms, char **envp)
 		free_env(&ms->env);
 		exit (error_msg("getcwd:Returned NULL old_pwd\n", NULL));
 	}
-	ms->new_pwd = getcwd(NULL, 0);
-	if (ms->new_pwd == NULL)
+	ms->pwd = getcwd(NULL, 0);
+	if (ms->pwd == NULL)
 	{
 		free_env(&ms->env);
 		exit (error_msg("getcwd:Returned NULL new_pwd\n", NULL));

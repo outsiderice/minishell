@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/06 22:16:33 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/06 23:54:22 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <limits.h>
 # include <signal.h>
 # include <dirent.h>
+# include <sys/stat.h>
 # include "../lib/readline/readline.h"
 # include "../lib/readline/history.h"
 # include "../lib/libft/libft.h"
@@ -69,7 +70,7 @@ typedef struct s_ms
 	char		**envp;
 	int			exitstatus;
 	int			sh_lvl;
-	char		*new_pwd;
+	char		*pwd;
 	char		*old_pwd;
 	int			pid;
 }	t_ms;
@@ -167,5 +168,6 @@ int		ft_unset(t_env **env, char **args);
 int		ft_str_compare(char *str1, char *str2);
 char	*get_env_cont(t_env *env, char *str);
 int		ft_args_len(char **args);
+int		ft_set_env_cont(t_env *env, char *name, char *cont);
 
 #endif

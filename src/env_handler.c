@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:58:57 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/06 22:39:07 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/06 22:45:42 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	**ft_list_to_array(t_env *env)
 	char	*aux;
 	int		i;
 
-	env_a = malloc(sizeof(char *) * ft_lstlen(env) + 1);
+	env_a = malloc(sizeof(char *) * (ft_lstlen(env) + 1));
 	if (!env_a)
 		return (NULL);
 	i = 0;
@@ -157,20 +157,3 @@ int	ft_set_shll_lvl(t_env *env)
 		return (-1);
 	return (1);
 }
-
-// int	main(int ac, char **av, char **envp)
-// {
-//     (void) ac;
-//     (void) av;
-//     t_env	*env;
-
-//     env = start_env(envp);
-// 	while (env != NULL)
-// 	{
-// 		printf("%s", env->v_name);
-// 		printf("=");
-// 		printf("%s\n", env->v_cont);
-// 		env = env->next;
-// 	}
-//     return (0);
-// }
