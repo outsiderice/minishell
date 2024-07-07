@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:24:15 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/02 13:52:33 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/07 14:51:59 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	free_tok_and_args(t_tokens **toks, t_args **args)
 	{
 		tmp_arg = arg;
 		free_arr(arg->argv);
-		if (arg->filename != NULL)
-			free(arg->filename);
 		arg = arg->next;
 		free(tmp_arg);
 	}

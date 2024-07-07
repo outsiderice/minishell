@@ -5,18 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/29 15:27:10 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/02 02:53:26 by kate             ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/07/07 00:08:53 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "../../inc/minishell.h"
 
 // this functions compares without a need of strlen
-int ft_str_compare(char *str1, char *str2)
+int	ft_str_compare(char *str1, char *str2)
 {
-    int i;
-    
+    int	i;
+
 	i = 0;
 	if (str1 == NULL || str2 == NULL)
 		return (1);
@@ -27,11 +29,12 @@ int ft_str_compare(char *str1, char *str2)
 		i++;
 	}
 	if (str1[i] == '\0' && str2[i] == '\0')
-        return (0);
+		return (0);
 	return (1);
 }
 
-//checks if there is a specific variable and returns its content or NULL if it does not exist
+//checks if there is a specific variable
+//returns its content or NULL if it does not exist
 char	*get_env_cont(t_env *env, char *str)
 {
 	char	*var;
@@ -60,4 +63,21 @@ int	ft_args_len(char **args)
 	while (args[len] != NULL)
 		len++;
 	return (len);
+}
+
+int	ft_set_env_cont(t_env *env, char *name, char *cont)
+{
+	while (env != NULL)
+	{
+		if (ft_str_compare(env->v_name, name) == 0)
+		{
+			free(env->v_cont);
+			env->v_cont = ft_strdup(cont);
+			if (!env->v_cont) // se podria gestionar
+				return(-1); 
+			return (0);
+		}
+		env = env->next;
+	}
+	return (0);
 }
