@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/07 14:40:43 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/07 15:41:15 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <signal.h>
 # include <sys/types.h>
 # include <dirent.h>
+# include <sys/stat.h>
 # include "../lib/readline/readline.h"
 # include "../lib/readline/history.h"
 # include "../lib/libft/libft.h"
@@ -52,6 +53,9 @@ typedef struct s_args
 {
 	int				fd[2]; // for pipe
 	int				redir_type; //< = 1, << = 2, > = 3, >> = 4, -1 for empty
+	// this would consider cases like < file1 cat >> file2
+	//int				redir_type_inp; //< = 1, << = 2, -1 for empty
+	//int				redir_type_out; //> = 1, >> = 2, -1 for empty
 	char			**argv;
 	struct s_args	*next;
 	struct s_args	*prev;
@@ -65,7 +69,7 @@ typedef struct s_ms
 	char		**envp;
 	int			exitstatus;
 	int			sh_lvl;
-	char		*new_pwd;
+	char		*pwd;
 	char		*old_pwd;
 	int			pid;
 }	t_ms;
@@ -76,8 +80,9 @@ void	ft_minishell(t_ms *ms);
 /*    environment.c   */		//to initialize t_env
 t_env	*start_env(char **env_p);
 char	**ft_list_to_array(t_env *env);
-int		ft_shll_lvl(t_env *env);
+int		ft_get_shll_lvl(t_env *env);
 int		ft_assign(char *env_p, t_env **current);
+int		ft_set_shll_lvl(t_env *env);
 
 /*    signals.c    */
 
@@ -147,9 +152,9 @@ int		ft_addtok(const char *line, int len, int type, t_tokens **tokens);
 /*    handle_builtins.c    */
 int		is_builtin(char *cmd);
 int		handle_builtins(t_ms *ms, t_args *args);
-int		ft_echo(char **args);
+int		ft_echo(t_args *args);
 int		ft_pwd(void);
-int		ft_env(t_env *env_list);
+int		ft_env(t_env *env_list, t_args *args);
 int		ft_export(t_ms *ms, char **args);
 int		is_numeric(char *str);
 int		ft_exit(char **args);
@@ -160,5 +165,6 @@ int		ft_unset(t_env **env, char **args);
 int		ft_str_compare(char *str1, char *str2);
 char	*get_env_cont(t_env *env, char *str);
 int		ft_args_len(char **args);
+int		ft_set_env_cont(t_env *env, char *name, char *cont);
 
 #endif

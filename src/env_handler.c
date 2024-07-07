@@ -5,30 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/30 15:08:33 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/26 13:08:30 by kate             ###   ########.fr       */
+/*   Created: 2024/07/03 15:58:57 by kkoval            #+#    #+#             */
+/*   Updated: 2024/07/06 22:45:42 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../inc/minishell.h"
-// #include "../../lib/libft/include/libft.h"
 
-int	ft_shll_lvl(t_env *env)
+int	ft_get_shll_lvl(t_env *env)
 {
-	int	sh_lvl;
-
-	sh_lvl = 0;
 	while (env != NULL)
 	{
 		if	(ft_str_compare(env->v_name, "SHLVL") == 0)
 		{
 			if (is_numeric(env->v_cont) == 1) //if case it is numeric
-				sh_lvl = ft_atoi(env->v_cont);
-			return (sh_lvl + 1);
+				return (ft_atoi(env->v_cont));
+			return (0);
 		}
 		env = env->next;
 	}
-	return (1);
+	return (0);
 }
 
 
@@ -53,7 +50,7 @@ char	**ft_list_to_array(t_env *env)
 	char	*aux;
 	int		i;
 
-	env_a = malloc(sizeof(char *) * ft_lstlen(env) + 1);
+	env_a = malloc(sizeof(char *) * (ft_lstlen(env) + 1));
 	if (!env_a)
 		return (NULL);
 	i = 0;
@@ -120,19 +117,43 @@ t_env	*start_env(char **env_p)
 	return (first);
 }
 
-// int	main(int ac, char **av, char **envp)
-// {
-//     (void) ac;
-//     (void) av;
-//     t_env	*env;
+int ft_create_sh_lvl(t_env *env)
+{
+	t_env *new;
+	
+	new = NULL;
+	while (env != NULL && env->next != NULL)
+		env = env->next;
+	new = malloc(sizeof(t_env) * 1);
+	if (!new)
+		return (-1);
+	new->v_name = ft_strdup("SHLVL");
+	new->v_cont = ft_strdup("1");
+	new->next = NULL;
 
-//     env = start_env(envp);
-// 	while (env != NULL)
-// 	{
-// 		printf("%s", env->v_name);
-// 		printf("=");
-// 		printf("%s\n", env->v_cont);
-// 		env = env->next;
-// 	}
-//     return (0);
-// }
+	env->next = new; 
+	return (0);
+}
+
+int	ft_set_shll_lvl(t_env *env)
+{
+	t_env *first;
+
+	first = env;
+	while (env != NULL)
+	{
+		if	(ft_str_compare(env->v_name, "SHLVL") == 0)
+		{
+			if (is_numeric(env->v_cont) == 1) //if case it is numeric
+				env->v_cont = ft_itoa(ft_atoi(env->v_cont) + 1);
+			else 
+				env->v_cont = "1";
+			return (1);
+		}
+		env = env->next;
+	}
+	printf("no he encontrado SHLS\n");
+	if (ft_create_sh_lvl(first) == -1)
+		return (-1);
+	return (1);
+}

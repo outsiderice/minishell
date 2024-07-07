@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/07 15:13:11 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/07 15:40:31 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ int	is_builtin(char *cmd)
 		return (1);
 	return (0);
 }
-
-#include <fcntl.h>
-#include <unistd.h>
 
 void	handle_redirections_builtin(t_args *args) 
 {
@@ -73,13 +70,13 @@ int	handle_builtins(t_ms *ms, t_args *args) //probably has to be **msh to do exi
 	if (ms->args == NULL) // only stays here to check bad redirection
 		printf("YOU SHALL NOT PASS TO BUILTINS, without builtin commands\n");
 	else if (ft_str_compare(args->argv[0], "echo") == 0)
-		ms->exitstatus = ft_echo(args->argv);
+		ms->exitstatus = ft_echo(args);
 	else if (ft_str_compare(args->argv[0], "pwd") == 0)
 		ms->exitstatus = ft_pwd();
 	else if (ft_str_compare(ms->args->argv[0], "cd") == 0)
 	 	ms->exitstatus = ft_cd(ms, ms->args->argv);
 	else if (ft_str_compare(args->argv[0], "env") == 0)
-		ms->exitstatus = ft_env(ms->env);
+		ms->exitstatus = ft_env(ms->env, ms->args);
 	else if (ft_str_compare(args->argv[0], "export") == 0)
 		ms->exitstatus = ft_export(ms, args->argv); 
 	else if (ft_str_compare(args->argv[0], "unset") == 0)
