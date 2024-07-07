@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/07 15:41:15 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/06 23:54:22 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <signal.h>
-# include <sys/types.h>
 # include <dirent.h>
 # include <sys/stat.h>
 # include "../lib/readline/readline.h"
@@ -52,6 +51,8 @@ typedef struct s_env
 typedef struct s_args
 {
 	int				fd[2]; // for pipe
+	char			*filename; // fd of file opened for redirection
+	//char				*filename_out; 
 	int				redir_type; //< = 1, << = 2, > = 3, >> = 4, -1 for empty
 	// this would consider cases like < file1 cat >> file2
 	//int				redir_type_inp; //< = 1, << = 2, -1 for empty
@@ -96,6 +97,8 @@ int		error_msg(char *msg, char *deets);
 /*    free.c    */
 void	free_env(t_env **env);
 void	free_tok_and_args(t_tokens **toks, t_args **args);
+
+
 
 /*    prep_execution.c    */
 int		ft_prep_args(t_ms *ms);
@@ -156,7 +159,7 @@ int		ft_echo(t_args *args);
 int		ft_pwd(void);
 int		ft_env(t_env *env_list, t_args *args);
 int		ft_export(t_ms *ms, char **args);
-int		is_numeric(char *str);
+int 	is_numeric(char *str);
 int		ft_exit(char **args);
 int		ft_cd(t_ms *ms, char **args);
 int		ft_unset(t_env **env, char **args);

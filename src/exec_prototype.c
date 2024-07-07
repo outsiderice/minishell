@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_prototype.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/07 15:40:56 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/07 17:16:46 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,25 +75,48 @@ char	*ft_join_path(char *path, char *cmd)
 }
 
 void handle_redirections(t_args *args) {
-
+    int fd;
 
     // Input redirection: '<'
-    if (args->fd[0] != -1 && args->fd[0] != -2)
-    {
-        if (dup2(args->fd[0], STDIN_FILENO) == -1) {
+    if (args->redir_type == 1) {
+        fd = open(args->filename, O_RDONLY);
+        if (fd == -1) {
+            perror("open");
+            exit(1);
+        }
+        if (dup2(fd, STDIN_FILENO) == -1) {
             perror("dup2");
             exit(1);
         }
-        close(args->fd[0]);
+        close(fd);
     }
 
-    // Output redirection: '>' and '>>'
-    if (args->fd[1] != -1 && args->fd[1] != -2) {
-        if (dup2(args->fd[1], STDOUT_FILENO) == -1) {
+    // Output redirection: '>'
+    if (args->redir_type == 3) {
+        fd = open(args->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+        if (fd == -1) {
+            perror("open");
+            exit(1);
+        }
+        if (dup2(fd, STDOUT_FILENO) == -1) {
             perror("dup2");
             exit(1);
         }
-        close(args->fd[1]);
+        close(fd);
+    }
+
+    // Append redirection: '>>'
+    if (args->redir_type == 4) {
+        fd = open(args->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+        if (fd == -1) {
+            perror("open");
+            exit(1);
+        }
+        if (dup2(fd, STDOUT_FILENO) == -1) {
+            perror("dup2");
+            exit(1);
+        }
+        close(fd);
     }
 
     // Here-doc redirection: '<<' (Implement if necessary)
@@ -138,6 +161,7 @@ int ft_exec(t_ms *ms) {
 
     printf("HOLA DESDE EXEC\n");
     args = ms->args;
+    // function abrir les pipes de les pipes = int     *arr_pipes = cantidad de nodos en t_args.
     while (args != NULL)
     {
         dprintf(2, "args is not null\n");
@@ -154,7 +178,6 @@ int ft_exec(t_ms *ms) {
             pid = fork();
             if (pid == 0) // Child process
             { 
-
                 ms->exitstatus = ft_exec_cmd(args->argv, ms->env);
                 exit(ms->exitstatus);
             } else if (pid > 0) // Parent process

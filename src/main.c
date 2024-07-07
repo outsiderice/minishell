@@ -3,28 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/07 15:41:34 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/06 23:54:15 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "minishell.h"
-
-void	signal_handler(int signal)
-{
-	int	mode;
-
-	mode = 0;
-	if (mode == 0 && signal == SIGINT)
-	{
-		write(1, "\n", 1);
-		rl_replace_line("", 1);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-}
 
 void	ft_init_ms(t_ms *ms, char **envp)
 {
@@ -70,7 +57,7 @@ void	ft_minishell(t_ms *ms)
 		{
 			printf("line!\n");
 			if (ft_tok_checks(line, ms) == 0 && ft_parse(ms) == 0)
-				exeggutor(ms);
+					exeggutor(ms);
 			free (line);
 			line = NULL;
 			printf("~freed line~\n\n");
@@ -82,15 +69,10 @@ void	ft_minishell(t_ms *ms)
 int	main(int argc, char **argv, char **envp)
 {
 	t_ms	ms;
-	struct	sigaction	sa;
 
 	(void)argv;
 	if (argc != 1)
 		return (EXIT_FAILURE);
-	sa.sa_handler = signal_handler;
-	sa.sa_flags = 0;
-	if (sigaction(SIGINT, &sa, NULL) == -1)
-		return (1);
 	ft_init_ms(&ms, envp);
 	ft_minishell(&ms);
 	return (0);
