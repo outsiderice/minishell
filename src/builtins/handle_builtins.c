@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/07 14:51:44 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/07 15:13:11 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,13 @@ void	handle_redirections_builtin(t_args *args)
 
 int	handle_builtins(t_ms *ms, t_args *args) //probably has to be **msh to do exil propery and equal pointer to null
 {
-	if (args->redir_type != -1)    //new
-        handle_redirections_builtin(args); //new
-
+	int	saved_stdout;
+	
+	if (args->fd[0] != -1 && args->fd[0] != -2 && args->fd[1] != -1 && args->fd[1] != -2)
+	{
+		saved_stdout = dup(1);
+        handle_redirections_builtin(args);
+	}
 	if (ms->args == NULL) // only stays here to check bad redirection
 		printf("YOU SHALL NOT PASS TO BUILTINS, without builtin commands\n");
 	else if (ft_str_compare(args->argv[0], "echo") == 0)
@@ -83,6 +87,11 @@ int	handle_builtins(t_ms *ms, t_args *args) //probably has to be **msh to do exi
 	else if (ft_str_compare(args->argv[0], "exit") == 0)
 		ms->exitstatus = (ft_exit(args->argv)); // this should have access to the adress
 	else 
-		return (-1); // means that it is not a builtin
+		return (-1);  // means that it is not a builtin
+	if (saved_stdout == 1)
+	{
+		dup2(saved_stdout, 1);
+		close(saved_stdout);
+	}
 	return (0);
 }
