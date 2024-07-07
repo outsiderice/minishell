@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_prototype.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/07 17:16:46 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/07 19:26:47 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,9 +166,8 @@ int ft_exec(t_ms *ms) {
     {
         dprintf(2, "args is not null\n");
         printf("Handling redirections\n");
-        //if (args->redir_type != -1) {
-        //    handle_redirections(args);
-        //}
+        if (args->redir_type != -1) {
+            handle_redirections(args);
         if (is_builtin(args->argv[0]) == 1) {
             dprintf(2, "is a builtin\n");
             if (handle_builtins(ms, args) == -1) // check for error
