@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/03 11:48:41 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/07 14:44:49 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,28 @@ int	prep_redir(t_tokens **tok, t_args *args)
 	if ((*tok)->tok[0] == '<')
 	{
 		if (ft_strlen((*tok)->tok) == 1)
+		{
+			args->fd[0] = open((*tok)->next->tok, O_RDONLY);
 			args->redir_type = 1;
+		}
 		else
+		{
+			//heredoc
 			args->redir_type = 2;
+		}
 	}
 	else if ((*tok)->tok[0] == '>')
 	{
 		if (ft_strlen((*tok)->tok) == 1)
+		{
+			args->fd[1] = open((*tok)->next->tok, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			args->redir_type = 3;
+		}
 		else
+		{
+			args->fd[1] = open((*tok)->next->tok, O_WRONLY | O_CREAT | O_APPEND, 0644);
 			args->redir_type = 4;
-	}
-	else if ((*tok)->type == 1)
-	{
-		args->filename = ft_strdup((*tok)->tok);
-		if (!args->filename)
-			return (EXIT_FAILURE);
+		}
 	}
 	(*tok) = (*tok)->next;
 	return(EXIT_SUCCESS);
@@ -134,16 +140,6 @@ void	print_args(t_ms *ms)
 		else
 		{
 			printf("Arguments: NULL\n");
-		}
-
-		// Print filename
-		if (current->filename != NULL)
-		{
-			printf("Filename: %s\n", current->filename);
-		}
-		else
-		{
-			printf("Filename: NULL\n");
 		}
 
 		// Print redir_type

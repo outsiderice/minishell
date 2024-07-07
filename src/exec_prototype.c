@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/03 16:15:57 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/07 14:51:07 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,48 +75,25 @@ char	*ft_join_path(char *path, char *cmd)
 }
 
 void handle_redirections(t_args *args) {
-    int fd;
+
 
     // Input redirection: '<'
-    if (args->redir_type == 1) {
-        fd = open(args->filename, O_RDONLY);
-        if (fd == -1) {
-            perror("open");
-            exit(1);
-        }
-        if (dup2(fd, STDIN_FILENO) == -1) {
+    if (args->fd[0] != -1 && args->fd[0] != -2)
+    {
+        if (dup2(args->fd[0], STDIN_FILENO) == -1) {
             perror("dup2");
             exit(1);
         }
-        close(fd);
+        close(args->fd[0]);
     }
 
-    // Output redirection: '>'
-    if (args->redir_type == 3) {
-        fd = open(args->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-        if (fd == -1) {
-            perror("open");
-            exit(1);
-        }
-        if (dup2(fd, STDOUT_FILENO) == -1) {
+    // Output redirection: '>' and '>>'
+    if (args->fd[1] != -1 && args->fd[1] != -2) {
+        if (dup2(args->fd[1], STDOUT_FILENO) == -1) {
             perror("dup2");
             exit(1);
         }
-        close(fd);
-    }
-
-    // Append redirection: '>>'
-    if (args->redir_type == 4) {
-        fd = open(args->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-        if (fd == -1) {
-            perror("open");
-            exit(1);
-        }
-        if (dup2(fd, STDOUT_FILENO) == -1) {
-            perror("dup2");
-            exit(1);
-        }
-        close(fd);
+        close(args->fd[1]);
     }
 
     // Here-doc redirection: '<<' (Implement if necessary)
