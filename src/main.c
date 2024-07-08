@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/07 15:41:34 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/09 00:08:55 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	signal_handler(int signal)
+/*void	signal_handler(int signal)
 {
 	int	mode;
 
@@ -24,7 +24,7 @@ void	signal_handler(int signal)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-}
+}*/
 
 void	ft_init_ms(t_ms *ms, char **envp)
 {
@@ -50,7 +50,7 @@ void	ft_init_ms(t_ms *ms, char **envp)
 		free_env(&ms->env);
 		exit (error_msg("getcwd:Returned NULL new_pwd\n", NULL));
 	}
-	ms->pid = getpid();
+	//ms->pid = getpid(); quizas no va aqui
 }
 
 //the minishell execution loop
@@ -87,7 +87,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (argc != 1)
 		return (EXIT_FAILURE);
-	sa.sa_handler = signal_handler;
+	//sa.sa_handler = signal_handler;
 	sa.sa_flags = 0;
 	if (sigaction(SIGINT, &sa, NULL) == -1)
 		return (1);

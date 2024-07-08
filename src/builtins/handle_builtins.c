@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/07 15:40:31 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:30:38 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,20 @@ void	handle_redirections_builtin(t_args *args)
 
 int	handle_builtins(t_ms *ms, t_args *args) //probably has to be **msh to do exil propery and equal pointer to null
 {
-	int	saved_stdout;
+	/*int	saved_stdout;
 	
-	if (args->fd[0] != -1 && args->fd[0] != -2 && args->fd[1] != -1 && args->fd[1] != -2)
+	if (args->fd[0] != -1 && args->fd[0] != -2 && args->fd[1] != -1 && args->fd[1] != -2) // handle -1 when created
 	{
 		saved_stdout = dup(1);
-        handle_redirections_builtin(args);
-	}
+        //handle_redirections_builtin(args);
+	}*/
+	printf("FD IN: %d\nFD OUT: %d\n", args->fd[0], args->fd[1]);
 	if (ms->args == NULL) // only stays here to check bad redirection
 		printf("YOU SHALL NOT PASS TO BUILTINS, without builtin commands\n");
 	else if (ft_str_compare(args->argv[0], "echo") == 0)
 		ms->exitstatus = ft_echo(args);
 	else if (ft_str_compare(args->argv[0], "pwd") == 0)
-		ms->exitstatus = ft_pwd();
+		ms->exitstatus = ft_pwd(args);
 	else if (ft_str_compare(ms->args->argv[0], "cd") == 0)
 	 	ms->exitstatus = ft_cd(ms, ms->args->argv);
 	else if (ft_str_compare(args->argv[0], "env") == 0)
@@ -85,10 +86,10 @@ int	handle_builtins(t_ms *ms, t_args *args) //probably has to be **msh to do exi
 		ms->exitstatus = (ft_exit(args->argv)); // this should have access to the adress
 	else 
 		return (-1);  // means that it is not a builtin
-	if (saved_stdout == 1)
+	/*if (saved_stdout == 1)
 	{
 		dup2(saved_stdout, 1);
 		close(saved_stdout);
-	}
+	}*/
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:58:24 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/03 15:58:35 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/08 18:16:06 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,24 @@
 	!! It is necessary to free allocated memory.
 */
 
-int	ft_pwd(void)
+int	ft_pwd(t_args *args)
 {
 	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
 	if (pwd != NULL)
 	{
-		ft_putendl_fd(pwd, STDOUT_FILENO);
+		ft_putendl_fd(pwd, args->fd[1]);
+		if (args->fd[1] != STDOUT_FILENO)
+			close(args->fd[1]);
 		free(pwd);
 		return (0); //or save exit status in mini_shell->exit_status = 0;
 	}
 	else
 	{
 		printf("error pwd");// handle better this error, maybe perror?
+		if (args->fd[1] != STDOUT_FILENO)
+			close(args->fd[1]);
 		return (1);
 	}
 }

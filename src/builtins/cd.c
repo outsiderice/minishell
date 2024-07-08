@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:04:18 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/07 02:00:25 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/07 23:49:18 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 
 int ft_change_pwd(t_ms *ms)
 {
-	printf("he entrado en change pwd\n");
 	char	*aux;
 
 	aux = ms->pwd;
@@ -118,7 +117,6 @@ int	ft_cd(t_ms *ms, char **args)
 		return (-1);
 	}
 	ft_change_pwd(ms);
-	printf("he salido de change pwd\n");
 	if (path != NULL)
 		free(path);
 	//printf("old pwd es %s, newpwd es %s\n", ms->old_pwd, ms->pwd);
