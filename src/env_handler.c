@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:58:57 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/09 18:14:37 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:25:13 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	ft_assign(char *env_p, t_env **current)
 	env_len = ft_strlen(env_p);
 	equal = equal_ptr - env_p;
 	(*current)->v_name = ft_substr(env_p, 0, equal);
-	(*current)->v_cont = ft_substr(env_p, equal + 1, env_len - equal);
+	(*current)->v_cont = ft_substr(env_p, equal + 1, env_len - equal + 1);
 	if ((*current)->v_name == NULL || (*current)->v_cont == NULL)
 		return (-1);
 	(*current)->next = NULL;
