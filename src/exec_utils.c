@@ -1,16 +1,7 @@
 
 #include "../inc/minishell.h"
 
-int handle_pipe(t_ms *ms)
-{
-    int pipes;
-
-    pipes = ft_pipes_len(ms->args);
-    if ( pipes == 0)
-        ms->pid = malloc(sizeof(int) * ms->args)
-}
-
-int ft_pipes_len(t_args *args)
+int ft_t_args_len(t_args *args)
 {
     int len;
 
@@ -21,4 +12,13 @@ int ft_pipes_len(t_args *args)
         len++;
     }
     return (len);
+}
+
+int handle_pipe(t_ms *ms)
+{
+    int pipes_num;
+
+    pipes_num = ft_t_args_len(ms->args);
+    if (pipes == 0)
+        ms->pid = malloc(sizeof(int) * pipes_num);
 }

@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/09 00:06:19 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/09 09:22:51 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int ft_exec_cmd(char **args, t_env *env) {
     return (exit_status);
 }
 
-// esta accion 
+/* -------- una puta mierda que no funciona
 void handle_pipe(t_args *args)
 {
     int auxfd[2];
@@ -150,14 +150,29 @@ void handle_pipe(t_args *args)
             close(auxfd[1]);        
 		}
 	}
-}
+} */
+
+/* 
+    1. saber cuantas pipes vamos a necesitar
+    2. hacer una matriz de pipes necesarias (estaran todas abiertas)
+    3. guardar los pids de los hijos en una int *, asi el padre espera
+     que todos sus hijos acaben (a veces da fallos)
+    3. se llama al exec como ft_exec que recorre t_args
+    4. se forkea y se cierren todos los fds menos los que vamos a necesitar
+    5. se hace la execusion
+    5. se cierren los fds utilizados y se pasa al siguiente args
+    7. se cierran los fds en el papi
+    8. waitpid
+    9. lliberar pids y pipes de la estructura
+
+*/
 
 int ft_exec(t_ms *ms, t_args *args) 
 {
     pid_t pid;
 
-    printf("HOLA DESDE EXEC\n");
     handle_pipe(args);
+
 
     while (args != NULL)
     {
