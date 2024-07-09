@@ -19,6 +19,8 @@ int handle_pipe(t_ms *ms)
     int pipes_num;
 
     pipes_num = ft_t_args_len(ms->args);
-    if (pipes == 0)
-        ms->pid = malloc(sizeof(int) * pipes_num);
+    ms->pid = malloc(sizeof(int) * pipes_num);
+    if (!ms->pid)
+        return (-1);
+    return (0);
 }

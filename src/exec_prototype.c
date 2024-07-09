@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_prototype.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/09 09:22:51 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/09 16:55:59 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ char	*ft_join_path(char *path, char *cmd)
 }
 
 void handle_redirections(t_args *args) {
+
+
     // Input redirection: '<'
     if (args->fd[0] != -1 && args->fd[0] != STDIN_FILENO)
     {
@@ -171,7 +173,7 @@ int ft_exec(t_ms *ms, t_args *args)
 {
     pid_t pid;
 
-    handle_pipe(args);
+    if handle_pipe(args);
 
 
     while (args != NULL)
@@ -182,6 +184,7 @@ int ft_exec(t_ms *ms, t_args *args)
             if (handle_builtins(ms, args) == -1) // check for error
                 return (-1); //error
         } else {
+            dprintf(2, "not a builtin\n");
             pid = fork();
             if (pid == 0) // Child process
             { 
@@ -199,7 +202,11 @@ int ft_exec(t_ms *ms, t_args *args)
         }
         dprintf(2, "------------------  Command Finished  ------------------\n");
         dprintf(2, "next args\n");
-        args = args->next;
+        // if there is next it should read from the previous file
+        // so pipe[i][0] has to read from pipe[i - 1][1]
+        // if there is an error should we close all the fds?
+        
+                args = args->next;
     }
     return (0);
 }
