@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:58:57 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/06 22:45:42 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/09 18:04:19 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int	ft_assign(char *env_p, t_env **current)
 		return (-1);
 	env_len = ft_strlen(env_p);
 	equal = equal_ptr - env_p;
-	(*current)->v_name = ft_substr(env_p, 0, equal);
-	(*current)->v_cont = ft_substr(env_p, equal + 1, env_len);
+	(*current)->v_name = ft_substr(env_p, 0, equal + 1);
+	(*current)->v_cont = ft_substr(env_p, equal + 1, env_len - equal);
 	if ((*current)->v_name == NULL || (*current)->v_cont == NULL)
 		return (-1);
 	(*current)->next = NULL;
