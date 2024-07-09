@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/09 00:08:00 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/09 17:39:11 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,11 @@ int		ft_assign(char *env_p, t_env **current);
 int		ft_set_shll_lvl(t_env *env);
 
 /*    signals.c    */
+void    ft_start_signals(int mode);
+void	ft_ignoresig(int signal);
 
 /*    get_input.c    */
-char	*ft_readline(void);
+char	*ft_readline(t_ms *ms);
 
 /*    error.c    */
 // void	ft_error(t_ms **ms, char *line);

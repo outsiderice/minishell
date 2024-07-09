@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 09:59:21 by amagnell          #+#    #+#             */
-/*   Updated: 2024/06/06 13:53:02 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:39:21 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 //shows prompt and returns user input
 //adds history
-char	*ft_readline(void)
+char	*ft_readline(t_ms *ms)
 {
 	char		*line;
 	const char	*prompt;
@@ -24,7 +24,11 @@ char	*ft_readline(void)
 	prompt = "eggshell~$";
 	line = readline(prompt);
 	if (!line)
-		exit(EXIT_FAILURE);
+	{
+		free_env(&ms->env);
+		printf("exit\n");
+		exit(0);
+	}
 	if (line)
 		add_history(line);
 	return (line);
