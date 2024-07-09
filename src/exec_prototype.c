@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/09 16:55:59 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/09 18:13:09 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ int ft_exec(t_ms *ms, t_args *args)
 {
     pid_t pid;
 
-    if handle_pipe(args);
+    //if handle_pipe(args);
 
 
     while (args != NULL)
