@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/09 00:08:00 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/10 14:56:51 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_ms
 	char		*old_pwd;
 	int			*pid; // nuevo -> aqui se guardan los hijos para controlarlos
 	int			**pipes;	
+	int			cmnds_num;
 }	t_ms;
 
 /*    main.c    */
@@ -117,7 +118,9 @@ int		ft_exec(t_ms *ms, t_args *args);
 int		is_file_in_dir(char *file, char *dir);
 
 /*               exec_utils.c                   */
-int		ft_pipes_len(t_args *args);
+int 	ft_t_args_len(t_args *args);
+int  	handle_pipes(t_ms *ms);
+int		handle_pids(t_ms *ms);
 
 /*---------------------------------------------*/
 /*               PARSING                       */

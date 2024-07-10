@@ -123,15 +123,18 @@ int 	main(int ac, char *av[])
 
 
 void wait_pids(int pid[], int num_children) {
-    int i = 0;
-    while (i < num_children) {
+    int i;
+    int status;
+
+    i = 0;
+    while (i++ < num_children)
         waitpid(pid[i], NULL, 0);
-        i++;
-    }
+    waitpid(pid[i], &status, 0);
+
 }
 
 // Function to close all pipes
-void close_pipes(int fd[7][2], int num_pipes) {
+void close_pipes(int *fd[2], int num_pipes) {
     int i = 0;
     while (i < num_pipes) {
         close(fd[i][0]);

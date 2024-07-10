@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_prototype.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/09 18:13:09 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/10 15:06:36 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,25 @@ char	*ft_join_path(char *path, char *cmd)
 	return (res); 
 }
 
-void handle_redirections(t_args *args) {
+void    close_pipes(int **pipes)
+{
+    int i;
 
+    i = 0;
+    while(pipes[i] != NULL)
+    {
+        close(pipes[i][0]);
+        close(pipes[i][1]);
+        free(pipes[i]);
+        i++;
+    }
+    free(pipes);
+}
 
+void handle_redirections(t_ms *ms, t_args *args, int i)
+{
     // Input redirection: '<'
-    if (args->fd[0] != -1 && args->fd[0] != STDIN_FILENO)
+    if (args->redir_type == 1)
     {
         if (dup2(args->fd[0], STDIN_FILENO) == -1) {
             perror("dup2");
@@ -86,9 +100,8 @@ void handle_redirections(t_args *args) {
         }
         close(args->fd[0]);
     }
-
-    // Output redirection: '>' and '>>'
-    if (args->fd[1] != -1 && args->fd[1] != STDOUT_FILENO) {
+    else if ((args->redir_type == 3 || args->redir_type == 4))
+    {
         if (dup2(args->fd[1], STDOUT_FILENO) == -1) {
             perror("dup2");
             exit(1);
@@ -96,6 +109,25 @@ void handle_redirections(t_args *args) {
         close(args->fd[1]);
     }
 
+
+    if (args->redir_type == -1 && i != 0)
+    {
+        if (i != 0)
+        {
+            if (dup2(ms->pipes[i-1][0], STDIN_FILENO) == -1) {
+                perror("dup2");
+                exit(1);
+            }
+        }
+        if (i < ms->cmnds_num - 1)
+        {
+            if (dup2(ms->pipes[i][1], STDOUT_FILENO) == -1) 
+            {
+                perror("dup2");
+                exit(1);
+            }
+        }
+    }
     // Here-doc redirection: '<<' (Implement if necessary)
     // You will need to handle here-doc separately, as it involves reading input until a delimiter.
 }
@@ -132,33 +164,11 @@ int ft_exec_cmd(char **args, t_env *env) {
     return (exit_status);
 }
 
-/* -------- una puta mierda que no funciona
-void handle_pipe(t_args *args)
-{
-    int auxfd[2];
-    while (args != NULL && args->next != NULL)
-	{
-        if (args->fd[1] == -2 && args->next->fd[0] == -2)
-        {
-			pipe(auxfd);
-			if (pipe(auxfd) == -1) 
-			{
-                perror("pipe");
-                exit(EXIT_FAILURE);
-            }
-			dup2(args->fd[1], auxfd[1]);
-			dup2(args->next->fd[0], auxfd[0]);
-            close(auxfd[0]);
-            close(auxfd[1]);        
-		}
-	}
-} */
-
 /* 
-    1. saber cuantas pipes vamos a necesitar
-    2. hacer una matriz de pipes necesarias (estaran todas abiertas)
+    1. saber cuantas pipes vamos a necesitar - check
+    2. hacer una matriz de pipes necesarias (estaran todas abiertas) - check
     3. guardar los pids de los hijos en una int *, asi el padre espera
-     que todos sus hijos acaben (a veces da fallos)
+     que todos sus hijos acaben (a veces da fallos) -check
     3. se llama al exec como ft_exec que recorre t_args
     4. se forkea y se cierren todos los fds menos los que vamos a necesitar
     5. se hace la execusion
@@ -171,29 +181,47 @@ void handle_pipe(t_args *args)
 
 int ft_exec(t_ms *ms, t_args *args) 
 {
-    pid_t pid;
+    int i;
 
-    //if handle_pipe(args);
+    i = 0;
+    dprintf(2, "el numero de commandos es %d\n", ms->cmnds_num);
+    if (handle_pipes(ms) == -1)
+    {
+        dprintf(2, "ha fallado algo en handle_pipe\n");
+        return (-1);
+    }
+    if (handle_pids(ms) == -1)
+    {
+         dprintf(2, "ha fallado algo en handle_pid\n");
+        return (-1);
 
-
-    while (args != NULL)
+    }
+    while (i < ms->cmnds_num)
     {
         dprintf(2, "------------------  Command Start     ------------------\n");
-        if (is_builtin(args->argv[0]) == 1 ) {
+        if (is_builtin(args->argv[0]) == 1 ) 
+        {
 
             if (handle_builtins(ms, args) == -1) // check for error
                 return (-1); //error
-        } else {
+        } 
+        else 
+        {
             dprintf(2, "not a builtin\n");
-            pid = fork();
-            if (pid == 0) // Child process
+            ms->pid[i] = fork();
+            printf("Fork Done\n");
+            if (ms->pid[i] == 0) // Child process
             { 
-                handle_redirections(args);
+                printf("Going to redirections\n");
+
+                handle_redirections(ms, args, i);
+                close_pipes(ms->pipes);
                 ms->exitstatus = ft_exec_cmd(args->argv, ms->env);
-                exit(ms->exitstatus);
-            } else if (pid > 0) // Parent process
+                return (ms->exitstatus);
+            } else if (ms->pid > 0) // Parent process
             { 
-                waitpid(pid, &ms->exitstatus, 0);
+                close_pipes(ms->pipes);
+                waitpid(ms->pid[i], &ms->exitstatus, 0);
                 ms->exitstatus = WEXITSTATUS(ms->exitstatus);
             } else {
                 perror("fork");
@@ -204,9 +232,9 @@ int ft_exec(t_ms *ms, t_args *args)
         dprintf(2, "next args\n");
         // if there is next it should read from the previous file
         // so pipe[i][0] has to read from pipe[i - 1][1]
-        // if there is an error should we close all the fds?
-        
-                args = args->next;
+        // if there is an error should we close all the fds?        
+        args = args->next;
+        i++;
     }
     return (0);
 }
