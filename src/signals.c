@@ -6,13 +6,14 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:25:54 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/09 11:31:08 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/10 16:22:36 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 //global variable to change exitstatus
+int	g_signstat;
 
 /*
 MISSING
@@ -26,6 +27,7 @@ heredoc signals:
 
 void	sig_handler(int signal)
 {
+	g_signstat = signal;
 	if (signal == SIGINT) //exitstatus = 130
 	{
 		write(1, "\n", 1);

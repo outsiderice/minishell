@@ -6,25 +6,11 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/09 17:38:50 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/10 16:26:08 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*void	signal_handler(int signal)
-{
-	int	mode;
-
-	mode = 0;
-	if (mode == 0 && signal == SIGINT)
-	{
-		write(1, "\n", 1);
-		rl_replace_line("", 1);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-}*/
 
 void	ft_init_ms(t_ms *ms, char **envp)
 {
@@ -65,6 +51,11 @@ void	ft_minishell(t_ms *ms)
 	while (42)
 	{
 		ft_start_signals(1);
+		if (g_signstat != 0)
+		{
+			ms->exitstatus = 7;
+			g_signstat = 0;
+		}
 		ft_ignoresig(SIGQUIT);
 		line = ft_readline(ms);
 		while (line)
@@ -85,6 +76,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_ms	ms;
 
+	g_signstat = 0;
 	(void)argv;
 	if (argc != 1)
 		return (EXIT_FAILURE);
