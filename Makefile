@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/07/09 17:27:14 by amagnell         ###   ########.fr        #
+#    Updated: 2024/07/10 15:17:51 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ BUILD_DIR 	=	.build
 OBJS		=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS		=	$(OBJS:%.o=%.d)
 
-CC 			=	gcc
+CC 			=	cc
 CFLAGS 		=	-Wall -Wextra -Werror
 CPPFLAGS 	=	$(addprefix -I, $(INCS)) -MMD -MP
 LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_TARGET)))
