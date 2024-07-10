@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:24:15 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/09 17:50:59 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:00:30 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	free_tok_and_args(t_tokens **toks, t_args **args)
 	while (tok != NULL)
 	{
 		tmp_tok = tok;
-		free(tok->tok);
+		if (tok->tok)
+			free(tok->tok);
 		tok = tok->next;
 		free(tmp_tok);
 	}
@@ -49,7 +50,8 @@ void	free_tok_and_args(t_tokens **toks, t_args **args)
 	while (arg != NULL)
 	{
 		tmp_arg = arg;
-		free_arr(arg->argv);
+		if (arg->argv)
+			free_arr(arg->argv);
 		arg = arg->next;
 		free(tmp_arg);
 	}

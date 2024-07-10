@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:42:25 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/10 12:07:55 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:41:56 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ t_env	*find_env_var(t_env *env, char *var_name)
 {
 	while (env != NULL && ft_str_compare(env->v_name, var_name) != 0)
 		env = env->next;
+	if (!env)
+		return (NULL);
 	return (env);
 }
 
