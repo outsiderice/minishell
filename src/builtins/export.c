@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:05:17 by kkoval            #+#    #+#             */
-/*   Updated: 2024/06/27 15:05:38 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/07 23:43:58 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,9 @@ int	ft_add_to_env(t_env *env_list, char *arg)
 		aux = env_list;
 	if (aux == NULL)
 	{
-		printf("create malloc\n");
 		aux = malloc(sizeof(t_env) * 1);
 		if (!aux)
 			return (-1);
-		printf("malloc OK\n");
 		aux->v_name = ft_strdup(node->v_name);
 		aux->next = NULL;
 		env_list->next = aux;	

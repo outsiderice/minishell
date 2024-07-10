@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/07 14:44:49 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/08 23:13:37 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,20 @@ void	print_args(t_ms *ms)
 	}
 }
 
+// predefine el primer y el ultimo fd si no hay redirecciones
+void handler_fst_lst_redir(t_args *args)
+{
+	if (args == NULL)
+		return;
+	if (args->fd[0] == -2)
+		args->fd[0] = STDIN_FILENO;
+	while (args->next != NULL)
+		args = args->next;
+	if (args->fd[1] == -2)
+		args->fd[1] = STDOUT_FILENO;
+	return;
+}
+
 // Creates nodes for t_args from t_tokens
 int	ft_prep_args(t_ms *ms)
 {
@@ -177,7 +191,11 @@ int	ft_prep_args(t_ms *ms)
 			ms->args = NULL;
 		}
 	}
+	
+	
 	ms->args = head;
+	// Kate: predefiniendo el fd del primero y ultimo arg
+	handler_fst_lst_redir(ms->args);
 	print_args(ms); //delete later
 	return (EXIT_SUCCESS);
 }

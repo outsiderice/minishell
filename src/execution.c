@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:26:40 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/03 11:51:16 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/08 23:56:07 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	exeggutor(t_ms *ms)
 	// else
 	// 	printf("other exec\n")//execve();
 	printf("about to enter exec\n");
-	ft_exec(ms);
+	ft_exec(ms, ms->args);
 	}
 	free_tok_and_args(&ms->tokens, &ms->args);
 }

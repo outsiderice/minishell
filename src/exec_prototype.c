@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_prototype.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/07 15:40:56 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/09 00:06:19 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,8 @@ char	*ft_join_path(char *path, char *cmd)
 }
 
 void handle_redirections(t_args *args) {
-
-
     // Input redirection: '<'
-    if (args->fd[0] != -1 && args->fd[0] != -2)
+    if (args->fd[0] != -1 && args->fd[0] != STDIN_FILENO)
     {
         if (dup2(args->fd[0], STDIN_FILENO) == -1) {
             perror("dup2");
@@ -88,7 +86,7 @@ void handle_redirections(t_args *args) {
     }
 
     // Output redirection: '>' and '>>'
-    if (args->fd[1] != -1 && args->fd[1] != -2) {
+    if (args->fd[1] != -1 && args->fd[1] != STDOUT_FILENO) {
         if (dup2(args->fd[1], STDOUT_FILENO) == -1) {
             perror("dup2");
             exit(1);
@@ -132,29 +130,47 @@ int ft_exec_cmd(char **args, t_env *env) {
     return (exit_status);
 }
 
-int ft_exec(t_ms *ms) {
-    t_args *args;
+// esta accion 
+void handle_pipe(t_args *args)
+{
+    int auxfd[2];
+    while (args != NULL && args->next != NULL)
+	{
+        if (args->fd[1] == -2 && args->next->fd[0] == -2)
+        {
+			pipe(auxfd);
+			if (pipe(auxfd) == -1) 
+			{
+                perror("pipe");
+                exit(EXIT_FAILURE);
+            }
+			dup2(args->fd[1], auxfd[1]);
+			dup2(args->next->fd[0], auxfd[0]);
+            close(auxfd[0]);
+            close(auxfd[1]);        
+		}
+	}
+}
+
+int ft_exec(t_ms *ms, t_args *args) 
+{
     pid_t pid;
 
     printf("HOLA DESDE EXEC\n");
-    args = ms->args;
+    handle_pipe(args);
+
     while (args != NULL)
     {
-        dprintf(2, "args is not null\n");
-        printf("Handling redirections\n");
-        //if (args->redir_type != -1) {
-        //    handle_redirections(args);
-        //}
-        if (is_builtin(args->argv[0]) == 1) {
-            dprintf(2, "is a builtin\n");
+        dprintf(2, "------------------  Command Start     ------------------\n");
+        if (is_builtin(args->argv[0]) == 1 ) {
+
             if (handle_builtins(ms, args) == -1) // check for error
                 return (-1); //error
         } else {
-            dprintf(2, "not a builtin\n");
             pid = fork();
             if (pid == 0) // Child process
             { 
-
+                handle_redirections(args);
                 ms->exitstatus = ft_exec_cmd(args->argv, ms->env);
                 exit(ms->exitstatus);
             } else if (pid > 0) // Parent process
@@ -166,6 +182,7 @@ int ft_exec(t_ms *ms) {
                 return (-1);
             }
         }
+        dprintf(2, "------------------  Command Finished  ------------------\n");
         dprintf(2, "next args\n");
         args = args->next;
     }

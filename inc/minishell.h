@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/07 15:41:15 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:39:11 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ typedef struct s_ms
 	int			sh_lvl;
 	char		*pwd;
 	char		*old_pwd;
-	int			pid;
+	int			*pid; // nuevo -> aqui se guardan los hijos para controlarlos
+	int			**pipes;	
 }	t_ms;
 
 /*    main.c    */
@@ -85,9 +86,11 @@ int		ft_assign(char *env_p, t_env **current);
 int		ft_set_shll_lvl(t_env *env);
 
 /*    signals.c    */
+void    ft_start_signals(int mode);
+void	ft_ignoresig(int signal);
 
 /*    get_input.c    */
-char	*ft_readline(void);
+char	*ft_readline(t_ms *ms);
 
 /*    error.c    */
 // void	ft_error(t_ms **ms, char *line);
@@ -105,12 +108,18 @@ void	free_arr(char **arr);
 int		new_args_node(t_args **args);
 int		ft_count_toks(t_tokens *current, int type);
 
-/*    execution.c    */
+/*---------------------------------------------*/
+/*               EXECUTION                     */
+/*---------------------------------------------*/
+/*              execution.c                    */
 void	exeggutor(t_ms *ms);
 
-/*    exec_prototype.c    */
-int		ft_exec(t_ms *ms);
+/*              exec_prototype.c               */
+int		ft_exec(t_ms *ms, t_args *args);
 int		is_file_in_dir(char *file, char *dir);
+
+/*               exec_utils.c                   */
+int		ft_pipes_len(t_args *args);
 
 /*---------------------------------------------*/
 /*               PARSING                       */
@@ -153,7 +162,7 @@ int		ft_addtok(const char *line, int len, int type, t_tokens **tokens);
 int		is_builtin(char *cmd);
 int		handle_builtins(t_ms *ms, t_args *args);
 int		ft_echo(t_args *args);
-int		ft_pwd(void);
+int		ft_pwd(t_args *args);
 int		ft_env(t_env *env_list, t_args *args);
 int		ft_export(t_ms *ms, char **args);
 int		is_numeric(char *str);

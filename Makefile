@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/07/04 16:24:38 by amagnell         ###   ########.fr        #
+#    Updated: 2024/07/09 17:27:14 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ INCS		=	inc	\
 
 SRC_DIR		=	src
 SRCS 		=	src/main.c \
+				src/signals.c \
 				src/error.c \
 				src/free.c \
 				src/get_input.c \

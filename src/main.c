@@ -6,13 +6,13 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/07 15:41:34 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:38:50 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	signal_handler(int signal)
+/*void	signal_handler(int signal)
 {
 	int	mode;
 
@@ -24,7 +24,7 @@ void	signal_handler(int signal)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-}
+}*/
 
 void	ft_init_ms(t_ms *ms, char **envp)
 {
@@ -50,7 +50,7 @@ void	ft_init_ms(t_ms *ms, char **envp)
 		free_env(&ms->env);
 		exit (error_msg("getcwd:Returned NULL new_pwd\n", NULL));
 	}
-	ms->pid = getpid();
+	//ms->pid = getpid(); quizas no va aqui
 }
 
 //the minishell execution loop
@@ -64,10 +64,12 @@ void	ft_minishell(t_ms *ms)
 	printf("eggshell go!\n");
 	while (42)
 	{
-		//start signals -	Kat
-		line = ft_readline();
+		ft_start_signals(1);
+		ft_ignoresig(SIGQUIT);
+		line = ft_readline(ms);
 		while (line)
 		{
+			ft_start_signals(1);
 			printf("line!\n");
 			if (ft_tok_checks(line, ms) == 0 && ft_parse(ms) == 0)
 				exeggutor(ms);
@@ -82,15 +84,10 @@ void	ft_minishell(t_ms *ms)
 int	main(int argc, char **argv, char **envp)
 {
 	t_ms	ms;
-	struct	sigaction	sa;
 
 	(void)argv;
 	if (argc != 1)
 		return (EXIT_FAILURE);
-	sa.sa_handler = signal_handler;
-	sa.sa_flags = 0;
-	if (sigaction(SIGINT, &sa, NULL) == -1)
-		return (1);
 	ft_init_ms(&ms, envp);
 	ft_minishell(&ms);
 	return (0);
