@@ -6,11 +6,33 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:42:25 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/04 16:45:13 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:07:55 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*get_var_name(char *str, int start)
+{
+	char	*var_name;
+
+	if (ft_strncmp(&str[start], "$?", 2) == 0)
+		var_name = ft_strdup("$?");
+	else
+		var_name = rm_delimiters(str, start);
+	if (!var_name)
+		return (NULL);
+	return (var_name);
+}
+
+// Iterates env to find a node
+// Returns a pointer to that node or NULL if it's not found
+t_env	*find_env_var(t_env *env, char *var_name)
+{
+	while (env != NULL && ft_str_compare(env->v_name, var_name) != 0)
+		env = env->next;
+	return (env);
+}
 
 // find end of env variable name and return it's length
 int	find_dollar_end(const char *name)
@@ -27,6 +49,7 @@ int	find_dollar_end(const char *name)
 }
 
 // Removes the characters at both ends of TOK
+// Returns STR or NULL if allocation failed
 char	*rm_delimiters(char *tok, int i)
 {
 	char	*str;
@@ -42,7 +65,7 @@ char	*rm_delimiters(char *tok, int i)
 	return (str);
 }
 
-//joins three strings into result
+//joins three strings into RESULT which is returned
 char	*all_join(char *s1, char *s2, char *s3)
 {
 	char	*result;

@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/04 16:41:24 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:08:52 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_retokenize(t_tokens *tok, int i, char *content, int v)
 }
 
 // gets the var name and looks for it in env
-// returns the character after the last one of the expanded var
+// returns updated i to the character after the last one of the expanded var
 int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 {
 	char		*var_name;
@@ -52,13 +52,15 @@ int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 	t_env		*env;
 
 	env = ms->env;
-	var_name = rm_delimiters(tok->tok, i);
-	if (!var_name)
-		return (-1);
-	while (env != NULL && ft_str_compare(env->v_name, var_name) != 0)
-		env = env->next;
+	var_name = get_var_name(tok->tok, i);
+	env = find_env_var(env, var_name);
 	if (!env)
-		content = ft_strdup("");
+	{
+		if (ft_str_compare(var_name, "$?") == 0)
+			content = ft_itoa(ms->exitstatus);
+		else
+			content = ft_strdup("");
+	}
 	else
 		content = ft_strdup(env->v_cont);
 	if (!content)
@@ -69,13 +71,11 @@ int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 	i = ft_retokenize(tok, i, content, ft_strlen(var_name) + 1);
 	free (var_name);
 	free (content);
-	if (i == -1)
-		return (-1);
 	return (i);
 }
 
 // checks if a '$' is expandable or not
-// returns the token with all it's variables expanded
+// returns 1 on failure and 0 on success
 int	is_expandable_dollar(t_ms *ms, t_tokens *tok)
 {
 	int	i;
@@ -127,7 +127,7 @@ char	*add_shit(char *tok, int i)
 }
 
 // It removes paired quotes as it finds them and creates a new string
-// Returns the new string created NEW_TOK
+// Returns 1 on failure and 0 on success
 int	expand_quotes(t_tokens *tok)
 {
 	int		i;
