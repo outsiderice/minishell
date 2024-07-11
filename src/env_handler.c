@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:58:57 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/09 18:25:13 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/11 10:45:03 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,11 +130,12 @@ int ft_create_sh_lvl(t_env *env)
 	new->v_name = ft_strdup("SHLVL");
 	new->v_cont = ft_strdup("1");
 	new->next = NULL;
-
-	env->next = new; 
+	env->next = new;
 	return (0);
 }
 
+// Receives pointer to env
+// If it finds SHLVL it it adds +1 to the number
 int	ft_set_shll_lvl(t_env *env)
 {
 	t_env *first;
@@ -147,7 +148,7 @@ int	ft_set_shll_lvl(t_env *env)
 			if (is_numeric(env->v_cont) == 1) //if case it is numeric
 				env->v_cont = ft_itoa(ft_atoi(env->v_cont) + 1);
 			else 
-				env->v_cont = "1";
+				env->v_cont = ft_strdup("1");
 			return (1);
 		}
 		env = env->next;
