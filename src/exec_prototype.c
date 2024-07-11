@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/10 15:06:36 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/11 05:31:43 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void    close_pipes(int **pipes)
     free(pipes);
 }
 
-void handle_redirections(t_ms *ms, t_args *args, int i)
+/*void handle_redirections(t_ms *ms, t_args *args, int i)
 {
     // Input redirection: '<'
     if (args->redir_type == 1)
@@ -108,8 +108,6 @@ void handle_redirections(t_ms *ms, t_args *args, int i)
         }
         close(args->fd[1]);
     }
-
-
     if (args->redir_type == -1 && i != 0)
     {
         if (i != 0)
@@ -130,6 +128,42 @@ void handle_redirections(t_ms *ms, t_args *args, int i)
     }
     // Here-doc redirection: '<<' (Implement if necessary)
     // You will need to handle here-doc separately, as it involves reading input until a delimiter.
+}*/
+
+void handle_files(t_args *args)
+{
+if (args->fd[0] != -1 && args->fd[0] != -2)
+    {
+        if (dup2(args->fd[0], STDIN_FILENO) == -1) {
+            perror("dup2");
+            exit(1);
+        }
+        close(args->fd[0]);
+    }
+
+    // Output redirection: '>' and '>>'
+    if (args->fd[1] != -1 && args->fd[1] != -2) {
+        if (dup2(args->fd[1], STDOUT_FILENO) == -1) {
+            perror("dup2");
+            exit(1);
+        }
+        close(args->fd[1]);
+    }
+}
+
+void handle_redirections(t_ms *ms, int fd[2], int i)
+{
+    // esto hara posible la lectura del fd de previo comando
+    if (ms->pipes != NULL && i > 0)
+        dup2(ms->pipes[i - 1][0], STDIN_FILENO);
+    //esto hace posible la escritura al final descriptor corecto si no el ultimo comando
+    if (ms->pipes != NULL && i < ms->cmnds_num - 1)
+        dup2(ms->pipes[i][1], STDOUT_FILENO);
+    // ceramos los fd del comando por los dos lados si estan abiertos
+    if (fd[0] && fd[0]!= -1 && fd[0] != -2)
+        close(fd[0]);
+    if (fd[1] && fd[1]!= -1 && fd[1] != -2)
+        close(fd[1]);
 }
 
 int ft_exec_cmd(char **args, t_env *env) {
@@ -164,12 +198,10 @@ int ft_exec_cmd(char **args, t_env *env) {
     return (exit_status);
 }
 
-/* 
-    1. saber cuantas pipes vamos a necesitar - check
-    2. hacer una matriz de pipes necesarias (estaran todas abiertas) - check
-    3. guardar los pids de los hijos en una int *, asi el padre espera
-     que todos sus hijos acaben (a veces da fallos) -check
-    3. se llama al exec como ft_exec que recorre t_args
+
+  
+
+/*
     4. se forkea y se cierren todos los fds menos los que vamos a necesitar
     5. se hace la execusion
     5. se cierren los fds utilizados y se pasa al siguiente args
@@ -213,14 +245,15 @@ int ft_exec(t_ms *ms, t_args *args)
             if (ms->pid[i] == 0) // Child process
             { 
                 printf("Going to redirections\n");
-
-                handle_redirections(ms, args, i);
+                handle_files(args);
+                handle_redirections(ms, args->fd, i);
                 close_pipes(ms->pipes);
                 ms->exitstatus = ft_exec_cmd(args->argv, ms->env);
                 return (ms->exitstatus);
             } else if (ms->pid > 0) // Parent process
             { 
                 close_pipes(ms->pipes);
+
                 waitpid(ms->pid[i], &ms->exitstatus, 0);
                 ms->exitstatus = WEXITSTATUS(ms->exitstatus);
             } else {
