@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/10 14:56:54 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/11 19:14:07 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,8 +191,6 @@ int	ft_prep_args(t_ms *ms)
 			ms->args = NULL;
 		}
 	}
-	
-	
 	ms->args = head;
 	ms->cmnds_num = ft_t_args_len(ms->args);
 	// Kate: predefiniendo el fd del primero y ultimo arg

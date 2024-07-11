@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:01:50 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/10 14:36:38 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/11 19:56:19 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ int  handle_pipes(t_ms *ms)
         return (-1);
     }
     if (ms->cmnds_num  == 1)
+    {
         dprintf(2, "Un solo comando no requiere pipes\n");
         return (0);
-
+    }
     ms->pipes = malloc(sizeof(int *) * (ms->cmnds_num));
     if (!ms->pipes)
         return (-1);
@@ -45,7 +46,7 @@ int  handle_pipes(t_ms *ms)
     while (i < ms->cmnds_num -1)
     {
         ms->pipes[i] = malloc(sizeof(int) * 2);
-        if (!ms ->pipes[i])
+        if (!ms->pipes[i])
         // tambien liberar otros si se han creado ft_close_program (que llamara otros close de cada tipo que los libera)
             return (-1) ; 
         i++;
@@ -60,6 +61,7 @@ int  handle_pipes(t_ms *ms)
             // cerrar las que se han abierto!!
             return (-1);
         }
+        dprintf(2, "pipe %d (%d, %d) \n", i, ms->pipes[i][0], ms->pipes[i][1]);
         i++;
     }
     return (0);

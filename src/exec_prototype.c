@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_prototype.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/11 05:31:43 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/11 20:09:29 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ void    close_pipes(int **pipes)
     {
         close(pipes[i][0]);
         close(pipes[i][1]);
-        free(pipes[i]);
+        //free(pipes[i]);
         i++;
     }
-    free(pipes);
+    //free(pipes);
 }
 
 /*void handle_redirections(t_ms *ms, t_args *args, int i)
@@ -138,7 +138,7 @@ if (args->fd[0] != -1 && args->fd[0] != -2)
             perror("dup2");
             exit(1);
         }
-        close(args->fd[0]);
+        //close(args->fd[0]);
     }
 
     // Output redirection: '>' and '>>'
@@ -147,23 +147,30 @@ if (args->fd[0] != -1 && args->fd[0] != -2)
             perror("dup2");
             exit(1);
         }
-        close(args->fd[1]);
+        //close(args->fd[1]);
     }
 }
 
 void handle_redirections(t_ms *ms, int fd[2], int i)
 {
     // esto hara posible la lectura del fd de previo comando
+    printf("I was ehere %d\n", i);
+    if (i > 0)
+        dprintf(2, ":::: stds(%d %d)\n", ms->pipes[i-1][0], ms->pipes[i][1]);
+    else 
+        dprintf(2, ":::: stds(%d)\n", ms->pipes[i][1]);
+    printf("salida\n");
     if (ms->pipes != NULL && i > 0)
         dup2(ms->pipes[i - 1][0], STDIN_FILENO);
     //esto hace posible la escritura al final descriptor corecto si no el ultimo comando
     if (ms->pipes != NULL && i < ms->cmnds_num - 1)
         dup2(ms->pipes[i][1], STDOUT_FILENO);
+    printf("%d %d\n", fd[0], fd[1]);
     // ceramos los fd del comando por los dos lados si estan abiertos
-    if (fd[0] && fd[0]!= -1 && fd[0] != -2)
-        close(fd[0]);
-    if (fd[1] && fd[1]!= -1 && fd[1] != -2)
-        close(fd[1]);
+    // if (fd[0] && fd[0]!= -1 && fd[0] != -2)
+    //     close(fd[0]);
+    // if (fd[1] && fd[1]!= -1 && fd[1] != -2)
+    //     close(fd[1]);
 }
 
 int ft_exec_cmd(char **args, t_env *env) {
@@ -244,13 +251,15 @@ int ft_exec(t_ms *ms, t_args *args)
             printf("Fork Done\n");
             if (ms->pid[i] == 0) // Child process
             { 
-                printf("Going to redirections\n");
-                handle_files(args);
+                printf("Going to redirections\n"); 
                 handle_redirections(ms, args->fd, i);
+                handle_files(args);
+                dprintf(2, "stds: (%d %d) \n", args->fd[0], args->fd[1]);
+               
                 close_pipes(ms->pipes);
                 ms->exitstatus = ft_exec_cmd(args->argv, ms->env);
                 return (ms->exitstatus);
-            } else if (ms->pid > 0) // Parent process
+            } else if (ms->pid[i] > 0) // Parent process
             { 
                 close_pipes(ms->pipes);
 
