@@ -6,25 +6,11 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/09 17:38:50 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/11 09:40:38 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*void	signal_handler(int signal)
-{
-	int	mode;
-
-	mode = 0;
-	if (mode == 0 && signal == SIGINT)
-	{
-		write(1, "\n", 1);
-		rl_replace_line("", 1);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-}*/
 
 void	ft_init_ms(t_ms *ms, char **envp)
 {
@@ -61,21 +47,26 @@ void	ft_minishell(t_ms *ms)
 	char	*line;
 
 	line = NULL;
-	printf("eggshell go!\n");
+	//printf("eggshell go!\n");
 	while (42)
 	{
+		
 		ft_start_signals(1);
 		ft_ignoresig(SIGQUIT);
 		line = ft_readline(ms);
+		ms->exitstatus = g_signstat + 128;
+		if (g_signstat == 0)
+			ms->exitstatus = 0;
+		g_signstat = 0;
 		while (line)
 		{
 			ft_start_signals(1);
-			printf("line!\n");
+			//printf("line!\n");
 			if (ft_tok_checks(line, ms) == 0 && ft_parse(ms) == 0)
 				exeggutor(ms);
 			free (line);
 			line = NULL;
-			printf("~freed line~\n\n");
+			//printf("~freed line~\n\n");
 		}
 	}
 }

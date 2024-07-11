@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_prototype.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/09 00:06:19 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/10 15:19:01 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ int	is_file_in_dir(char *file, char *dir)
     dirp = opendir(dir);
 	//printf("%s\n", dir);
     if (dirp == NULL)
+    {
         return (1);
+    }
     // Read directory entries
 	entry = readdir(dirp);
     while (entry != NULL && ft_str_compare(file, entry->d_name) == 1)
