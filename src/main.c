@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/10 16:26:08 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/11 09:40:38 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,26 @@ void	ft_minishell(t_ms *ms)
 	char	*line;
 
 	line = NULL;
-	printf("eggshell go!\n");
+	//printf("eggshell go!\n");
 	while (42)
 	{
+		
 		ft_start_signals(1);
-		if (g_signstat != 0)
-		{
-			ms->exitstatus = 7;
-			g_signstat = 0;
-		}
 		ft_ignoresig(SIGQUIT);
 		line = ft_readline(ms);
+		ms->exitstatus = g_signstat + 128;
+		if (g_signstat == 0)
+			ms->exitstatus = 0;
+		g_signstat = 0;
 		while (line)
 		{
 			ft_start_signals(1);
-			printf("line!\n");
+			//printf("line!\n");
 			if (ft_tok_checks(line, ms) == 0 && ft_parse(ms) == 0)
 				exeggutor(ms);
 			free (line);
 			line = NULL;
-			printf("~freed line~\n\n");
+			//printf("~freed line~\n\n");
 		}
 	}
 }
@@ -76,7 +76,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_ms	ms;
 
-	g_signstat = 0;
 	(void)argv;
 	if (argc != 1)
 		return (EXIT_FAILURE);
