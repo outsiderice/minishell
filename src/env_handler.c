@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:58:57 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/11 13:40:01 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/12 18:29:42 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,16 +151,20 @@ int ft_create_sh_lvl(t_env *env)
 int	ft_set_shll_lvl(t_env *env)
 {
 	t_env *first;
+	char	*num;
 
 	first = env;
+	num = NULL;
 	while (env != NULL)
 	{
 		if	(ft_str_compare(env->v_name, "SHLVL") == 0)
 		{
 			if (is_numeric(env->v_cont) == 1) //if case it is numeric
-				env->v_cont = ft_itoa(ft_atoi(env->v_cont) + 1);
+				num = ft_itoa(ft_atoi(env->v_cont) + 1);
 			else 
-				env->v_cont = ft_strdup("1");
+				num = ft_strdup("1");
+			free(env->v_cont);
+			env->v_cont = num;
 			return (1);
 		}
 		env = env->next;
