@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:58:57 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/09 18:25:13 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/15 14:12:33 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,21 @@ int	ft_assign(char *env_p, t_env **current)
 	char	*equal_ptr;
 	int		env_len;
 
+	(*current)->v_name = NULL;
+	(*current)->v_cont = NULL;
 	if (env_p == NULL)
 		return (-1);
 	equal_ptr = ft_strchr(env_p, '=');
 	if (equal_ptr == NULL)
 		return (-1);
 	env_len = ft_strlen(env_p);
+	printf("env_len %d\n", env_len);
 	equal = equal_ptr - env_p;
+	printf("equal = %d\n", equal);
 	(*current)->v_name = ft_substr(env_p, 0, equal);
-	(*current)->v_cont = ft_substr(env_p, equal + 1, env_len - equal + 1);
+	printf("v_name is %s\n", (*current)->v_name);
+	(*current)->v_cont = ft_substr(env_p, equal + 1, env_len - equal - 1);
+	printf("v_cont is %s\n\n", (*current)->v_cont);
 	if ((*current)->v_name == NULL || (*current)->v_cont == NULL)
 		return (-1);
 	(*current)->next = NULL;
@@ -98,6 +104,9 @@ t_env	*start_env(char **env_p)
 	t_env	*prev;
 
 	i = 0;
+	first = NULL;
+	current = NULL;
+	prev = NULL;
 	if (env_p == NULL || env_p[0] == NULL)
 		return (NULL);
 	while (env_p[i] != NULL)
@@ -116,7 +125,7 @@ t_env	*start_env(char **env_p)
 	}
 	return (first);
 }
-
+// Creates a node to env with SHLVL set to 1
 int ft_create_sh_lvl(t_env *env)
 {
 	t_env *new;
@@ -130,24 +139,30 @@ int ft_create_sh_lvl(t_env *env)
 	new->v_name = ft_strdup("SHLVL");
 	new->v_cont = ft_strdup("1");
 	new->next = NULL;
-
-	env->next = new; 
+	env->next = new;
 	return (0);
 }
 
+// Receives pointer to env
+// If it finds SHLVL it it adds +1 to the number
+// If there isn't SHLVL sets it to 1
 int	ft_set_shll_lvl(t_env *env)
 {
 	t_env *first;
+	char	*num;
 
 	first = env;
+	num = NULL;
 	while (env != NULL)
 	{
 		if	(ft_str_compare(env->v_name, "SHLVL") == 0)
 		{
 			if (is_numeric(env->v_cont) == 1) //if case it is numeric
-				env->v_cont = ft_itoa(ft_atoi(env->v_cont) + 1);
+				num = ft_itoa(ft_atoi(env->v_cont) + 1);
 			else 
-				env->v_cont = "1";
+				num = ft_strdup("1");
+			free(env->v_cont);
+			env->v_cont = num;
 			return (1);
 		}
 		env = env->next;
