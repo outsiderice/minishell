@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:24:15 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/10 14:00:30 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/15 14:13:41 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	free_env(t_env **env)
 	{
 		aux = current;
 		free(current->v_name);
-		free(current->v_cont);
+		if (current->v_cont)
+			free(current->v_cont);
 		current = current->next;
 		free(aux);
 	}
