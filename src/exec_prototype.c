@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/15 17:08:23 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/15 17:40:10 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,7 @@ int ft_exec(t_ms *ms, t_args *args)
                     dup2(args->fd[1], STDIN_FILENO);
                     close(fd_pipe[1]);
                     close(fd_pipe[0]);
+                    ft_exec_cmd(char **args, t_env *env)
                 }
                 else if (i == 1)
                 {
