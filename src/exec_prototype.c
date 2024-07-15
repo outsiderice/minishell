@@ -6,21 +6,11 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/11 20:09:29 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/15 17:08:23 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <dirent.h>
-#include <sys/wait.h>
-//#include <errno.h>
-#include "../lib/libft/libft.h"
 #include "../inc/minishell.h"
-
-
-#include <fcntl.h>
-#include <unistd.h>
 
 char **ft_get_paths(t_env *env)
 {
@@ -73,7 +63,7 @@ char	*ft_join_path(char *path, char *cmd)
 	free(aux); // is it necessary?
 	return (res); 
 }
-
+/*
 void    close_pipes(int **pipes)
 {
     int i;
@@ -87,9 +77,9 @@ void    close_pipes(int **pipes)
         i++;
     }
     //free(pipes);
-}
-
-/*void handle_redirections(t_ms *ms, t_args *args, int i)
+}*/
+/*
+void handle_redirections(t_ms *ms, t_args *args, int i)
 {
     // Input redirection: '<'
     if (args->redir_type == 1)
@@ -130,7 +120,7 @@ void    close_pipes(int **pipes)
     // You will need to handle here-doc separately, as it involves reading input until a delimiter.
 }*/
 
-void handle_files(t_args *args)
+/*void handle_files(t_args *args)
 {
 if (args->fd[0] != -1 && args->fd[0] != -2)
     {
@@ -171,7 +161,7 @@ void handle_redirections(t_ms *ms, int fd[2], int i)
     //     close(fd[0]);
     // if (fd[1] && fd[1]!= -1 && fd[1] != -2)
     //     close(fd[1]);
-}
+}*/
 
 int ft_exec_cmd(char **args, t_env *env) {
     int i;
@@ -204,20 +194,129 @@ int ft_exec_cmd(char **args, t_env *env) {
     free_arr(envp);
     return (exit_status);
 }
+int ft_exec(t_ms *ms, t_args *args)
+{
+    int i;
+    
+    i = 0;
+    if (handle_pipes(ms) == -1)
+    {
+        printf("el numero de commandos es %d\n", ms->cmnds_num);
+        return (-1);
+    }
+
+    if (handle_pids(ms) == -1)
+    {
+        dprintf(2, "ha fallado algo en handle_pid\n");
+        return (-1);
+    }
+    while (i < ms->cmnds_num)
+    {
+        if (i + 1 < ms->cmnds_num)
+        {
+            if (pipe(ms->pipes[i]) < 0)
+            {
+                dprintf(2, "ha fallado el pipe\n");
+                //free de cosa
+                return(-1);
+            }
+        }
+
+        dprintf(2, "------------------  Command Start     ------------------\n");
+
+        if (is_builtin(args->argv[0]) == 1 ) 
+        {
+
+            if (handle_builtins(ms, args) == -1) // check for error
+                return (-1); //error
+        }
+        else
+        {
+            ms->pid[i] = fork();
+            if (ms->pid[i] == 0) // Child process
+            {
+                if (i == 0)
+                {
+                    dup2(args->fd[1], STDIN_FILENO);
+                    close(fd_pipe[1]);
+                    close(fd_pipe[0]);
+                }
+                else if (i == 1)
+                {
+                    dup2(ms->[0][0], STDIN_FILENO);
+                    close(pipes[0][0]);
+                    close(pipes[0][1]);
+                    close(pipes[1][0]);
+                    close(pipes[1][1]);
+                    execlp("grep", "grep", "rtt", NULL);
+                }
+                
+
+                ms->exitstatus = ft_exec_cmd(args->argv, ms->env);
+                return (ms->exitstatus);
+            } 
+           
+            
+        }
+        dprintf(2, "------------------  Command Finished  ------------------\n");
+        dprintf(2, "next args\n");    
+        args = args->next;
+        i++;
+    }
+    close(ms->pipes[0][0]);
+    close(ms->pipes[0][1]);
+    close(ms->pipes[1][0]);
+    close(ms->pipes[1][1]);
+    // Wait for both child processes
+    waitpid(ms->pid[0], NULL, 0);
+    waitpid(ms->pid[1], NULL, 0);
+
+    return (0);
+}
 
 
-  
+/*char **ft_get_paths(t_env *env)
+{
+    char	**paths;
+    while(env != NULL && ft_str_compare(env->v_name, "PATH") == 1)
+        env = env->next;
+    if (env == NULL)
+		return (NULL);
+	paths = ft_split(env->v_cont, ':');
+	if (!paths)
+		return (NULL);
+    return (paths);
+}
 
+int	is_file_in_dir(char *file, char *dir)
+{
+	DIR 			*dirp;
+    struct dirent	*entry;
+
+    // Open the directory stream
+    dirp = opendir(dir);
+	//printf("%s\n", dir);
+    if (dirp == NULL)
+        return (1);
+    // Read directory entries
+	entry = readdir(dirp);
+    while (entry != NULL && ft_str_compare(file, entry->d_name) == 1)
+	{
+		//printf("dentro de entry --------> %s\n", entry->d_name);
+		entry = readdir(dirp); // it returns the next file
+	}
+    // Close the directory stream
+    if (closedir(dirp) != 0) // that this fucks up our entry?
+	{
+        perror("closedir");
+        return (1);
+    }
+	if (entry == NULL )
+		return (1);
+    return (0);
+}
+}
 /*
-    4. se forkea y se cierren todos los fds menos los que vamos a necesitar
-    5. se hace la execusion
-    5. se cierren los fds utilizados y se pasa al siguiente args
-    7. se cierran los fds en el papi
-    8. waitpid
-    9. lliberar pids y pipes de la estructura
-
-*/
-
 int ft_exec(t_ms *ms, t_args *args) 
 {
     int i;
@@ -279,7 +378,7 @@ int ft_exec(t_ms *ms, t_args *args)
         i++;
     }
     return (0);
-}
+}*/
 
 
 /*char **ft_get_paths(t_env *env)
@@ -367,46 +466,4 @@ int	ft_exec_cmd(char **args, t_env *env)
 	free_arr(envp);
 	return (exit_status);
 }
-
-int	ft_exec(t_ms *ms)
-{
-	t_args	*args;
-	int	pid;
-
-	printf("HOLA DESDE EXEC\n");
-	args = ms->args;
-	while (args != NULL) //while there're command lines
-	{
-		if (is_builtin(args->argv[0]) == 1)
-		{
-			dprintf(2, "is a builtin\n");
-			if (handle_builtins(ms, args) == -1) // check for error
-				return (-1); //error
-		}
-		else
-		{
-			dprintf(2, "not a builtin\n");
-			if (pipe(args->fd) == -1)
-				return (-1); // pipe error
-			pid = fork();
-			if (pid == 0)
-			{
-				close(args->fd[0]);
-				ms->exitstatus = ft_exec_cmd(args->argv, ms->env); // donde se gestiona exitstatus? aqui ya habra fd
-				close(args->fd[1]);
-			}
-			else
-			{
-				close(args->fd[1]);
-				//read(fd[0], buffer, algun valor);
-				// aqui se hace el dup??
-				// aqui se gestionan las señales??
-				close(args->fd[0]);
-				wait(NULL);
-			}
-		}
-		dprintf(2, "next args\n");
-		args = args->next;
-	}
-	return (0);
-}*/
+*/
