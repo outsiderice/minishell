@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/10 15:19:40 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:36:15 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ extern int	g_signstat;
 //type 1 = filename preceded by a redirection
 //type 2 = operator, a pipe
 //type 3 = operator, a redirection
+//type 4 = heredoc operator
+//type 5 = EOF
 typedef struct s_tokens
 {
 	int				type;
