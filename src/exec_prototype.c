@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_prototype.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/17 18:05:42 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/18 00:21:05 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,51 @@ int ft_exec_cmd(char **args, t_env *env) {
     }
     free_arr(envp);
     return (exit_status);
+}
+
+
+int handle_pipes_fd(t_ms *ms, t_args *args, int i)
+{
+    if (args->fd[0] == -1 || args->fd[1] == -1)
+    {
+        printf("Error in file descriptors\n");
+        return (-1);
+    }
+	if (args->fd[1] == -2)
+    {
+        if (args->next != NULL)
+        {
+            printf("fd was %d\n", args->fd[1]);
+            args->fd[1] = ms->pipes[i][1];
+            // dup2(ms->pipes[i][1], args->fd[1]);
+            printf("fd is %d\n", args->fd[1]);
+        }
+        else
+        {
+            dup2(STDOUT_FILENO, args->fd[1]);
+        }
+    }
+	if (args->fd[0] == -2)
+    {
+        if (i != 0)
+            args->fd[0] = ms->pipes[i-1][0];
+        else 
+            dup2(STDIN_FILENO, args->fd[0]);
+    }
+    return (0);
+}
+
+void    close_fd(t_args *args)
+{
+    while (args != NULL)
+    {
+        if (args->fd[0] != -2)
+            close(args->fd[0]);
+        if (args->fd[1] != -2)
+            close(args->fd[1]);
+        args = args->next;
+    }
+    return;
 }
 
 int ft_exec(t_ms *ms, t_args *args)
