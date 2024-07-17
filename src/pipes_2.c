@@ -4,17 +4,39 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-/*int main(int ac, char **av)
-{
-	int	pipes[3][2];
-	int	i;
-	int	pid[2];
 
-	pipes[2] = NULL;
-	i = 0;
-	while (i < 2)
+void close_pipes(int **pipes, int first, int last, int len)
+{
+	while (first <= last && first < len )
 	{
-		if (pipe(pipes[0]) == -1)
+		close(pipes[first][0]);
+		close(pipes[first][1]);
+		free(pipes[first]);
+		++first;
+	}
+	free(pipes);
+	return;
+}
+
+int main(int ac, char **av)
+{
+	int	**pipes;
+	int	i;
+	int ttl_cmnds;
+	ttl_cmnds = 3;
+	int	pid[ttl_cmnds];
+
+	pipes = malloc(sizeof(int *) * (ttl_cmnds - 1));
+	i = 0;
+	while (i < ttl_cmnds - 1)
+	{
+		pipes[i] = malloc(sizeof(int) * 2);
+		i++;
+	}
+	i = 0;
+	while (i < ttl_cmnds)
+	{
+		if (i != ttl_cmnds - 1 && pipe(pipes[i]) == -1)
 		{
 			printf("error in pipe\n");
 			return (1);
@@ -22,29 +44,33 @@
 		pid[i] = fork();
 		if (pid[i] == 0)
 		{
+			if(i != 0)
+				dup2(pipes[i - 1][0], STDIN_FILENO);
+			if (i != ttl_cmnds -1)
+				dup2(pipes[i][1], STDOUT_FILENO);
 
-			dup2(pipes[i][1], STDOUT_FILENO);
-                	close(fd[i][0]);
-                	close(fd[i][1]);
-			if(i == 0)
-                		execlp("ping", "ping", "-c", "5", "google.com", NULL);
+			close_pipes(pipes, 0, i, ttl_cmnds - 1);
+            if (i == 0)
+				execlp("ping", "ping", "-c", "5", "google.com", NULL);
 			else if (i == 1)
-				 execlp("grep", "grep", "rtt", NULL);
-		}
-		else
-		{
-			close(pipes[0][0]);
-			close(pipes[0][1]);
-			close(pipes[1][0]);
-		 	close(pipes[1][1]);
-			waitpid(pid[i], NULL, 0);
+				execlp("grep", "grep", "tt", NULL);
+			else if (i == 2)
+				execlp("grep", "grep", "3", NULL);
+				//execlp("wc", "wc", NULL);
 		}
 		i++;
 	}
+	i = 0;
+	close_pipes(pipes, 0, ttl_cmnds, ttl_cmnds - 1);
+	while (i < ttl_cmnds - 1)
+	{
+		waitpid(pid[i], NULL, 0);
+		++i;
+	}
 	return (0);
-}*/
-
-/*int main(int ac, char **av)
+}
+/*
+int main(int ac, char **av)
 {
 	int	fd[2];
 	if (pipe(fd) == -1)
@@ -56,7 +82,6 @@
 	{
 		//child process
 		dup2(fd[1], STDOUT_FILENO);
-		close(fd[0]);
 		close(fd[1]);
 		execlp("ping", "ping", "-c", "5", "google.com", NULL);
 	}
@@ -68,7 +93,12 @@
                 dup2(fd[0], STDIN_FILENO);
                 close(fd[0]);
                 close(fd[1]);
-                execlp("grep", "grep", "rtt", NULL);
+						char *a;
+				printf("GYJ");
+				read(fd[0], &a, 8);
+				write(1, &a, 8);
+		close(fd[0]);
+                execlp("grep", "grep", "tt", NULL);
         }
 	close(fd[0]);
 	close(fd[1]);
@@ -78,7 +108,7 @@
 }*/
 
 
-
+/*
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -129,5 +159,5 @@ int main(int ac, char **av) {
     waitpid(pid[1], NULL, 0);
 
     return 0;
-}
+}*/
 
