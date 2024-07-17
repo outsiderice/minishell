@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:01:50 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/15 15:43:04 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/17 16:31:14 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,19 @@ int handle_pipes(t_ms *ms)
         dprintf(2, "Un solo comando no requiere pipes\n");
         return (0);
     }
-    ms->pipes = malloc(sizeof(int *) * (ms->cmnds_num));
+    ms->pipes = malloc(sizeof(int *) * (ms->cmnds_num - 1));
     if (!ms->pipes)
         return (-1);
     i = 0;
-    while (i < ms->cmnds_num -1)
+    while (i < ms->cmnds_num - 1)
     {
         ms->pipes[i] = malloc(sizeof(int) * 2);
         if (!ms->pipes[i])
         // tambien liberar otros si se han creado ft_close_program (que llamara otros close de cada tipo que los libera)
-            return (-1) ; 
+            return (-1); 
         i++;
     }
-    ms->pipes[i] = NULL;
+    //ms->pipes[i] = NULL;
     return (0);
 }
 /*

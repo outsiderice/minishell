@@ -53,9 +53,9 @@ int main(int ac, char **av)
             if (i == 0)
 				execlp("ping", "ping", "-c", "5", "google.com", NULL);
 			else if (i == 1)
-				execlp("grep", "grep", "tt", NULL);
+				execlp("grep", "grep", "ttl", NULL);
 			else if (i == 2)
-				execlp("grep", "grep", "3", NULL);
+				execlp("grep", "grep", "9", NULL);
 				//execlp("wc", "wc", NULL);
 		}
 		i++;
