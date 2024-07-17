@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/17 18:05:42 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/17 19:15:14 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,8 @@ int ft_exec(t_ms *ms, t_args *args)
 		}
         if (is_builtin(args->argv[0]) == 1)
         {
+			if (ms->cmnds_num > 1)
+
             handle_builtins(ms, args);
             // hace falta gestionar el enganche entre comandos y builtins
         }
@@ -211,3 +213,32 @@ int ft_exec(t_ms *ms, t_args *args)
     }
     return (0);
 }
+
+
+
+/*if (input files) {
+					dup2(file[0], SRD_IN);
+					close(all files);
+				}
+				else if (i != 0)
+				// for input 
+				
+				if (i != 0)
+				{
+					// no hay una redireccion previa, y lo ponemos en el estander
+					if (args->prev->fd[0] == -2)
+						dup2(ms->pipes[i-1][0], STDIN_FILENO);
+					// hay redirecciones y conectamos la pipe con la redireccion y cerramos todos los fds;
+					else if ((args->fd[0] != -2 ) // no contempla el error de open
+						dup2((args->prev)->fd[0], STDIN_FILENO);
+				}
+				if (i != ms->cmnds_num - 1)
+				{
+					if (args->next->fd[1] == -2 || args->next == NULL)
+						dup2(ms->pipes[i][1], STDOUT_FILENO);
+					else if (args->next->fd[1] !=-2) // proteger el -1?
+						dup2(ms->pipes[i][1], args->fd[1]);
+				}
+                close_fds(first_arg);
+
+*/
