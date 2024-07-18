@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/10 14:56:51 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/18 01:37:24 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,10 +161,10 @@ int		ft_addtok(const char *line, int len, int type, t_tokens **tokens);
 /*---------------------------------------------*/
 /*    handle_builtins.c    */
 int		is_builtin(char *cmd);
-int		handle_builtins(t_ms *ms, t_args *args);
-int		ft_echo(t_args *args);
-int		ft_pwd(t_args *args);
-int		ft_env(t_env *env_list, t_args *args);
+int		handle_builtins(t_ms *ms, t_args *args, int fd);
+int		ft_echo(t_args *args, int fd);
+int		ft_pwd(int fd);
+int		ft_env(t_env *env_list, int fd);
 int		ft_export(t_ms *ms, char **args);
 int		is_numeric(char *str);
 int		ft_exit(char **args);

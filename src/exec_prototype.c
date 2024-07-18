@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_prototype.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/17 19:15:14 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/18 01:56:12 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ void handle_redirections(t_ms *ms, int fd[2], int i)
     //     close(fd[1]);
 }*/
 
+
+
 int ft_exec_cmd(char **args, t_env *env) {
     int i;
     char *cmd;
@@ -152,11 +154,27 @@ int ft_exec_cmd(char **args, t_env *env) {
     return (exit_status);
 }
 
+void    ft_close_fd(t_args *args)
+{
+    while (args != NULL)
+    {
+        if (args->fd[0] != -2 && args->fd[0] != -1) // AVOID CLOSING FILENO?
+            close(args->fd[0]);
+        if (args->fd[1] != -2 && args->fd[1] != -1)
+            close(args->fd[1]);
+        args = args->next;
+    }
+}
+
+
+
 int ft_exec(t_ms *ms, t_args *args)
 {
     int i;
+    t_args  *args_first;
     
     i = 0;
+	args_first = args;
     if (handle_pipes(ms) == -1)
     {
         printf("el numero de commandos es %d\n", ms->cmnds_num);
@@ -177,9 +195,12 @@ int ft_exec(t_ms *ms, t_args *args)
 		}
         if (is_builtin(args->argv[0]) == 1)
         {
-			if (ms->cmnds_num > 1)
-
-            handle_builtins(ms, args);
+			if (args->fd[1] != -2 && args->fd[1] != -1)
+				handle_builtins(ms, args, args->fd[1]);
+			else if (i != ms->cmnds_num -1)
+				handle_builtins(ms, args, ms->pipes[i][1]);
+			else
+				handle_builtins(ms, args, 1);
             // hace falta gestionar el enganche entre comandos y builtins
         }
         else
@@ -187,14 +208,19 @@ int ft_exec(t_ms *ms, t_args *args)
              ms->pid[i] = fork();
              if (ms->pid[i] == 0)
              {
-                if (i != 0)
-                    dup2(ms->pipes[i-1][0], STDIN_FILENO);
-                if (i !=  ms->cmnds_num - 1)
-                    dup2(ms->pipes[i][1], STDOUT_FILENO);
-				if(ms->cmnds_num > 1)
+				if (args->fd[0] != -2 && args->fd[0] != -1)
+					dup2(args->fd[0], STDIN_FILENO);
+				else if (i != 0)
+                	dup2(ms->pipes[i-1][0], STDIN_FILENO);
+				if (args->fd[1] != -2 && args->fd[1] != -1)
+					dup2(args->fd[1], STDOUT_FILENO);
+                else if (i !=  ms->cmnds_num - 1)
+                	dup2(ms->pipes[i][1], STDOUT_FILENO);
+				if (ms->cmnds_num > 1)
                 	close_pipes(ms->pipes, 0, i, ms->cmnds_num - 1);
                 dprintf(2, "------------------  Command Start     ------------------\n");
                 ft_exec_cmd(args->argv, ms->env);
+                ft_close_fd(args_first);
                 dprintf(2, "------------------  Command Finished  ------------------\n");
              }
         }
@@ -211,6 +237,7 @@ int ft_exec(t_ms *ms, t_args *args)
         waitpid(ms->pid[i], &stat, 0);
         i++;
     }
+	ft_close_fd(args_first);
     return (0);
 }
 
