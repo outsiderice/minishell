@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/18 01:56:12 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/18 02:10:13 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,6 @@ int ft_exec(t_ms *ms, t_args *args)
 	ft_close_fd(args_first);
     return (0);
 }
-
 
 
 /*if (input files) {
