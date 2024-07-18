@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:57:40 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/08 23:36:49 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/18 18:19:05 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,3 @@ int is_numeric(char *str)
     }
     return (1);
 }
-
-/*int	main(void)
-{
-Test 1: 12345 is numeric
-Test 2: -6789 is numeric
-Test 3: 12a45 is not numeric
-Test 4:  is not numeric
-Test 5: +123 is numeric
-Test 6: 0 is numeric
-Test 7: -0 is numeric
-Test 8: ' 123' is not numeric
-Converted number from test1: 12345
-Converted number from test2: -6789
-Converted number from test5: 123
-
-	printf("%d\n", is_numeric("12345"));
-	printf("%d\n", is_numeric("-6789"));
-	printf("%d\n", is_numeric("12a45"));
-	printf("%d\n", is_numeric(""));
-	printf("%d\n", is_numeric("+123"));
-	printf("%d\n", is_numeric("0"));
-	printf("%d\n", is_numeric("-0"));
-	printf("%d\n", is_numeric(" 123"));
-
-	return (0);
-}*/

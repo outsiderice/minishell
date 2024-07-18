@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/24 16:05:17 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/07 23:43:58 by kate             ###   ########.fr       */
+/*   Created: 2024/07/18 18:10:49 by kkoval            #+#    #+#             */
+/*   Updated: 2024/07/18 18:18:55 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,8 @@
 		declare -x HOMEBREW_CELLAR="/opt/homebrew/Cellar"
 		etc...
 	4. How to handle single quotation - A LOT OF FUN TO HANDLE
-*/
 
-/*A parameter is an entity that stores values. It can be a name, a number, or one of the special characters listed below. A variable is a parameter denoted by a name. 
-A variable has a value and zero or more attributes. Attributes are assigned using the declare builtin command (see the description of the declare builtin in Bash Builtin Commands).
-A parameter is set if it has been assigned a value. The null string is a valid value. Once a variable is set, it may be unset only by using the unset builtin command.
 
-A variable may be assigned to by a statement of the form
 
 name=[value]
 If value is not given, the variable is assigned the null string. All values undergo tilde expansion, parameter and variable expansion, command substitution, 
@@ -51,7 +46,7 @@ Bash POSIX Mode), these builtins may appear in a command after one or more insta
 
 //FUNCTION TO CHECK IF IT SHOULD BE STORRED
 
-//EXPORT WITH NO ARGUMENTS -> declare -x VARIABLE_NAME="value"\n in alphabetical order si quieres
+//EXPORT WITH NO ARGUMENTS -> declare -x VARIABLE_NAME="value"\n in alphabetical order si quieres*/
 
 //CHECKS THE VALIDITY OF ARGUMENT TO BE ADDED 
 int		ft_check_export_arg(char *arg)
@@ -71,9 +66,7 @@ int		ft_check_export_arg(char *arg)
 		return (1);
 	return (0);
 }
-
 //ADD ARGUMENT TO ENV
-
 int	ft_add_to_env(t_env *env_list, char *arg)
 {
 	t_env 	*aux;

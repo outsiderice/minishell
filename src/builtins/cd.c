@@ -3,31 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/24 16:04:18 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/07 23:49:18 by kate             ###   ########.fr       */
+/*   Created: 2024/07/18 17:02:52 by kkoval            #+#    #+#             */
+/*   Updated: 2024/07/18 18:19:02 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-/* DESCRIPTION FROM SHELL MANUAL
-	Change the current working directory to directory. If directory is not supplied, the value of the HOME shell variable is used. If the shell variable CDPATH exists, 
-	it is used as a search path: each directory name in CDPATH is searched for directory, with alternative directory names in CDPATH separated by a colon (‘:’). 
-	If directory begins with a slash, CDPATH is not used.
-*/
-
 /* How cd should behave:
 1. cd with no arguments => NOT ASKED IN EVAL SHEET
 	1. should go to HOME path (HOME env variable)
-	2. should change it's current PWD (to HOME path) and OLDPWD(will reflect it's previous PWD)
-
-5. DOUBTS:
+DOUBTS:
 	2. Do we have to check permissions to enter specific directories?
 */
 
-int ft_change_pwd(t_ms *ms)
+int	ft_change_pwd(t_ms *ms)
 {
 	char	*aux;
 
@@ -36,7 +28,7 @@ int ft_change_pwd(t_ms *ms)
 	if (ms->pwd == NULL)
 		return (-1);
 	ms->old_pwd = aux;
-	printf("oldpwd -- %s, new pwd -- %s",ms->pwd, ms->old_pwd);
+	//printf("oldpwd -- %s, new pwd -- %s",ms->pwd, ms->old_pwd);
 	ft_set_env_cont(ms->env, "PWD", ms->pwd);
 	ft_set_env_cont(ms->env, "OLDPWD", ms->old_pwd);
 	return (0);
@@ -50,7 +42,7 @@ int	ft_get_old_path(t_ms *ms)
 	path = get_env_cont(ms->env, "OLDPWD");
 	aux = path;
 	if (!path)
-	{ 
+	{
 		if (ms->old_pwd == NULL)
 		{
 			printf("bash: cd: OLDPWD not set");
