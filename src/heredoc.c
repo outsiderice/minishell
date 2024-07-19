@@ -6,28 +6,37 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/19 12:54:44 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:41:21 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_end_of_heredoc(char *tok)
-{}
+char	*set_end_of_heredoc(char *eof)
+{
+
+}
 
 int	open_heredoc(char *eof)
 {
-	int	fd;
+	int		fd;
+	char	*line;
+	char	*end;
+
+	end = set_end_of_heredoc(eof);
+	line = readline(">");
+	while (line && ft_str_compare(end, line) == 1)
+	{
+		ft_putstr_fd(line, fd);
+	}
 }
 
 int	handle_heredocs(t_ms *ms)
 {
 	int			fd;
 	t_tokens	*tok;
-	char		*eof;
 
 	fd = -2;
-	eof = NULL;
 	tok = ms->tokens;
 	while(tok)
 	{
@@ -35,10 +44,7 @@ int	handle_heredocs(t_ms *ms)
 		{
 			if (fd && fd != -2)
 				close(fd);
-			eof = get_end_of_heredoc(tok->next->tok);
-			if (!eof)
-				return (-1); //maybe another value?
-			fd = open_heredoc(eof);
+			fd = open_heredoc(tok->next->tok);
 			if (fd == -1)
 				return (-1);
 		}
