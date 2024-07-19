@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/08 23:13:37 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/19 12:19:18 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	prep_redir(t_tokens **tok, t_args *args)
 		}
 		else
 		{
-			//heredoc
+			//maybe dup heredocfd?
 			args->redir_type = 2;
 		}
 	}
@@ -100,9 +100,9 @@ int	prep_command(t_tokens **current_tok, t_ms **ms)
 	char	**arr;
 
 	arr = NULL;
-	if ((*current_tok)->type == 3 || (*current_tok)->type == 1)
+	if ((*current_tok)->type >= 3 || (*current_tok)->type == 1)
 	{
-		if (prep_redir(current_tok, (*ms)->args) == 1)
+		if (prep_redir(current_tok, (*ms)->args) == 1) //needs to iterate for heredoc
 		return (EXIT_FAILURE);
 	}
 	else if ((*current_tok)->type == 0)
@@ -116,6 +116,7 @@ int	prep_command(t_tokens **current_tok, t_ms **ms)
 		(*ms)->args->argv = arr;
 		arr = NULL;
 	}
+	printf("end of prep command\n");
 	return (EXIT_SUCCESS);
 }
 
