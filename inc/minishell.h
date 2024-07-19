@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/17 18:36:15 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:23:39 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ typedef struct s_ms
 	char		*pwd;
 	char		*old_pwd;
 	int			*pid; // nuevo -> aqui se guardan los hijos para controlarlos
-	int			**pipes;	
+	int			**pipes;
+	int			heredoc;	
 }	t_ms;
 
 /*    main.c    */
