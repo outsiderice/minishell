@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:58:57 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/15 14:12:33 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:48:58 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,13 @@ int	ft_assign(char *env_p, t_env **current)
 	if (equal_ptr == NULL)
 		return (-1);
 	env_len = ft_strlen(env_p);
-	printf("env_len %d\n", env_len);
+	//printf("env_len %d\n", env_len);
 	equal = equal_ptr - env_p;
-	printf("equal = %d\n", equal);
+	//printf("equal = %d\n", equal);
 	(*current)->v_name = ft_substr(env_p, 0, equal);
-	printf("v_name is %s\n", (*current)->v_name);
+	//printf("v_name is %s\n", (*current)->v_name);
 	(*current)->v_cont = ft_substr(env_p, equal + 1, env_len - equal - 1);
-	printf("v_cont is %s\n\n", (*current)->v_cont);
+	//printf("v_cont is %s\n\n", (*current)->v_cont);
 	if ((*current)->v_name == NULL || (*current)->v_cont == NULL)
 		return (-1);
 	(*current)->next = NULL;

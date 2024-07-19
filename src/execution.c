@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:26:40 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/19 11:28:43 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:23:59 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 //checks if it's a builtin and if it isn't calls execve
 void	exeggutor(t_ms *ms)
 {
+	ms->heredoc = handle_heredocs(ms);
 	if (ft_prep_args(ms) == 0 && ms->args->argv != NULL) //needs proper handling once executor is cleaned up
 	{
 	//heredoc
