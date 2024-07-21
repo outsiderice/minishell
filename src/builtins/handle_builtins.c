@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/18 02:07:30 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/21 23:53:04 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	handle_builtins(t_ms *ms, t_args *args, int fd) //probably has to be **msh t
 	else if (ft_str_compare(args->argv[0], "export") == 0)
 		ms->exitstatus = ft_export(ms, args->argv); 
 	else if (ft_str_compare(args->argv[0], "unset") == 0)
-		ms->exitstatus = ft_unset(&ms->env, args->argv);
+		ms->exitstatus = ft_unset(ms, args->argv);
 	else if (ft_str_compare(args->argv[0], "exit") == 0)
 		ms->exitstatus = (ft_exit(args->argv)); // this should have access to the adress
 	else 

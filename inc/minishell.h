@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/18 02:06:26 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/21 23:52:42 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ int		ft_export(t_ms *ms, char **args);
 int		is_numeric(char *str);
 int		ft_exit(char **args);
 int		ft_cd(t_ms *ms, char **args);
-int		ft_unset(t_env **env, char **args);
+int		ft_unset(t_ms  *ms, char **args);
 
 /*    builtins_utils.c    */
 int		ft_str_compare(char *str1, char *str2);

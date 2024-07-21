@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:02:52 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/18 18:19:02 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/21 18:36:40 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-/* How cd should behave:
-1. cd with no arguments => NOT ASKED IN EVAL SHEET
-	1. should go to HOME path (HOME env variable)
+/*
 DOUBTS:
 	2. Do we have to check permissions to enter specific directories?
 */
@@ -96,7 +93,6 @@ int	ft_cd(t_ms *ms, char **args)
 		path = ft_from_abs_path(ms, args[1]);
 	else
 		path = ft_strdup(args[1]);
-	
 	if (chdir(path) == -1)
 	{
 		if (stat(path, &sb) == 0)
