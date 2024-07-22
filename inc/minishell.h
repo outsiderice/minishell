@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/21 23:52:42 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/22 01:50:06 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <sys/types.h>
 # include <dirent.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include "../lib/readline/readline.h"
 # include "../lib/readline/history.h"
 # include "../lib/libft/libft.h"
@@ -119,8 +120,11 @@ int		is_file_in_dir(char *file, char *dir);
 
 /*               exec_utils.c                   */
 int 	ft_t_args_len(t_args *args);
+void    ft_close_fd(t_args *args);
+void	close_pipes(int **pipes, int first, int last, int len);
 int  	handle_pipes(t_ms *ms);
 int		handle_pids(t_ms *ms);
+
 
 /*---------------------------------------------*/
 /*               PARSING                       */
