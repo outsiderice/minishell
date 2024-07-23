@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/23 14:30:45 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:50:55 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,25 @@ char	*set_end_of_heredoc(char *eof)
 	return (h_end);
 }
 
-int	fill_heredoc()
+int	fill_heredoc(char *line, char *eof)
 {
+	char	*h_end;
+
+	h_end = set_end_of_heredoc(eof);
+	if (!h_end)
+		return (-1);
 	while (line && ft_str_compare(h_end, line) == 1)
 	{
 		if (!ft_strrchr(eof, '"') && !ft_strchr(eof, '\''))
 			//expand line
 		ft_putstr_fd(line, fd[1]);
 	}
+}
+
+void	close_heredoc(int *fd)
+{
+	close (fd[0]);
+	close (fd[1]);
 }
 
 int	ft_heredoc(char *eof)
@@ -48,18 +59,23 @@ int	ft_heredoc(char *eof)
 
 	if (pipe(fd) == -1)
 		return (-1);
-	h_end = set_end_of_heredoc(eof);
-	line = readline(">");
-	if (!line)
+	while ('h')
 	{
-		close (fd[1]);
-		close (fd[0]);
-		free(h_end);
-		return (-1);
+		line = readline(">");
+		if (!line)
+		{
+			close_heredoc(fd);
+			return (-1);
+		}
+		fd[0] = fill_heredoc(line, eof);
+		if (fd[0] == -1)
+		{
+			close_heredoc(fd);
+			return (-1);
+		}
 	}
-	fd[0] = fill_heredoc();
 	close(fd[1]);
-	return (fd[0])
+	return (fd[0]);
 }
 
 //iterates tokens, if it finds a heredoc operator it calls open_heredoc
