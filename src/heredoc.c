@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/19 13:41:21 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:37:58 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,34 @@ char	*set_end_of_heredoc(char *eof)
 
 }
 
-int	open_heredoc(char *eof)
+int	ft_heredoc(char *eof)
 {
-	int		fd;
+	int		fd[2];
 	char	*line;
-	char	*end;
+	char	*h_end;
 
-	end = set_end_of_heredoc(eof);
+	if (pipe(fd) == -1)
+		return (-1);
+	h_end = set_end_of_heredoc(eof);
 	line = readline(">");
-	while (line && ft_str_compare(end, line) == 1)
+	if (!line)
 	{
-		ft_putstr_fd(line, fd);
+		close (fd[1]);
+		close (fd[0]);
+		free(h_end);
+		return (-1);
 	}
+	while (line && ft_str_compare(h_end, line) == 1)
+	{
+		if (!ft_strrchr(eof, '"') && !ft_strchr(eof, '\''))
+			//expand line
+		ft_putstr_fd(line, fd[1]);
+	}
+	close(fd[1]);
+	return (fd[0])
 }
 
+//iterates tokens, if it finds a heredoc operator it calls open_heredoc
 int	handle_heredocs(t_ms *ms)
 {
 	int			fd;
@@ -44,7 +58,7 @@ int	handle_heredocs(t_ms *ms)
 		{
 			if (fd && fd != -2)
 				close(fd);
-			fd = open_heredoc(tok->next->tok);
+			fd = ft_heredoc(tok->next->tok);
 			if (fd == -1)
 				return (-1);
 		}
