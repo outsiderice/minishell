@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/23 13:37:58 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:30:45 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,30 @@
 
 char	*set_end_of_heredoc(char *eof)
 {
+	char	*h_end;
 
+	h_end = NULL;
+	if (!ft_strrchr(eof, '"') && !ft_strchr(eof, '\''))
+	{
+		h_end = ft_strdup(eof);
+		if (!h_end)
+			return (NULL);
+	}
+	else
+	{
+		//remove quotes of eof as needed
+	}
+	return (h_end);
+}
+
+int	fill_heredoc()
+{
+	while (line && ft_str_compare(h_end, line) == 1)
+	{
+		if (!ft_strrchr(eof, '"') && !ft_strchr(eof, '\''))
+			//expand line
+		ft_putstr_fd(line, fd[1]);
+	}
 }
 
 int	ft_heredoc(char *eof)
@@ -34,12 +57,7 @@ int	ft_heredoc(char *eof)
 		free(h_end);
 		return (-1);
 	}
-	while (line && ft_str_compare(h_end, line) == 1)
-	{
-		if (!ft_strrchr(eof, '"') && !ft_strchr(eof, '\''))
-			//expand line
-		ft_putstr_fd(line, fd[1]);
-	}
+	fd[0] = fill_heredoc();
 	close(fd[1]);
 	return (fd[0])
 }
