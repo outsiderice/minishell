@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/19 12:58:11 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/24 14:52:27 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void    ft_start_signals(int mode);
 void	ft_ignoresig(int signal);
 
 /*    get_input.c    */
-char	*ft_readline(t_ms *ms);
+char	*ft_readline(t_ms *ms, const char *prompt);
 
 /*    error.c    */
 // void	ft_error(t_ms **ms, char *line);
@@ -106,7 +106,7 @@ void	free_env(t_env **env);
 void	free_tok_and_args(t_tokens **toks, t_args **args);
 
 /*    heredoc.c*/
-int	handle_heredocs(t_ms *ms);
+int		handle_heredocs(t_ms *ms);
 
 /*    prep_execution.c    */
 int		ft_prep_args(t_ms *ms);

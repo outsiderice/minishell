@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/11 09:40:38 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/24 14:51:28 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_minishell(t_ms *ms)
 		
 		ft_start_signals(1);
 		ft_ignoresig(SIGQUIT);
-		line = ft_readline(ms);
+		line = ft_readline(ms, "eggshell~$");
 		ms->exitstatus = g_signstat + 128;
 		if (g_signstat == 0)
 			ms->exitstatus = 0;
