@@ -6,31 +6,57 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/23 14:50:55 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:05:56 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*set_end_of_heredoc(char *eof)
+char	*set_end_of_heredoc(t_tokens *eof)
 {
 	char	*h_end;
 
 	h_end = NULL;
-	if (!ft_strrchr(eof, '"') && !ft_strchr(eof, '\''))
-	{
-		h_end = ft_strdup(eof);
-		if (!h_end)
-			return (NULL);
-	}
+	if (!ft_strchr(eof, '"') && !ft_strchr(eof, '\''))
+		h_end = ft_strdup(eof->tok);
 	else
 	{
-		//remove quotes of eof as needed
+		if (expand_quotes(eof) == 1)
+			return (NULL);
+		h_end = ft_strdup(eof->tok);
 	}
+	if (!h_end)
+		return (NULL);
 	return (h_end);
 }
 
-int	fill_heredoc(char *line, char *eof)
+expand_line(t_ms *ms, char *line)
+{
+	char	*updated_line;
+	char	*dollar;
+	char	*var_name;
+	t_env	*env;
+
+	var_name = NULL;
+	updated_line = NULL;
+	dollar = NULL;
+	env = ms->env;
+	while (line)
+	{
+		doll = ft_strchr(line, '$');
+		if (doll)
+		{
+			var_name = get_var_name(doll, 0);
+			env_var = find_env_var(env, var_name);
+		}
+	}
+	//find env var
+	//set content
+	//
+	return (updated_line);
+}
+
+int	fill_heredoc(t_ms *ms, char *line, t_tokens *eof)
 {
 	char	*h_end;
 
@@ -39,8 +65,8 @@ int	fill_heredoc(char *line, char *eof)
 		return (-1);
 	while (line && ft_str_compare(h_end, line) == 1)
 	{
-		if (!ft_strrchr(eof, '"') && !ft_strchr(eof, '\''))
-			//expand line
+		if (!ft_strchr(eof, '"') && !ft_strchr(eof, '\''))
+			line = expand_line(ms, line);
 		ft_putstr_fd(line, fd[1]);
 	}
 }
@@ -51,7 +77,7 @@ void	close_heredoc(int *fd)
 	close (fd[1]);
 }
 
-int	ft_heredoc(char *eof)
+int	ft_heredoc(t_ms *ms, t_tokens *eof)
 {
 	int		fd[2];
 	char	*line;
@@ -67,7 +93,7 @@ int	ft_heredoc(char *eof)
 			close_heredoc(fd);
 			return (-1);
 		}
-		fd[0] = fill_heredoc(line, eof);
+		fd[0] = fill_heredoc(t_ms *ms, line, eof);
 		if (fd[0] == -1)
 		{
 			close_heredoc(fd);
@@ -92,7 +118,7 @@ int	handle_heredocs(t_ms *ms)
 		{
 			if (fd && fd != -2)
 				close(fd);
-			fd = ft_heredoc(tok->next->tok);
+			fd = ft_heredoc(ms, tok->next);
 			if (fd == -1)
 				return (-1);
 		}
