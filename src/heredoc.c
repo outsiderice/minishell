@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/25 09:54:15 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/25 10:26:59 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	open_heredoc(t_ms *ms, t_tokens *eof, char 	*h_end)
 	(void)eof;
 
 	if (pipe(fd) == -1)
-		return (-1);
+		exit (-1);
 	while (42)
 	{
 		line = readline(">");
@@ -134,6 +134,8 @@ int	ft_heredoc(t_ms *ms, t_tokens *eof, int fd)
 		open_heredoc(ms, eof, h_end);
 	}
 	waitpid(pid, &status, 0);
+	if (h_end)
+		free (h_end);
 	return (fd);
 }
 
