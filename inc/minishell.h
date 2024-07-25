@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/22 01:50:06 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/25 10:16:51 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ t_env	*start_env(char **env_p);
 char	**ft_list_to_array(t_env *env);
 int		ft_get_shll_lvl(t_env *env);
 int		ft_assign(char *env_p, t_env **current);
+int		ft_lstlen(t_env *env);
 int		ft_set_shll_lvl(t_env *env);
 
 /*    signals.c    */
@@ -169,7 +170,7 @@ int		handle_builtins(t_ms *ms, t_args *args, int fd);
 int		ft_echo(t_args *args, int fd);
 int		ft_pwd(int fd);
 int		ft_env(t_env *env_list, int fd);
-int		ft_export(t_ms *ms, char **args);
+int		ft_export(t_ms *ms, char **args, int fd);
 int		is_numeric(char *str);
 int		ft_exit(char **args);
 int		ft_cd(t_ms *ms, char **args);

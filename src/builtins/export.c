@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 18:10:49 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/21 18:34:12 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/25 11:22:47 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,27 @@
 	1. Invalid first character, wrong + position returns error and $? = 1 
 	2. In other invalid cases just returns a new line and $? = 0
 */
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int				i;
+	unsigned char	*ptr1;
+	unsigned char	*ptr2;
+
+	ptr1 = (unsigned char *)s1;
+	ptr2 = (unsigned char *)s2;
+	i = 0;	
+	while (ptr1[i] && ptr2[i] && ptr1[i] == ptr2[i])
+		i++;
+	if (ptr1[i] == '\0' && ptr2[i] != '\0')
+		return (-1);
+	else if (ptr1[i] != '\0' && ptr2[i] == '\0')
+		return(1);
+	else if (ptr1[i] == '\0' && ptr2[i] == '\0')
+		return (0);
+	return (ptr1[i] - ptr2[i]);
+}
+
 int		ft_check_export_arg(char *arg)
 {
 	int	i;
@@ -75,31 +96,74 @@ int	ft_add_to_env(t_env *env_list, char *arg)
 	return(1);
 }
 
-// NO ARGUMENTS, ONLY PRINT ENV_LIST
-void	ft_export_no_args(t_env *env_list)
+int *ft_sort_alpha(char **env, int len)
 {
-	while (env_list != NULL)
+	int		i;
+	int		x;
+	int		*ind;
+	int		pos;
+
+	if (len == 0)
+		return (NULL);
+	ind = malloc(sizeof(int) * len);
+	if (!ind)
+		return (NULL);
+	i = 0;
+	while (env[i] != NULL)
 	{
-		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		ft_putstr_fd(env_list->v_name, STDOUT_FILENO);
-		ft_putchar_fd('=', STDOUT_FILENO);
-		ft_putchar_fd('"', STDOUT_FILENO);
-		ft_putstr_fd(env_list->v_cont, STDOUT_FILENO);
-		ft_putendl_fd("\"", STDOUT_FILENO);
-		env_list = env_list->next;
+		x = 0;
+		pos = 0;
+		while (env[x] != NULL)
+		{
+			if (ft_strcmp(env[i], env[x]) > 0)
+				++pos;
+			x++;
+		}
+		ind[i] = pos;
+		i++;
+	}
+	return (ind);
+}
+
+// NO ARGUMENTS, ONLY PRINT ENV_LIST
+void	ft_export_no_args(t_env *env_list, int fd)
+{
+	char	**env;
+	t_env 	*first;
+	int		*ind;
+	int		i;
+	int		j;
+	
+	first = env_list;
+	env = ft_list_to_array(env_list);
+	i = 0;
+	ind = ft_sort_alpha(env, ft_lstlen(env_list));
+	while (i < ft_lstlen(env_list))
+	{
+		j = -1;
+		while (ind[++j] != i)
+			env_list = env_list->next;
+		ft_putstr_fd("declare -x ", fd);
+		ft_putstr_fd(env_list->v_name, fd);
+		ft_putchar_fd('=', fd);
+		ft_putchar_fd('"', fd);
+		ft_putstr_fd(env_list->v_cont, fd);
+		ft_putendl_fd("\"", fd);
+		env_list = first;
+		i++;
 	}
 	return;
 }
 
 // CONTROL FUNCTION, CHOOSES THE RIGHT CASE FOR EXPORT
-int	ft_export(t_ms *ms, char **args)
+int	ft_export(t_ms *ms, char **args, int fd)
 {
 	int res;
 
 	res = 0;
 	args++;
 	if (*args == NULL)
-		ft_export_no_args(ms->env);
+		ft_export_no_args(ms->env, fd);
 	else
 	{
 		while (*args != NULL)
