@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/25 10:26:59 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/25 10:32:25 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,7 @@ int	open_heredoc(t_ms *ms, t_tokens *eof, char 	*h_end)
 	{
 		line = readline(">");
 		if (!line)
-		{
-			free(h_end);
 			exit(close_heredoc(fd, 1));
-		}
 		if (ft_str_compare(line, h_end) == 0)
 			break;
 		//line = expand_line();
@@ -131,7 +128,7 @@ int	ft_heredoc(t_ms *ms, t_tokens *eof, int fd)
 	if (pid == 0)
 	{
 		ft_ignoresig(SIGINT);
-		open_heredoc(ms, eof, h_end);
+		fd = open_heredoc(ms, eof, h_end);
 	}
 	waitpid(pid, &status, 0);
 	if (h_end)
