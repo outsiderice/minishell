@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/08 23:13:37 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/18 01:41:35 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,11 +191,10 @@ int	ft_prep_args(t_ms *ms)
 			ms->args = NULL;
 		}
 	}
-	
-	
 	ms->args = head;
+	ms->cmnds_num = ft_t_args_len(ms->args);
 	// Kate: predefiniendo el fd del primero y ultimo arg
-	handler_fst_lst_redir(ms->args);
+	//handler_fst_lst_redir(ms->args);
 	print_args(ms); //delete later
 	return (EXIT_SUCCESS);
 }

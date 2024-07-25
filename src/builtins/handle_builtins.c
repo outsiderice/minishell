@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/08 15:30:38 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/22 21:46:52 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,9 @@ void	handle_redirections_builtin(t_args *args)
         }
         close(args->fd[1]);
     }
-
-    // Here-doc redirection: '<<' (Implement if necessary)
-    // You will need to handle here-doc separately, as it involves reading input until a delimiter.
 }
 
-int	handle_builtins(t_ms *ms, t_args *args) //probably has to be **msh to do exil propery and equal pointer to null
+int	handle_builtins(t_ms *ms, t_args *args, int fd) //probably has to be **msh to do exil propery and equal pointer to null
 {
 	/*int	saved_stdout;
 	
@@ -67,21 +64,21 @@ int	handle_builtins(t_ms *ms, t_args *args) //probably has to be **msh to do exi
 		saved_stdout = dup(1);
         //handle_redirections_builtin(args);
 	}*/
-	printf("FD IN: %d\nFD OUT: %d\n", args->fd[0], args->fd[1]);
+	printf("FD OUT: %d\n", fd);
 	if (ms->args == NULL) // only stays here to check bad redirection
 		printf("YOU SHALL NOT PASS TO BUILTINS, without builtin commands\n");
 	else if (ft_str_compare(args->argv[0], "echo") == 0)
-		ms->exitstatus = ft_echo(args);
+		ms->exitstatus = ft_echo(args, fd);
 	else if (ft_str_compare(args->argv[0], "pwd") == 0)
-		ms->exitstatus = ft_pwd(args);
+		ms->exitstatus = ft_pwd(fd);
 	else if (ft_str_compare(ms->args->argv[0], "cd") == 0)
 	 	ms->exitstatus = ft_cd(ms, ms->args->argv);
 	else if (ft_str_compare(args->argv[0], "env") == 0)
-		ms->exitstatus = ft_env(ms->env, ms->args);
+		ms->exitstatus = ft_env(ms->env, fd);
 	else if (ft_str_compare(args->argv[0], "export") == 0)
-		ms->exitstatus = ft_export(ms, args->argv); 
+		ms->exitstatus = ft_export(ms, args->argv, fd); 
 	else if (ft_str_compare(args->argv[0], "unset") == 0)
-		ms->exitstatus = ft_unset(&ms->env, args->argv);
+		ms->exitstatus = ft_unset(ms, args->argv);
 	else if (ft_str_compare(args->argv[0], "exit") == 0)
 		ms->exitstatus = (ft_exit(args->argv)); // this should have access to the adress
 	else 

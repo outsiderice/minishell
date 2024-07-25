@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:24:15 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/15 14:13:41 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:11:43 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	free_env(t_env **env)
 	}
 	*env = NULL;
 }
+
+
 
 void	free_tok_and_args(t_tokens **toks, t_args **args)
 {
