@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/25 12:15:43 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/25 12:25:45 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ char	*rm_delimiters(char *tok, int i);
 char	*all_join(char *s1, char *s2, char *s3);
 t_env	*find_env_var(t_env *env, char *var_name);
 char	*get_var_name(char *str, int start);
-char	*get_env_content(t_ms *ms, t_env *env, char *var_name);
+char	*get_dollar_content(t_ms *ms, t_env *env, char *var_name);
 // int		find_dollar_end(const char *name);
 
 /*    expand.c    */

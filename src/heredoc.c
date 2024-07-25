@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/25 10:46:08 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/25 12:26:13 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,24 @@ int	close_heredoc(int *fd, int err)
 
 char	*expand_line(t_ms *ms, char *eof, char *line)
 {
-	(void)ms;
+	t_env	*env_var;
+	char	*var_name;
+	char	*content;
+	int		i;
+
+	i = 0;
+	env_var = ms->env;
 	if (!ft_strchr(eof, '\'') && !ft_strchr(eof, '"'))
 	{
-		//expand
+		while (line[i])
+		{
+			if (line[i] == '$')
+			{
+				var_name = get_var_name(line, i);
+				env_var = find_env_var(env_var, var_name);
+				content = get_dollar_content(ms, env_var, var_name);
+			}
+		}
 		return (NULL);
 	}
 	return (line);

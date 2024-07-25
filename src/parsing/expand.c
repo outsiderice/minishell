@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/25 12:21:28 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/25 12:26:39 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 	env = ms->env;
 	var_name = get_var_name(tok->tok, i);
 	env = find_env_var(env, var_name);
-	content = get_env_content(ms, env, var_name);
+	content = get_dollar_content(ms, env, var_name);
 	if (!content)
 	{
 		free (var_name);
