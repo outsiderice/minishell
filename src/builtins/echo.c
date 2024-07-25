@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:22:05 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/08 23:30:13 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/18 01:18:32 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_print_args(char **argv, int fd)
 	}
 }
 
-int	ft_echo(t_args *args)
+int	ft_echo(t_args *args, int fd)
 {
 	int	do_jump;
 	char **argv;
@@ -51,9 +51,9 @@ int	ft_echo(t_args *args)
 	do_jump = ft_n_check(*argv);
 	while (ft_n_check(*argv) == 1)
 		argv++;
-	ft_print_args(argv, args->fd[1]);
+	ft_print_args(argv, fd);
 	if (do_jump == 0)
-		ft_putchar_fd('\n', args->fd[1]);
+		ft_putchar_fd('\n', fd);
 	return (0);
 }
 /*
