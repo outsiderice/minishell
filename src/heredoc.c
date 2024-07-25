@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/24 15:16:27 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/25 08:22:35 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,17 @@ int	close_heredoc(int *fd, int err)
 // 	char	*line;
 // }
 
-int	ft_heredoc(t_ms *ms, t_tokens *eof, char *h_end)
+int	ft_heredoc(t_ms *ms, t_tokens *eof, )
 {
 	int		fd[2];
 	char	*line;
+	char 	*h_end
 	(void)eof;
 	(void)ms;
 
 	if (pipe(fd) == -1)
 		return (-1);
+	h_end = set_end_of_heredoc(eof);
 	while (42)
 	{
 		line = readline(">");
@@ -117,22 +119,27 @@ int	handle_heredocs(t_ms *ms)
 {
 	int			fd;
 	t_tokens	*tok;
-	char		*h_end;
+	int			pid;
 
-	fd = -2;
 	tok = ms->tokens;
-	while(tok)
+	pid = fork();
+	if (pid == -1)
+		return (-1);
+	if (pid == 0)
 	{
-		if (tok->type == 4)
+		while(tok)
 		{
-			if (fd && fd != -2)
-				close(fd);
-			h_end = set_end_of_heredoc(tok->next);
-			fd = ft_heredoc(ms, tok->next, h_end);
-			if (fd == -1)
-				return (-1);
+			if (tok->type == 4)
+			{
+				if (fd && fd != -2)
+					close(fd);
+				fd = ft_heredoc(ms, tok->next);
+				if (fd == -1)
+					return (-1);
+			}
+			tok = tok->next;
 		}
-		tok = tok->next;
 	}
+	waitpid(pid);
 	return(fd);
 }
