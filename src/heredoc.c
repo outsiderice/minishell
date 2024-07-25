@@ -6,11 +6,12 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/25 08:22:35 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/25 09:54:15 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <sys/wait.h>
 
 char	*set_end_of_heredoc(t_tokens *eof)
 {
@@ -86,22 +87,23 @@ int	close_heredoc(int *fd, int err)
 // 	char	*line;
 // }
 
-int	ft_heredoc(t_ms *ms, t_tokens *eof, )
+int	open_heredoc(t_ms *ms, t_tokens *eof, char 	*h_end)
 {
 	int		fd[2];
 	char	*line;
-	char 	*h_end
-	(void)eof;
 	(void)ms;
+	(void)eof;
 
 	if (pipe(fd) == -1)
 		return (-1);
-	h_end = set_end_of_heredoc(eof);
 	while (42)
 	{
 		line = readline(">");
 		if (!line)
-			return(close_heredoc(fd, 1));
+		{
+			free(h_end);
+			exit(close_heredoc(fd, 1));
+		}
 		if (ft_str_compare(line, h_end) == 0)
 			break;
 		//line = expand_line();
@@ -114,32 +116,47 @@ int	ft_heredoc(t_ms *ms, t_tokens *eof, )
 	return (fd[0]);
 }
 
-//iterates tokens, if it finds a heredoc operator it calls open_heredoc
-int	handle_heredocs(t_ms *ms)
+int	ft_heredoc(t_ms *ms, t_tokens *eof, int fd)
 {
-	int			fd;
-	t_tokens	*tok;
-	int			pid;
+	int		pid;
+	char	*h_end;
+	int		status;
 
-	tok = ms->tokens;
+	h_end = set_end_of_heredoc(eof);
+	if (!h_end)
+		return (-1);
 	pid = fork();
 	if (pid == -1)
 		return (-1);
 	if (pid == 0)
 	{
-		while(tok)
-		{
-			if (tok->type == 4)
-			{
-				if (fd && fd != -2)
-					close(fd);
-				fd = ft_heredoc(ms, tok->next);
-				if (fd == -1)
-					return (-1);
-			}
-			tok = tok->next;
-		}
+		ft_ignoresig(SIGINT);
+		open_heredoc(ms, eof, h_end);
 	}
-	waitpid(pid);
+	waitpid(pid, &status, 0);
+	return (fd);
+}
+
+//iterates tokens, if it finds a heredoc operator it calls open_heredoc
+int	handle_heredocs(t_ms *ms)
+{
+	int			fd;
+	t_tokens	*tok;
+
+	fd = -2;
+	tok = ms->tokens;
+	while(tok)
+	{
+		ft_ignoresig(SIGQUIT);
+		if (tok->type == 4)
+		{
+			if (fd && fd != -2)
+					close(fd);
+			fd = ft_heredoc(ms, tok->next, fd);
+			if (fd == -1)
+				return (-1);
+		}
+		tok = tok->next;
+	}
 	return(fd);
 }
