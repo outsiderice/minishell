@@ -5,55 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/24 16:05:17 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/07 23:43:58 by kate             ###   ########.fr       */
+/*   Created: 2024/07/18 18:10:49 by kkoval            #+#    #+#             */
+/*   Updated: 2024/07/25 11:22:47 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-/* EXPORT
-	1. This built-in saves variables passed as enviroment variables if has specific arfument
-		NAME=VALUE -> no space between name and value 
-	2. export with no arguments
-		bash-3.2$ export
-		declare -x HOME="/Users/kate"
-		declare -x HOMEBREW_CELLAR="/opt/homebrew/Cellar"
-		declare -x HOMEBREW_PREFIX="/opt/homebrew"
-		declare -x HOMEBREW_REPOSITORY="/opt/homebrew"
-		declare -x INFOPATH="/opt/homebrew/share/info:"
-		etc... until the end of env list.
+/*CHECKS THE VALIDITY OF ARGUMENT TO BE ADDED:
+	1. Invalid first character, wrong + position returns error and $? = 1 
+	2. In other invalid cases just returns a new line and $? = 0
 */
 
-/* TO DO: 
-	1. Function: Parsing to see if it fits the standart to add it to the list on env variables.
-	2. Function: if it does fit add it to env list.
-	3. Function: if export has no arguments to go through env list and print it in this structure:
-		declare -x HOME="/Users/kate"
-		declare -x HOMEBREW_CELLAR="/opt/homebrew/Cellar"
-		etc...
-	4. How to handle single quotation - A LOT OF FUN TO HANDLE
-*/
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int				i;
+	unsigned char	*ptr1;
+	unsigned char	*ptr2;
 
-/*A parameter is an entity that stores values. It can be a name, a number, or one of the special characters listed below. A variable is a parameter denoted by a name. 
-A variable has a value and zero or more attributes. Attributes are assigned using the declare builtin command (see the description of the declare builtin in Bash Builtin Commands).
-A parameter is set if it has been assigned a value. The null string is a valid value. Once a variable is set, it may be unset only by using the unset builtin command.
+	ptr1 = (unsigned char *)s1;
+	ptr2 = (unsigned char *)s2;
+	i = 0;	
+	while (ptr1[i] && ptr2[i] && ptr1[i] == ptr2[i])
+		i++;
+	if (ptr1[i] == '\0' && ptr2[i] != '\0')
+		return (-1);
+	else if (ptr1[i] != '\0' && ptr2[i] == '\0')
+		return(1);
+	else if (ptr1[i] == '\0' && ptr2[i] == '\0')
+		return (0);
+	return (ptr1[i] - ptr2[i]);
+}
 
-A variable may be assigned to by a statement of the form
-
-name=[value]
-If value is not given, the variable is assigned the null string. All values undergo tilde expansion, parameter and variable expansion, command substitution, 
-arithmetic expansion, and quote removal (see Shell Parameter Expansion). If the variable has its integer attribute set, then value is evaluated as an 
-arithmetic expression even if the $((…)) expansion is not used (see Arithmetic Expansion). Word splitting and filename expansion are not performed. 
-Assignment statements may also appear as arguments to the alias, declare, typeset, export, readonly, and local builtin commands (declaration commands). 
-When in POSIX mode (see 
-Bash POSIX Mode), these builtins may appear in a command after one or more instances of the command builtin and retain these assignment statement properties.*/
-
-//FUNCTION TO CHECK IF IT SHOULD BE STORRED
-
-//EXPORT WITH NO ARGUMENTS -> declare -x VARIABLE_NAME="value"\n in alphabetical order si quieres
-
-//CHECKS THE VALIDITY OF ARGUMENT TO BE ADDED 
 int		ft_check_export_arg(char *arg)
 {
 	int	i;
@@ -61,27 +44,30 @@ int		ft_check_export_arg(char *arg)
 
 	i = 0;
 	i_plus = 0;
-	if (ft_isalpha(arg[0]) != 1 && arg[0] != '_') // no es ni letra ni _
-		return (0);
+	if (ft_isalpha(arg[0]) != 1 && arg[0] != '_')
+	{
+		printf("eggshell: export: `%s' not a valid identifier\n", arg);
+		return (-1);
+	}
 	while(arg[i] != '\0' && arg[i] != '=')
 		i++;
 	while(arg[i_plus] != '\0' && arg[i_plus] != '+')
-		i_plus++;
+		i_plus++;	
 	if (arg[i] == '=' && (i_plus + 1 >= i))
-		return (1);
-	return (0);
+		return (0);
+	else
+		printf("eggshell: export: `%s' not a valid identifier\n", arg);
+	return (-1);
 }
-
 //ADD ARGUMENT TO ENV
-
 int	ft_add_to_env(t_env *env_list, char *arg)
 {
 	t_env 	*aux;
 	t_env	*node;
 
 	aux = NULL;
-	if (env_list == NULL)
-		return (-1);
+	//if (env_list == NULL) se tiene que gestionar fuera
+		//return (-1);
 	node = malloc(sizeof(t_env) * 1);
 	if (!node)
 		return(-1);
@@ -110,38 +96,86 @@ int	ft_add_to_env(t_env *env_list, char *arg)
 	return(1);
 }
 
-// NO ARGUMENTS, ONLY PRINT ENV_LIST
-void	ft_export_no_args(t_env *env_list)
+int *ft_sort_alpha(char **env, int len)
 {
-	while (env_list != NULL)
+	int		i;
+	int		x;
+	int		*ind;
+	int		pos;
+
+	if (len == 0)
+		return (NULL);
+	ind = malloc(sizeof(int) * len);
+	if (!ind)
+		return (NULL);
+	i = 0;
+	while (env[i] != NULL)
 	{
-		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		ft_putstr_fd(env_list->v_name, STDOUT_FILENO);
-		ft_putchar_fd('=', STDOUT_FILENO);
-		ft_putchar_fd('"', STDOUT_FILENO);
-		ft_putstr_fd(env_list->v_cont, STDOUT_FILENO);
-		ft_putendl_fd("\"", STDOUT_FILENO);
-		env_list = env_list->next;
+		x = 0;
+		pos = 0;
+		while (env[x] != NULL)
+		{
+			if (ft_strcmp(env[i], env[x]) > 0)
+				++pos;
+			x++;
+		}
+		ind[i] = pos;
+		i++;
+	}
+	return (ind);
+}
+
+// NO ARGUMENTS, ONLY PRINT ENV_LIST
+void	ft_export_no_args(t_env *env_list, int fd)
+{
+	char	**env;
+	t_env 	*first;
+	int		*ind;
+	int		i;
+	int		j;
+	
+	first = env_list;
+	env = ft_list_to_array(env_list);
+	i = 0;
+	ind = ft_sort_alpha(env, ft_lstlen(env_list));
+	while (i < ft_lstlen(env_list))
+	{
+		j = -1;
+		while (ind[++j] != i)
+			env_list = env_list->next;
+		ft_putstr_fd("declare -x ", fd);
+		ft_putstr_fd(env_list->v_name, fd);
+		ft_putchar_fd('=', fd);
+		ft_putchar_fd('"', fd);
+		ft_putstr_fd(env_list->v_cont, fd);
+		ft_putendl_fd("\"", fd);
+		env_list = first;
+		i++;
 	}
 	return;
 }
 
-// CONTROL FUNCTION HAS TO RETURN 0 or 1
-int	ft_export(t_ms *ms, char **args) //chekea las opciones no argummentos
+// CONTROL FUNCTION, CHOOSES THE RIGHT CASE FOR EXPORT
+int	ft_export(t_ms *ms, char **args, int fd)
 {
+	int res;
+
+	res = 0;
 	args++;
 	if (*args == NULL)
-		ft_export_no_args(ms->env);
+		ft_export_no_args(ms->env, fd);
 	else
 	{
 		while (*args != NULL)
 		{
-			if (ft_check_export_arg(*args) == 1)
+			if (ft_check_export_arg(*args) == 0)
+			{
 				ft_add_to_env(ms->env, *args);
-			else
-				printf("error\n");
+			}
+			else 
+				res = 1;
 			args++;
 		}
 	}
-	return (0);
+	return (res);
 }

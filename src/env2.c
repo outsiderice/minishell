@@ -6,14 +6,11 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:57:40 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/08 23:36:49 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/21 18:20:12 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-//#include "../inc/minishell.h"
-//#include "../../lib/libft/include/libft.h"
-#include <stdio.h>
+#include "../inc/minishell.h"
 
 int is_numeric(char *str) 
 {
@@ -30,28 +27,39 @@ int is_numeric(char *str)
     return (1);
 }
 
-/*int	main(void)
+// counts the nodes to make future malloc to create an char **
+int	ft_lstlen(t_env *env)
 {
-Test 1: 12345 is numeric
-Test 2: -6789 is numeric
-Test 3: 12a45 is not numeric
-Test 4:  is not numeric
-Test 5: +123 is numeric
-Test 6: 0 is numeric
-Test 7: -0 is numeric
-Test 8: ' 123' is not numeric
-Converted number from test1: 12345
-Converted number from test2: -6789
-Converted number from test5: 123
+	int	len;
 
-	printf("%d\n", is_numeric("12345"));
-	printf("%d\n", is_numeric("-6789"));
-	printf("%d\n", is_numeric("12a45"));
-	printf("%d\n", is_numeric(""));
-	printf("%d\n", is_numeric("+123"));
-	printf("%d\n", is_numeric("0"));
-	printf("%d\n", is_numeric("-0"));
-	printf("%d\n", is_numeric(" 123"));
+	len = 0;
+	while (env != NULL)
+	{
+		env = env->next;
+		len++;
+	}
+	return (len);
+}
 
-	return (0);
-}*/
+// converts a list to a char **
+char	**ft_list_to_array(t_env *env)
+{
+	char	**env_a;
+	char	*aux;
+	int		i;
+
+	env_a = malloc(sizeof(char *) * (ft_lstlen(env) + 1));
+	if (!env_a)
+		return (NULL);
+	i = 0;
+	while (env != NULL)
+	{
+		aux = ft_strjoin(env->v_name, "="); // needs to be checkes for NULL?
+		env_a[i] = ft_strjoin(aux, env->v_cont);
+		free (aux);
+		i++;
+		env = env->next;
+	}
+	env_a[i] = NULL;
+	return (env_a);
+}

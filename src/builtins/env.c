@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:04:57 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/05 18:29:00 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/18 01:37:17 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@
 		126
 */
 
-int	ft_env(t_env *env_list, t_args *args)
+int	ft_env(t_env *env_list, int fd)
 {
 	while (env_list != NULL)
 	{
-		ft_putstr_fd(env_list->v_name, args->fd[1]);
-		ft_putchar_fd('=', args->fd[1]);
-		ft_putendl_fd(env_list->v_cont, args->fd[1]);
+		ft_putstr_fd(env_list->v_name, fd);
+		ft_putchar_fd('=', fd);
+		ft_putendl_fd(env_list->v_cont, fd);
 		env_list = env_list->next;
 	}
 	return (EXIT_SUCCESS); // macro variable that equals 0

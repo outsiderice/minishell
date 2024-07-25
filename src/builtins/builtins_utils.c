@@ -3,21 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/07 00:08:53 by kate             ###   ########.fr       */
+/*   Created: 2024/07/18 16:58:27 by kkoval            #+#    #+#             */
+/*   Updated: 2024/07/18 17:00:26 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "../../inc/minishell.h"
 
 // this functions compares without a need of strlen
 int	ft_str_compare(char *str1, char *str2)
 {
-    int	i;
+	int	i;
 
 	i = 0;
 	if (str1 == NULL || str2 == NULL)
@@ -73,8 +71,8 @@ int	ft_set_env_cont(t_env *env, char *name, char *cont)
 		{
 			free(env->v_cont);
 			env->v_cont = ft_strdup(cont);
-			if (!env->v_cont) // se podria gestionar
-				return(-1); 
+			if (!env->v_cont)
+				return (-1);
 			return (0);
 		}
 		env = env->next;

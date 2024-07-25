@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/10 15:19:40 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:09:24 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <sys/types.h>
 # include <dirent.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include "../lib/readline/readline.h"
 # include "../lib/readline/history.h"
 # include "../lib/libft/libft.h"
@@ -75,6 +76,7 @@ typedef struct s_ms
 	char		*old_pwd;
 	int			*pid; // nuevo -> aqui se guardan los hijos para controlarlos
 	int			**pipes;	
+	int			cmnds_num;
 }	t_ms;
 
 /*    main.c    */
@@ -85,6 +87,7 @@ t_env	*start_env(char **env_p);
 char	**ft_list_to_array(t_env *env);
 int		ft_get_shll_lvl(t_env *env);
 int		ft_assign(char *env_p, t_env **current);
+int		ft_lstlen(t_env *env);
 int		ft_set_shll_lvl(t_env *env);
 
 /*    signals.c    */
@@ -121,7 +124,12 @@ int		ft_exec(t_ms *ms, t_args *args);
 int		is_file_in_dir(char *file, char *dir);
 
 /*               exec_utils.c                   */
-int		ft_pipes_len(t_args *args);
+int 	ft_t_args_len(t_args *args);
+void    ft_close_fd(t_args *args);
+void	close_pipes(int **pipes, int first, int last, int len);
+int  	handle_pipes(t_ms *ms);
+int		handle_pids(t_ms *ms);
+
 
 /*---------------------------------------------*/
 /*               PARSING                       */
@@ -164,15 +172,15 @@ int		ft_addtok(const char *line, int len, int type, t_tokens **tokens);
 /*---------------------------------------------*/
 /*    handle_builtins.c    */
 int		is_builtin(char *cmd);
-int		handle_builtins(t_ms *ms, t_args *args);
-int		ft_echo(t_args *args);
-int		ft_pwd(t_args *args);
-int		ft_env(t_env *env_list, t_args *args);
-int		ft_export(t_ms *ms, char **args);
+int		handle_builtins(t_ms *ms, t_args *args, int fd);
+int		ft_echo(t_args *args, int fd);
+int		ft_pwd(int fd);
+int		ft_env(t_env *env_list, int fd);
+int		ft_export(t_ms *ms, char **args, int fd);
 int		is_numeric(char *str);
 int		ft_exit(char **args);
 int		ft_cd(t_ms *ms, char **args);
-int		ft_unset(t_env **env, char **args);
+int		ft_unset(t_ms  *ms, char **args);
 
 /*    builtins_utils.c    */
 int		ft_str_compare(char *str1, char *str2);
