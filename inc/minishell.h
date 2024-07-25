@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/25 15:09:24 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/25 17:42:19 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,5 +187,10 @@ int		ft_str_compare(char *str1, char *str2);
 char	*get_env_cont(t_env *env, char *str);
 int		ft_args_len(char **args);
 int		ft_set_env_cont(t_env *env, char *name, char *cont);
+
+/*---------------------------------------------*/
+/*                   FREE                      */
+/*---------------------------------------------*/
+void	free_double_int_ptr(int **ptr, int len);
 
 #endif
