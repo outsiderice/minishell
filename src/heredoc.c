@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/26 19:50:23 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/26 20:30:42 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ char	*update_hline(char *line, char *content, int i)
 	return (updated_line);
 }
 
-char	*expand_line(t_ms *ms, char *eof, char *line)
+
+char	*expand_line(t_ms *ms, char *line)
 {
 	t_env	*env_var;
 	char	*var_name;
@@ -69,28 +70,32 @@ char	*expand_line(t_ms *ms, char *eof, char *line)
 
 	i = 0;
 	env_var = ms->env;
-	if (!ft_strchr(eof, '\'') && !ft_strchr(eof, '"'))
+	updated_line = NULL;
+	if (!ft_strchr(line, '$'))
+		return (line);
+	while (line[i])
 	{
-		while (line[i])
+		printf("am i stuck?\n");
+		if (line[i] == '$')
 		{
-			if (line[i] == '$')
-			{
-				var_name = get_var_name(line, i);
-				env_var = find_env_var(env_var, var_name);
-				content = get_dollar_content(ms, env_var, var_name);
-				free (var_name);
-				free (env_var);
-				updated_line = update_hline(line, content, i);
-				free (content);
-				i = i + ft_strlen(content);
-			}
+			var_name = get_var_name(line, i);
+			env_var = find_env_var(env_var, var_name);
+			content = get_dollar_content(ms, env_var, var_name);
+			free (var_name);
+			free (env_var);
+			updated_line = update_hline(line, content, i);
+			free (content);
+			i = i + ft_strlen(content);
 		}
-		return (updated_line);
+		i++;
 	}
-	return (line);
-}
+	if (updated_line != NULL)
+		printf("expanded line = <%s>\n", updated_line);
+	return (updated_line);
+	}
+	
 
-int	open_heredoc(t_ms *ms, t_tokens *eof, char 	*h_end, int hd)
+int	open_heredoc(t_ms *ms, char *h_end, int hd, int expansion)
 {
 	char	*line;
 
@@ -104,9 +109,10 @@ int	open_heredoc(t_ms *ms, t_tokens *eof, char 	*h_end, int hd)
 			free(line);
 			break;
 		}
-		if (*line != '\0')
+		else if (*line != '\0')
 		{
-			line = expand_line(ms, eof->tok, line);
+			if (expansion == 1)
+				line = expand_line(ms, line);
 			ft_putstr_fd(line, hd);
 			write(hd, "\n", 1);
 		}
@@ -117,7 +123,7 @@ int	open_heredoc(t_ms *ms, t_tokens *eof, char 	*h_end, int hd)
 	exit (0);
 }
 
-int	ft_heredoc(t_ms *ms, t_tokens *eof)
+int	ft_heredoc(t_ms *ms, t_tokens *eof, int expansion)
 {
 	pid_t		pid;
 	char		*h_end;
@@ -135,7 +141,7 @@ int	ft_heredoc(t_ms *ms, t_tokens *eof)
 	if (pid == 0)
 	{
 		ft_ignoresig(SIGINT);
-		open_heredoc(ms, eof, h_end, hd[1]);
+		open_heredoc(ms, h_end, hd[1], expansion);
 	}
 	waitpid(pid, &status, 0); //use status?
 	if (h_end)
@@ -147,18 +153,23 @@ int	ft_heredoc(t_ms *ms, t_tokens *eof)
 int	handle_heredocs(t_ms *ms)
 {
 	int			fd;
+	int			expansion;
 	t_tokens	*tok;
 
 	fd = -2;
 	tok = ms->tokens;
+	expansion = 1;
 	while(tok)
 	{
 		ft_ignoresig(SIGQUIT);
 		if (tok->type == 4)
 		{
+			if (ft_strchr(tok->next->tok, '\'') || ft_strchr(tok->next->tok, '"'))
+				expansion = 0;
 			if (fd && fd != -2)
 					close(fd);
-			fd = ft_heredoc(ms, tok->next);
+			printf("expansion = %d\n", expansion);
+			fd = ft_heredoc(ms, tok->next, expansion);
 			if (fd == -1)
 				return (-1);
 		}
