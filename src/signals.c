@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:25:54 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/10 16:22:36 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:40:05 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ void	sig_handler(int signal)
 	}
 }
 
+void	heredoc_sigmode(int signal)
+{
+	if (signal == SIGINT)
+		exit(130);
+}
+
 void	ft_ignoresig(int signal)
 {
 	struct sigaction	sa;
@@ -63,8 +69,8 @@ void    ft_start_signals(int mode)
 	sigemptyset(&sa.sa_mask);
 	if (mode == 1)
 		sa.sa_handler = sig_handler;
-	// else if (mode == 2)
-	// 	sa.sa_sigaction = heredoc_sigmode;
+	else if (mode == 2)
+	 	sa.sa_handler = heredoc_sigmode;
 	if (sigaction(SIGINT, &sa, NULL) == -1)
 	{
 		perror("sigaction");

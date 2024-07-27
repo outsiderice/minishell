@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/10 13:58:46 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:36:33 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ int	ft_redir_syntax(t_tokens *tok)
 	{
 		error_msg("syntax error near unexpected token,", tok->tok);
 		return (EXIT_FAILURE);
+	}
+	else if (ft_str_compare(tok->tok, "<<") == 0)
+	{
+		tok->type = 4;
+		tok->next->type = 5;
 	}
 	else
 		tok->next->type = 1;

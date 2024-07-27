@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/25 15:12:08 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/25 16:21:27 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_minishell(t_ms *ms)
 		
 		ft_start_signals(1);
 		ft_ignoresig(SIGQUIT);
-		line = ft_readline(ms);
+		line = ft_readline(ms, "eggshell~$");
 		ms->exitstatus = g_signstat + 128;
 		if (g_signstat == 0)
 			ms->exitstatus = 0;

@@ -6,11 +6,45 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:24:15 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/25 15:11:43 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/25 17:42:57 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_double_char_ptr(char **ptr)
+{
+	while(*ptr != NULL)
+		free(*ptr);
+	if (ptr != NULL)
+	{
+		free(ptr);
+		ptr = NULL;
+	}
+}
+
+void	free_int_ptr(int *ptr)
+{
+	if (ptr != NULL)
+		free(ptr);
+}
+
+void	free_double_int_ptr(int **ptr, int len)
+{
+	int	i;
+
+	i = 0;
+	while (i < len)
+	{
+		free_int_ptr(ptr[i]);
+		i++;
+	}
+	if (ptr != NULL)
+	{
+		free(ptr);
+		ptr = NULL;
+	}
+}
 
 void	free_env(t_env **env)
 {
@@ -29,8 +63,6 @@ void	free_env(t_env **env)
 	}
 	*env = NULL;
 }
-
-
 
 void	free_tok_and_args(t_tokens **toks, t_args **args)
 {
@@ -59,4 +91,18 @@ void	free_tok_and_args(t_tokens **toks, t_args **args)
 		free(tmp_arg);
 	}
 	*args = NULL;
+}
+
+//GLOBAL T_MS FREE
+void	free_ms(t_ms *ms)
+{
+	free_env(&ms->env);
+	free_tok_and_args(&ms->tokens, &ms->args);
+	free_double_char_ptr(ms->envp);
+	if (ms->pwd != NULL)
+		free(ms->pwd);
+	if (ms->old_pwd != NULL)	
+		free(ms->old_pwd);
+	free_int_ptr(ms->pid);
+	free_double_int_ptr(ms->pipes, ms->cmnds_num);
 }
