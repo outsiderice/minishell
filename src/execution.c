@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:26:40 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/10 14:56:53 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/25 16:21:11 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 //checks if it's a builtin and if it isn't calls execve
 void	exeggutor(t_ms *ms)
 {
-	if (ft_prep_args(ms) == 0) //needs proper handling once executor is cleaned up
+	ms->heredoc = handle_heredocs(ms);
+	if (ft_prep_args(ms) == 0 && ms->args->argv != NULL) //needs proper handling once executor is cleaned up
 	{
 	//heredoc
 	//check_files

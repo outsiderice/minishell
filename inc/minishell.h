@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/25 17:42:19 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/27 17:20:42 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ extern int	g_signstat;
 //type 1 = filename preceded by a redirection
 //type 2 = operator, a pipe
 //type 3 = operator, a redirection
+//type 4 = heredoc operator
+//type 5 = EOF
 typedef struct s_tokens
 {
 	int				type;
@@ -75,8 +77,9 @@ typedef struct s_ms
 	char		*pwd;
 	char		*old_pwd;
 	int			*pid; // nuevo -> aqui se guardan los hijos para controlarlos
-	int			**pipes;	
+	int			**pipes;
 	int			cmnds_num;
+	int			heredoc;	
 }	t_ms;
 
 /*    main.c    */
@@ -95,7 +98,7 @@ void    ft_start_signals(int mode);
 void	ft_ignoresig(int signal);
 
 /*    get_input.c    */
-char	*ft_readline(t_ms *ms);
+char	*ft_readline(t_ms *ms, const char *prompt);
 
 /*    error.c    */
 // void	ft_error(t_ms **ms, char *line);
@@ -104,6 +107,9 @@ int		error_msg(char *msg, char *deets);
 /*    free.c    */
 void	free_env(t_env **env);
 void	free_tok_and_args(t_tokens **toks, t_args **args);
+
+/*    heredoc.c*/
+int		handle_heredocs(t_ms *ms);
 
 /*    prep_execution.c    */
 int		ft_prep_args(t_ms *ms);
@@ -143,6 +149,7 @@ char	*rm_delimiters(char *tok, int i);
 char	*all_join(char *s1, char *s2, char *s3);
 t_env	*find_env_var(t_env *env, char *var_name);
 char	*get_var_name(char *str, int start);
+char	*get_dollar_content(t_ms *ms, t_env *env, char *var_name);
 // int		find_dollar_end(const char *name);
 
 /*    expand.c    */

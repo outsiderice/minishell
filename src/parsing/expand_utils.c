@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:42:25 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/10 12:41:56 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/25 12:25:38 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,23 @@ t_env	*find_env_var(t_env *env, char *var_name)
 	if (!env)
 		return (NULL);
 	return (env);
+}
+
+char	*get_dollar_content(t_ms *ms, t_env *env, char *var_name)
+{
+	char	*content;
+
+	content = NULL;
+	if (!env)
+	{
+		if (ft_str_compare(var_name, "$?") == 0)
+			content = ft_itoa(ms->exitstatus);
+		else
+			content = ft_strdup("");
+	}
+	else
+		content = ft_strdup(env->v_cont);
+	return (content);
 }
 
 // find end of env variable name and return it's length
