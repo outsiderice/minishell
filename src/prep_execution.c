@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/25 16:21:37 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:00:03 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	create_args(t_ms *ms, t_args **head, t_args **arg)
 }
 
 // Assigns redir_type and saves filename to t_args
-int	prep_redir(t_tokens **tok, t_args *args)
+int	prep_redir(t_ms *ms, t_tokens **tok, t_args *args)
 {
 	if ((*tok)->tok[0] == '<')
 	{
@@ -44,7 +44,7 @@ int	prep_redir(t_tokens **tok, t_args *args)
 		}
 		else
 		{
-			//maybe dup heredocfd?
+			args->fd[0] = ms->heredoc;
 			args->redir_type = 2;
 		}
 	}
@@ -102,7 +102,7 @@ int	prep_command(t_tokens **current_tok, t_ms **ms)
 	arr = NULL;
 	if ((*current_tok)->type >= 3 || (*current_tok)->type == 1)
 	{
-		if (prep_redir(current_tok, (*ms)->args) == 1) //needs to iterate for heredoc
+		if (prep_redir((*ms), current_tok, (*ms)->args) == 1) //needs to iterate for heredoc
 		return (EXIT_FAILURE);
 	}
 	else if ((*current_tok)->type == 0)
