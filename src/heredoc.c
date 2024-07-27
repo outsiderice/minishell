@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/27 16:45:57 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:48:22 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ char	*expand_line(t_ms *ms, char *line)
 		return (line);
 	while (line[i])
 	{
-		printf("am i stuck?\n");
 		if (line[i] == '$')
 		{
 			var_name = get_var_name(line, i);
@@ -80,8 +79,6 @@ char	*expand_line(t_ms *ms, char *line)
 		}
 		i++;
 	}
-	if (updated_line != NULL)
-		printf("expanded line = <%s>\n", updated_line);
 	return (updated_line);
 	}
 	
@@ -162,7 +159,6 @@ int	handle_heredocs(t_ms *ms)
 				expansion = 0;
 			if (fd && fd != -2)
 					close(fd);
-			printf("expansion = %d\n", expansion);
 			fd = ft_heredoc(ms, tok->next, expansion);
 			if (fd == -1)
 				return (-1);
