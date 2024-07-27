@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/27 16:32:42 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:37:47 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int	ft_heredoc(t_ms *ms, t_tokens *eof, int expansion)
 		return (-1);
 	if (pid == 0)
 	{
-		ft_ignoresig(SIGINT);
+		ft_start_signals(2);
 		open_heredoc(ms, h_end, hd[1], expansion);
 	}
 	waitpid(pid, &status, 0); //use status?
