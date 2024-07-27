@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/26 20:30:42 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:32:42 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,6 @@ char	*set_end_of_heredoc(t_tokens *eof)
 	if (!h_end)
 		return (NULL);
 	return (h_end);
-}
-
-int	close_heredoc(int *fd, int err)
-{
-	close (fd[0]);
-	close (fd[1]);
-	if (err == 1)
-		return (-1);
-	return (0);
 }
 
 char	*update_hline(char *line, char *content, int i)
@@ -120,6 +111,7 @@ int	open_heredoc(t_ms *ms, char *h_end, int hd, int expansion)
 		line = NULL;
 	}
 	close(hd);
+	free_env(&ms->env);
 	exit (0);
 }
 
@@ -164,7 +156,7 @@ int	handle_heredocs(t_ms *ms)
 		ft_ignoresig(SIGQUIT);
 		if (tok->type == 4)
 		{
-			if (ft_strchr(tok->next->tok, '\'') || ft_strchr(tok->next->tok, '"'))
+			if (!(ft_strchr(tok->next->tok, '\'') || ft_strchr(tok->next->tok, '"')))
 				expansion = 0;
 			if (fd && fd != -2)
 					close(fd);
