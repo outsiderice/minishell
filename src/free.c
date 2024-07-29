@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:24:15 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/25 17:42:57 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/29 16:03:22 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_double_char_ptr(char **ptr)
 {
-	while(*ptr != NULL)
+	while (*ptr != NULL)
 		free(*ptr);
 	if (ptr != NULL)
 	{
@@ -101,7 +101,7 @@ void	free_ms(t_ms *ms)
 	free_double_char_ptr(ms->envp);
 	if (ms->pwd != NULL)
 		free(ms->pwd);
-	if (ms->old_pwd != NULL)	
+	if (ms->old_pwd != NULL)
 		free(ms->old_pwd);
 	free_int_ptr(ms->pid);
 	free_double_int_ptr(ms->pipes, ms->cmnds_num);

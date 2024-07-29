@@ -64,7 +64,7 @@ int	ft_check_lli(char *str)
 
 // deberia de hacer frees en algun momento
 //tiene que aceptar ms comoa rgumento
-int	ft_exit(char **args) //possibly save the readline history
+int	ft_exit(t_ms *ms, char **args) //possibly save the readline history
 {
 	long long int	exit_status;
 	int	args_len;
@@ -87,7 +87,7 @@ int	ft_exit(char **args) //possibly save the readline history
 		return (exit_status);
 	}
 	exit_status = ft_atoi_long_long(*args);
-	//ft_free_ms(ms);
+	free_ms(ms);
 	//exit(exit_status);
 	return (exit_status); // en realidad no devuellve estoo pero los flags se qiejan
 }

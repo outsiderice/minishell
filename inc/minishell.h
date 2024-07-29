@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/27 17:20:42 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:00:17 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ int		ft_pwd(int fd);
 int		ft_env(t_env *env_list, int fd);
 int		ft_export(t_ms *ms, char **args, int fd);
 int		is_numeric(char *str);
-int		ft_exit(char **args);
+int		ft_exit(t_ms *ms, char **args);
 int		ft_cd(t_ms *ms, char **args);
 int		ft_unset(t_ms  *ms, char **args);
 
@@ -198,6 +198,7 @@ int		ft_set_env_cont(t_env *env, char *name, char *cont);
 /*---------------------------------------------*/
 /*                   FREE                      */
 /*---------------------------------------------*/
+void	free_ms(t_ms *ms);
 void	free_double_int_ptr(int **ptr, int len);
 
 #endif

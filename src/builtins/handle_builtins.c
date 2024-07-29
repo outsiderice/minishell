@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/22 21:46:52 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/29 15:01:28 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,9 @@ int	handle_builtins(t_ms *ms, t_args *args, int fd) //probably has to be **msh t
 	else if (ft_str_compare(args->argv[0], "unset") == 0)
 		ms->exitstatus = ft_unset(ms, args->argv);
 	else if (ft_str_compare(args->argv[0], "exit") == 0)
-		ms->exitstatus = (ft_exit(args->argv)); // this should have access to the adress
+		ms->exitstatus = (ft_exit(ms, args->argv)); // this should have access to the adress
 	else 
 		return (-1);  // means that it is not a builtin
-	/*if (saved_stdout == 1)
-	{
-		dup2(saved_stdout, 1);
-		close(saved_stdout);
-	}*/
+		// free?
 	return (0);
 }
