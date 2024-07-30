@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/30 11:59:25 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:04:25 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ char	*expand_line(t_ms *ms, char *line)
 
 	i = 0;
 	env_var = ms->env;
-	updated_line = NULL;
 	if (!ft_strchr(line, '$'))
 		return (line);
 	while (line[i])
@@ -75,6 +74,14 @@ char	*expand_line(t_ms *ms, char *line)
 	}
 	return (updated_line);
 	}
+
+void	fill_hd(t_ms *ms, char *line, int expansion, int hd)
+{
+	if (expansion == 1)
+		line = expand_line(ms, line);
+	ft_putstr_fd(line, hd);
+	write(hd, "\n", 1);
+}
 	
 
 int	open_heredoc(t_ms *ms, char *h_end, int hd, int expansion)
@@ -92,19 +99,12 @@ int	open_heredoc(t_ms *ms, char *h_end, int hd, int expansion)
 			break;
 		}
 		else if (*line != '\0')
-		{
-			printf("expansion is %d\n", expansion);
-			if (expansion == 1)
-				line = expand_line(ms, line);
-			ft_putstr_fd(line, hd);
-			write(hd, "\n", 1);
-		}
+			fill_hd(ms, line, expansion, hd);
 		free (line);
 		line = NULL;
 	}
-	close(hd);
 	free_env(&ms->env);
-	exit (0);
+	exit (close(hd));
 }
 
 int	ft_heredoc(t_ms *ms, t_tokens *eof, int expansion)
