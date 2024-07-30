@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:58:57 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/29 15:36:23 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/30 14:14:18 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	ft_set_shll_lvl(t_env *env)
 		}
 		env = env->next;
 	}
-	printf("no he encontrado SHLS\n");
 	if (ft_create_sh_lvl(first) == -1)
 		return (-1);
 	return (1);

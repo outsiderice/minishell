@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/29 15:00:17 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/07/30 14:27:51 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,14 @@ int		ft_count_toks(t_tokens *current, int type);
 /*              execution.c                    */
 void	exeggutor(t_ms *ms);
 
-/*              exec_prototype.c               */
-int		ft_exec(t_ms *ms, t_args *args);
+/*              exec_1.c                       */
+int	ft_exec(t_ms *ms, t_args *args);
+/*              exec_2.c                       */
 int		is_file_in_dir(char *file, char *dir);
+char 	**ft_get_paths(t_env *env);
+char *ft_find_path(char *file, char **paths);
+char	*ft_join_path(char *path, char *cmd);
+
 
 /*               exec_utils.c                   */
 int 	ft_t_args_len(t_args *args);

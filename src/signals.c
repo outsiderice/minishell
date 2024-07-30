@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:25:54 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/27 16:40:05 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/29 20:30:04 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	sig_handler(int signal)
 	if (signal == SIGINT) //exitstatus = 130
 	{
 		write(1, "\n", 1);
-		rl_replace_line("", 1);
+		//rl_replace_line("", 1);
 		rl_on_new_line();
 		rl_redisplay();
 	}

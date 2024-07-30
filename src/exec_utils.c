@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:01:50 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/22 00:11:18 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/30 14:14:19 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,8 @@ int handle_pipes(t_ms *ms)
 {
     int i;
 
-    if (ms->cmnds_num  == 0) // linea vacia? no creo que llege hasta aqui protegemos de momento
-    {
-        dprintf(2, "linea vacia ha llegado al ejecutor\n");
-        return (-1);
-    }
     if (ms->cmnds_num  == 1)
-    {
-        dprintf(2, "Un solo comando no requiere pipes\n");
         return (0);
-    }
     ms->pipes = malloc(sizeof(int *) * (ms->cmnds_num - 1));
     if (!ms->pipes)
         return (-1);
@@ -47,11 +39,9 @@ int handle_pipes(t_ms *ms)
     {
         ms->pipes[i] = malloc(sizeof(int) * 2);
         if (!ms->pipes[i])
-        // tambien liberar otros si se han creado ft_close_program (que llamara otros close de cada tipo que los libera)
             return (-1); 
         i++;
     }
-    //ms->pipes[i] = NULL;
     return (0);
 }
 
@@ -82,7 +72,9 @@ void    ft_close_fd(t_args *args)
 
 void close_pipes(int **pipes, int first, int last, int len)
 {
-	while (first <= last && first < len )
+    if (len == 0)
+        return;
+	while (first <= last && first < len)
 	{
 		close(pipes[first][0]);
 		close(pipes[first][1]);
@@ -90,5 +82,6 @@ void close_pipes(int **pipes, int first, int last, int len)
 		++first;
 	}
 	free(pipes);
+    pipes = NULL;
 	return;
 }
