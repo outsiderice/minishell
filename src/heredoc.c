@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/30 15:49:37 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/30 16:16:15 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int	heredoc_prompt(t_ms *ms, char *h_end, int hd, int expansion)
 	{
 		line = readline(">");
 		if (!line)
-			exit(close(hd));
+		{
+			close(hd);
+			exit(-1);
+		}
 		if (ft_str_compare(line, h_end) == 0)
 		{
 			free(line);
@@ -59,7 +62,8 @@ int	heredoc_prompt(t_ms *ms, char *h_end, int hd, int expansion)
 		line = NULL;
 	}
 	free_env(&ms->env);
-	exit (close(hd));
+	close(hd);
+	exit (0);
 }
 
 // Opens pipe to save heredoc input and forks for it's execution
