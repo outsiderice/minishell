@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/30 16:32:17 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:06:38 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	fill_hd(t_ms *ms, char *line, int expansion, int hd)
 	ft_putstr_fd(line, hd);
 	write(hd, "\n", 1);
 	free(line);
+	line = NULL;
 }
 
 // Receives user input to save to heredoc
@@ -57,9 +58,6 @@ int	heredoc_prompt(t_ms *ms, char *h_end, int hd, int expansion)
 		}
 		else if (*line != '\0')
 			fill_hd(ms, line, expansion, hd);
-		if (line)
-			free (line);
-		line = NULL;
 	}
 	free_env(&ms->env);
 	close(hd);
