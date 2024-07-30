@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:18:17 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/30 16:33:39 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/30 16:36:54 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ char	*expand_line(t_ms *ms, t_env *env_var, char *line)
 			var_name = get_var_name(line, i);
 			env_var = find_env_var(env_var, var_name);
 			content = get_dollar_content(ms, env_var, var_name);
-			i = i + ft_strlen(content);
 			updated_line = update_hline(line, content, i);
+			i = i + ft_strlen(content);
 			free_strings(var_name, content, NULL, 0);
 		}
 		i++;
