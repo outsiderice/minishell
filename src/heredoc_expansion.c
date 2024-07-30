@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:18:17 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/30 16:28:53 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/30 16:33:39 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,4 @@ char	*expand_line(t_ms *ms, t_env *env_var, char *line)
 		i++;
 	}
 	return (updated_line);
-	}
-	
+}
