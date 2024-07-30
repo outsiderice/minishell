@@ -6,29 +6,23 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/30 11:18:13 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/30 11:59:25 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <sys/wait.h>
 
-char	*set_end_of_heredoc(t_tokens *eof)
+int	set_end_of_heredoc(t_tokens *eof)
 {
-	char	*h_end;
-
-	h_end = NULL;
 	if (!ft_strchr(eof->tok, '"') && !ft_strchr(eof->tok, '\''))
-		h_end = ft_strdup(eof->tok);
+		return (EXIT_SUCCESS);
 	else
 	{
 		if (expand_quotes(eof) == 1)
-			return (NULL);
-		h_end = ft_strdup(eof->tok);
+			return (EXIT_FAILURE);
 	}
-	if (!h_end)
-		return (NULL);
-	return (h_end);
+	return (EXIT_SUCCESS);
 }
 
 char	*update_hline(char *line, char *content, int i)
@@ -62,7 +56,6 @@ char	*expand_line(t_ms *ms, char *line)
 	i = 0;
 	env_var = ms->env;
 	updated_line = NULL;
-	printf("hi\n");
 	if (!ft_strchr(line, '$'))
 		return (line);
 	while (line[i])
@@ -80,7 +73,6 @@ char	*expand_line(t_ms *ms, char *line)
 		}
 		i++;
 	}
-	printf("updated line = %s\n", updated_line);
 	return (updated_line);
 	}
 	
@@ -118,15 +110,13 @@ int	open_heredoc(t_ms *ms, char *h_end, int hd, int expansion)
 int	ft_heredoc(t_ms *ms, t_tokens *eof, int expansion)
 {
 	pid_t		pid;
-	char		*h_end;
 	int			status;
 	int			hd[2];
 
-	h_end = set_end_of_heredoc(eof);
-	if (!h_end)
+	if (set_end_of_heredoc(eof) == 1)
 		return (-1);
 	if (pipe(hd) == -1)
-		exit (-1);
+		return (-1);
 	pid = fork();
 	if (pid == -1)
 		return (-1);
@@ -135,11 +125,9 @@ int	ft_heredoc(t_ms *ms, t_tokens *eof, int expansion)
 		close(hd[0]);
 		ft_start_signals(2);
 		ft_ignoresig(SIGQUIT);
-		open_heredoc(ms, h_end, hd[1], expansion);
+		open_heredoc(ms, eof->tok, hd[1], expansion);
 	}
 	waitpid(pid, &status, 0);
-	if (h_end)
-		free (h_end);
 	close(hd[1]);
 	return (hd[0]);
 }
