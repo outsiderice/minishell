@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/27 17:20:42 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:21:33 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,11 @@ int		error_msg(char *msg, char *deets);
 void	free_env(t_env **env);
 void	free_tok_and_args(t_tokens **toks, t_args **args);
 
-/*    heredoc.c*/
+/*    heredoc.c    */
 int		handle_heredocs(t_ms *ms);
+
+/*    heredoc_expansion.c    */
+char	*expand_line(t_ms *ms, t_env *env_var, char *line);
 
 /*    prep_execution.c    */
 int		ft_prep_args(t_ms *ms);
