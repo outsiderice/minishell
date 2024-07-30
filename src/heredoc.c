@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/30 10:50:58 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/30 11:05:30 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,9 +150,9 @@ int	handle_heredocs(t_ms *ms)
 
 	fd = -2;
 	tok = ms->tokens;
-	expansion = 1;
 	while(tok)
 	{
+		expansion = 1;
 		ft_ignoresig(SIGQUIT);
 		if (tok->type == 4)
 		{
