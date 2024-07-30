@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/30 16:16:15 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/30 16:32:17 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	heredoc_prompt(t_ms *ms, char *h_end, int hd, int expansion)
 		if (ft_str_compare(line, h_end) == 0)
 		{
 			free(line);
-			break;
+			break ;
 		}
 		else if (*line != '\0')
 			fill_hd(ms, line, expansion, hd);
@@ -101,16 +101,17 @@ int	handle_heredocs(t_ms *ms)
 
 	fd = -2;
 	tok = ms->tokens;
-	while(tok)
+	while (tok)
 	{
 		expansion = 1;
 		ft_ignoresig(SIGQUIT);
 		if (tok->type == 4)
 		{
-			if (ft_strchr(tok->next->tok, '\'') || ft_strchr(tok->next->tok, '"'))
+			if (ft_strchr(tok->next->tok, '\'') \
+			|| ft_strchr(tok->next->tok, '"'))
 				expansion = 0;
 			if (fd && fd != -2)
-					close(fd);
+				close(fd);
 			fd = ft_heredoc(ms, tok->next, expansion);
 			if (fd == -1)
 				return (-1);
@@ -118,5 +119,5 @@ int	handle_heredocs(t_ms *ms)
 		tok = tok->next;
 	}
 	ft_start_signals(1);
-	return(fd);
+	return (fd);
 }
