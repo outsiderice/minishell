@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/30 11:05:30 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/30 11:18:13 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*expand_line(t_ms *ms, char *line)
 	i = 0;
 	env_var = ms->env;
 	updated_line = NULL;
+	printf("hi\n");
 	if (!ft_strchr(line, '$'))
 		return (line);
 	while (line[i])
@@ -79,6 +80,7 @@ char	*expand_line(t_ms *ms, char *line)
 		}
 		i++;
 	}
+	printf("updated line = %s\n", updated_line);
 	return (updated_line);
 	}
 	
@@ -99,6 +101,7 @@ int	open_heredoc(t_ms *ms, char *h_end, int hd, int expansion)
 		}
 		else if (*line != '\0')
 		{
+			printf("expansion is %d\n", expansion);
 			if (expansion == 1)
 				line = expand_line(ms, line);
 			ft_putstr_fd(line, hd);
@@ -156,7 +159,7 @@ int	handle_heredocs(t_ms *ms)
 		ft_ignoresig(SIGQUIT);
 		if (tok->type == 4)
 		{
-			if (!(ft_strchr(tok->next->tok, '\'') || ft_strchr(tok->next->tok, '"')))
+			if (ft_strchr(tok->next->tok, '\'') || ft_strchr(tok->next->tok, '"'))
 				expansion = 0;
 			if (fd && fd != -2)
 					close(fd);
