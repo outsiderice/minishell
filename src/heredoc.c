@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/30 15:04:25 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:17:24 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,14 @@ char	*update_hline(char *line, char *content, int i)
 }
 
 
-char	*expand_line(t_ms *ms, char *line)
+char	*expand_line(t_ms *ms, t_env *env_var, char *line)
 {
-	t_env	*env_var;
 	char	*var_name;
 	char	*content;
 	char	*updated_line;
 	int		i;
 
 	i = 0;
-	env_var = ms->env;
 	if (!ft_strchr(line, '$'))
 		return (line);
 	while (line[i])
@@ -77,14 +75,17 @@ char	*expand_line(t_ms *ms, char *line)
 
 void	fill_hd(t_ms *ms, char *line, int expansion, int hd)
 {
+	t_env	*env;
+
+	env = ms->env;
 	if (expansion == 1)
-		line = expand_line(ms, line);
+		line = expand_line(ms, env, line);
 	ft_putstr_fd(line, hd);
 	write(hd, "\n", 1);
 }
-	
 
-int	open_heredoc(t_ms *ms, char *h_end, int hd, int expansion)
+// Receives user input to save to heredoc
+int	heredoc_prompt(t_ms *ms, char *h_end, int hd, int expansion)
 {
 	char	*line;
 
@@ -107,6 +108,7 @@ int	open_heredoc(t_ms *ms, char *h_end, int hd, int expansion)
 	exit (close(hd));
 }
 
+// Opens pipe to save heredoc input and forks for it's execution
 int	ft_heredoc(t_ms *ms, t_tokens *eof, int expansion)
 {
 	pid_t		pid;
@@ -125,7 +127,7 @@ int	ft_heredoc(t_ms *ms, t_tokens *eof, int expansion)
 		close(hd[0]);
 		ft_start_signals(2);
 		ft_ignoresig(SIGQUIT);
-		open_heredoc(ms, eof->tok, hd[1], expansion);
+		heredoc_prompt(ms, eof->tok, hd[1], expansion);
 	}
 	waitpid(pid, &status, 0);
 	close(hd[1]);
