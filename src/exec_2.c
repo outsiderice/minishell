@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 12:40:52 by kate              #+#    #+#             */
-/*   Updated: 2024/07/30 14:22:59 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/31 13:31:01 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,46 @@ int	is_file_in_dir(char *file, char *dir)
 
     dirp = opendir(dir);
     if (dirp == NULL)
-        return (1);
+		return (1);
 	entry = readdir(dirp);
     while (entry != NULL && ft_str_compare(file, entry->d_name) == 1)
 		entry = readdir(dirp);
     if (closedir(dirp) != 0)
-        //perror("closedir"); I dont think it is necessary
+		return (1);
+	if (entry == NULL)
+	    return (1);
+    return (0);
+}
+/*
+int	is_file_in_dir(char *file, char *dir)
+{
+	DIR 			*dirp;
+    struct dirent	*entry;
+
+    // Open the directory stream
+    dirp = opendir(dir);
+	//printf("%s\n", dir);
+    if (dirp == NULL)
+    {
         return (1);
+    }
+    // Read directory entries
+	entry = readdir(dirp);
+    while (entry != NULL && ft_str_compare(file, entry->d_name) == 1)
+	{
+		//printf("dentro de entry --------> %s\n", entry->d_name);
+		entry = readdir(dirp); // it returns the next file
+	}
+    // Close the directory stream
+    if (closedir(dirp) != 0) // that this fucks up our entry?
+	{
+        perror("closedir");
+        return (1);
+    }
 	if (entry == NULL )
 		return (1);
     return (0);
-}
+}*/
 
 char	*ft_join_path(char *path, char *cmd)
 {

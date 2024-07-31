@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:01:50 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/30 14:14:19 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/31 13:23:41 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,17 @@ void close_pipes(int **pipes, int first, int last, int len)
 {
     if (len == 0)
         return;
-	while (first <= last && first < len)
-	{
-		close(pipes[first][0]);
-		close(pipes[first][1]);
-		free(pipes[first]);
-		++first;
-	}
-	free(pipes);
-    pipes = NULL;
+    else
+    {
+        while (first <= last && first < len)
+	    {
+		    close(pipes[first][0]);
+		    close(pipes[first][1]);
+		    free(pipes[first]);
+		    ++first;
+	    }
+	    free(pipes);
+        pipes = NULL;
+    }
 	return;
 }

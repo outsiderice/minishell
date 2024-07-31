@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:02:52 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/21 18:36:40 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/31 13:34:36 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_get_old_path(t_ms *ms)
 			printf("bash: cd: OLDPWD not set");
 			return (-1);
 		}
-		else 
+		else
 			aux = ms->old_pwd;
 	}
 	if (chdir(aux) == -1)
@@ -77,9 +77,9 @@ char	*ft_from_abs_path(t_ms *ms, char *arg)
 
 int	ft_cd(t_ms *ms, char **args)
 {
-	char	*path;
+	char		*path;
 	struct stat	sb;
-	
+
 	//g_var possible global variable
 	path = NULL;
 	if (ft_args_len(args) > 2)
@@ -100,7 +100,7 @@ int	ft_cd(t_ms *ms, char **args)
 			printf("bash: cd: %s Not a directory", path);
 			free(path);
 		}
-		else 
+		else
 			printf("bash: cd: %s No such file or directory\n", path);
 		return (-1);
 	}

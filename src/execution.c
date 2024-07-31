@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:26:40 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/25 16:21:11 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:01:47 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ void	exeggutor(t_ms *ms)
 	// 	printf("one full command executed\n");//free stuff and newline
 	// else
 	// 	printf("other exec\n")//execve();
-	printf("about to enter exec\n");
-	ft_exec(ms, ms->args);
+		printf("about to enter exec\n");
+		ft_exec(ms, ms->args);
 	}
 	free_tok_and_args(&ms->tokens, &ms->args);
+	free(ms->pid);
+	ms->pid = NULL;
+	
 }
