@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/30 15:21:33 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:08:43 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,10 @@ int		ft_get_shll_lvl(t_env *env);
 int		ft_assign(char *env_p, t_env **current);
 int		ft_lstlen(t_env *env);
 int		ft_set_shll_lvl(t_env *env);
+
+/*   env_utils.c   */
+char	*get_var_name(char *str, int start);
+t_env	*find_env_var(t_env *env, char *var_name);
 
 /*    signals.c    */
 void    ft_start_signals(int mode);
