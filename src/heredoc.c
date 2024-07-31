@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/30 17:06:38 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:46:54 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	heredoc_prompt(t_ms *ms, char *h_end, int hd, int expansion)
 		else if (*line != '\0')
 			fill_hd(ms, line, expansion, hd);
 	}
-	free_env(&ms->env);
 	close(hd);
 	exit (0);
 }
