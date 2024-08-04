@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:30:50 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/25 16:59:10 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/04 13:30:38 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	new_args_node(t_args **args)
 	if (!new_arg)
 		return (EXIT_FAILURE);
 	new_arg->argv = NULL;
-	new_arg->fd[0] = -2; //-2; for pipes
-	new_arg->fd[1] = -2; //-2; for pipes
+	new_arg->fd[0] = -2;
+	new_arg->fd[1] = -2;
 	new_arg->redir_type = -1;
 	new_arg->next = NULL;
 	new_arg->prev = NULL;
