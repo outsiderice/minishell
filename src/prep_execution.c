@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 13:12:49 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:27:54 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	create_args(t_ms *ms, t_args **head, t_args **arg)
 	return (EXIT_SUCCESS);
 }
 
-// Assigns redir_type and saves filename to t_args
+// Assigns redir type and opens fds as needed
 int	prep_redir(t_ms *ms, t_tokens **tok, t_args *args)
 {
 	if ((*tok)->tok[0] == '<')
@@ -40,7 +40,7 @@ int	prep_redir(t_ms *ms, t_tokens **tok, t_args *args)
 	else if ((*tok)->tok[0] == '>')
 		open_output((*tok)->tok, (*tok)->next->tok, args);
 	(*tok) = (*tok)->next;
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 // Fills array arr with consecutive tokens of the same type
@@ -81,7 +81,7 @@ int	prep_command(t_tokens **current_tok, t_ms **ms)
 	if ((*current_tok)->type >= 3 || (*current_tok)->type == 1)
 	{
 		if (prep_redir((*ms), current_tok, (*ms)->args) == 1)
-		return (EXIT_FAILURE);
+			return (EXIT_FAILURE);
 	}
 	else if ((*current_tok)->type == 0)
 	{
@@ -151,11 +151,11 @@ int	ft_prep_args(t_ms *ms)
 	t_args		*head;
 	t_args		*arg;
 	t_tokens	*current_tok;
-	
+
 	current_tok = ms->tokens;
 	head = NULL;
 	arg = NULL;
-	while (current_tok != NULL) 
+	while (current_tok != NULL)
 	{
 		if (create_args(ms, &head, &arg) == 1)
 			return (EXIT_FAILURE);
