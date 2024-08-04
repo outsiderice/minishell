@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:01:50 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/22 00:11:18 by kate             ###   ########.fr       */
+/*   Updated: 2024/08/04 14:49:25 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ int handle_pipes(t_ms *ms)
 
     if (ms->cmnds_num  == 0) // linea vacia? no creo que llege hasta aqui protegemos de momento
     {
-        dprintf(2, "linea vacia ha llegado al ejecutor\n");
+        //dprintf(2, "linea vacia ha llegado al ejecutor\n");
         return (-1);
     }
     if (ms->cmnds_num  == 1)
     {
-        dprintf(2, "Un solo comando no requiere pipes\n");
+        //dprintf(2, "Un solo comando no requiere pipes\n");
         return (0);
     }
     ms->pipes = malloc(sizeof(int *) * (ms->cmnds_num - 1));

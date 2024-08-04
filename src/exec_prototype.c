@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_prototype.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/25 15:11:31 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/04 14:50:24 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,13 +158,13 @@ int ft_exec(t_ms *ms, t_args *args)
                 	dup2(ms->pipes[i][1], STDOUT_FILENO);
 				if (ms->cmnds_num > 1)
                 	close_pipes(ms->pipes, 0, i, ms->cmnds_num - 1);
-                dprintf(2, "------------------  Command Start     ------------------\n");
+                //dprintf(2, "------------------  Command Start     ------------------\n");
                 ft_exec_cmd(args->argv, ms->env);
                 ft_close_fd(args_first);
-                dprintf(2, "------------------  Command Finished  ------------------\n");
+                //dprintf(2, "------------------  Command Finished  ------------------\n");
              }
         }
-        dprintf(2, "next args\n");    
+        //dprintf(2, "next args\n");    
         args = args->next;
         i++;
     }

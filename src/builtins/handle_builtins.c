@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/22 21:46:52 by kate             ###   ########.fr       */
+/*   Updated: 2024/08/04 14:49:40 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	handle_builtins(t_ms *ms, t_args *args, int fd) //probably has to be **msh t
 		saved_stdout = dup(1);
         //handle_redirections_builtin(args);
 	}*/
-	printf("FD OUT: %d\n", fd);
+	//printf("FD OUT: %d\n", fd);
 	if (ms->args == NULL) // only stays here to check bad redirection
 		printf("YOU SHALL NOT PASS TO BUILTINS, without builtin commands\n");
 	else if (ft_str_compare(args->argv[0], "echo") == 0)
