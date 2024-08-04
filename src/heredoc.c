@@ -6,84 +6,40 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/27 16:48:22 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:46:54 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <sys/wait.h>
 
-char	*set_end_of_heredoc(t_tokens *eof)
+int	set_end_of_heredoc(t_tokens *eof)
 {
-	char	*h_end;
-
-	h_end = NULL;
 	if (!ft_strchr(eof->tok, '"') && !ft_strchr(eof->tok, '\''))
-		h_end = ft_strdup(eof->tok);
+		return (EXIT_SUCCESS);
 	else
 	{
 		if (expand_quotes(eof) == 1)
-			return (NULL);
-		h_end = ft_strdup(eof->tok);
+			return (EXIT_FAILURE);
 	}
-	if (!h_end)
-		return (NULL);
-	return (h_end);
+	return (EXIT_SUCCESS);
 }
 
-char	*update_hline(char *line, char *content, int i)
+void	fill_hd(t_ms *ms, char *line, int expansion, int hd)
 {
-	char	*updated_line;
-	char	*start;
-	char	*end;
-	int		end_start;
+	t_env	*env;
 
-	updated_line = NULL;
-	start = NULL;
-	end = NULL;
-	end_start = ft_strlen(content) + i;
-	start = ft_substr(line, 0, i);
-	end = ft_substr(line, end_start, ft_strlen(line) - end_start);
-	updated_line = all_join(start, content, end);
-	free(start);
-	free(end);
-	return (updated_line);
+	env = ms->env;
+	if (expansion == 1)
+		line = expand_line(ms, env, line);
+	ft_putstr_fd(line, hd);
+	write(hd, "\n", 1);
+	free(line);
+	line = NULL;
 }
 
-
-char	*expand_line(t_ms *ms, char *line)
-{
-	t_env	*env_var;
-	char	*var_name;
-	char	*content;
-	char	*updated_line;
-	int		i;
-
-	i = 0;
-	env_var = ms->env;
-	updated_line = NULL;
-	if (!ft_strchr(line, '$'))
-		return (line);
-	while (line[i])
-	{
-		if (line[i] == '$')
-		{
-			var_name = get_var_name(line, i);
-			env_var = find_env_var(env_var, var_name);
-			content = get_dollar_content(ms, env_var, var_name);
-			free (var_name);
-			free (env_var);
-			updated_line = update_hline(line, content, i);
-			free (content);
-			i = i + ft_strlen(content);
-		}
-		i++;
-	}
-	return (updated_line);
-	}
-	
-
-int	open_heredoc(t_ms *ms, char *h_end, int hd, int expansion)
+// Receives user input to save to heredoc
+int	heredoc_prompt(t_ms *ms, char *h_end, int hd, int expansion)
 {
 	char	*line;
 
@@ -91,39 +47,33 @@ int	open_heredoc(t_ms *ms, char *h_end, int hd, int expansion)
 	{
 		line = readline(">");
 		if (!line)
-			exit(close(hd));
+		{
+			close(hd);
+			exit(-1);
+		}
 		if (ft_str_compare(line, h_end) == 0)
 		{
 			free(line);
-			break;
+			break ;
 		}
 		else if (*line != '\0')
-		{
-			if (expansion == 1)
-				line = expand_line(ms, line);
-			ft_putstr_fd(line, hd);
-			write(hd, "\n", 1);
-		}
-		free (line);
-		line = NULL;
+			fill_hd(ms, line, expansion, hd);
 	}
 	close(hd);
-	free_env(&ms->env);
 	exit (0);
 }
 
+// Opens pipe to save heredoc input and forks for it's execution
 int	ft_heredoc(t_ms *ms, t_tokens *eof, int expansion)
 {
 	pid_t		pid;
-	char		*h_end;
 	int			status;
 	int			hd[2];
 
-	h_end = set_end_of_heredoc(eof);
-	if (!h_end)
+	if (set_end_of_heredoc(eof) == 1)
 		return (-1);
 	if (pipe(hd) == -1)
-		exit (-1);
+		return (-1);
 	pid = fork();
 	if (pid == -1)
 		return (-1);
@@ -131,11 +81,10 @@ int	ft_heredoc(t_ms *ms, t_tokens *eof, int expansion)
 	{
 		close(hd[0]);
 		ft_start_signals(2);
-		open_heredoc(ms, h_end, hd[1], expansion);
+		ft_ignoresig(SIGQUIT);
+		heredoc_prompt(ms, eof->tok, hd[1], expansion);
 	}
-	waitpid(pid, &status, 0); //use status?
-	if (h_end)
-		free (h_end);
+	waitpid(pid, &status, 0);
 	close(hd[1]);
 	return (hd[0]);
 }
@@ -149,21 +98,23 @@ int	handle_heredocs(t_ms *ms)
 
 	fd = -2;
 	tok = ms->tokens;
-	expansion = 1;
-	while(tok)
+	while (tok)
 	{
+		expansion = 1;
 		ft_ignoresig(SIGQUIT);
 		if (tok->type == 4)
 		{
-			if (!(ft_strchr(tok->next->tok, '\'') || ft_strchr(tok->next->tok, '"')))
+			if (ft_strchr(tok->next->tok, '\'') \
+			|| ft_strchr(tok->next->tok, '"'))
 				expansion = 0;
 			if (fd && fd != -2)
-					close(fd);
+				close(fd);
 			fd = ft_heredoc(ms, tok->next, expansion);
 			if (fd == -1)
 				return (-1);
 		}
 		tok = tok->next;
 	}
-	return(fd);
+	ft_start_signals(1);
+	return (fd);
 }

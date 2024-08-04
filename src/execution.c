@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:26:40 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/25 16:21:11 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/30 10:26:55 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,8 @@ void	exeggutor(t_ms *ms)
 	ms->heredoc = handle_heredocs(ms);
 	if (ft_prep_args(ms) == 0 && ms->args->argv != NULL) //needs proper handling once executor is cleaned up
 	{
-	//heredoc
-	//check_files
-	// if (handle_builtins() != -1)
-	// 	printf("one full command executed\n");//free stuff and newline
-	// else
-	// 	printf("other exec\n")//execve();
-	printf("about to enter exec\n");
-	ft_exec(ms, ms->args);
+		printf("about to enter exec\n");
+		ft_exec(ms, ms->args);
 	}
 	free_tok_and_args(&ms->tokens, &ms->args);
 }
