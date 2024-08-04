@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:57:40 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/21 18:20:12 by kate             ###   ########.fr       */
+/*   Updated: 2024/08/04 11:58:49 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int is_numeric(char *str) 
+int	is_numeric(char *str)
 {
-    if (!str || *str == '\0')
-        return (0);
-    if (*str == '-' || *str == '+')
-        str++;
-    while (*str) 
+	if (!str || *str == '\0')
+		return (0);
+	if (*str == '-' || *str == '+')
+		str++;
+	while (*str)
 	{
-        if (*str < '0' || *str > '9') 
-            return (0);
-        str++;
-    }
-    return (1);
+		if (*str < '0' || *str > '9')
+			return (0);
+		str++;
+	}
+	return (1);
 }
 
 // counts the nodes to make future malloc to create an char **
