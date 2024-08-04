@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/31 17:08:43 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/04 15:46:55 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,14 @@ int		ft_count_toks(t_tokens *current, int type);
 /*              execution.c                    */
 void	exeggutor(t_ms *ms);
 
-/*              exec_prototype.c               */
-int		ft_exec(t_ms *ms, t_args *args);
+/*              exec_1.c                       */
+int	ft_exec(t_ms *ms, t_args *args);
+/*              exec_2.c                       */
 int		is_file_in_dir(char *file, char *dir);
+char 	**ft_get_paths(t_env *env);
+char *ft_find_path(char *file, char **paths);
+char	*ft_join_path(char *path, char *cmd);
+
 
 /*               exec_utils.c                   */
 int 	ft_t_args_len(t_args *args);
@@ -192,7 +197,7 @@ int		ft_pwd(int fd);
 int		ft_env(t_env *env_list, int fd);
 int		ft_export(t_ms *ms, char **args, int fd);
 int		is_numeric(char *str);
-int		ft_exit(char **args);
+int		ft_exit(t_ms *ms, char **args);
 int		ft_cd(t_ms *ms, char **args);
 int		ft_unset(t_ms  *ms, char **args);
 
@@ -201,10 +206,12 @@ int		ft_str_compare(char *str1, char *str2);
 char	*get_env_cont(t_env *env, char *str);
 int		ft_args_len(char **args);
 int		ft_set_env_cont(t_env *env, char *name, char *cont);
+int		*ft_sort_alpha(char **env, int len);
 
 /*---------------------------------------------*/
 /*                   FREE                      */
 /*---------------------------------------------*/
+void	free_ms(t_ms **ms);
 void	free_double_int_ptr(int **ptr, int len);
 
 #endif

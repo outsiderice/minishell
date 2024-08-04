@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   env_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:58:57 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/25 16:20:50 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/07/30 14:14:18 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../inc/minishell.h"
 
 //IN CASE THE SHELL LEVEL IS NOT VALID OR NOT PROVIDED IT IS SET TO 1
-int ft_create_sh_lvl(t_env *env)
+int	ft_create_sh_lvl(t_env *env)
 {
-	t_env *new;
-	
+	t_env	*new;
+
 	new = NULL;
 	while (env != NULL && env->next != NULL)
 		env = env->next;
@@ -31,23 +30,21 @@ int ft_create_sh_lvl(t_env *env)
 	return (0);
 }
 
-// Receives pointer to env
-// If it finds SHLVL it it adds +1 to the number
-// If there isn't SHLVL sets it to 1
+// If THERE IS A VALID SHLVL, IT ADDS +1
 int	ft_set_shll_lvl(t_env *env)
 {
-	t_env *first;
+	t_env	*first;
 	char	*num;
 
 	first = env;
 	num = NULL;
 	while (env != NULL)
 	{
-		if	(ft_str_compare(env->v_name, "SHLVL") == 0)
+		if (ft_str_compare(env->v_name, "SHLVL") == 0)
 		{
-			if (is_numeric(env->v_cont) == 1) //if case it is numeric
+			if (is_numeric(env->v_cont) == 1)
 				num = ft_itoa(ft_atoi(env->v_cont) + 1);
-			else 
+			else
 				num = ft_strdup("1");
 			free(env->v_cont);
 			env->v_cont = num;
@@ -55,7 +52,6 @@ int	ft_set_shll_lvl(t_env *env)
 		}
 		env = env->next;
 	}
-	printf("no he encontrado SHLS\n");
 	if (ft_create_sh_lvl(first) == -1)
 		return (-1);
 	return (1);
@@ -65,9 +61,9 @@ int	ft_get_shll_lvl(t_env *env)
 {
 	while (env != NULL)
 	{
-		if	(ft_str_compare(env->v_name, "SHLVL") == 0)
+		if (ft_str_compare(env->v_name, "SHLVL") == 0)
 		{
-			if (is_numeric(env->v_cont) == 1) //if case it is numeric
+			if (is_numeric(env->v_cont) == 1)
 				return (ft_atoi(env->v_cont));
 			return (0);
 		}
