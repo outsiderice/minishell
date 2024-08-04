@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 13:27:54 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/04 14:47:08 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ int	prep_command(t_tokens **current_tok, t_ms **ms)
 		(*ms)->args->argv = arr;
 		arr = NULL;
 	}
-	printf("end of prep command\n");
 	return (EXIT_SUCCESS);
 }
 
