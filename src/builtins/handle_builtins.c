@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/04 15:52:13 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/04 15:56:09 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	handle_redirections_builtin(t_args *args)
 
 int	handle_builtins(t_ms *ms, t_args *args, int fd) //probably has to be **msh to do exil propery and equal pointer to null
 {
-	printf("FD OUT: %d\n", fd);
 	if (ft_str_compare(args->argv[0], "echo") == 0)
 		return (ft_echo(args, fd));
 	else if (ft_str_compare(args->argv[0], "pwd") == 0)
