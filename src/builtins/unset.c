@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:58:31 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/21 23:56:03 by kate             ###   ########.fr       */
+/*   Updated: 2024/07/29 15:30:40 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../inc/minishell.h"
 
 int ft_unset_args(t_env **env, char **args, int i)
 {
-    t_env *first;
-    t_env *current;
-    t_env *prev;
+    t_env   *first;
+    t_env   *current;
+    t_env   *prev;
 
     first = *env;
     while (args[i] != NULL)
@@ -42,9 +41,9 @@ int ft_unset_args(t_env **env, char **args, int i)
     return (0);
 }
 
-int	ft_unset(t_ms  *ms, char **args)
+int ft_unset(t_ms  *ms, char **args)
 {
-	int	i;
+	int i;
 
 	i = 1;
 	if (args[i] == NULL)

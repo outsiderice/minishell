@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/07/31 17:13:46 by amagnell         ###   ########.fr        #
+#    Updated: 2024/08/04 15:50:13 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRCS 		=	src/main.c \
 				src/prep_execution.c \
 				src/prep_utils.c \
 				src/execution.c \
-				src/exec_prototype.c \
+				src/exec_1.c \
+				src/exec_2.c \
 				src/exec_utils.c \
 				src/builtins/handle_builtins.c \
 				src/builtins/pwd.c \
@@ -58,7 +59,8 @@ SRCS 		=	src/main.c \
 				src/builtins/cd.c \
 				src/heredoc.c \
 				src/heredoc_expansion.c \
-				src/env_utils.c
+				src/env_utils.c \
+				src/open.c
 
 BUILD_DIR 	=	.build
 OBJS		=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
