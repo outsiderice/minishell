@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/07/31 17:13:46 by amagnell         ###   ########.fr        #
+#    Updated: 2024/08/04 13:11:46 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,8 @@ SRCS 		=	src/main.c \
 				src/builtins/cd.c \
 				src/heredoc.c \
 				src/heredoc_expansion.c \
-				src/env_utils.c
+				src/env_utils.c \
+				src/open.c
 
 BUILD_DIR 	=	.build
 OBJS		=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)

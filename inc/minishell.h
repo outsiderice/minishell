@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 11:50:30 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:12:36 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,11 @@ char	*expand_line(t_ms *ms, t_env *env_var, char *line);
 
 /*    prep_execution.c    */
 int		ft_prep_args(t_ms *ms);
+
+/*    open.c    */
+void	open_input(char *tok, char *file, t_args *args, t_ms *ms);
+void	open_output(char *tok, char *file, t_args *args);
+
 
 /*    prep_utils.c    */
 void	free_arr(char **arr);
