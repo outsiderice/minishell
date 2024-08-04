@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:24:15 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/31 17:05:46 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/04 19:21:43 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	free_int_ptr(int *ptr)
 {
 	if (ptr != NULL)
 		free(ptr);
-	
 }
 
 void	free_double_int_ptr(int **ptr, int len)
@@ -102,13 +101,12 @@ void	free_ms(t_ms **ms)
 {
 	free_env(&(*ms)->env);
 	free_tok_and_args(&(*ms)->tokens, &(*ms)->args);
-	//free_arr((*ms)->envp);
 	if ((*ms)->pwd != NULL)
 		free((*ms)->pwd);
 	if ((*ms)->old_pwd != NULL)
 		free((*ms)->old_pwd);
 	free((*ms)->pid);
 	(*ms)->pid = NULL;
-	//free_int_ptr((*ms)->pid);
+	free_int_ptr((*ms)->pid);
 	//free_double_int_ptr((*ms)->pipes, (*ms)->cmnds_num);
 } 

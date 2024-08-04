@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 15:49:59 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/04 16:28:04 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int		error_msg(char *msg, char *deets);
 
 /*    free.c    */
 void	free_env(t_env **env);
+void	free_int_ptr(int *ptr);
 void	free_tok_and_args(t_tokens **toks, t_args **args);
 
 /*    heredoc.c    */

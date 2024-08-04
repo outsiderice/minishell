@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 18:10:49 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/31 15:28:09 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/04 19:19:51 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	ft_add_to_env(t_env *env_list, char *arg)
 	}
 	aux->v_cont = ft_strdup(node->v_cont);
 	//printf("New env var added: %s = %s\n", aux->v_name, aux->v_cont );
+	free(node->v_cont);
+	free(node->v_name);
 	free(node);
 	return (1);
 }
