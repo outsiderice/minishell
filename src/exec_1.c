@@ -6,30 +6,37 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/31 17:14:15 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/04 15:39:13 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-
-
-int ft_exec_cmd(char **args, t_env *env) 
+int ft_exec_cmd(t_ms *ms, char **args, t_env *env) 
 {
-    char *cmd;
-    char *path;
+    char    *cmd;
+    char    *path;
+	char	**paths;
 
     cmd = args[0];
-    path = ft_find_path(cmd, ft_get_paths(env));
-
-    if (path != NULL) 
+	paths = ft_get_paths(env);
+    path = ft_find_path(cmd, paths);
+    if (path != NULL)
+	{
         cmd = ft_join_path(path, cmd);
-    if (execve(cmd, args, ft_list_to_array(env)) == -1) 
+	}
+	ms->envp = ft_list_to_array(env);
+    if (execve(cmd, args, ms->envp) == -1) 
     {
         printf("command not found\n");
-        return (127);
+        free_arr(ms->envp);
+		free_arr(paths);
+		free(path);
+        exit (127);
     }
     free(path);
+	free_arr(paths);
+    //free_arr(ms->envp);
     return (0);
 }
 
@@ -48,7 +55,7 @@ void ft_exec_child(t_ms *ms, t_args *args, int i)
 		if (ms->cmnds_num > 1)
 			close_pipes(ms->pipes, 0, i, ms->cmnds_num - 1);
 		ft_close_fd(ms->args);
-		ms->exitstatus = ft_exec_cmd(args->argv, ms->env);
+		ms->exitstatus = ft_exec_cmd(ms, args->argv, ms->env);
 	}
 	return;
 }
@@ -65,20 +72,6 @@ void ft_exec_builtin(t_ms *ms, t_args *args, int i)
     ms->exitstatus = handle_builtins(ms, args, out_fd);
 	return;
 }
-
-/*void wait_pids(t_ms *ms)
-{
-    int stat;
-    int i;
-
-    i = 0;
-    while (i < ms->cmnds_num)
-    {
-        waitpid(ms->pid[i], &stat, 0);
-        i++;
-    }
-    return;
-}*/
 
 int ft_exec_args(t_ms *ms, t_args *args)
 {
