@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 16:58:27 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/31 15:27:59 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/04 19:48:40 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,13 @@ int	ft_set_env_cont(t_env *env, char *name, char *cont)
 		env = env->next;
 	}
 	return (0);
+}
+
+void	ft_free_node(t_env *env)
+{
+	if (env->v_name != NULL)
+		free(env->v_name);
+	if (env->v_cont != NULL)
+		free(env->v_cont);
+	free(env);
 }
