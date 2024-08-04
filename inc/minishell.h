@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/31 17:08:43 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/04 11:50:30 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*get_var_name(char *str, int start);
 t_env	*find_env_var(t_env *env, char *var_name);
 
 /*    signals.c    */
-void    ft_start_signals(int mode);
+void	ft_start_signals(int mode);
 void	ft_ignoresig(int signal);
 
 /*    get_input.c    */
@@ -137,12 +137,11 @@ int		ft_exec(t_ms *ms, t_args *args);
 int		is_file_in_dir(char *file, char *dir);
 
 /*               exec_utils.c                   */
-int 	ft_t_args_len(t_args *args);
-void    ft_close_fd(t_args *args);
+int		ft_t_args_len(t_args *args);
+void	ft_close_fd(t_args *args);
 void	close_pipes(int **pipes, int first, int last, int len);
-int  	handle_pipes(t_ms *ms);
+int		handle_pipes(t_ms *ms);
 int		handle_pids(t_ms *ms);
-
 
 /*---------------------------------------------*/
 /*               PARSING                       */
@@ -194,7 +193,7 @@ int		ft_export(t_ms *ms, char **args, int fd);
 int		is_numeric(char *str);
 int		ft_exit(char **args);
 int		ft_cd(t_ms *ms, char **args);
-int		ft_unset(t_ms  *ms, char **args);
+int		ft_unset(t_ms *ms, char **args);
 
 /*    builtins_utils.c    */
 int		ft_str_compare(char *str1, char *str2);
