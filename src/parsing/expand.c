@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 14:38:11 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/04 14:44:11 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,6 @@ int	expand_quotes(t_tokens *tok)
 			if (!aux)
 				return (EXIT_FAILURE);
 			i = ft_retokenize(tok, i, aux, ft_strlen(aux) + 2);
-			free(aux);
 		}
 		else
 		{
@@ -143,6 +142,7 @@ int	expand_quotes(t_tokens *tok)
 				return (EXIT_FAILURE);
 			i = ft_retokenize(tok, i, aux, ft_strlen(aux));
 		}
+		free(aux);
 		if (i == -1)
 			return (EXIT_FAILURE);
 	}
