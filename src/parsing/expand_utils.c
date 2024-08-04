@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:42:25 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 14:37:12 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/04 15:38:18 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	*get_dollar_content(t_ms *ms, t_env *env, char *var_name)
 	{
 		if (ft_str_compare(var_name, "$?") == 0)
 			content = ft_itoa(ms->exitstatus);
+		else if (ft_str_compare(var_name, "$") == 0)
+			content = ft_strdup("$");
 		else
 			content = ft_strdup("");
 	}
@@ -53,7 +55,14 @@ char	*rm_delimiters(char *tok, int i)
 	if (ft_ismetachar(tok[i]) == 1)
 		len = ft_quote_len(&tok[i], tok[i]);
 	else
+	{
 		len = find_dollar_end(&tok[i]);
+		if (len == 2)
+		{
+			str = ft_strdup("$");
+			return (str);
+		}
+	}
 	str = ft_substr(tok, i + 1, len - 2);
 	if (!str)
 		return (NULL);
