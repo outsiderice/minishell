@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:58:24 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/29 15:28:15 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/05 19:57:18 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_pwd(int fd)
 	}
 	else
 	{
-		printf("error pwd"); //better error handling
+		printf("error pwd\n"); // perror
 		return (1);
 	}
 }

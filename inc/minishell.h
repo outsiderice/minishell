@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/05 19:36:25 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/05 20:00:37 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ typedef struct s_env
 
 typedef struct s_args
 {
-	int				fd[2]; // for pipe
-	int				redir_type; //< = 1, << = 2, > = 3, >> = 4, -1 for empty
+	int				fd[2];
+	int				redir_type;
 	// this would consider cases like < file1 cat >> file2
 	//int				redir_type_inp; //< = 1, << = 2, -1 for empty
 	//int				redir_type_out; //> = 1, >> = 2, -1 for empty
@@ -76,7 +76,7 @@ typedef struct s_ms
 	int			sh_lvl;
 	char		*pwd;
 	char		*old_pwd;
-	int			*pid; // nuevo -> aqui se guardan los hijos para controlarlos
+	int			*pid;
 	int			**pipes;
 	int			cmnds_num;
 	int			heredoc;	
