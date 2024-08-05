@@ -6,24 +6,20 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:24:15 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 19:50:05 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/05 17:41:53 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_double_char_ptr(char **ptr)
+void	free_node(t_env *env)
 {
-	while (*ptr != NULL)
-	{
-		free(*ptr);
-		ptr++;
-	}
-	if (ptr != NULL)
-	{
-		free(ptr);
-		ptr = NULL;
-	}
+	if (env->v_name != NULL)
+		free(env->v_name);
+	if (env->v_cont != NULL)
+		free(env->v_cont);
+	if (env != NULL)
+		free(env);
 }
 
 void	free_int_ptr(int *ptr)

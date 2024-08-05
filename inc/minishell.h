@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/05 16:52:37 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/05 17:30:33 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,10 +214,13 @@ int		ft_args_len(char **args);
 int		ft_set_env_cont(t_env *env, char *name, char *cont);
 int		*ft_sort_alpha(char **env, int len);
 
+/*    export_utils.c                           */
+void    ft_print_env(t_env *env_list, int fd);
+
 /*---------------------------------------------*/
 /*                   FREE                      */
 /*---------------------------------------------*/
-void	free_ms(t_ms **ms);
+void	free_node(t_env *env);
 void	free_double_int_ptr(int **ptr, int len);
-
+void	free_ms(t_ms **ms);
 #endif

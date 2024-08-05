@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 18:10:49 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/05 16:56:55 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/05 17:18:54 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,12 +141,7 @@ void	ft_export_no_args(t_env *env_list, int fd)
 		j = -1;
 		while (ind[++j] != i)
 			env_list = env_list->next;
-		ft_putstr_fd("declare -x ", fd);
-		ft_putstr_fd(env_list->v_name, fd);
-		ft_putchar_fd('=', fd);
-		ft_putchar_fd('"', fd);
-		ft_putstr_fd(env_list->v_cont, fd);
-		ft_putendl_fd("\"", fd);
+		ft_print_env(env_list, fd);
 		env_list = first;
 		i++;
 	}

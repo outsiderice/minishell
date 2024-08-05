@@ -6,7 +6,7 @@
 #    By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/08/04 18:30:52 by kkoval           ###   ########.fr        #
+#    Updated: 2024/08/05 17:18:23 by kkoval           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRCS 		=	src/main.c \
 				src/builtins/echo.c \
 				src/builtins/unset.c \
 				src/builtins/export.c \
+				src/builtins/export_utils.c \
 				src/builtins/cd.c \
 				src/heredoc.c \
 				src/heredoc_expansion.c \

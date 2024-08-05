@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:58:31 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/04 19:43:25 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/05 17:36:23 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ int ft_unset_args(t_env **env, char **args, int i)
                 prev->next = current->next;
             else
                 *env = current->next;
-            free(current->v_name);
-            free(current->v_cont);
-            free(current);
+            free_node(current);
         }
         *env = first;
         i++;
