@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 18:10:49 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/04 19:19:51 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/05 16:56:55 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,8 @@ void	ft_export_no_args(t_env *env_list, int fd)
 		env_list = first;
 		i++;
 	}
+	free_arr(env);
+	free(ind);
 	return ;
 }
 
