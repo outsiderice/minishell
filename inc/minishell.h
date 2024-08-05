@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/05 17:30:33 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/05 19:36:25 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ int		is_builtin(char *cmd);
 int		handle_builtins(t_ms *ms, t_args *args, int fd);
 int		ft_echo(t_args *args, int fd);
 int		ft_pwd(int fd);
-int		ft_env(t_env *env_list, int fd);
+int		ft_env(t_args *args, t_env *env_list, int fd);
 int		ft_export(t_ms *ms, char **args, int fd);
 int		is_numeric(char *str);
 int		ft_exit(t_ms *ms, char **args);
