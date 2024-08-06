@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/04 19:24:00 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/06 15:31:44 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int ft_exec_cmd(t_ms *ms, char **args, t_env *env)
 	ms->envp = ft_list_to_array(env);
     if (execve(cmd, args, ms->envp) == -1) 
     {
-        printf("command not found\n");
+        ft_putstr_fd("command not found\n", 2);
         free_arr(ms->envp);
 		free_arr(paths);
 		free(path);
@@ -42,21 +42,18 @@ int ft_exec_cmd(t_ms *ms, char **args, t_env *env)
 
 void ft_exec_child(t_ms *ms, t_args *args, int i)
 {   
-	if (ms->pid[i] == 0)
-	{
-		if (args->fd[0] != -2 && args->fd[0] != -1)
-			dup2(args->fd[0], STDIN_FILENO);
-		else if (i != 0)
-			dup2(ms->pipes[i-1][0], STDIN_FILENO);
-		if (args->fd[1] != -2 && args->fd[1] != -1)
-			dup2(args->fd[1], STDOUT_FILENO);
-		else if (i !=  ms->cmnds_num - 1)
-			dup2(ms->pipes[i][1], STDOUT_FILENO);
-		if (ms->cmnds_num > 1)
-			close_pipes(ms->pipes, 0, i, ms->cmnds_num - 1);
-		ft_close_fd(ms->args);
-		ms->exitstatus = ft_exec_cmd(ms, args->argv, ms->env);
-	}
+    if (args->fd[0] != -2 && args->fd[0] != -1)
+        dup2(args->fd[0], STDIN_FILENO);
+    else if (i != 0)
+        dup2(ms->pipes[i-1][0], STDIN_FILENO);
+    if (args->fd[1] != -2 && args->fd[1] != -1)
+        dup2(args->fd[1], STDOUT_FILENO);
+    else if (i !=  ms->cmnds_num - 1)
+        dup2(ms->pipes[i][1], STDOUT_FILENO);
+    if (ms->cmnds_num > 1)
+        close_pipes(ms->pipes, 0, i, ms->cmnds_num - 1);
+    ft_close_fd(ms->args);
+    ms->exitstatus = ft_exec_cmd(ms, args->argv, ms->env);
 	return;
 }
 
@@ -84,12 +81,21 @@ int ft_exec_args(t_ms *ms, t_args *args)
         if (i != ms->cmnds_num - 1 && pipe(ms->pipes[i]) == -1)
             //lliberar todo y cerrar programa??
 			return (1);
-        if (is_builtin(args->argv[0]) == 1)
+        if (ms->cmnds_num == 1 && is_builtin(args->argv[0]) == 1)
             ft_exec_builtin(ms, args, i);
         else
         {
             ms->pid[i] = fork();
-			ft_exec_child(ms, args, i);                
+            if (ms->pid[i] == 0)
+            {
+                if (is_builtin(args->argv[0]) == 1)
+                {
+                    ft_exec_builtin(ms, args, i);
+                    exit (ms->exitstatus);
+                }
+                else
+                    ft_exec_child(ms, args, i);
+            }                
         }
         args = args->next;
         i++;
