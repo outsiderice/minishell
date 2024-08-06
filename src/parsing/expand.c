@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/06 12:11:00 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:00:55 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 	char		*content;
 	t_env		*env;
 
+	if (no_expansion(tok->tok, i) == 0)
+		return (++i);
 	env = ms->env;
 	var_name = get_var_name(tok->tok, i);
 	env = find_env_var(env, var_name);
@@ -60,15 +62,13 @@ int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 		free (var_name);
 		return (-1);
 	}
-	if (ft_str_compare(content, "$?") == 0 || ft_str_compare(content, "$?") == 0)
-		i--;
 	i = ft_retokenize(tok, i, content, ft_strlen(var_name) + 1);
 	free (var_name);
 	free (content);
 	return (i);
 }
 
-// checks if a '$' is expandable or not
+// checks if a '$' is in a expandable position or not
 // returns 1 on failure and 0 on success
 int	is_expandable_dollar(t_ms *ms, t_tokens *tok)
 {

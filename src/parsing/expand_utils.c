@@ -6,11 +6,19 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:42:25 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 15:38:18 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/06 12:58:37 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	no_expansion(char *tok, int i)
+{
+	i++;
+	if (ft_isalnum(tok[i]) == 0 || tok[i] != '_')
+		return (0);
+	return (1);
+}
 
 char	*get_dollar_content(t_ms *ms, t_env *env, char *var_name)
 {
