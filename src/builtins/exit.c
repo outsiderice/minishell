@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:37:44 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/31 16:40:12 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/04 19:23:12 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	ft_exit(t_ms *ms, char **args) //possibly save the readline history
 	if (*args == NULL)
 	{
 		free_ms(&ms);
-		ft_putstr_fd("exitttttttt\n", 1);
+		ft_putstr_fd("exit\n", 1);
 		exit (0);
 	}
 	args_len = ft_args_len(args);

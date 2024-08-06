@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 18:10:49 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/31 15:28:09 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/05 18:41:13 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,12 @@ int	ft_add_to_env(t_env *env_list, char *arg)
 		aux->next = NULL;
 		env_list->next = aux;
 	}
+	
 	aux->v_cont = ft_strdup(node->v_cont);
 	//printf("New env var added: %s = %s\n", aux->v_name, aux->v_cont );
-	free(node);
+	free_node(node);
+	//if (aux->v_cont != NULL)
+		//free(aux->v_cont);
 	return (1);
 }
 
@@ -139,15 +142,12 @@ void	ft_export_no_args(t_env *env_list, int fd)
 		j = -1;
 		while (ind[++j] != i)
 			env_list = env_list->next;
-		ft_putstr_fd("declare -x ", fd);
-		ft_putstr_fd(env_list->v_name, fd);
-		ft_putchar_fd('=', fd);
-		ft_putchar_fd('"', fd);
-		ft_putstr_fd(env_list->v_cont, fd);
-		ft_putendl_fd("\"", fd);
+		ft_print_env(env_list, fd);
 		env_list = first;
 		i++;
 	}
+	free_arr(env);
+	free(ind);
 	return ;
 }
 

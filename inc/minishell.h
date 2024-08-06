@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/06 13:02:04 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:32:57 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ typedef struct s_env
 
 typedef struct s_args
 {
-	int				fd[2]; // for pipe
-	int				redir_type; //< = 1, << = 2, > = 3, >> = 4, -1 for empty
+	int				fd[2];
+	int				redir_type;
 	// this would consider cases like < file1 cat >> file2
 	//int				redir_type_inp; //< = 1, << = 2, -1 for empty
 	//int				redir_type_out; //> = 1, >> = 2, -1 for empty
@@ -76,7 +76,7 @@ typedef struct s_ms
 	int			sh_lvl;
 	char		*pwd;
 	char		*old_pwd;
-	int			*pid; // nuevo -> aqui se guardan los hijos para controlarlos
+	int			*pid;
 	int			**pipes;
 	int			cmnds_num;
 	int			heredoc;	
@@ -110,6 +110,8 @@ int		error_msg(char *msg, char *deets);
 
 /*    free.c    */
 void	free_env(t_env **env);
+void	free_int_ptr(int *ptr);
+void	free_double_char_ptr(char **ptr);
 void	free_tok_and_args(t_tokens **toks, t_args **args);
 
 /*    heredoc.c    */
@@ -201,7 +203,7 @@ int		is_builtin(char *cmd);
 int		handle_builtins(t_ms *ms, t_args *args, int fd);
 int		ft_echo(t_args *args, int fd);
 int		ft_pwd(int fd);
-int		ft_env(t_env *env_list, int fd);
+int		ft_env(t_args *args, t_env *env_list, int fd);
 int		ft_export(t_ms *ms, char **args, int fd);
 int		is_numeric(char *str);
 int		ft_exit(t_ms *ms, char **args);
@@ -215,10 +217,13 @@ int		ft_args_len(char **args);
 int		ft_set_env_cont(t_env *env, char *name, char *cont);
 int		*ft_sort_alpha(char **env, int len);
 
+/*    export_utils.c                           */
+void    ft_print_env(t_env *env_list, int fd);
+
 /*---------------------------------------------*/
 /*                   FREE                      */
 /*---------------------------------------------*/
-void	free_ms(t_ms **ms);
+void	free_node(t_env *env);
 void	free_double_int_ptr(int **ptr, int len);
-
+void	free_ms(t_ms **ms);
 #endif

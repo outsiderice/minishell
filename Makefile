@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
+#    By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/08/04 15:50:13 by amagnell         ###   ########.fr        #
+#    Updated: 2024/08/05 17:18:23 by kkoval           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRCS 		=	src/main.c \
 				src/builtins/echo.c \
 				src/builtins/unset.c \
 				src/builtins/export.c \
+				src/builtins/export_utils.c \
 				src/builtins/cd.c \
 				src/heredoc.c \
 				src/heredoc_expansion.c \
@@ -67,7 +68,7 @@ OBJS		=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS		=	$(OBJS:%.o=%.d)
 
 CC 			=	cc
-CFLAGS 		=	-Wall -Wextra -Werror
+CFLAGS 		=	-Wall -Wextra -Werror -g
 CPPFLAGS 	=	$(addprefix -I, $(INCS)) -MMD -MP
 LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_TARGET)))
 LDLIBS		=	$(addprefix -l, $(LIBS))

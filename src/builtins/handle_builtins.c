@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/04 15:56:09 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/05 19:59:56 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,18 @@ int	is_builtin(char *cmd)
 
 void	handle_redirections_builtin(t_args *args) 
 {
-    // Input redirection: '<'
     if (args->fd[0] != -1 && args->fd[0] != -2)
     {
-        if (dup2(args->fd[0], STDIN_FILENO) == -1) {
+        if (dup2(args->fd[0], STDIN_FILENO) == -1)
+		{
             perror("dup2");
             exit(1);
         }
         close(args->fd[0]);
     }
-
-    // Output redirection: '>' and '>>'
     if (args->fd[1] != -1 && args->fd[1] != -2) {
-        if (dup2(args->fd[1], STDOUT_FILENO) == -1) {
+        if (dup2(args->fd[1], STDOUT_FILENO) == -1) 
+		{
             perror("dup2");
             exit(1);
         }
@@ -64,7 +63,7 @@ int	handle_builtins(t_ms *ms, t_args *args, int fd) //probably has to be **msh t
 	else if (ft_str_compare(ms->args->argv[0], "cd") == 0)
 	 	return (ft_cd(ms, ms->args->argv));
 	else if (ft_str_compare(args->argv[0], "env") == 0)
-		return (ft_env(ms->env, fd));
+		return (ft_env(ms->args, ms->env, fd));
 	else if (ft_str_compare(args->argv[0], "export") == 0)
 		return (ft_export(ms, args->argv, fd)); 
 	else if (ft_str_compare(args->argv[0], "unset") == 0)
