@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 17:07:25 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/06 13:02:32 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:24:18 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*get_var_name(char *str, int start)
 	char	*var_name;
 
 	if (ft_strncmp(&str[start], "$?", 2) == 0)
-		var_name = ft_strdup("$?");
+		var_name = ft_strdup("?");
 	else
 		var_name = rm_delimiters(str, start);
 	if (!var_name)

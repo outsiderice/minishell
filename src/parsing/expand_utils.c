@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:42:25 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/06 14:10:47 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:22:59 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*get_dollar_content(t_ms *ms, t_env *env, char *var_name)
 	content = NULL;
 	if (!env)
 	{
-		if (ft_str_compare(var_name, "$?") == 0)
+		if (ft_str_compare(var_name, "?") == 0)
 			content = ft_itoa(ms->exitstatus);
 		else
 			content = ft_strdup("");
