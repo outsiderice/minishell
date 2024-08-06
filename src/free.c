@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:24:15 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/05 17:41:53 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/06 19:38:44 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,10 @@ void	free_ms(t_ms **ms)
 {
 	free_env(&(*ms)->env);
 	free_tok_and_args(&(*ms)->tokens, &(*ms)->args);
-	if ((*ms)->pwd != NULL)
-		free((*ms)->pwd);
-	if ((*ms)->old_pwd != NULL)
-		free((*ms)->old_pwd);
+	// if ((*ms)->pwd != NULL)
+	// 	free((*ms)->pwd);
+	// if ((*ms)->old_pwd != NULL)
+	// 	free((*ms)->old_pwd);
 	free((*ms)->pid);
 	(*ms)->pid = NULL;
 	free_int_ptr((*ms)->pid);
