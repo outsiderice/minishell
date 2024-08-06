@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:42:25 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/06 12:58:37 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:10:11 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	no_expansion(char *tok, int i)
 {
 	i++;
-	if (ft_isalnum(tok[i]) == 0 || tok[i] != '_')
+	if (ft_isalnum(tok[i]) == 0 && tok[i] != '_' && tok[i] != '?')
 		return (0);
 	return (1);
 }
