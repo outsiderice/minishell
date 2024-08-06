@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/06 13:10:16 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:10:01 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	is_expandable_dollar(t_ms *ms, t_tokens *tok)
 
 //iterates TOK while tok[i] is not a quote
 //adds all the characters found to string SHIT and returns it
-char	*add_shit(char *tok, int i)
+char	*add_unquoted(char *tok, int i)
 {
 	char	*shit;
 	int		shit_len;
@@ -139,7 +139,7 @@ int	expand_quotes(t_tokens *tok)
 		}
 		else
 		{
-			aux = add_shit(tok->tok, i);
+			aux = add_unquoted(tok->tok, i);
 			if (!aux)
 				return (EXIT_FAILURE);
 			i = ft_retokenize(tok, i, aux, ft_strlen(aux));
