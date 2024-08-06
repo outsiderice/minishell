@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 15:38:55 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/06 11:26:22 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 		free (var_name);
 		return (-1);
 	}
+	if (ft_str_compare(content, "$?") == 0 || ft_str_compare(content, "$?") || content[0] == '\0')
+	 i--;
 	i = ft_retokenize(tok, i, content, ft_strlen(var_name) + 1);
 	free (var_name);
 	free (content);
