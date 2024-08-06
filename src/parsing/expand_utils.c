@@ -6,11 +6,30 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:42:25 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 15:38:18 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:22:59 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// Checks if it's just a dollar character which needs no expansion
+// if true returns 0 if not returns 1
+int	no_expansion(char *tok, int i)
+{
+	int	len;
+
+	len = 0;
+	i++;
+	if (ft_ismetachar(tok[i]) == 1)
+	{
+		len = ft_quote_len(tok, tok[i]);
+		if (len == 2)
+			return (1);
+	}
+	if (ft_isalnum(tok[i]) == 0 && tok[i] != '_' && tok[i] != '?')
+		return (0);
+	return (1);
+}
 
 char	*get_dollar_content(t_ms *ms, t_env *env, char *var_name)
 {
@@ -19,10 +38,8 @@ char	*get_dollar_content(t_ms *ms, t_env *env, char *var_name)
 	content = NULL;
 	if (!env)
 	{
-		if (ft_str_compare(var_name, "$?") == 0)
+		if (ft_str_compare(var_name, "?") == 0)
 			content = ft_itoa(ms->exitstatus);
-		else if (ft_str_compare(var_name, "$") == 0)
-			content = ft_strdup("$");
 		else
 			content = ft_strdup("");
 	}
