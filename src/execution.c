@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:26:40 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 16:27:24 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/07 15:25:09 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ void	exeggutor(t_ms *ms)
 		ft_exec(ms, ms->args);
 	}
 	free_tok_and_args(&ms->tokens, &ms->args);
-	free_int_ptr(ms->pid);
+	if (ms->pid != NULL)
+		free_int_ptr(ms->pid);
 }

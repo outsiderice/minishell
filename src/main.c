@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 18:40:04 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/07 15:32:31 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_init_ms(t_ms *ms, char **envp)
 		free_env(&ms->env);
 		exit (error_msg("getcwd:Returned NULL new_pwd\n", NULL));
 	}
-	//ms->pid = getpid(); quizas no va aqui
+	ms->pid = NULL;
 }
 
 //the minishell execution loop
