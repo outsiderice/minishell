@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/06 16:37:01 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:19:23 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,10 +117,18 @@ int ft_exec(t_ms *ms, t_args *args)
         return (1);
 	}
     ft_exec_args(ms, args);
+    printf("antes de wexit%d\n", ms->exitstatus);
+    if (is_builtin(args->argv[0])== 0 && ms->cmnds_num == 1)
+    {
+        ft_close_fd(ms->args);
+        return (0);
+    }
     while (i < ms->cmnds_num)
     {
         waitpid(ms->pid[i], &stat, 0);
+        ms->exitstatus = WEXITSTATUS(stat);
         i++;
+        printf("%d\n", ms->exitstatus);
     }
 	ft_close_fd(ms->args);
     return (0);
