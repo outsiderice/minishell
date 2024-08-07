@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:37:44 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/04 19:23:12 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/07 23:19:19 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,29 +61,26 @@ int	ft_exit(t_ms *ms, char **args) //possibly save the readline history
 	int				args_len;
 
 	exit_status = 0;
-	args++;
-	if (*args == NULL)
-	{
-		free_ms(&ms);
-		ft_putstr_fd("exit\n", 1);
-		exit (0);
-	}
 	args_len = ft_args_len(args);
 	ft_putstr_fd("exit\n", STDOUT_FILENO);
-	if (ft_check_lli(*args) == 0)
-	{
-		ft_putstr_fd("minishell: exit: ", 1);
-		ft_putstr_fd(*args, 1);
-		ft_putstr_fd(": numeric argument required\n", 1);
-		return (0);
-	}
 	if (args_len > 1)
 	{
-		ft_putstr_fd("minishell: exit: too many arguments\n", 1);
-		return (exit_status);
+		args++;
+		if (ft_check_lli(*args) == 0)
+		{
+			ft_putstr_fd("minishell: exit: ", 1);
+			ft_putstr_fd(*args, 1);
+			ft_putstr_fd(": numeric argument required\n", 1);
+			exit_status = 255;
+		}
+		else
+			exit_status = ft_atoi_long_long(*args);
 	}
-	exit_status = ft_atoi_long_long(*args);
+	if (args_len > 2)
+	{
+		ft_putstr_fd("minishell: exit: too many arguments\n", 1);
+		return (1);
+	}
 	free_ms(&ms);
-	//exit(exit_status);
-	return (exit_status); // en realidad no devuellve estoo pero los flags se qiejan
+	exit(exit_status % 256);
 }
