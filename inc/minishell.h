@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/06 16:32:57 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:15:35 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,7 @@ int		*ft_sort_alpha(char **env, int len);
 
 /*    export_utils.c                           */
 void    ft_print_env(t_env *env_list, int fd);
+int		is_var_in_list(t_env *env_list, char *name);
 
 /*---------------------------------------------*/
 /*                   FREE                      */

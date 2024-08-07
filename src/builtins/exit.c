@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:37:44 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/04 19:23:12 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/06 20:01:48 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,5 @@ int	ft_exit(t_ms *ms, char **args) //possibly save the readline history
 	exit_status = ft_atoi_long_long(*args);
 	free_ms(&ms);
 	//exit(exit_status);
-	return (exit_status); // en realidad no devuellve estoo pero los flags se qiejan
+	exit (exit_status); // en realidad no devuellve estoo pero los flags se qiejan
 }
