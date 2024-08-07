@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/07 15:32:31 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:18:58 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_init_ms(t_ms *ms, char **envp)
 {
+	char buffer[1024];
+
 	ms->env = start_env(envp);
 	if (ms->env == NULL || ft_set_shll_lvl(ms->env) == -1)
 	{
@@ -24,17 +26,13 @@ void	ft_init_ms(t_ms *ms, char **envp)
 	ms->args = NULL;
 	ms->exitstatus = -1;
 	ms->sh_lvl = ft_get_shll_lvl(ms->env);
-	ms->old_pwd = getcwd(NULL, 0);
-	if (ms->old_pwd == NULL)
+	ms->pwd = getcwd(buffer, 1024);
+	ms->old_pwd = getcwd(buffer, 1024);
+	//printf("buffer: %s\n", buffer);
+	if (ms->old_pwd == NULL || ms->pwd == NULL)
 	{
 		free_env(&ms->env);
-		exit (error_msg("getcwd:Returned NULL old_pwd\n", NULL));
-	}
-	ms->pwd = getcwd(NULL, 0);
-	if (ms->pwd == NULL)
-	{
-		free_env(&ms->env);
-		exit (error_msg("getcwd:Returned NULL new_pwd\n", NULL));
+		exit (error_msg("getcwd: Returned NULL\n", NULL));
 	}
 	ms->pid = NULL;
 }
