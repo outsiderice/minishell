@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:24:15 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/06 19:38:44 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/07 16:05:32 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,6 @@ void	free_ms(t_ms **ms)
 	// 	free((*ms)->old_pwd);
 	free((*ms)->pid);
 	(*ms)->pid = NULL;
-	free_int_ptr((*ms)->pid);
+	//free_int_ptr((*ms)->pid);
 	//free_double_int_ptr((*ms)->pipes, (*ms)->cmnds_num);
 } 

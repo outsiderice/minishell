@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/06 15:31:44 by kate             ###   ########.fr       */
+/*   Updated: 2024/08/07 17:11:25 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void ft_exec_builtin(t_ms *ms, t_args *args, int i)
     else if (i != ms->cmnds_num -1)
         out_fd = ms->pipes[i][1];
     ms->exitstatus = handle_builtins(ms, args, out_fd);
-    printf("%d\n", ms->exitstatus);
+    //printf("%d\n", ms->exitstatus);
 	return;
 }
 
@@ -120,6 +120,9 @@ int ft_exec(t_ms *ms, t_args *args)
     while (i < ms->cmnds_num)
     {
         waitpid(ms->pid[i], &stat, 0);
+        printf("%d\n", stat);
+        ms->exitstatus = WEXITSTATUS(stat);
+        printf("exit status es %d\n", ms->exitstatus);
         i++;
     }
 	ft_close_fd(ms->args);

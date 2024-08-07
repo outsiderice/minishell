@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 16:58:27 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/06 19:40:14 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/07 16:07:12 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ char	*get_env_cont(t_env *env, char *str)
 	{
 		if (ft_str_compare(env->v_name, str) == 0)
 		{
-			// var = ft_strdup(env->v_cont);
-			// if (!var)
-			// 	return (NULL);
+			var = ft_strdup(env->v_cont);
+			if (!var)
+		 		return (NULL);
 			var = env->v_cont;
 			return (var);
 		}

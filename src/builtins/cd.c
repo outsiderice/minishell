@@ -6,15 +6,11 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:02:52 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/06 19:32:26 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/07 16:54:55 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-/*
-DOUBTS:
-	2. Do we have to check permissions to enter specific directories?
-*/
 
 int	ft_change_pwd(t_ms *ms)
 {
@@ -22,6 +18,8 @@ int	ft_change_pwd(t_ms *ms)
 	char	buffer[1024];
 
 	aux = ms->pwd;
+	//if (ms->pwd != NULL)
+		//free(ms->pwd);
 	ms->pwd = getcwd(buffer, 0);
 	if (ms->pwd == NULL)
 		return (-1);
@@ -81,7 +79,6 @@ int	ft_cd(t_ms *ms, char **args)
 	char		*path;
 	struct stat	sb;
 
-	//g_var possible global variable
 	path = NULL;
 	if (ft_args_len(args) > 2)
 	{
