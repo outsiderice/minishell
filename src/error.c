@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 14:38:39 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/03 11:53:30 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:44:32 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ int	error_msg(char *msg, char *deets)
 	ft_putstr_fd(msg, 2);
 	if (deets)
 		ft_putstr_fd(deets, 2);
+	write(2, "\n", 1);
 	return (EXIT_FAILURE);
 }
