@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:26:40 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/07 15:25:09 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:35:59 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@
 void	exeggutor(t_ms *ms)
 {
 	ms->heredoc = handle_heredocs(ms);
-	if (ft_prep_args(ms) == 0 && ms->args->argv != NULL) //needs proper handling once executor is cleaned up
+	if (ft_prep_args(ms) == 0 && ms->args->argv != NULL)
 	{
-		//printf("about to enter exec\n");
 		ft_exec(ms, ms->args);
 	}
 	free_tok_and_args(&ms->tokens, &ms->args);
