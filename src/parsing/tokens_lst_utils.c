@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:01:59 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/08 16:43:27 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:01:07 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void	free_toks(t_tokens **toks)
 {
 	t_tokens	*tok;
 	t_tokens	*tmp_tok;
-
+	
+	if (toks == NULL)
+		return ;
 	tok = *toks;
 	while (tok != NULL)
 	{

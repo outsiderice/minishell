@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/08 14:59:42 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:01:39 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	ft_tok_checks(const char *line, t_ms *ms)
 	if (ft_tokenize(line, &toks) == -1)
 	{
 		error_msg("token memory allocation failure\n", NULL);
+		free_toks(&toks);
 		return (EXIT_FAILURE);
 	}
 	ms->tokens = toks;
