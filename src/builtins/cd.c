@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:02:52 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/31 13:34:36 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/08 13:03:23 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ DOUBTS:
 int	ft_change_pwd(t_ms *ms)
 {
 	char	*aux;
+	char	buffer[1024];
 
 	aux = ms->pwd;
-	ms->pwd = getcwd(NULL, 0);
+	ms->pwd = getcwd(buffer, 0);
 	if (ms->pwd == NULL)
 		return (-1);
 	ms->old_pwd = aux;
