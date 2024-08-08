@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:25:54 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/08 12:58:20 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/08 13:24:03 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	sig_handler(int signal)
 void	heredoc_sigmode(int signal)
 {
 	if (signal == SIGINT)
+	{
+		write(1, "\n", 1);
 		exit(130);
+	}
 }
 
 void	ft_ignoresig(int signal)
