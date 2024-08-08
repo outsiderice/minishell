@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/08 12:40:33 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/08 12:46:12 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_init_ms(t_ms *ms, char **envp)
 	}
 	ms->tokens = NULL;
 	ms->args = NULL;
-	ms->exitstatus = -1;
+	ms->exitstatus = 0;
 	ms->sh_lvl = ft_get_shll_lvl(ms->env);
 	ms->pwd = getcwd(buffer, 1024);
 	ms->old_pwd = getcwd(buffer, 1024);
@@ -50,10 +50,11 @@ void	ft_minishell(t_ms *ms)
 		ft_start_signals(1);
 		ft_ignoresig(SIGQUIT);
 		line = ft_readline(ms, "eggshell~$");
-		// ms->exitstatus = g_signstat + 128;
-		// if (g_signstat == 0)
-		// 	ms->exitstatus = 0;
-		// g_signstat = 0;
+		if (g_signstat != 0)
+		{
+			ms->exitstatus = g_signstat + 128;
+			g_signstat = 0;
+		}
 		while (line)
 		{
 			ft_start_signals(1);

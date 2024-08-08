@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/08 12:40:21 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/08 12:56:44 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,18 +112,15 @@ int ft_exec(t_ms *ms, t_args *args)
 	i = 0;
     if (handle_pipes(ms) == -1 || handle_pids(ms) == -1)
 	{
+        error_msg("allocation failure", NULL);
         //lliberar todo y cerrar programa??
         return (1);
 	}    
     ft_exec_args(ms, args);
-    if (is_builtin(args->argv[0]) == 0 || ms->cmnds_num != 1)
+    while (i < ms->cmnds_num)
     {
-        while (i < ms->cmnds_num)
-        {
-            waitpid(ms->pid[i], &stat, 0);
-            ms->exitstatus = WEXITSTATUS(stat);
-            i++;
-        }
+        waitpid(ms->pid[i], &stat, 0);
+        i++;
     }
 	ft_close_fd(ms->args);
     return (0);

@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:01:50 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/04 15:51:27 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/08 12:54:38 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ int handle_pids(t_ms *ms)
 {
     if (ms->cmnds_num == 0)
     {
-        dprintf(2, "algo ha ido mal y hay 0 comandos\n");
-        return (-1);
+        return (0);
     }
     ms->pid = malloc(sizeof(int) * ms->cmnds_num);
     if (!ms->pid)
