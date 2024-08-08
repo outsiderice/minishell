@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/08 16:41:28 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:56:58 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	ft_parse(t_ms *ms)
 	if (ft_expansion_check(ms) == 1)
 	{
 		error_msg("expansion memory allocation failure\n", NULL);
+		free_toks(&first);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
