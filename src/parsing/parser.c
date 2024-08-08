@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/08 15:05:25 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:41:28 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ int	ft_pipe_syntax(t_tokens *tok, t_tokens *first_tok)
 	if (first_tok->type == 2)
 	{
 		error_msg("syntax error near unexpected token,", tok->tok);
+		free_toks(&first_tok);
 		return (EXIT_FAILURE);
 	}
 	if (tok->next == NULL || tok->next->type == 2)
 	{
+		free_toks(&first_tok);
 		error_msg("syntax error near unexpected token,", tok->tok);
 		return (EXIT_FAILURE);
 	}
@@ -37,6 +39,7 @@ int	ft_redir_syntax(t_tokens *tok)
 	if (tok->next == NULL || (tok->next->type != 0 && tok->next->type != 1))
 	{
 		error_msg("syntax error near unexpected token,", tok->tok);
+		free_toks(&tok);
 		return (EXIT_FAILURE);
 	}
 	else if (ft_str_compare(tok->tok, "<<") == 0)

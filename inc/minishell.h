@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/07 17:15:35 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/08 16:43:15 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	free_int_ptr(int *ptr);
 void	free_double_char_ptr(char **ptr);
 void	free_tok_and_args(t_tokens **toks, t_args **args);
 
+
 /*    heredoc.c    */
 int		handle_heredocs(t_ms *ms);
 
@@ -192,8 +193,8 @@ int		ft_tok_checks(const char *line, t_ms *ms);
 
 /*    tokens_lst_utils.c    */
 int		ft_addtok(const char *line, int len, int type, t_tokens **tokens);
+void	free_toks(t_tokens **toks);
 // void	ft_tok_addback(t_tokens **tokens, t_tokens *new_tok);
-// void	del_tok(t_tokens **lst, t_tokens *tok);
 
 /*---------------------------------------------*/
 /*               BUILTINS                      */

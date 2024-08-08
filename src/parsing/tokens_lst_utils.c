@@ -6,11 +6,28 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:01:59 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/08 14:58:14 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:43:27 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_toks(t_tokens **toks)
+{
+	t_tokens	*tok;
+	t_tokens	*tmp_tok;
+
+	tok = *toks;
+	while (tok != NULL)
+	{
+		tmp_tok = tok;
+		if (tok->tok)
+			free(tok->tok);
+		tok = tok->next;
+		free(tmp_tok);
+	}
+	*toks = NULL;
+}
 
 //adds a new token to the end of the list
 void	ft_tok_addback(t_tokens **tokens, t_tokens *new_tok)
