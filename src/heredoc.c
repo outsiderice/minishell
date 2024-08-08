@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:21:03 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/08 14:09:46 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:28:01 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	heredoc_prompt(t_ms *ms, char *h_end, int hd, int expansion)
 		if (!line)
 		{
 			close(hd);
-			exit(-1);
+			exit(0);
 		}
 		if (ft_str_compare(line, h_end) == 0)
 		{
