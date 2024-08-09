@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/09 18:28:29 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/09 18:47:18 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,5 @@ int	is_var_in_list(t_env *env_list, char *name);
 /*                   FREE                      */
 /*---------------------------------------------*/
 void	free_node(t_env *env);
-void	free_double_int_ptr(int **ptr, int len);
 void	free_ms(t_ms **ms);
 #endif
