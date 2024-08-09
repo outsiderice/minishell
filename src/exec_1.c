@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/09 21:09:37 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/09 21:29:32 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ int ft_exec(t_ms *ms, t_args *args)
     {
         while (i < ms->cmnds_num)
         {
+            ft_ignoresig(SIGQUIT);
+            ft_ignoresig(SIGINT);
             waitpid(ms->pid[i], &stat, 0);
             ms->exitstatus = WEXITSTATUS(stat);
             i++;
