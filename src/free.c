@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:24:15 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/09 18:47:00 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/09 21:26:01 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	free_env(t_env **env)
 	while (current != NULL)
 	{
 		aux = current;
-		free(current->v_name);
+		if (current->v_name)
+			free(current->v_name);
 		if (current->v_cont)
 			free(current->v_cont);
 		current = current->next;

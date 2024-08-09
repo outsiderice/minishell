@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:02:52 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/09 18:30:35 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/09 21:26:30 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,5 @@ int	ft_cd(t_ms *ms, char **args)
 	ft_change_pwd(ms);
 	if (path != NULL)
 		free(path);
-	//printf("old pwd es %s, newpwd es %s\n", ms->old_pwd, ms->pwd);
 	return (0);
 }
