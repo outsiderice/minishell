@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/08 14:32:16 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/09 18:30:02 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,17 @@ void	ft_init_ms(t_ms *ms, char **envp)
 	ms->args = NULL;
 	ms->exitstatus = 0;
 	ms->sh_lvl = ft_get_shll_lvl(ms->env);
-	ms->pwd = getcwd(buffer, 1024);
 	ms->old_pwd = getcwd(buffer, 1024);
-	if (ms->old_pwd == NULL || ms->pwd == NULL)
+	if (ms->old_pwd == NULL)
 	{
 		free_env(&ms->env);
-		exit (error_msg("getcwd: Returned NULL\n", NULL));
+		exit (error_msg("getcwd:Returned NULL old_pwd\n", NULL));
+	}
+	ms->pwd = getcwd(buffer, 1024);
+	if (ms->pwd == NULL)
+	{
+		free_env(&ms->env);
+		exit (error_msg("getcwd:Returned NULL new_pwd\n", NULL));
 	}
 	ms->pid = NULL;
 }
