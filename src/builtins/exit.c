@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:37:44 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/09 19:19:23 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/09 19:38:32 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	exit_msg(char *args)
 	ft_putstr_fd("eggshell: exit: ", 2);
 	ft_putstr_fd(args, 2);
 	ft_putstr_fd(": numeric argument required\n", 2);
-	return;
+	return ;
 }
 
 int	ft_exit(t_ms *ms, char **args)
