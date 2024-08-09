@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:24:15 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/09 18:28:45 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/09 18:37:20 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ void	free_node(t_env *env)
 void	free_int_ptr(int *ptr)
 {
 	if (ptr != NULL)
+	{
 		free(ptr);
+		ptr = NULL;
+	}
 }
 
 void	free_double_int_ptr(int **ptr, int len)

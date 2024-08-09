@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/08 14:08:04 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/09 18:39:24 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,8 @@ int ft_exec(t_ms *ms, t_args *args)
         ms->exitstatus = WEXITSTATUS(stat);
         i++;
     }
+    if (ms->pid != NULL)
+		free_int_ptr(ms->pid);
 	ft_close_fd(ms->args);
     return (0);
 }
