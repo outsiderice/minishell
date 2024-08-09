@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/09 19:10:34 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/09 21:08:48 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	handle_builtins(t_ms *ms, t_args *args, int fd)
 	else if (ft_str_compare(ms->args->argv[0], "cd") == 0)
 		return (ft_cd(ms, ms->args->argv));
 	else if (ft_str_compare(args->argv[0], "env") == 0)
-		return (ft_env(ms->args, ms->env, fd));
+		return (ft_env(args, ms->env, fd));
 	else if (ft_str_compare(args->argv[0], "export") == 0)
 		return (ft_export(ms, args->argv, fd));
 	else if (ft_str_compare(args->argv[0], "unset") == 0)

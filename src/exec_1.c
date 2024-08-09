@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/09 18:58:40 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/09 21:09:37 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,10 @@ int ft_exec_args(t_ms *ms, t_args *args)
         else
         {
             ms->pid[i] = fork();
+            //printf("1cmmd %s this time %d\n", args->argv[0], i);
             if (ms->pid[i] == 0)
             {
+                //printf("2cmmd %s this time %d\n", args->argv[0], i);
                 if (is_builtin(args->argv[0]) == 1)
                 {
                     ft_exec_builtin(ms, args, i);
@@ -116,11 +118,14 @@ int ft_exec(t_ms *ms, t_args *args)
 	}    
     if (ft_exec_args(ms, args) == 1)
         return (1);
-    while (i < ms->cmnds_num)
+    if (is_builtin(args->argv[0]) == 0 || ms->cmnds_num != 1)
     {
-        waitpid(ms->pid[i], &stat, 0);
-        ms->exitstatus = WEXITSTATUS(stat);
-        i++;
+        while (i < ms->cmnds_num)
+        {
+            waitpid(ms->pid[i], &stat, 0);
+            ms->exitstatus = WEXITSTATUS(stat);
+            i++;
+        }
     }
     if (ms->pid != NULL)
 		free_int_ptr(ms->pid);

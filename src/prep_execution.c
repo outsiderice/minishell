@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 14:47:08 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/09 20:11:23 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,52 +97,38 @@ int	prep_command(t_tokens **current_tok, t_ms **ms)
 	return (EXIT_SUCCESS);
 }
 
-// //test function DELETE LATER
-// void	print_args(t_ms *ms) 
-// {
-// 	t_args *current;
+//test function DELETE LATER
+void	print_args(t_ms *ms) 
+{
+	t_args *current;
 
-// 	current = ms->args;
-// 	while (current != NULL)
-// 	{
-// 		// Print argv
-// 		if (current->argv != NULL)
-// 		{
-// 			printf("\nArguments: ");
-// 			for (int i = 0; current->argv[i] != NULL; i++)
-// 			{
-// 				printf("%s ", current->argv[i]);
-// 			}
-// 			printf("\n");
-// 		}
-// 		else
-// 		{
-// 			printf("Arguments: NULL\n");
-// 		}
+	current = ms->args;
+	while (current != NULL)
+	{
+		// Print argv
+		if (current->argv != NULL)
+		{
+			printf("\nArguments: ");
+			for (int i = 0; current->argv[i] != NULL; i++)
+			{
+				printf("%s ", current->argv[i]);
+			}
+			printf("\n");
+		}
+		else
+		{
+			printf("Arguments: NULL\n");
+		}
 
-// 		// Print redir_type
-// 		printf("Redirection Type: %d\n", current->redir_type);
+		// Print redir_type
+		printf("Redirection Type: %d\n", current->redir_type);
 
-// 		// Move to the next node
-// 		current = current->next;
+		// Move to the next node
+		current = current->next;
 
-// 		printf("\n"); // Separate each node's output for readability
-// 	}
-// }
-
-// predefine el primer y el ultimo fd si no hay redirecciones //A - Is this needed anymore?
-// void handler_fst_lst_redir(t_args *args)
-// {
-// 	if (args == NULL)
-// 		return;
-// 	if (args->fd[0] == -2)
-// 		args->fd[0] = STDIN_FILENO;
-// 	while (args->next != NULL)
-// 		args = args->next;
-// 	if (args->fd[1] == -2)
-// 		args->fd[1] = STDOUT_FILENO;
-// 	return;
-// }
+		printf("\n"); // Separate each node's output for readability
+	}
+}
 
 // Creates nodes for t_args from t_tokens
 int	ft_prep_args(t_ms *ms)
@@ -171,8 +157,6 @@ int	ft_prep_args(t_ms *ms)
 	}
 	ms->args = head;
 	ms->cmnds_num = ft_t_args_len(ms->args);
-	// Kate: predefiniendo el fd del primero y ultimo arg
-	//handler_fst_lst_redir(ms->args);
-	//print_args(ms); //delete later
+	print_args(ms); //delete later
 	return (EXIT_SUCCESS);
 }

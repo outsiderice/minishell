@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/09 18:30:02 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/09 21:10:50 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_init_ms(t_ms *ms, char **envp)
 	if (ms->env == NULL || ft_set_shll_lvl(ms->env) == -1)
 	{
 		free_env(&ms->env);
-		exit (error_msg("env memory allocation failure\n", NULL));
+		exit (error_msg("env memory allocation failure", NULL));
 	}
 	ms->tokens = NULL;
 	ms->args = NULL;
@@ -30,7 +30,7 @@ void	ft_init_ms(t_ms *ms, char **envp)
 	if (ms->old_pwd == NULL)
 	{
 		free_env(&ms->env);
-		exit (error_msg("getcwd:Returned NULL old_pwd\n", NULL));
+		exit (error_msg("getcwd:Returned NULL old_pwd", NULL));
 	}
 	ms->pwd = getcwd(buffer, 1024);
 	if (ms->pwd == NULL)
