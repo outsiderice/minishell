@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:37:44 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/08 12:39:34 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/09 19:19:23 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,15 @@ int	ft_check_lli(char *str)
 	return (0);
 }
 
-int	ft_exit(t_ms *ms, char **args) //possibly save the readline history
+void	exit_msg(char *args)
+{
+	ft_putstr_fd("eggshell: exit: ", 2);
+	ft_putstr_fd(args, 2);
+	ft_putstr_fd(": numeric argument required\n", 2);
+	return;
+}
+
+int	ft_exit(t_ms *ms, char **args)
 {
 	long long int	exit_status;
 	int				args_len;
@@ -68,9 +76,7 @@ int	ft_exit(t_ms *ms, char **args) //possibly save the readline history
 		args++;
 		if (ft_check_lli(*args) == 0)
 		{
-			ft_putstr_fd("minishell: exit: ", 1);
-			ft_putstr_fd(*args, 1);
-			ft_putstr_fd(": numeric argument required\n", 1);
+			exit_msg(*args);
 			exit_status = 255;
 		}
 		else
@@ -78,7 +84,7 @@ int	ft_exit(t_ms *ms, char **args) //possibly save the readline history
 	}
 	if (args_len > 2)
 	{
-		ft_putstr_fd("minishell: exit: too many arguments\n", 1);
+		error_msg("exit: too many arguments", NULL);
 		return (1);
 	}
 	free_ms(&ms);

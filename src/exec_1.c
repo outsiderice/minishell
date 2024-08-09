@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/09 18:39:24 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/09 18:58:40 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void ft_exec_builtin(t_ms *ms, t_args *args, int i)
     else if (i != ms->cmnds_num -1)
         out_fd = ms->pipes[i][1];
     ms->exitstatus = handle_builtins(ms, args, out_fd);
-    //printf("%d\n", ms->exitstatus);
 	return;
 }
 
@@ -79,7 +78,6 @@ int ft_exec_args(t_ms *ms, t_args *args)
     while (i < ms->cmnds_num)
     {
         if (i != ms->cmnds_num - 1 && pipe(ms->pipes[i]) == -1)
-            //lliberar todo y cerrar programa??
 			return (1);
         if (ms->cmnds_num == 1 && is_builtin(args->argv[0]) == 1)
             ft_exec_builtin(ms, args, i);
@@ -116,7 +114,8 @@ int ft_exec(t_ms *ms, t_args *args)
         //lliberar todo y cerrar programa??
         return (1);
 	}    
-    ft_exec_args(ms, args);
+    if (ft_exec_args(ms, args) == 1)
+        return (1);
     while (i < ms->cmnds_num)
     {
         waitpid(ms->pid[i], &stat, 0);

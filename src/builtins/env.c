@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:04:57 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/05 19:48:41 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/09 19:06:49 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_env(t_args *args, t_env *env_list, int fd)
 {
 	if (args->argv[1] != NULL)
 	{
-		ft_putstr_fd("eggshel: env: too many arguments\n", fd);
+		error_msg("env: too many arguments\n", NULL);
 		return (2);
 	}
 	while (env_list != NULL)
