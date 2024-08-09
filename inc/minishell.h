@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/09 18:47:18 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/09 19:43:56 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,8 @@ int		*ft_sort_alpha(char **env, int len);
 
 /*    export_utils.c                           */
 void    ft_print_env(t_env *env_list, int fd);
-int	is_var_in_list(t_env *env_list, char *name);
+int		is_var_in_list(t_env *env_list, char *name);
+int		ft_strcmp(const char *s1, const char *s2);
 
 /*---------------------------------------------*/
 /*                   FREE                      */

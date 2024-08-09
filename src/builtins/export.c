@@ -6,31 +6,11 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 18:10:49 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/09 18:31:46 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/09 19:50:01 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	int				i;
-	unsigned char	*ptr1;
-	unsigned char	*ptr2;
-
-	ptr1 = (unsigned char *)s1;
-	ptr2 = (unsigned char *)s2;
-	i = 0;
-	while (ptr1[i] && ptr2[i] && ptr1[i] == ptr2[i])
-		i++;
-	if (ptr1[i] == '\0' && ptr2[i] != '\0')
-		return (-1);
-	else if (ptr1[i] != '\0' && ptr2[i] == '\0')
-		return (1);
-	else if (ptr1[i] == '\0' && ptr2[i] == '\0')
-		return (0);
-	return (ptr1[i] - ptr2[i]);
-}
 
 int	ft_check_export_arg(char *arg)
 {
@@ -51,7 +31,11 @@ int	ft_check_export_arg(char *arg)
 	if (arg[i] == '=' && (i_plus + 1 >= i))
 		return (0);
 	else
-		printf("eggshell: export: `%s' not a valid identifier\n", arg);
+	{
+		ft_putstr_fd("eggshell: export: `", 2);
+		ft_putstr_fd(arg, 2);
+		ft_putstr_fd("' not a valid identifier\n", 2);
+	}
 	return (-1);
 }
 
@@ -64,7 +48,7 @@ int	ft_add_to_env(t_env *env_list, char *arg)
 		return (-1);
 	if (ft_assign(arg, &node) == -1)
 		return (-1);
-	if (is_var_in_list(env_list, node->v_name) == 0) // eso es que ya existe
+	if (is_var_in_list(env_list, node->v_name) == 0)
 	{
 		while (ft_str_compare(env_list->v_name, node->v_name))
 			env_list = env_list->next;
