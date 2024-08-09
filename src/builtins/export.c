@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 18:10:49 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/05 18:41:13 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/09 18:12:49 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,41 +58,26 @@ int	ft_check_export_arg(char *arg)
 //ADD ARGUMENT TO ENV
 int	ft_add_to_env(t_env *env_list, char *arg)
 {
-	t_env	*aux;
 	t_env	*node;
 
-	aux = NULL;
-	//if (env_list == NULL) se tiene que gestionar fuera
-		//return (-1);
 	node = malloc(sizeof(t_env) * 1);
 	if (!node)
 		return (-1);
 	if (ft_assign(arg, &node) == -1)
 		return (-1);
+	if (is_var_in_list(env_list, node->v_name) == 0) // eso es que ya existe
+	{
+		while (ft_str_compare(env_list->v_name, node->v_name))
+			env_list = env_list->next;
+		free(env_list->v_cont);
+		env_list->v_cont = ft_strdup(node->v_cont);
+		free_node(node);
+		return (0);
+	}
 	while (env_list->next != NULL)
-	{
-		if (ft_str_compare(env_list->v_name, node->v_name) == 0)
-			aux = env_list;
 		env_list = env_list->next;
-	}
-	if (ft_str_compare(env_list->v_name, node->v_name) == 0)
-		aux = env_list;
-	if (aux == NULL)
-	{
-		aux = malloc(sizeof(t_env) * 1);
-		if (!aux)
-			return (-1);
-		aux->v_name = ft_strdup(node->v_name);
-		aux->next = NULL;
-		env_list->next = aux;
-	}
-	
-	aux->v_cont = ft_strdup(node->v_cont);
-	//printf("New env var added: %s = %s\n", aux->v_name, aux->v_cont );
-	free_node(node);
-	//if (aux->v_cont != NULL)
-		//free(aux->v_cont);
-	return (1);
+	env_list->next = node;
+	return (0);
 }
 
 int	*ft_sort_alpha(char **env, int len)
