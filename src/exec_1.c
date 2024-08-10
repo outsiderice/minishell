@@ -6,13 +6,13 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/10 13:19:46 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/10 14:15:21 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int ft_exec_cmd(t_ms *ms, char **args, t_env *env) 
+int ft_exec_cmd(t_ms *ms, char **args, t_env *env)
 {
 	char	*cmd;
 	char	*path;
@@ -81,5 +81,10 @@ void	create_forks(t_ms *ms, t_args *args, int i)
 		}
 		else
 		ft_exec_child(ms, args, i);
+	}
+	else
+	{
+		ft_ignoresig(SIGINT);
+		ft_ignoresig(SIGQUIT);
 	}
 }
