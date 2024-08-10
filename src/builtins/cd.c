@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:02:52 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/10 18:39:46 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/10 19:39:42 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,14 @@ int	ft_change_pwd(t_ms *ms)
 	char	buffer[1024];
 
 	aux = ms->pwd;
-	printf("oldpwd -- %s\n",ms->pwd);
 	free(ms->old_pwd);
-	ms->old_pwd = ft_strdup(ms->pwd);//cuidado limpiar memoria
+	ms->old_pwd = ft_strdup(ms->pwd);
+	if (ms->old_pwd == NULL)
+		return (-1);
 	free(ms->pwd);
 	ms->pwd = ft_strdup(getcwd(buffer, 1024));
 	if (ms->pwd == NULL)
 		return (-1);
-
-	//printf("oldpwd -- %s, new pwd -- %s\n",ms->pwd, ms->old_pwd);
 	ft_set_env_cont(ms->env, "OLDPWD", ms->old_pwd);
 	ft_set_env_cont(ms->env, "PWD", ms->pwd);
 	return (0);
@@ -39,13 +38,12 @@ int	ft_get_old_path(t_ms *ms, int fd)
 
 	path = get_env_cont(ms->env, "OLDPWD");
 	aux = path;
-	printf("path es ----%s\n", path);
 	if (!path)
 	{
 		if (ms->old_pwd == NULL)
 		{
 			error_msg("cd: OLDPWD not set", NULL);
-			return (-1);
+			return (1);
 		}
 		else
 			aux = ms->old_pwd;
@@ -53,11 +51,11 @@ int	ft_get_old_path(t_ms *ms, int fd)
 	if (chdir(aux) == -1)
 	{
 		error_msg2("cd: ", aux, " No such file or directory", 1);
-		return (-1);
+		return (1);
 	}
-	free(path);
 	ft_putstr_fd(aux, fd);
 	ft_putstr_fd("\n", fd);
+	free(path);
 	ft_change_pwd(ms);
 	return (0);
 }
@@ -81,10 +79,32 @@ char	*ft_from_abs_path(t_ms *ms, char *arg)
 	return (aux);
 }
 
+int	ft_exec_path(char *path)
+{
+	struct stat	sb;
+
+	if (chdir(path) == -1)
+	{
+		if (stat(path, &sb) == 0)
+		{
+			ft_putstr_fd("eggshell: ", 2);
+			error_msg2("cd: ", path, ": Not a directory", 1);
+			free(path);
+		}
+		else
+		{
+			ft_putstr_fd("eggshell: ", 2);
+			error_msg2("cd: ", path, ": No such file or directory", 1);
+			free_char_ptr(path);
+		}
+		return (1);
+	}
+	return (0);
+}
+
 int	ft_cd(t_ms *ms, char **args, int fd)
 {
 	char		*path;
-	struct stat	sb;
 
 	path = NULL;
 	if (ft_str_compare(args[1], "-") == 0)
@@ -97,20 +117,9 @@ int	ft_cd(t_ms *ms, char **args, int fd)
 	}
 	else
 		path = ft_strdup(args[1]);
-	if (chdir(path) == -1)
-	{
-		if (stat(path, &sb) == 0)
-		{
-			printf("bash: cd: %s Not a directory", path);
-			free(path);
-		}
-		else
-			printf("bash: cd: %s No such file or directory\n", path);
-		free_char_ptr(path);
+	if (ft_exec_path(path) != 0)
 		return (1);
-	}
 	ft_change_pwd(ms);
-	printf("ha llegado aqui y no deberia\n");
 	free_char_ptr(path);
 	return (0);
 }
