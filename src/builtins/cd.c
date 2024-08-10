@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:02:52 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/10 16:23:25 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/10 17:14:58 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ int	ft_change_pwd(t_ms *ms)
 
 	aux = ms->pwd;
 	printf("oldpwd -- %s\n",ms->pwd);
+	free(ms->old_pwd);
 	ms->old_pwd = ft_strdup(ms->pwd);//cuidado limpiar memoria
-	ms->pwd = NULL;
+	free(ms->pwd);
 	ms->pwd = ft_strdup(getcwd(buffer, 1024));
 	if (ms->pwd == NULL)
 		return (-1);
@@ -108,6 +109,7 @@ int	ft_cd(t_ms *ms, char **args, int fd)
 		return (1);
 	}
 	ft_change_pwd(ms);
-	free_char_ptr(path);
+	printf("ha llegado aqui y no deberia\n");
+	//free_char_ptr(path);
 	return (0);
 }

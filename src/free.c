@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:24:15 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/09 21:26:01 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/10 17:12:39 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,15 @@ void	free_node(t_env *env)
 		free(env->v_cont);
 	if (env != NULL)
 		free(env);
+}
+
+void	free_char_ptr(char *ptr)
+{
+	if (ptr != NULL)
+	{
+		free(ptr);
+		ptr = NULL;
+	}
 }
 
 void	free_int_ptr(int *ptr)
@@ -84,10 +93,10 @@ void	free_ms(t_ms **ms)
 {
 	free_env(&(*ms)->env);
 	free_tok_and_args(&(*ms)->tokens, &(*ms)->args);
-	//if ((*ms)->pwd != NULL)
-		//free((*ms)->pwd);
-	//if ((*ms)->old_pwd != NULL)
-		//free((*ms)->old_pwd);
+	if ((*ms)->pwd != NULL)
+		free((*ms)->pwd);
+	if ((*ms)->old_pwd != NULL)
+		free((*ms)->old_pwd);
 	//free((*ms)->pid);
 	//(*ms)->pid = NULL;
 	//free_int_ptr((*ms)->pid);

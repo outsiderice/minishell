@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/10 13:59:47 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/10 15:26:46 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,4 +229,5 @@ int		ft_strcmp(const char *s1, const char *s2);
 /*---------------------------------------------*/
 void	free_node(t_env *env);
 void	free_ms(t_ms **ms);
+void	free_char_ptr(char *ptr);
 #endif
