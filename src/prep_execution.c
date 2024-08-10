@@ -6,44 +6,48 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/10 17:22:51 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/10 20:21:48 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//test function DELETE LATER
-void	print_args(t_ms *ms) 
-{
-	t_args *current;
+// //test function DELETE LATER
+// void	print_args(t_ms *ms) 
+// {
+// 	t_args *current;
 
-	current = ms->args;
-	while (current != NULL)
-	{
-		// Print argv
-		if (current->argv != NULL)
-		{
-			printf("\nArguments: ");
-			for (int i = 0; current->argv[i] != NULL; i++)
-			{
-				printf("%s ", current->argv[i]);
-			}
-			printf("\n");
-		}
-		else
-		{
-			printf("Arguments: NULL\n");
-		}
+// 	current = ms->args;
+// 	while (current != NULL)
+// 	{
+// 		// Print argv
+// 		if (current->argv != NULL)
+// 		{
+// 			printf("\nArguments: ");
+// 			for (int i = 0; current->argv[i] != NULL; i++)
+// 			{
+// 				printf("%s ", current->argv[i]);
+// 			}
+// 			printf("\n");
+// 		}
+// 		else
+// 		{
+// 			printf("Arguments: NULL\n");
+// 		}
 
-		// Print redir_type
-		printf("Redirection Type: %d\n", current->redir_type);
+// 		// Print redir_type
+// 		printf("Redirection Type: %d\n", current->redir_type);
 
-		// Move to the next node
-		current = current->next;
+// 		printf("Fd is %d\n", current->fd[1]);
 
-		printf("\n"); // Separate each node's output for readability
-	}
-}
+
+// 		printf("o_file is %s\n", current->o_file);
+// 		// Move to the next node
+// 		current = current->next;
+
+// 		printf("\n"); // Separate each node's output for readability
+// 	}
+// }
 
 // Adds nodes to ms and links them
 // Returns 1 on failure and 0 on success
@@ -162,6 +166,6 @@ int	ft_prep_args(t_ms *ms)
 	}
 	ms->args = head;
 	ms->cmnds_num = ft_t_args_len(ms->args);
-	print_args(ms); //delete later
+	// print_args(ms); //delete later
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/10 14:20:31 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/10 20:12:39 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,23 @@ int ft_exec_cmd(t_ms *ms, char **args, t_env *env)
 }
 
 void	ft_exec_child(t_ms *ms, t_args *args, int i)
-{   
+{
 	if (args->fd[0] != -2 && args->fd[0] != -1)
-		dup2(args->fd[0], STDIN_FILENO);
+	{
+		if (check_access(ms, args->i_file) == 0)
+			dup2(args->fd[0], STDIN_FILENO);
+		else
+			return ;
+	}
 	else if (i != 0)
 		dup2(ms->pipes[i-1][0], STDIN_FILENO);
 	if (args->fd[1] != -2 && args->fd[1] != -1)
-		dup2(args->fd[1], STDOUT_FILENO);
+	{
+		if (check_access(ms, args->o_file) == 0)
+			dup2(args->fd[1], STDOUT_FILENO);
+		else
+			return ;
+	}
 	else if (i !=  ms->cmnds_num - 1)
 		dup2(ms->pipes[i][1], STDOUT_FILENO);
 	if (ms->cmnds_num > 1)
@@ -61,8 +71,14 @@ void	ft_exec_builtin(t_ms *ms, t_args *args, int i)
 	int out_fd;
 	
 	out_fd = 1;
-	if (args->fd[1] != -2 && args->fd[1] != -1)
-		out_fd = args->fd[1];
+	printf("buil\n");
+	if (args->fd[1] != -2 )
+	{
+		if (check_access(ms, args->o_file) == 0)
+			out_fd = args->fd[1];
+		else
+			return ;
+	}
 	else if (i != ms->cmnds_num -1)
 		out_fd = ms->pipes[i][1];
 	ms->exitstatus = handle_builtins(ms, args, out_fd);

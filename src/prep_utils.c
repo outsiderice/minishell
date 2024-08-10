@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:30:50 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/10 17:09:41 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/10 18:55:32 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	new_args_node(t_args **args)
 	new_arg->argv = NULL;
 	new_arg->fd[0] = -2;
 	new_arg->fd[1] = -2;
+	new_arg->i_file = NULL;
+	new_arg->o_file = NULL;
 	new_arg->redir_type = -1;
 	new_arg->next = NULL;
 	new_arg->prev = NULL;

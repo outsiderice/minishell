@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/10 13:59:47 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/10 20:12:05 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,8 @@ typedef struct s_args
 {
 	int				fd[2];
 	int				redir_type;
-	// this would consider cases like < file1 cat >> file2
-	//int				redir_type_inp; //< = 1, << = 2, -1 for empty
-	//int				redir_type_out; //> = 1, >> = 2, -1 for empty
+	char			*o_file;
+	char			*i_file;
 	char			**argv;
 	struct s_args	*next;
 	struct s_args	*prev;
@@ -148,6 +147,7 @@ int		is_file_in_dir(char *file, char *dir);
 char 	**ft_get_paths(t_env *env);
 char	*ft_find_path(char *file, char **paths);
 char	*ft_join_path(char *path, char *cmd);
+int		check_access(t_ms *ms, char *file);
 
 
 /*               exec_utils.c                   */

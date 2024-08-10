@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 12:40:52 by kate              #+#    #+#             */
-/*   Updated: 2024/08/10 13:21:19 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/10 20:21:01 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,21 @@ char *ft_find_path(char *file, char **paths)
     while (paths[i] != NULL && is_file_in_dir(file, paths[i]))
         i++;
     return (paths[i]);
+}
+
+int check_access(t_ms *ms, char *file)
+{
+    if (access(file, F_OK) == -1)
+    {
+        error_msg(file, " No such file or directory");
+        ms->exitstatus = 1;
+        return (1);
+    }
+    else if (access(file, W_OK) == -1)
+    {
+        error_msg(file, " Permisson denied");
+        ms->exitstatus = 1;
+        return (1);
+    }
+    return (0);
 }
