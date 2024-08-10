@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/10 20:29:56 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/11 00:42:46 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ int ft_exec_cmd(t_ms *ms, char **args, t_env *env)
 	paths = ft_get_paths(env);
 	path = ft_find_path(cmd, paths);
 	if (path != NULL)
-	{
 		cmd = ft_join_path(path, cmd);
-	}
 	ms->envp = ft_list_to_array(env);
 	if (execve(cmd, args, ms->envp) == -1)
 	{
-		ft_putstr_fd("command not found\n", 2);
+		error_msg2("eggshell: ", cmd, ": No such file or directory", 1);
 		free_arr(ms->envp);
 		free_arr(paths);
 		free(path);

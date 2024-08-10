@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:30:50 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/10 18:55:32 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/11 00:26:42 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@ void	free_arr(char **arr)
 	int	j;
 
 	j = 0;
+	if (!arr)
+		return;
 	while (arr[j])
 	{
 		free(arr[j]);
 		j++;
 	}
 	free (arr);
-	return ;
+	return;
 }
 
 // Adds node to the end of the args list

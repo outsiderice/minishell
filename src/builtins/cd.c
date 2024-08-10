@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:02:52 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/10 19:39:42 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/10 23:40:29 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 int	ft_change_pwd(t_ms *ms)
 {
-	char	*aux;
 	char	buffer[1024];
 
-	aux = ms->pwd;
-	free(ms->old_pwd);
+	if (ms->old_pwd != NULL)
+		free(ms->old_pwd);
 	ms->old_pwd = ft_strdup(ms->pwd);
 	if (ms->old_pwd == NULL)
 		return (-1);

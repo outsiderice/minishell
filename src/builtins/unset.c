@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:58:31 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/10 20:27:14 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/11 00:11:48 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,10 @@ void	ft_remove_env_var(t_env **env, char *arg)
 	}
 }
 
-int	ft_unset_args(t_env **env, char **args, int i)
+int	ft_unset_args(t_env **env, char *arg)
 {
-	t_env	*first;
-
-	first = *env;
-	while (args[i] != NULL)
-	{
-		ft_remove_env_var(env, args[i]);
-		*env = first;
-		i++;
-	}
+	if (arg != NULL)
+		ft_remove_env_var(env, arg);
 	return (0);
 }
 
@@ -55,9 +48,9 @@ int	ft_unset(t_ms *ms, char **args)
 	i = 1;
 	if (args[i] == NULL)
 		return (0);
-	ft_unset_args(&ms->env, args, i);
 	while (args[i] != NULL)
 	{
+		ft_unset_args(&(ms->env), args[i]);
 		if (ft_str_compare(args[i], "OLDPWD") == 0)
 		{
 			free(ms->old_pwd);
