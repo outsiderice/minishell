@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:02:52 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/10 14:39:01 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/10 16:23:25 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@ int	ft_change_pwd(t_ms *ms)
 	char	buffer[1024];
 
 	aux = ms->pwd;
-	ms->pwd = getcwd(buffer, 1024);
+	printf("oldpwd -- %s\n",ms->pwd);
+	ms->old_pwd = ft_strdup(ms->pwd);//cuidado limpiar memoria
+	ms->pwd = NULL;
+	ms->pwd = ft_strdup(getcwd(buffer, 1024));
 	if (ms->pwd == NULL)
 		return (-1);
-	ms->old_pwd = aux;
-	//printf("oldpwd -- %s, new pwd -- %s",ms->pwd, ms->old_pwd);
+	
+	printf("oldpwd -- %s, new pwd -- %s\n",ms->pwd, ms->old_pwd);
 	ft_set_env_cont(ms->env, "PWD", ms->pwd);
 	ft_set_env_cont(ms->env, "OLDPWD", ms->old_pwd);
 	return (0);
@@ -74,6 +77,8 @@ char	*ft_from_abs_path(t_ms *ms, char *arg)
 	free(path);
 	return (aux);
 }
+
+
 
 int	ft_cd(t_ms *ms, char **args, int fd)
 {
