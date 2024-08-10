@@ -3,14 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   prep_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/10 14:02:29 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/10 17:22:51 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+//test function DELETE LATER
+void	print_args(t_ms *ms) 
+{
+	t_args *current;
+
+	current = ms->args;
+	while (current != NULL)
+	{
+		// Print argv
+		if (current->argv != NULL)
+		{
+			printf("\nArguments: ");
+			for (int i = 0; current->argv[i] != NULL; i++)
+			{
+				printf("%s ", current->argv[i]);
+			}
+			printf("\n");
+		}
+		else
+		{
+			printf("Arguments: NULL\n");
+		}
+
+		// Print redir_type
+		printf("Redirection Type: %d\n", current->redir_type);
+
+		// Move to the next node
+		current = current->next;
+
+		printf("\n"); // Separate each node's output for readability
+	}
+}
 
 // Adds nodes to ms and links them
 // Returns 1 on failure and 0 on success
@@ -60,14 +93,16 @@ char	**fill_argv(t_tokens **tok, t_tokens *ptr)
 	arr[arr_len] = NULL;
 	while (i < arr_len)
 	{
-		arr[i] = ft_strdup((*tok)->tok);
-		if (!arr[i])
+		if ((*tok)->type == 0)
 		{
-			free_arr(arr);
-			return (NULL);
+			arr[i] = ft_strdup((*tok)->tok);
+			if (!arr[i++])
+			{
+				free_arr(arr);
+				return (NULL);
+			}
 		}
 		(*tok) = (*tok)->next;
-		i++;
 	}
 	return (arr);
 }
@@ -76,18 +111,21 @@ char	**fill_argv(t_tokens **tok, t_tokens *ptr)
 int	prep_command(t_tokens **current_tok, t_ms **ms)
 {
 	char	**arr;
+	int		done;
 
 	arr = NULL;
+	done = 0;
 	if ((*current_tok)->type >= 3 || (*current_tok)->type == 1)
 	{
 		if (prep_redir((*ms), current_tok, (*ms)->args) == 1)
 			return (EXIT_FAILURE);
 	}
-	else if ((*current_tok)->type == 0)
+	else if ((*current_tok)->type == 0 && done == 0)
 	{
 		arr = fill_argv(current_tok, *current_tok);
 		if (!arr)
 			return (EXIT_FAILURE);
+		done = 1;
 	}
 	if (arr != NULL)
 	{
@@ -96,39 +134,6 @@ int	prep_command(t_tokens **current_tok, t_ms **ms)
 	}
 	return (EXIT_SUCCESS);
 }
-
-// //test function DELETE LATER
-// void	print_args(t_ms *ms) 
-// {
-// 	t_args *current;
-
-// 	current = ms->args;
-// 	while (current != NULL)
-// 	{
-// 		// Print argv
-// 		if (current->argv != NULL)
-// 		{
-// 			printf("\nArguments: ");
-// 			for (int i = 0; current->argv[i] != NULL; i++)
-// 			{
-// 				printf("%s ", current->argv[i]);
-// 			}
-// 			printf("\n");
-// 		}
-// 		else
-// 		{
-// 			printf("Arguments: NULL\n");
-// 		}
-
-// 		// Print redir_type
-// 		printf("Redirection Type: %d\n", current->redir_type);
-
-// 		// Move to the next node
-// 		current = current->next;
-
-// 		printf("\n"); // Separate each node's output for readability
-// 	}
-// }
 
 // Creates nodes for t_args from t_tokens
 int	ft_prep_args(t_ms *ms)
@@ -157,6 +162,6 @@ int	ft_prep_args(t_ms *ms)
 	}
 	ms->args = head;
 	ms->cmnds_num = ft_t_args_len(ms->args);
-	// print_args(ms); //delete later
+	print_args(ms); //delete later
 	return (EXIT_SUCCESS);
 }

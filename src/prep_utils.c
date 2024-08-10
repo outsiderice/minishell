@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:30:50 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 13:30:38 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:09:41 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,20 @@ int	new_args_node(t_args **args)
 	return (EXIT_SUCCESS);
 }
 
-// Counts how many consecutive tokens of the same TYPE there are from CURRENT
+// Counts how many tokens of the same TYPE there are from CURRENT
 // Returns COUNT
 int	ft_count_toks(t_tokens *current, int type)
 {
-	int	count;
+	int			count;
+	t_tokens	*aux;
 
 	count = 0;
-	while (current && current->type == type)
+	aux = current;
+	while (aux && aux->type != 2)
 	{
-		count++;
-		current = current->next;
+		if (aux->type == type)
+			count++;
+		aux = aux->next;
 	}
 	return (count);
 }
