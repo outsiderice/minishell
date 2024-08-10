@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:02:52 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/10 17:14:58 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/10 18:39:46 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int	ft_change_pwd(t_ms *ms)
 	ms->pwd = ft_strdup(getcwd(buffer, 1024));
 	if (ms->pwd == NULL)
 		return (-1);
-	
-	printf("oldpwd -- %s, new pwd -- %s\n",ms->pwd, ms->old_pwd);
-	ft_set_env_cont(ms->env, "PWD", ms->pwd);
+
+	//printf("oldpwd -- %s, new pwd -- %s\n",ms->pwd, ms->old_pwd);
 	ft_set_env_cont(ms->env, "OLDPWD", ms->old_pwd);
+	ft_set_env_cont(ms->env, "PWD", ms->pwd);
 	return (0);
 }
 
@@ -39,11 +39,12 @@ int	ft_get_old_path(t_ms *ms, int fd)
 
 	path = get_env_cont(ms->env, "OLDPWD");
 	aux = path;
+	printf("path es ----%s\n", path);
 	if (!path)
 	{
 		if (ms->old_pwd == NULL)
 		{
-			printf("bash: cd: OLDPWD not set");
+			error_msg("cd: OLDPWD not set", NULL);
 			return (-1);
 		}
 		else
@@ -51,9 +52,10 @@ int	ft_get_old_path(t_ms *ms, int fd)
 	}
 	if (chdir(aux) == -1)
 	{
-		printf("bash: cd: %s No such file or directory\n", aux);
+		error_msg2("cd: ", aux, " No such file or directory", 1);
 		return (-1);
 	}
+	free(path);
 	ft_putstr_fd(aux, fd);
 	ft_putstr_fd("\n", fd);
 	ft_change_pwd(ms);
@@ -78,8 +80,6 @@ char	*ft_from_abs_path(t_ms *ms, char *arg)
 	free(path);
 	return (aux);
 }
-
-
 
 int	ft_cd(t_ms *ms, char **args, int fd)
 {
@@ -106,10 +106,11 @@ int	ft_cd(t_ms *ms, char **args, int fd)
 		}
 		else
 			printf("bash: cd: %s No such file or directory\n", path);
+		free_char_ptr(path);
 		return (1);
 	}
 	ft_change_pwd(ms);
 	printf("ha llegado aqui y no deberia\n");
-	//free_char_ptr(path);
+	free_char_ptr(path);
 	return (0);
 }
