@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/10 12:53:30 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/10 13:23:51 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,11 +140,13 @@ int		ft_count_toks(t_tokens *current, int type);
 void	exeggutor(t_ms *ms);
 
 /*              exec_1.c                       */
-int	ft_exec(t_ms *ms, t_args *args);
-/*              exec_2.c                       */
+void	create_forks(t_ms *ms, t_args *args, int i);
+void	ft_exec_builtin(t_ms *ms, t_args *args, int i);
+
+/*              exec_path.c                    */
 int		is_file_in_dir(char *file, char *dir);
 char 	**ft_get_paths(t_env *env);
-char *ft_find_path(char *file, char **paths);
+char	*ft_find_path(char *file, char **paths);
 char	*ft_join_path(char *path, char *cmd);
 
 

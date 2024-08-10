@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/10 13:08:21 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/10 13:19:46 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,64 +69,17 @@ void	ft_exec_builtin(t_ms *ms, t_args *args, int i)
 	return ;
 }
 
-int	ft_exec_args(t_ms *ms, t_args *args)
+void	create_forks(t_ms *ms, t_args *args, int i)
 {
-	int	i;
-	
-	i = 0;
-	while (i < ms->cmnds_num)
+	ms->pid[i] = fork();
+	if (ms->pid[i] == 0)
 	{
-		if (i != ms->cmnds_num - 1 && pipe(ms->pipes[i]) == -1)
-			return (1);
-		if (ms->cmnds_num == 1 && is_builtin(args->argv[0]) == 1)
+		if (is_builtin(args->argv[0]) == 1)
+		{
 			ft_exec_builtin(ms, args, i);
+			exit (ms->exitstatus);
+		}
 		else
-		{
-			ms->pid[i] = fork();
-			if (ms->pid[i] == 0)
-			{
-				if (is_builtin(args->argv[0]) == 1)
-				{
-					ft_exec_builtin(ms, args, i);
-					exit (ms->exitstatus);
-				}
-				else
-					ft_exec_child(ms, args, i);
-			}
-		}
-		args = args->next;
-		i++;
+		ft_exec_child(ms, args, i);
 	}
-	close_pipes(ms->pipes, 0, ms->cmnds_num, ms->cmnds_num - 1);
-	return (0);
-}
-
-int	ft_exec(t_ms *ms, t_args *args)
-{	    
-	int	stat;
-	int	i;
-
-	i = 0;
-	if (handle_pipes(ms) == -1 || handle_pids(ms) == -1)
-	{
-		error_msg("allocation failure", NULL);
-		return (1);
-	}
-	if (ft_exec_args(ms, args) == 1)
-		return (1);
-	if (is_builtin(args->argv[0]) == 0 || ms->cmnds_num != 1)
-	{
-		while (i < ms->cmnds_num)
-		{
-			ft_ignoresig(SIGQUIT);
-			ft_ignoresig(SIGINT);
-			waitpid(ms->pid[i], &stat, 0);
-			ms->exitstatus = WEXITSTATUS(stat);
-			i++;
-		}
-	}
-	if (ms->pid != NULL)
-		free_int_ptr(ms->pid);
-	ft_close_fd(ms->args);
-	return (0);
 }
