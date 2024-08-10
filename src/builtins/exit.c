@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:37:44 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/09 19:38:32 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/10 15:45:41 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	ft_exit(t_ms *ms, char **args)
 		if (ft_check_lli(*args) == 0)
 		{
 			exit_msg(*args);
-			exit_status = 255;
+			exit_status = 2;
 		}
 		else
 			exit_status = ft_atoi_long_long(*args);
