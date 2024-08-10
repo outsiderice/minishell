@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/10 20:12:39 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/10 20:23:59 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	ft_exec_builtin(t_ms *ms, t_args *args, int i)
 	int out_fd;
 	
 	out_fd = 1;
-	printf("buil\n");
 	if (args->fd[1] != -2 )
 	{
 		if (check_access(ms, args->o_file) == 0)
