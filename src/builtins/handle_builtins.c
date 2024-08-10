@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:50:11 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/10 01:22:48 by kate             ###   ########.fr       */
+/*   Updated: 2024/08/10 15:11:13 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	handle_builtins(t_ms *ms, t_args *args, int fd)
 	else if (ft_str_compare(args->argv[0], "pwd") == 0)
 		return (ft_pwd(fd));
 	else if (ft_str_compare(ms->args->argv[0], "cd") == 0)
-		return (ft_cd(ms, ms->args->argv, fd));
+		return (ft_cd(ms, args->argv, fd));
 	else if (ft_str_compare(args->argv[0], "env") == 0)
 		return (ft_env(args, ms->env, fd));
 	else if (ft_str_compare(args->argv[0], "export") == 0)

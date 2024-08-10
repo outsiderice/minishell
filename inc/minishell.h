@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/10 20:12:05 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/10 20:29:43 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ char	*ft_readline(t_ms *ms, const char *prompt);
 /*    error.c    */
 // void	ft_error(t_ms **ms, char *line);
 int		error_msg(char *msg, char *deets);
+int		error_msg2(char *msg, char *deets, char *deets2, int nl);
 
 /*    free.c    */
 void	free_env(t_env **env);
@@ -229,4 +230,5 @@ int		ft_strcmp(const char *s1, const char *s2);
 /*---------------------------------------------*/
 void	free_node(t_env *env);
 void	free_ms(t_ms **ms);
+void	free_char_ptr(char *ptr);
 #endif

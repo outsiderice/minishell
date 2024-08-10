@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:57:40 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/04 15:50:41 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/10 14:28:48 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,6 @@ int	ft_lstlen(t_env *env)
 	}
 	return (len);
 }
-/*
-// converts a list to a char **
-char	**ft_list_to_array(t_env *env)
-{
-	char	**env_a;
-	char	*aux;
-	int		i;
-
-	env_a = malloc(sizeof(char *) * (ft_lstlen(env) + 1));
-	if (!env_a)
-		return (NULL);
-	i = 0;
-	while (env != NULL)
-	{
-		aux = ft_strjoin(env->v_name, "="); // needs to be checkes for NULL?
-		env_a[i] = ft_strjoin(aux, env->v_cont);
-		free (aux);
-		i++;
-		env = env->next;
-	}
-	env_a[i] = NULL;
-	return (env_a);
-}*/
 
 char	**ft_list_to_array(t_env *env)
 {
