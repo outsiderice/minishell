@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:02:52 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/09 21:26:30 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/10 01:25:00 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_change_pwd(t_ms *ms)
 	return (0);
 }
 
-int	ft_get_old_path(t_ms *ms)
+int	ft_get_old_path(t_ms *ms, int fd)
 {
 	char	*path;
 	char	*aux;
@@ -50,7 +50,8 @@ int	ft_get_old_path(t_ms *ms)
 		printf("bash: cd: %s No such file or directory\n", aux);
 		return (-1);
 	}
-	printf("%s\n", aux);
+	ft_putstr_fd(aux, fd);
+	ft_putstr_fd("\n", fd);
 	ft_change_pwd(ms);
 	return (0);
 }
@@ -72,19 +73,19 @@ char	*ft_from_abs_path(t_ms *ms, char *arg)
 	return (path);
 }
 
-int	ft_cd(t_ms *ms, char **args)
+int	ft_cd(t_ms *ms, char **args, int fd)
 {
 	char		*path;
 	struct stat	sb;
 
 	path = NULL;
-	if (ft_args_len(args) > 2)
+	/*if (ft_args_len(args) > 2)
 	{
-		ft_putstr_fd("eggshell: cd: too many arguments\n", 2);
+		error_msg("eggshell: cd: too many arguments", NULL);
 		return (1);
-	}
-	else if (ft_str_compare(args[1], "-") == 0)
-		return (ft_get_old_path(ms));
+	}*/
+	if (ft_str_compare(args[1], "-") == 0)
+		return (ft_get_old_path(ms, fd));
 	else if (!args[1] || args[1][0] == '~')
 		path = ft_from_abs_path(ms, args[1]);
 	else
@@ -98,7 +99,7 @@ int	ft_cd(t_ms *ms, char **args)
 		}
 		else
 			printf("bash: cd: %s No such file or directory\n", path);
-		return (-1);
+		return (1);
 	}
 	ft_change_pwd(ms);
 	if (path != NULL)

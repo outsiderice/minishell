@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/09 21:29:32 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/10 01:03:55 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ int ft_exec_cmd(t_ms *ms, char **args, t_env *env)
 	paths = ft_get_paths(env);
     path = ft_find_path(cmd, paths);
     if (path != NULL)
-	{
         cmd = ft_join_path(path, cmd);
-	}
 	ms->envp = ft_list_to_array(env);
     if (execve(cmd, args, ms->envp) == -1) 
     {
@@ -36,7 +34,6 @@ int ft_exec_cmd(t_ms *ms, char **args, t_env *env)
     }
     free(path);
 	free_arr(paths);
-    //free_arr(ms->envp);
     return (0);
 }
 
@@ -84,10 +81,8 @@ int ft_exec_args(t_ms *ms, t_args *args)
         else
         {
             ms->pid[i] = fork();
-            //printf("1cmmd %s this time %d\n", args->argv[0], i);
             if (ms->pid[i] == 0)
             {
-                //printf("2cmmd %s this time %d\n", args->argv[0], i);
                 if (is_builtin(args->argv[0]) == 1)
                 {
                     ft_exec_builtin(ms, args, i);

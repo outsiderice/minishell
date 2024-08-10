@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/09 20:11:23 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/10 01:26:59 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,6 @@ int	ft_prep_args(t_ms *ms)
 	}
 	ms->args = head;
 	ms->cmnds_num = ft_t_args_len(ms->args);
-	print_args(ms); //delete later
+	//print_args(ms); //delete later
 	return (EXIT_SUCCESS);
 }

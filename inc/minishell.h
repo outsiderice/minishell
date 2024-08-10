@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/09 19:43:56 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/10 01:23:15 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,7 @@ int		ft_env(t_args *args, t_env *env_list, int fd);
 int		ft_export(t_ms *ms, char **args, int fd);
 int		is_numeric(char *str);
 int		ft_exit(t_ms *ms, char **args);
-int		ft_cd(t_ms *ms, char **args);
+int		ft_cd(t_ms *ms, char **args, int fd);
 int		ft_unset(t_ms *ms, char **args);
 
 /*    builtins_utils.c    */
