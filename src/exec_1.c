@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/09 21:29:32 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/10 12:50:02 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,8 @@ int ft_exec_args(t_ms *ms, t_args *args)
         else
         {
             ms->pid[i] = fork();
-            //printf("1cmmd %s this time %d\n", args->argv[0], i);
             if (ms->pid[i] == 0)
             {
-                //printf("2cmmd %s this time %d\n", args->argv[0], i);
                 if (is_builtin(args->argv[0]) == 1)
                 {
                     ft_exec_builtin(ms, args, i);

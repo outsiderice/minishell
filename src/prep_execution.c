@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:30:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/09 20:11:23 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/10 12:47:35 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,38 +97,38 @@ int	prep_command(t_tokens **current_tok, t_ms **ms)
 	return (EXIT_SUCCESS);
 }
 
-//test function DELETE LATER
-void	print_args(t_ms *ms) 
-{
-	t_args *current;
+// //test function DELETE LATER
+// void	print_args(t_ms *ms) 
+// {
+// 	t_args *current;
 
-	current = ms->args;
-	while (current != NULL)
-	{
-		// Print argv
-		if (current->argv != NULL)
-		{
-			printf("\nArguments: ");
-			for (int i = 0; current->argv[i] != NULL; i++)
-			{
-				printf("%s ", current->argv[i]);
-			}
-			printf("\n");
-		}
-		else
-		{
-			printf("Arguments: NULL\n");
-		}
+// 	current = ms->args;
+// 	while (current != NULL)
+// 	{
+// 		// Print argv
+// 		if (current->argv != NULL)
+// 		{
+// 			printf("\nArguments: ");
+// 			for (int i = 0; current->argv[i] != NULL; i++)
+// 			{
+// 				printf("%s ", current->argv[i]);
+// 			}
+// 			printf("\n");
+// 		}
+// 		else
+// 		{
+// 			printf("Arguments: NULL\n");
+// 		}
 
-		// Print redir_type
-		printf("Redirection Type: %d\n", current->redir_type);
+// 		// Print redir_type
+// 		printf("Redirection Type: %d\n", current->redir_type);
 
-		// Move to the next node
-		current = current->next;
+// 		// Move to the next node
+// 		current = current->next;
 
-		printf("\n"); // Separate each node's output for readability
-	}
-}
+// 		printf("\n"); // Separate each node's output for readability
+// 	}
+// }
 
 // Creates nodes for t_args from t_tokens
 int	ft_prep_args(t_ms *ms)
@@ -157,6 +157,6 @@ int	ft_prep_args(t_ms *ms)
 	}
 	ms->args = head;
 	ms->cmnds_num = ft_t_args_len(ms->args);
-	print_args(ms); //delete later
+	// print_args(ms); //delete later
 	return (EXIT_SUCCESS);
 }
