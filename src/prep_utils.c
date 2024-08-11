@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:30:50 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 13:30:38 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/11 17:46:35 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	free_arr(char **arr)
 	int	j;
 
 	j = 0;
+	if (!arr)
+		return ;
 	while (arr[j])
 	{
 		free(arr[j]);
@@ -53,6 +55,8 @@ int	new_args_node(t_args **args)
 	new_arg->argv = NULL;
 	new_arg->fd[0] = -2;
 	new_arg->fd[1] = -2;
+	new_arg->i_file = NULL;
+	new_arg->o_file = NULL;
 	new_arg->redir_type = -1;
 	new_arg->next = NULL;
 	new_arg->prev = NULL;
@@ -63,17 +67,20 @@ int	new_args_node(t_args **args)
 	return (EXIT_SUCCESS);
 }
 
-// Counts how many consecutive tokens of the same TYPE there are from CURRENT
+// Counts how many tokens of the same TYPE there are from CURRENT
 // Returns COUNT
 int	ft_count_toks(t_tokens *current, int type)
 {
-	int	count;
+	int			count;
+	t_tokens	*aux;
 
 	count = 0;
-	while (current && current->type == type)
+	aux = current;
+	while (aux && aux->type != 2)
 	{
-		count++;
-		current = current->next;
+		if (aux->type == type)
+			count++;
+		aux = aux->next;
 	}
 	return (count);
 }

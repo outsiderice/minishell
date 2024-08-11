@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 12:57:13 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 13:20:16 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/10 18:58:10 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	open_input(char *tok, char *file, t_args *args, t_ms *ms)
 	{
 		args->fd[0] = open(file, O_RDONLY);
 		args->redir_type = 1;
+		args->i_file = file;
 	}
 	else
 	{
@@ -38,4 +39,5 @@ void	open_output(char *tok, char *file, t_args *args)
 		args->fd[1] = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		args->redir_type = 4;
 	}
+	args->o_file = file;
 }

@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 16:58:27 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/31 15:27:59 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/10 18:36:16 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int	ft_set_env_cont(t_env *env, char *name, char *cont)
 	{
 		if (ft_str_compare(env->v_name, name) == 0)
 		{
-			free(env->v_cont);
+			if (env->v_cont != NULL)
+				free(env->v_cont);
 			env->v_cont = ft_strdup(cont);
 			if (!env->v_cont)
 				return (-1);

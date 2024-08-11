@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:47:08 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 14:46:46 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/10 15:16:36 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,16 +105,9 @@ int	ft_tok_checks(const char *line, t_ms *ms)
 	if (ft_tokenize(line, &toks) == -1)
 	{
 		error_msg("token memory allocation failure\n", NULL);
+		free_toks(&toks);
 		return (EXIT_FAILURE);
 	}
 	ms->tokens = toks;
-	// //Test to see what tokens are stored
-	// while (toks->next != NULL)
-	// {
-	// 	printf("\nToken is %s\nType %d\n\n", toks->tok, toks->type);
-	// 	toks = toks->next;
-	// }
-	// printf("\nToken is %s\nType %d\n\n", toks->tok, toks->type);
-	// //Test ends here, delete later
 	return (0);
 }

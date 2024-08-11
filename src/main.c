@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:29:38 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 12:05:04 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/11 18:00:28 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,34 @@
 
 void	ft_init_ms(t_ms *ms, char **envp)
 {
+	char	buff_pwd[1024];
+	char	buff_old[1024];
+
 	ms->env = start_env(envp);
 	if (ms->env == NULL || ft_set_shll_lvl(ms->env) == -1)
 	{
 		free_env(&ms->env);
-		return (exit (error_msg("env memory allocation failure\n", NULL)));
+		exit (error_msg("env memory allocation failure", NULL));
 	}
 	ms->tokens = NULL;
 	ms->args = NULL;
-	ms->exitstatus = -1;
+	ms->exitstatus = 0;
 	ms->sh_lvl = ft_get_shll_lvl(ms->env);
-	ms->old_pwd = getcwd(NULL, 0);
-	if (ms->old_pwd == NULL)
+	ms->old_pwd = ft_strdup(getcwd(buff_old, 1024));
+	ms->pwd = ft_strdup(getcwd(buff_pwd, 1024));
+	if (ms->old_pwd == NULL || ms->pwd == NULL)
 	{
 		free_env(&ms->env);
-		exit (error_msg("getcwd:Returned NULL old_pwd\n", NULL));
+		if (ms->old_pwd != NULL)
+			free(ms->old_pwd);
+		exit (error_msg("getcwd:Returned NULL old_pwd", NULL));
 	}
-	ms->pwd = getcwd(NULL, 0);
-	if (ms->pwd == NULL)
-	{
-		free_env(&ms->env);
-		exit (error_msg("getcwd:Returned NULL new_pwd\n", NULL));
-	}
-	//ms->pid = getpid(); quizas no va aqui
+	ms->pid = NULL;
 }
 
 //the minishell execution loop
 //starts readline loop
-//starts signals loop
+//starts signals
 void	ft_minishell(t_ms *ms)
 {
 	char	*line;
@@ -52,10 +52,11 @@ void	ft_minishell(t_ms *ms)
 		ft_start_signals(1);
 		ft_ignoresig(SIGQUIT);
 		line = ft_readline(ms, "eggshell~$");
-		ms->exitstatus = g_signstat + 128;
-		if (g_signstat == 0)
-			ms->exitstatus = 0;
-		g_signstat = 0;
+		if (g_signstat != 0)
+		{
+			ms->exitstatus = g_signstat + 128;
+			g_signstat = 0;
+		}
 		while (line)
 		{
 			ft_start_signals(1);

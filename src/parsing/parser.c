@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:17:12 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/04 15:04:23 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:56:58 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ int	ft_pipe_syntax(t_tokens *tok, t_tokens *first_tok)
 	if (first_tok->type == 2)
 	{
 		error_msg("syntax error near unexpected token,", tok->tok);
+		free_toks(&first_tok);
 		return (EXIT_FAILURE);
 	}
 	if (tok->next == NULL || tok->next->type == 2)
 	{
+		free_toks(&first_tok);
 		error_msg("syntax error near unexpected token,", tok->tok);
 		return (EXIT_FAILURE);
 	}
@@ -37,6 +39,7 @@ int	ft_redir_syntax(t_tokens *tok)
 	if (tok->next == NULL || (tok->next->type != 0 && tok->next->type != 1))
 	{
 		error_msg("syntax error near unexpected token,", tok->tok);
+		free_toks(&tok);
 		return (EXIT_FAILURE);
 	}
 	else if (ft_str_compare(tok->tok, "<<") == 0)
@@ -72,8 +75,6 @@ int	ft_expansion_check(t_ms *ms)
 			if (expand_quotes(tok) == 1)
 				return (EXIT_FAILURE);
 		}
-		// if (ft_strlen(tok->tok) == 0)
-		// 	tok->tok = ft_strdup("");
 		tok = tok->next;
 	}
 	return (EXIT_SUCCESS);
@@ -104,6 +105,7 @@ int	ft_parse(t_ms *ms)
 	if (ft_expansion_check(ms) == 1)
 	{
 		error_msg("expansion memory allocation failure\n", NULL);
+		free_toks(&first);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

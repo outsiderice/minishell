@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/06 13:02:04 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/11 17:41:36 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,10 @@ typedef struct s_env
 
 typedef struct s_args
 {
-	int				fd[2]; // for pipe
-	int				redir_type; //< = 1, << = 2, > = 3, >> = 4, -1 for empty
-	// this would consider cases like < file1 cat >> file2
-	//int				redir_type_inp; //< = 1, << = 2, -1 for empty
-	//int				redir_type_out; //> = 1, >> = 2, -1 for empty
+	int				fd[2];
+	int				redir_type;
+	char			*o_file;
+	char			*i_file;
 	char			**argv;
 	struct s_args	*next;
 	struct s_args	*prev;
@@ -76,7 +75,7 @@ typedef struct s_ms
 	int			sh_lvl;
 	char		*pwd;
 	char		*old_pwd;
-	int			*pid; // nuevo -> aqui se guardan los hijos para controlarlos
+	int			*pid;
 	int			**pipes;
 	int			cmnds_num;
 	int			heredoc;	
@@ -107,9 +106,11 @@ char	*ft_readline(t_ms *ms, const char *prompt);
 /*    error.c    */
 // void	ft_error(t_ms **ms, char *line);
 int		error_msg(char *msg, char *deets);
+int		error_msg2(char *msg, char *deets, char *deets2, int nl);
 
 /*    free.c    */
 void	free_env(t_env **env);
+void	free_int_ptr(int **ptr);
 void	free_tok_and_args(t_tokens **toks, t_args **args);
 
 /*    heredoc.c    */
@@ -125,7 +126,6 @@ int		ft_prep_args(t_ms *ms);
 void	open_input(char *tok, char *file, t_args *args, t_ms *ms);
 void	open_output(char *tok, char *file, t_args *args);
 
-
 /*    prep_utils.c    */
 void	free_arr(char **arr);
 int		new_args_node(t_args **args);
@@ -138,13 +138,15 @@ int		ft_count_toks(t_tokens *current, int type);
 void	exeggutor(t_ms *ms);
 
 /*              exec_1.c                       */
-int	ft_exec(t_ms *ms, t_args *args);
-/*              exec_2.c                       */
-int		is_file_in_dir(char *file, char *dir);
-char 	**ft_get_paths(t_env *env);
-char *ft_find_path(char *file, char **paths);
-char	*ft_join_path(char *path, char *cmd);
+void	create_forks(t_ms *ms, t_args *args, int i);
+void	ft_exec_builtin(t_ms *ms, t_args *args, int i);
 
+/*              exec_path.c                    */
+int		is_file_in_dir(char *file, char *dir);
+char	**ft_get_paths(t_env *env);
+char	*ft_find_path(char *file, char **paths);
+char	*ft_join_path(char *path, char *cmd);
+int		check_access(t_ms *ms, char *file);
 
 /*               exec_utils.c                   */
 int		ft_t_args_len(t_args *args);
@@ -190,8 +192,8 @@ int		ft_tok_checks(const char *line, t_ms *ms);
 
 /*    tokens_lst_utils.c    */
 int		ft_addtok(const char *line, int len, int type, t_tokens **tokens);
+void	free_toks(t_tokens **toks);
 // void	ft_tok_addback(t_tokens **tokens, t_tokens *new_tok);
-// void	del_tok(t_tokens **lst, t_tokens *tok);
 
 /*---------------------------------------------*/
 /*               BUILTINS                      */
@@ -201,11 +203,11 @@ int		is_builtin(char *cmd);
 int		handle_builtins(t_ms *ms, t_args *args, int fd);
 int		ft_echo(t_args *args, int fd);
 int		ft_pwd(int fd);
-int		ft_env(t_env *env_list, int fd);
+int		ft_env(t_args *args, t_env *env_list, int fd);
 int		ft_export(t_ms *ms, char **args, int fd);
 int		is_numeric(char *str);
 int		ft_exit(t_ms *ms, char **args);
-int		ft_cd(t_ms *ms, char **args);
+int		ft_cd(t_ms *ms, char **args, int fd);
 int		ft_unset(t_ms *ms, char **args);
 
 /*    builtins_utils.c    */
@@ -215,10 +217,15 @@ int		ft_args_len(char **args);
 int		ft_set_env_cont(t_env *env, char *name, char *cont);
 int		*ft_sort_alpha(char **env, int len);
 
+/*    export_utils.c                           */
+void	ft_print_env(t_env *env_list, int fd);
+int		is_var_in_list(t_env *env_list, char *name);
+int		ft_strcmp(const char *s1, const char *s2);
+
 /*---------------------------------------------*/
 /*                   FREE                      */
 /*---------------------------------------------*/
+void	free_node(t_env *env);
 void	free_ms(t_ms **ms);
-void	free_double_int_ptr(int **ptr, int len);
-
+void	free_char_ptr(char *ptr);
 #endif
