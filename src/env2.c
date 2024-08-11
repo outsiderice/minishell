@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:57:40 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/11 18:10:02 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/11 19:05:48 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	ft_lstlen(t_env *env)
 	return (len);
 }
 
-char *ft_create_env_string(t_env *env)
+char	*ft_create_env_string(t_env *env)
 {
-	char *aux;
-	char *env_string;
+	char	*aux;
+	char	*env_string;
 
 	aux = ft_strjoin(env->v_name, "=");
 	if (!aux)
@@ -56,10 +56,10 @@ char *ft_create_env_string(t_env *env)
 	return (env_string);
 }
 
-char **ft_list_to_array(t_env *env)
+char	**ft_list_to_array(t_env *env)
 {
-	char **env_a;
-	int i;
+	char	**env_a;
+	int		i;
 
 	env_a = malloc(sizeof(char *) * (ft_lstlen(env) + 1));
 	if (!env_a)
