@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:24:15 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/11 12:51:42 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/11 18:13:01 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,4 @@ void	free_ms(t_ms **ms)
 		free((*ms)->pwd);
 	if ((*ms)->old_pwd != NULL)
 		free((*ms)->old_pwd);
-	//free((*ms)->pid);
-	//(*ms)->pid = NULL;
-	//free_int_ptr((*ms)->pid);
-	//free_double_int_ptr((*ms)->pipes, (*ms)->cmnds_num);
-} 
+}
