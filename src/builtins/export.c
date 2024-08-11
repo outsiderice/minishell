@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 18:10:49 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/09 19:50:01 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/11 19:01:17 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	ft_check_export_arg(char *arg)
 	i_plus = 0;
 	if (ft_isalpha(arg[0]) != 1 && arg[0] != '_')
 	{
-		printf("eggshell: export: `%s' not a valid identifier\n", arg);
+		
+		error_msg2("eggshell: export: `", arg, "' not a valid identifier", 1);
 		return (-1);
 	}
 	while (arg[i] != '\0' && arg[i] != '=')
@@ -39,7 +40,13 @@ int	ft_check_export_arg(char *arg)
 	return (-1);
 }
 
-int	ft_add_to_env(t_env *env_list, char *arg)
+/*void empty_env(t_env **env, t_env *node)
+{
+	*env = node;
+	return ;
+}*/
+
+int	ft_add_to_env(t_ms **ms, t_env *env_list, char *arg)
 {
 	t_env	*node;
 
@@ -48,6 +55,11 @@ int	ft_add_to_env(t_env *env_list, char *arg)
 		return (-1);
 	if (ft_assign(arg, &node) == -1)
 		return (-1);
+	if (env_list == NULL)
+	{
+		(*ms)->env = node;
+		return (0);
+	}
 	if (is_var_in_list(env_list, node->v_name) == 0)
 	{
 		while (ft_str_compare(env_list->v_name, node->v_name))
@@ -134,7 +146,7 @@ int	ft_export(t_ms *ms, char **args, int fd)
 		{
 			if (ft_check_export_arg(*args) == 0)
 			{
-				ft_add_to_env(ms->env, *args);
+				ft_add_to_env(&ms, ms->env, *args);
 			}
 			else
 				res = 1;
