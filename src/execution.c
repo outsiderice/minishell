@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:26:40 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/11 12:34:48 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/11 17:47:16 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_exec_args(t_ms *ms, t_args *args)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < ms->cmnds_num)
 	{
@@ -33,7 +33,7 @@ int	ft_exec_args(t_ms *ms, t_args *args)
 }
 
 int	ft_exec(t_ms *ms, t_args *args)
-{	    
+{
 	int	stat;
 	int	i;
 

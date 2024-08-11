@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:57:40 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/10 14:28:48 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/11 17:46:07 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,8 @@ char	**ft_list_to_array(t_env *env)
 	while (env != NULL)
 	{
 		aux = ft_strjoin(env->v_name, "=");
-		if (!aux) // Check if aux allocation failed
+		if (!aux)
 		{
-			// Free allocated memory before returning NULL
 			while (i > 0)
 			{
 				free(env_a[--i]);
@@ -65,10 +64,9 @@ char	**ft_list_to_array(t_env *env)
 			return (NULL);
 		}
 		env_a[i] = ft_strjoin(aux, env->v_cont);
-		free(aux); // Free aux immediately after using it
-		if (!env_a[i]) // Check if env_a[i] allocation failed
+		free(aux);
+		if (!env_a[i])
 		{
-			// Free allocated memory before returning NULL
 			while (i > 0)
 			{
 				free(env_a[--i]);

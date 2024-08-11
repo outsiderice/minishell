@@ -6,18 +6,18 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/11 11:55:17 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/11 17:44:34 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int ft_exec_cmd(t_ms *ms, char **args, t_env *env)
+int	ft_exec_cmd(t_ms *ms, char **args, t_env *env)
 {
 	char	*cmd;
 	char	*path;
 	char	**paths;
-	
+
 	cmd = args[0];
 	paths = ft_get_paths(env);
 	path = ft_find_path(cmd, paths);
@@ -47,7 +47,7 @@ void	ft_exec_child(t_ms *ms, t_args *args, int i)
 			return ;
 	}
 	else if (i != 0)
-		dup2(ms->pipes[i-1][0], STDIN_FILENO);
+		dup2(ms->pipes[i - 1][0], STDIN_FILENO);
 	if (args->fd[1] != -2)
 	{
 		if (check_access(ms, args->o_file) == 0)
@@ -55,7 +55,7 @@ void	ft_exec_child(t_ms *ms, t_args *args, int i)
 		else
 			return ;
 	}
-	else if (i !=  ms->cmnds_num - 1)
+	else if (i != ms->cmnds_num - 1)
 		dup2(ms->pipes[i][1], STDOUT_FILENO);
 	if (ms->cmnds_num > 1)
 		close_pipes(ms->pipes, 0, i, ms->cmnds_num - 1);
@@ -66,10 +66,10 @@ void	ft_exec_child(t_ms *ms, t_args *args, int i)
 
 void	ft_exec_builtin(t_ms *ms, t_args *args, int i)
 {
-	int out_fd;
-	
+	int	out_fd;
+
 	out_fd = 1;
-	if (args->fd[1] != -2 )
+	if (args->fd[1] != -2)
 	{
 		if (check_access(ms, args->o_file) == 0)
 			out_fd = args->fd[1];
@@ -90,10 +90,9 @@ void	create_forks(t_ms *ms, t_args *args, int i)
 		if (is_builtin(args->argv[0]) == 1)
 		{
 			ft_exec_builtin(ms, args, i);
-			
 		}
 		else
-		ft_exec_child(ms, args, i);
+			ft_exec_child(ms, args, i);
 		exit (ms->exitstatus);
 	}
 	else

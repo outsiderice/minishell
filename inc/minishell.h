@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/11 12:35:02 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/11 17:41:36 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ void	free_env(t_env **env);
 void	free_int_ptr(int **ptr);
 void	free_tok_and_args(t_tokens **toks, t_args **args);
 
-
 /*    heredoc.c    */
 int		handle_heredocs(t_ms *ms);
 
@@ -126,7 +125,6 @@ int		ft_prep_args(t_ms *ms);
 /*    open.c    */
 void	open_input(char *tok, char *file, t_args *args, t_ms *ms);
 void	open_output(char *tok, char *file, t_args *args);
-
 
 /*    prep_utils.c    */
 void	free_arr(char **arr);
@@ -145,11 +143,10 @@ void	ft_exec_builtin(t_ms *ms, t_args *args, int i);
 
 /*              exec_path.c                    */
 int		is_file_in_dir(char *file, char *dir);
-char 	**ft_get_paths(t_env *env);
+char	**ft_get_paths(t_env *env);
 char	*ft_find_path(char *file, char **paths);
 char	*ft_join_path(char *path, char *cmd);
 int		check_access(t_ms *ms, char *file);
-
 
 /*               exec_utils.c                   */
 int		ft_t_args_len(t_args *args);
@@ -221,7 +218,7 @@ int		ft_set_env_cont(t_env *env, char *name, char *cont);
 int		*ft_sort_alpha(char **env, int len);
 
 /*    export_utils.c                           */
-void    ft_print_env(t_env *env_list, int fd);
+void	ft_print_env(t_env *env_list, int fd);
 int		is_var_in_list(t_env *env_list, char *name);
 int		ft_strcmp(const char *s1, const char *s2);
 
