@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:57:40 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/11 17:46:07 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/11 18:10:02 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,25 @@ int	ft_lstlen(t_env *env)
 	return (len);
 }
 
-char	**ft_list_to_array(t_env *env)
+char *ft_create_env_string(t_env *env)
 {
-	char	**env_a;
-	char	*aux;
-	int		i;
+	char *aux;
+	char *env_string;
+
+	aux = ft_strjoin(env->v_name, "=");
+	if (!aux)
+		return (NULL);
+	env_string = ft_strjoin(aux, env->v_cont);
+	free(aux);
+	if (!env_string)
+		return (NULL);
+	return (env_string);
+}
+
+char **ft_list_to_array(t_env *env)
+{
+	char **env_a;
+	int i;
 
 	env_a = malloc(sizeof(char *) * (ft_lstlen(env) + 1));
 	if (!env_a)
@@ -53,18 +67,7 @@ char	**ft_list_to_array(t_env *env)
 	i = 0;
 	while (env != NULL)
 	{
-		aux = ft_strjoin(env->v_name, "=");
-		if (!aux)
-		{
-			while (i > 0)
-			{
-				free(env_a[--i]);
-			}
-			free(env_a);
-			return (NULL);
-		}
-		env_a[i] = ft_strjoin(aux, env->v_cont);
-		free(aux);
+		env_a[i] = ft_create_env_string(env);
 		if (!env_a[i])
 		{
 			while (i > 0)
