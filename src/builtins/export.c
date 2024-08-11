@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 18:10:49 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/11 19:01:17 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/11 19:03:06 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	ft_check_export_arg(char *arg)
 	i_plus = 0;
 	if (ft_isalpha(arg[0]) != 1 && arg[0] != '_')
 	{
-		
 		error_msg2("eggshell: export: `", arg, "' not a valid identifier", 1);
 		return (-1);
 	}
@@ -39,12 +38,6 @@ int	ft_check_export_arg(char *arg)
 	}
 	return (-1);
 }
-
-/*void empty_env(t_env **env, t_env *node)
-{
-	*env = node;
-	return ;
-}*/
 
 int	ft_add_to_env(t_ms **ms, t_env *env_list, char *arg)
 {
