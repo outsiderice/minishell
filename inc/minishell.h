@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/10 23:58:23 by kate             ###   ########.fr       */
+/*   Updated: 2024/08/11 12:35:02 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int		error_msg2(char *msg, char *deets, char *deets2, int nl);
 
 /*    free.c    */
 void	free_env(t_env **env);
-void	free_int_ptr(int *ptr);
+void	free_int_ptr(int **ptr);
 void	free_tok_and_args(t_tokens **toks, t_args **args);
 
 
