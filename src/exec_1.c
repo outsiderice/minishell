@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/11 00:42:46 by kate             ###   ########.fr       */
+/*   Updated: 2024/08/11 11:55:17 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int ft_exec_cmd(t_ms *ms, char **args, t_env *env)
 
 void	ft_exec_child(t_ms *ms, t_args *args, int i)
 {
-	if (args->fd[0] != -2 && args->fd[0] != -1)
+	if (args->fd[0] != -2)
 	{
 		if (check_access(ms, args->i_file) == 0)
 			dup2(args->fd[0], STDIN_FILENO);
@@ -48,7 +48,7 @@ void	ft_exec_child(t_ms *ms, t_args *args, int i)
 	}
 	else if (i != 0)
 		dup2(ms->pipes[i-1][0], STDIN_FILENO);
-	if (args->fd[1] != -2 && args->fd[1] != -1)
+	if (args->fd[1] != -2)
 	{
 		if (check_access(ms, args->o_file) == 0)
 			dup2(args->fd[1], STDOUT_FILENO);
@@ -90,10 +90,11 @@ void	create_forks(t_ms *ms, t_args *args, int i)
 		if (is_builtin(args->argv[0]) == 1)
 		{
 			ft_exec_builtin(ms, args, i);
-			exit (ms->exitstatus);
+			
 		}
 		else
 		ft_exec_child(ms, args, i);
+		exit (ms->exitstatus);
 	}
 	else
 	{
