@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:24:15 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/11 12:34:59 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/11 12:51:42 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,6 @@ void	free_node(t_env *env)
 		free(env->v_cont);
 	if (env != NULL)
 		free(env);
-}
-
-void	free_char_ptr(char *ptr)
-{
-	if (ptr != NULL)
-	{
-		free(ptr);
-		ptr = NULL;
-	}
 }
 
 void	free_int_ptr(int **ptr)

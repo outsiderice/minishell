@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:02:52 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/10 23:40:29 by kate             ###   ########.fr       */
+/*   Updated: 2024/08/11 12:42:58 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	ft_exec_path(char *path)
 		{
 			ft_putstr_fd("eggshell: ", 2);
 			error_msg2("cd: ", path, ": No such file or directory", 1);
-			free_char_ptr(path);
+			free(path);
 		}
 		return (1);
 	}
@@ -119,6 +119,6 @@ int	ft_cd(t_ms *ms, char **args, int fd)
 	if (ft_exec_path(path) != 0)
 		return (1);
 	ft_change_pwd(ms);
-	free_char_ptr(path);
+	free(path);
 	return (0);
 }
