@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/12 16:10:36 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:11:18 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 	char		*var_name;
 	char		*content;
 	t_env		*env;
-	int 		j;
+	int			j;
 
 	j = no_expansion(tok, tok->tok, i);
 	if (j == -1)
