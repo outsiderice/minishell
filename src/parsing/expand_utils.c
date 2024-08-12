@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:42:25 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/12 15:59:33 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:10:18 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int	no_expansion(t_tokens *token, char *tok, int i)
 		if (tok[i] != tok[i + 1])
 		{
 			content = ft_strdup("");
-			i--;	
+			i--;
 			i = ft_retokenize(token, i, content, 1);
 			free(content);
 			if (i == -1)
-				return(-2);
+				return (-2);
 			return (-1);
 		}
 		len = ft_quote_len(tok, tok[i]);

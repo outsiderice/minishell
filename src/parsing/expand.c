@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/12 16:06:47 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:10:36 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,13 @@ int	ft_retokenize(t_tokens *tok, int i, char *content, int v)
 	int		c_len;
 	char	*new_tok;
 
-	//printf("tokens[i] == %c\n", tok->tok[i]);
 	c_len = ft_strlen(content);
 	start = ft_substr(tok->tok, 0, i);
 	if (!start)
 		return (-1);
-	//printf("start <%s>\n", start);
 	end = ft_substr(tok->tok, i + v, ft_strlen(tok->tok) - (i + v));
 	if (!end)
 		return (-1);
-	//printf("end <%s>\n", end);
-	//printf("content <%s>\n", content);
-	//printf("c_len = %d\n", c_len);
 	if (c_len == 0)
 		new_tok = ft_strjoin(start, end);
 	else
@@ -45,8 +40,6 @@ int	ft_retokenize(t_tokens *tok, int i, char *content, int v)
 		return (-1);
 	free(tok->tok);
 	tok->tok = new_tok;
-	//printf("new tok is <%s>\n", tok->tok);
-	//printf("--------\n");
 	return (i + c_len);
 }
 
