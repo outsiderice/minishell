@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:26:40 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/11 17:47:16 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:50:20 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	ft_exec(t_ms *ms, t_args *args)
 void	exeggutor(t_ms *ms)
 {
 	ms->heredoc = handle_heredocs(ms);
+	if (ms->tokens == NULL)
+		return ;
 	if (ft_prep_args(ms) == 0 && ms->args->argv != NULL)
 	{
 		if (ft_exec(ms, ms->args) == 1)
