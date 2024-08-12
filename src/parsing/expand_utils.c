@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:42:25 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/08 15:18:03 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:59:33 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,32 @@
 
 // Checks if it's just a dollar character which needs no expansion
 // if true returns 0 if not returns 1
-int	no_expansion(char *tok, int i)
+int	no_expansion(t_tokens *token, char *tok, int i)
 {
-	int	len;
+	int		len;
+	char	*content;
 
+	content = NULL;
 	len = 0;
-	i++;
-	if (ft_ismetachar(tok[i]) == 1)
+	if (ft_ismetachar(tok[++i]) == 1)
 	{
+		if (tok[i] != tok[i + 1])
+		{
+			content = ft_strdup("");
+			i--;	
+			i = ft_retokenize(token, i, content, 1);
+			free(content);
+			if (i == -1)
+				return(-2);
+			return (-1);
+		}
 		len = ft_quote_len(tok, tok[i]);
 		if (len == 2)
-			return (1);
+			return (0);
 	}
 	if (ft_isalnum(tok[i]) == 0 && tok[i] != '_' && tok[i] != '?')
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 char	*get_dollar_content(t_ms *ms, t_env *env, char *var_name)

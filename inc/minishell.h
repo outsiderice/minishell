@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:40:16 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/11 17:41:36 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:13:56 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,12 +166,13 @@ int		ft_quote_len(const char *line, char type);
 char	*rm_delimiters(char *tok, int i);
 char	*all_join(char *s1, char *s2, char *s3);
 char	*get_dollar_content(t_ms *ms, t_env *env, char *var_name);
-int		no_expansion(char *tok, int i);
+int	no_expansion(t_tokens *token, char *tok, int i);
 // int		find_dollar_end(const char *name);
 
 /*    env_utils.c    */
 t_env	*find_env_var(t_env *env, char *var_name);
 char	*get_var_name(char *str, int start);
+int		ft_retokenize(t_tokens *tok, int i, char *content, int v);
 
 /*    expand.c    */
 int		expand_quotes(t_tokens *tok);
