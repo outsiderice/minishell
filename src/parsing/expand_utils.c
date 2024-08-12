@@ -6,14 +6,13 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:42:25 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/12 16:10:18 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:59:45 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Checks if it's just a dollar character which needs no expansion
-// if true returns 0 if not returns 1
+// Checks for cases of no expansion
 int	no_expansion(t_tokens *token, char *tok, int i)
 {
 	int		len;
