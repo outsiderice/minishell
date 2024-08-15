@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/11 17:44:34 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:54:57 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_exec_child(t_ms *ms, t_args *args, int i)
 	else if (i != ms->cmnds_num - 1)
 		dup2(ms->pipes[i][1], STDOUT_FILENO);
 	if (ms->cmnds_num > 1)
-		close_pipes(ms->pipes, 0, i, ms->cmnds_num - 1);
+		close_pipes(ms->pipes, 0, ms->cmnds_num, ms->cmnds_num - 1);
 	ft_close_fd(ms->args);
 	ms->exitstatus = ft_exec_cmd(ms, args->argv, ms->env);
 	return ;
