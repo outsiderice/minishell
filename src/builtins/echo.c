@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:22:05 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/09 19:05:37 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/15 00:15:05 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	ft_n_check(char *str)
 	if (str == NULL || *str != '-')
 		return (0);
 	str++;
+	if (*str != 'n')
+		return (0);
 	while (*str == 'n')
 		str++;
 	if (*str == '\0')
