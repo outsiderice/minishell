@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:02:52 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/11 12:42:58 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/15 02:36:26 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,26 @@
 int	ft_change_pwd(t_ms *ms)
 {
 	char	buffer[1024];
+	char *true_pwd;
 
 	if (ms->old_pwd != NULL)
 		free(ms->old_pwd);
 	ms->old_pwd = ft_strdup(ms->pwd);
 	if (ms->old_pwd == NULL)
 		return (-1);
-	free(ms->pwd);
-	ms->pwd = ft_strdup(getcwd(buffer, 1024));
+	true_pwd = getcwd(buffer, 1024);
+	printf("%s\n", true_pwd);
+	if (true_pwd == NULL)
+		return (-1);
+	if (ms->pwd != NULL)
+		free(ms->pwd);
+	ms->pwd = ft_strdup(true_pwd);
 	if (ms->pwd == NULL)
 		return (-1);
 	ft_set_env_cont(ms->env, "OLDPWD", ms->old_pwd);
 	ft_set_env_cont(ms->env, "PWD", ms->pwd);
+	printf(" new pwd created: %s\n", ms->pwd);
+
 	return (0);
 }
 
@@ -117,7 +125,9 @@ int	ft_cd(t_ms *ms, char **args, int fd)
 	else
 		path = ft_strdup(args[1]);
 	if (ft_exec_path(path) != 0)
+	{
 		return (1);
+	}
 	ft_change_pwd(ms);
 	free(path);
 	return (0);
