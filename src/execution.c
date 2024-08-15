@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:26:40 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/15 10:32:21 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:31:38 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	ft_exec_args(t_ms *ms, t_args *args)
 		args = args->next;
 		i++;
 	}
-	close_pipes(ms->pipes, 0, ms->cmnds_num, ms->cmnds_num - 1);
+	if (ms->pid != 0)
+		close_pipes(ms->pipes, 0, ms->cmnds_num, ms->cmnds_num - 1);
 	return (0);
 }
 
@@ -54,12 +55,42 @@ int	ft_exec(t_ms *ms, t_args *args)
 		while (i < ms->cmnds_num)
 		{
 			waitpid(ms->pid[i], &stat, 0);
-			ms->exitstatus = WEXITSTATUS(stat);
+			if (WIFEXITED(stat))
+				ms->exitstatus = WEXITSTATUS(stat);
+			else
+				ms->exitstatus = 1;
 			i++;
 		}
 	}
 	return (0);
 }
+
+/*int	ft_exec(t_ms *ms, t_args *args)
+{
+	int	stat;
+	int	i;
+
+	i = 0;
+	if (handle_pipes(ms) == -1 || handle_pids(ms) == -1)
+	{
+		error_msg("allocation failure", NULL);
+		return (1);
+	}
+	if (ft_exec_args(ms, args) == 1)
+		return (1);
+	if (ms->cmnds_num != 1 \
+	|| (args->argv != NULL && is_builtin(args->argv[0]) == 0))
+	{
+		while (i < ms->cmnds_num)
+		{
+
+			waitpid(ms->pid[i], &stat, 0);
+			ms->exitstatus = WEXITSTATUS(stat);
+			i++;
+		}
+	}
+	return (0);
+}*/
 
 void	exeggutor(t_ms *ms)
 {
