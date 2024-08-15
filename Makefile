@@ -6,7 +6,7 @@
 #    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/08/10 13:21:31 by amagnell         ###   ########.fr        #
+#    Updated: 2024/08/15 12:45:52 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,10 +83,10 @@ DIR_DUP		=	mkdir -p $(@D)
 #-------------------------------------------#
 #	RECIPES									#
 #-------------------------------------------#
-all: libft $(NAME) #readline 
+all: libft $(NAME)
 
 $(NAME): $(LIBS_TARGET) $(OBJS)
-	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -fsanitize=address -o $(NAME) #
+	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $(NAME)
 	$(info Created $@)
 
 libft:
@@ -115,5 +115,5 @@ re:
 #	SPECIAL RULES							#
 #-------------------------------------------#
 
-.PHONY: all re clean fclean libft #readline
+.PHONY: all re clean fclean libft
 .SILENT:
