@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:02:52 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/15 10:54:11 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/15 10:57:48 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	ft_change_pwd(t_ms *ms)
 	if (ms->old_pwd == NULL)
 		return (-1);
 	true_pwd = getcwd(buffer, 1024);
-	printf("%s\n", true_pwd);
 	if (true_pwd == NULL)
 		return (-1);
 	if (ms->pwd != NULL)
