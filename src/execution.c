@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:26:40 by amagnell          #+#    #+#             */
-/*   Updated: 2024/08/12 13:50:20 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/15 10:32:21 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@ int	ft_exec_args(t_ms *ms, t_args *args)
 	{
 		if (i != ms->cmnds_num - 1 && pipe(ms->pipes[i]) == -1)
 			return (1);
-		if (ms->cmnds_num == 1 && is_builtin(args->argv[0]) == 1)
-			ft_exec_builtin(ms, args, i);
-		else
-			create_forks(ms, args, i);
+		if (args->argv != NULL)
+		{
+			if (ms->cmnds_num == 1 && is_builtin(args->argv[0]) == 1)
+				ft_exec_builtin(ms, args, i);
+			else
+				create_forks(ms, args, i);
+		}
 		args = args->next;
 		i++;
 	}
@@ -45,7 +48,8 @@ int	ft_exec(t_ms *ms, t_args *args)
 	}
 	if (ft_exec_args(ms, args) == 1)
 		return (1);
-	if (is_builtin(args->argv[0]) == 0 || ms->cmnds_num != 1)
+	if (ms->cmnds_num != 1 \
+	|| (args->argv != NULL && is_builtin(args->argv[0]) == 0))
 	{
 		while (i < ms->cmnds_num)
 		{
@@ -62,7 +66,8 @@ void	exeggutor(t_ms *ms)
 	ms->heredoc = handle_heredocs(ms);
 	if (ms->tokens == NULL)
 		return ;
-	if (ft_prep_args(ms) == 0 && ms->args->argv != NULL)
+	if (ft_prep_args(ms) == 0 \
+	&& (ms->args->argv != NULL || ms->args->redir_type == 2))
 	{
 		if (ft_exec(ms, ms->args) == 1)
 			ms->exitstatus = 1;
