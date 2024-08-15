@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:02:52 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/15 02:36:26 by kate             ###   ########.fr       */
+/*   Updated: 2024/08/15 10:54:11 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_change_pwd(t_ms *ms)
 {
 	char	buffer[1024];
-	char *true_pwd;
+	char	*true_pwd;
 
 	if (ms->old_pwd != NULL)
 		free(ms->old_pwd);
@@ -33,8 +33,6 @@ int	ft_change_pwd(t_ms *ms)
 		return (-1);
 	ft_set_env_cont(ms->env, "OLDPWD", ms->old_pwd);
 	ft_set_env_cont(ms->env, "PWD", ms->pwd);
-	printf(" new pwd created: %s\n", ms->pwd);
-
 	return (0);
 }
 
