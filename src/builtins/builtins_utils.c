@@ -6,13 +6,13 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 16:58:27 by kkoval            #+#    #+#             */
-/*   Updated: 2024/07/18 17:00:26 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/10 18:36:16 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-// this functions compares without a need of strlen
+// COMPARES 2 STRINGS AND THEIR LEN, 0 = EQUALS
 int	ft_str_compare(char *str1, char *str2)
 {
 	int	i;
@@ -31,8 +31,7 @@ int	ft_str_compare(char *str1, char *str2)
 	return (1);
 }
 
-//checks if there is a specific variable
-//returns its content or NULL if it does not exist
+//RETURNS THE CONTENT OF A VARIABLE or NULL IF IT DOESNT EXIST
 char	*get_env_cont(t_env *env, char *str)
 {
 	char	*var;
@@ -49,7 +48,6 @@ char	*get_env_cont(t_env *env, char *str)
 		}
 		env = env->next;
 	}
-	//possible error printing function depending on the int
 	return (var);
 }
 
@@ -63,13 +61,15 @@ int	ft_args_len(char **args)
 	return (len);
 }
 
+//IT SETS ENV VARIABLE CONTENT
 int	ft_set_env_cont(t_env *env, char *name, char *cont)
 {
 	while (env != NULL)
 	{
 		if (ft_str_compare(env->v_name, name) == 0)
 		{
-			free(env->v_cont);
+			if (env->v_cont != NULL)
+				free(env->v_cont);
 			env->v_cont = ft_strdup(cont);
 			if (!env->v_cont)
 				return (-1);

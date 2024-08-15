@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+         #
+#    By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 10:02:57 by amagnell          #+#    #+#              #
-#    Updated: 2024/07/25 15:10:45 by kkoval           ###   ########.fr        #
+#    Updated: 2024/08/15 16:00:24 by amagnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRCS 		=	src/main.c \
 				src/prep_execution.c \
 				src/prep_utils.c \
 				src/execution.c \
-				src/exec_prototype.c \
+				src/exec_1.c \
+				src/exec_path.c \
 				src/exec_utils.c \
 				src/builtins/handle_builtins.c \
 				src/builtins/pwd.c \
@@ -55,14 +56,19 @@ SRCS 		=	src/main.c \
 				src/builtins/echo.c \
 				src/builtins/unset.c \
 				src/builtins/export.c \
+				src/builtins/export_utils.c \
 				src/builtins/cd.c \
+				src/heredoc.c \
+				src/heredoc_expansion.c \
+				src/env_utils.c \
+				src/open.c
 
 BUILD_DIR 	=	.build
 OBJS		=	$(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS		=	$(OBJS:%.o=%.d)
 
 CC 			=	cc
-CFLAGS 		=	-Wall -Wextra -Werror
+CFLAGS 		=	-Wall -Wextra -Werror -g
 CPPFLAGS 	=	$(addprefix -I, $(INCS)) -MMD -MP
 LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_TARGET)))
 LDLIBS		=	$(addprefix -l, $(LIBS))
@@ -77,10 +83,10 @@ DIR_DUP		=	mkdir -p $(@D)
 #-------------------------------------------#
 #	RECIPES									#
 #-------------------------------------------#
-all: libft $(NAME) #readline 
+all: libft $(NAME)
 
 $(NAME): $(LIBS_TARGET) $(OBJS)
-	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -fsanitize=address -o $(NAME) #
+	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -fsanitize=address -o $(NAME)
 	$(info Created $@)
 
 libft:
@@ -109,5 +115,5 @@ re:
 #	SPECIAL RULES							#
 #-------------------------------------------#
 
-.PHONY: all re clean fclean libft #readline
+.PHONY: all re clean fclean libft
 .SILENT:

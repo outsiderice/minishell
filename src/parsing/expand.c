@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:37:06 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/10 14:05:46 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:11:18 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,19 @@ int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 	char		*var_name;
 	char		*content;
 	t_env		*env;
+	int			j;
 
+	j = no_expansion(tok, tok->tok, i);
+	if (j == -1)
+		i++;
+	else if (j == -2)
+		return (-1);
+	if (j != 0)
+		return (i + j);
 	env = ms->env;
 	var_name = get_var_name(tok->tok, i);
 	env = find_env_var(env, var_name);
-	if (!env)
-	{
-		if (ft_str_compare(var_name, "$?") == 0)
-			content = ft_itoa(ms->exitstatus);
-		else
-			content = ft_strdup("");
-	}
-	else
-		content = ft_strdup(env->v_cont);
+	content = get_dollar_content(ms, env, var_name);
 	if (!content)
 	{
 		free (var_name);
@@ -74,7 +74,7 @@ int	expand_dollar(t_ms *ms, t_tokens *tok, int i)
 	return (i);
 }
 
-// checks if a '$' is expandable or not
+// checks if a '$' is in a expandable position or not
 // returns 1 on failure and 0 on success
 int	is_expandable_dollar(t_ms *ms, t_tokens *tok)
 {
@@ -107,7 +107,7 @@ int	is_expandable_dollar(t_ms *ms, t_tokens *tok)
 
 //iterates TOK while tok[i] is not a quote
 //adds all the characters found to string SHIT and returns it
-char	*add_shit(char *tok, int i)
+char	*add_unquoted(char *tok, int i)
 {
 	char	*shit;
 	int		shit_len;
@@ -145,11 +145,12 @@ int	expand_quotes(t_tokens *tok)
 		}
 		else
 		{
-			aux = add_shit(tok->tok, i);
+			aux = add_unquoted(tok->tok, i);
 			if (!aux)
 				return (EXIT_FAILURE);
 			i = ft_retokenize(tok, i, aux, ft_strlen(aux));
 		}
+		free(aux);
 		if (i == -1)
 			return (EXIT_FAILURE);
 	}

@@ -6,23 +6,20 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:22:05 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/18 01:18:32 by kate             ###   ########.fr       */
+/*   Updated: 2024/08/15 00:15:05 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-//echo -n "hola" "hola"
-//echo with no argument print \n
-// echo -n with with no arguments just shows the next line
-// how to check for unexpected error for 1
-// implement -n -nnnnnnnn and etc
-
+//IT CHECKS FOR THE-n OPTION
 int	ft_n_check(char *str)
 {
 	if (str == NULL || *str != '-')
 		return (0);
 	str++;
+	if (*str != 'n')
+		return (0);
 	while (*str == 'n')
 		str++;
 	if (*str == '\0')
@@ -43,8 +40,8 @@ void	ft_print_args(char **argv, int fd)
 
 int	ft_echo(t_args *args, int fd)
 {
-	int	do_jump;
-	char **argv;
+	int		do_jump;
+	char	**argv;
 
 	argv = args->argv;
 	argv++;
@@ -56,47 +53,3 @@ int	ft_echo(t_args *args, int fd)
 		ft_putchar_fd('\n', fd);
 	return (0);
 }
-/*
- int	main(int ac, char **av)
-{
-	char	**args;
-	int		i;
-	int		x;
-	int 	j;
-	
-	if (ac < 2)
-		return (0);
-	args = malloc(sizeof(char *) * ac);
-	if (!args)
-		return (0);
-	i = 1;
-	x = 0;
-	while (i < ac)
-	{
-		args[x] = strdup(av[i]);
-		if (!args[x])
-		{
-			j = 0;
-			while (j < x)
-			{
-				free(args[j]);
-				j++;
-			}
-			free(args);
-			return (0);
-		}
-		//printf("%s\n", args[x]);
-		i++;
-		x++;
-	}
-	args[x] = NULL;
- 	ft_echo(args);
-	j = 0;
-	while (args[j] != NULL)
-    {
-        free(args[j]);
-		j++;
-    }
-    free(args);
-	return (1);
-}*/

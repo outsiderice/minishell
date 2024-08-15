@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:24:15 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/25 15:11:43 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/11 18:13:01 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_node(t_env *env)
+{
+	if (env->v_name != NULL)
+		free(env->v_name);
+	if (env->v_cont != NULL)
+		free(env->v_cont);
+	if (env != NULL)
+		free(env);
+}
+
+void	free_int_ptr(int **ptr)
+{
+	if (*ptr != NULL)
+	{
+		free(*ptr);
+		*ptr = NULL;
+	}
+}
 
 void	free_env(t_env **env)
 {
@@ -21,7 +40,8 @@ void	free_env(t_env **env)
 	while (current != NULL)
 	{
 		aux = current;
-		free(current->v_name);
+		if (current->v_name)
+			free(current->v_name);
 		if (current->v_cont)
 			free(current->v_cont);
 		current = current->next;
@@ -29,8 +49,6 @@ void	free_env(t_env **env)
 	}
 	*env = NULL;
 }
-
-
 
 void	free_tok_and_args(t_tokens **toks, t_args **args)
 {
@@ -59,4 +77,15 @@ void	free_tok_and_args(t_tokens **toks, t_args **args)
 		free(tmp_arg);
 	}
 	*args = NULL;
+}
+
+//GLOBAL T_MS FREE
+void	free_ms(t_ms **ms)
+{
+	free_env(&(*ms)->env);
+	free_tok_and_args(&(*ms)->tokens, &(*ms)->args);
+	if ((*ms)->pwd != NULL)
+		free((*ms)->pwd);
+	if ((*ms)->old_pwd != NULL)
+		free((*ms)->old_pwd);
 }

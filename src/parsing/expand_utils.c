@@ -6,34 +6,56 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:42:25 by amagnell          #+#    #+#             */
-/*   Updated: 2024/07/10 12:41:56 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:59:45 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_var_name(char *str, int start)
+// Checks for cases of no expansion
+int	no_expansion(t_tokens *token, char *tok, int i)
 {
-	char	*var_name;
+	int		len;
+	char	*content;
 
-	if (ft_strncmp(&str[start], "$?", 2) == 0)
-		var_name = ft_strdup("$?");
-	else
-		var_name = rm_delimiters(str, start);
-	if (!var_name)
-		return (NULL);
-	return (var_name);
+	content = NULL;
+	len = 0;
+	if (ft_ismetachar(tok[++i]) == 1)
+	{
+		if (tok[i] != tok[i + 1])
+		{
+			content = ft_strdup("");
+			i--;
+			i = ft_retokenize(token, i, content, 1);
+			free(content);
+			if (i == -1)
+				return (-2);
+			return (-1);
+		}
+		len = ft_quote_len(tok, tok[i]);
+		if (len == 2)
+			return (0);
+	}
+	if (ft_isalnum(tok[i]) == 0 && tok[i] != '_' && tok[i] != '?')
+		return (1);
+	return (0);
 }
 
-// Iterates env to find a node
-// Returns a pointer to that node or NULL if it's not found
-t_env	*find_env_var(t_env *env, char *var_name)
+char	*get_dollar_content(t_ms *ms, t_env *env, char *var_name)
 {
-	while (env != NULL && ft_str_compare(env->v_name, var_name) != 0)
-		env = env->next;
+	char	*content;
+
+	content = NULL;
 	if (!env)
-		return (NULL);
-	return (env);
+	{
+		if (ft_str_compare(var_name, "?") == 0)
+			content = ft_itoa(ms->exitstatus);
+		else
+			content = ft_strdup("");
+	}
+	else
+		content = ft_strdup(env->v_cont);
+	return (content);
 }
 
 // find end of env variable name and return it's length
@@ -60,7 +82,14 @@ char	*rm_delimiters(char *tok, int i)
 	if (ft_ismetachar(tok[i]) == 1)
 		len = ft_quote_len(&tok[i], tok[i]);
 	else
+	{
 		len = find_dollar_end(&tok[i]);
+		if (len == 2)
+		{
+			str = ft_strdup("$");
+			return (str);
+		}
+	}
 	str = ft_substr(tok, i + 1, len - 2);
 	if (!str)
 		return (NULL);
