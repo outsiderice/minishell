@@ -6,7 +6,7 @@
 /*   By: amagnell <amagnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:58:32 by kkoval            #+#    #+#             */
-/*   Updated: 2024/08/15 15:54:57 by amagnell         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:17:04 by amagnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_exec_child(t_ms *ms, t_args *args, int i)
 {
 	if (args->fd[0] != -2)
 	{
-		if (check_access(ms, args->i_file) == 0)
+		if (args->redir_type == 2 || check_access(ms, args->i_file) == 0)
 			dup2(args->fd[0], STDIN_FILENO);
 		else
 			return ;
